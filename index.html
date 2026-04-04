@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CoBraLT — Comitê Brasileiro das Ligas do Trauma. Conectando profissionais de saúde para salvar vidas.">
+  <meta name="theme-color" content="#002B4E">
+  <title>CoBraLT — Comitê Brasileiro das Ligas do Trauma</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CoBraLT — Comitê Brasileiro das Ligas do Trauma">
+  <meta property="og:description" content="Conectando as Ligas do Trauma para salvar vidas em todo o Brasil.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Animações de entrada */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    [data-animate].animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    [data-animate-delay="1"] { transition-delay: 0.1s; }
+    [data-animate-delay="2"] { transition-delay: 0.2s; }
+    [data-animate-delay="3"] { transition-delay: 0.3s; }
+    [data-animate-delay="4"] { transition-delay: 0.4s; }
+    [data-animate-delay="5"] { transition-delay: 0.5s; }
+
+    /* Hero animação inicial */
+    .hero-content > * {
+      animation: heroFadeUp 0.8s ease both;
+    }
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.55s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.7s; }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header scrolled */
+    .site-header.scrolled {
+      box-shadow: 0 4px 20px rgba(0,43,78,0.12);
+    }
+
+    /* Divisor estilizado */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sky) 0%, var(--sky-light) 100%);
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    /* Inscrição & Filiação forms inline */
+    .modal-section {
+      background: var(--off-white);
+      border-top: 1px solid var(--slate-200);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .form-check input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: var(--sky-dark);
+      margin-top: 2px;
+    }
+
+    .form-check span {
+      font-size: 0.875rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--slate-200);
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--slate-400);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-family: var(--font-body);
+    }
+
+    .tab-btn.active {
+      color: var(--navy);
+      border-bottom-color: var(--sky);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Info boxes COLT */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .info-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .info-box-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--sky-light);
+    }
+
+    .info-box-label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ══════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="CoBraLT — Início">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">CoBraLT</span>
+        <span class="logo-tagline">Ligas do Trauma</span>
+      </div>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="#noticias">Notícias</a>
+      <a href="#ligas">Ligas</a>
+      <a href="#historia">História</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#diretoria">Diretoria</a>
+      <a href="#contato">Contato</a>
+      <a href="#inscricao" class="nav-cta">Inscrever-se no COLT</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Menu Mobile -->
+<nav class="mobile-menu" id="mobileMenu" aria-label="Menu mobile">
+  <a href="#noticias">Notícias</a>
+  <a href="#ligas">Ligas Afiliadas</a>
+  <a href="#historia">Nossa História</a>
+  <a href="#eventos">Eventos</a>
+  <a href="#diretoria">Diretoria</a>
+  <a href="#contato">Contato</a>
+  <a href="#inscricao" class="nav-cta" style="text-align:center; margin-top:0.5rem;">Inscrever-se no COLT</a>
+</nav>
+
+<main id="main-content">
+
+<!-- ═══ HERO ═════════════════════════════════════════════ -->
+<section class="hero" aria-label="Destaque">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge" aria-label="COLT 2026 — 22 a 24 de Abril">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        COLT 2026 — 22 a 24 de Abril · São Paulo
+      </div>
+
+      <h1 class="hero-title">
+        Conectando as <span>Ligas do Trauma</span> para salvar vidas
+      </h1>
+
+      <p class="hero-subtitle">
+        O Comitê Brasileiro das Ligas do Trauma reúne profissionais de saúde
+        de todas as regiões do Brasil em torno da excelência no atendimento ao paciente grave.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#inscricao" class="btn btn-primary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          Inscrever-se no COLT
+        </a>
+        <a href="#ligas" class="btn btn-outline">
+          Conhecer as Ligas
+        </a>
+      </div>
+
+      <div class="hero-stats" role="list">
+        <div role="listitem">
+          <div class="hero-stat-value">180+</div>
+          <div class="hero-stat-label">Instituições afiliadas</div>
+        </div>
+        <div role="listitem">
+          <div class="hero-stat-value">2 mil+</div>
+          <div class="hero-stat-label">Participantes no COLT</div>
+        </div>
+        <div role="listitem">
+          <div class="hero-stat-value">14</div>
+          <div class="hero-stat-label">Anos de história</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-card-stack">
+        <div class="hero-card-back"></div>
+        <div class="hero-card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;">
+            <div style="width:36px;height:36px;background:rgba(14,165,233,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div style="color:rgba(255,255,255,0.5);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;">Próximo evento</div>
+              <div style="color:#fff;font-weight:700;font-size:0.95rem;">COLT 2026</div>
+            </div>
+          </div>
+
+          <div class="colt-info-card">
+            <div class="colt-label">Data</div>
+            <div class="colt-value">22 a 24 de Abril de 2026</div>
+          </div>
+          <div class="colt-info-card">
+            <div class="colt-label">Local</div>
+            <div class="colt-value">São Paulo, SP — Brasil</div>
+          </div>
+          <div class="colt-info-card" style="margin-bottom:0;">
+            <div class="colt-label">Participantes esperados</div>
+            <div class="colt-value">2.000+ profissionais</div>
+          </div>
+
+          <a href="#inscricao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.25rem;font-size:0.9rem;">
+            Garantir vaga
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COLT BANNER ══════════════════════════════════════ -->
+<section class="colt-banner" id="colt" aria-labelledby="colt-title">
+  <div class="colt-grid">
+    <div>
+      <span class="section-label" style="color:var(--sky-light);">Congresso Oficial</span>
+      <h2 class="section-title" style="color:#fff;" id="colt-title">
+        COLT 2026<br>Congresso Brasileiro<br>de Ligas de Trauma
+      </h2>
+      <p style="color:rgba(255,255,255,0.6);font-size:1.05rem;line-height:1.75;margin:1rem 0 0;">
+        O maior encontro anual de profissionais de trauma do Brasil. Palestras internacionais,
+        workshops práticos, atualização de protocolos e networking de alto nível.
+      </p>
+
+      <div class="colt-details">
+        <div class="colt-detail-item">
+          <div class="colt-detail-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="colt-detail-text">
+            <strong>22 a 24 de Abril de 2026</strong>
+            <span>3 dias de programação intensa</span>
+          </div>
+        </div>
+        <div class="colt-detail-item">
+          <div class="colt-detail-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="colt-detail-text">
+            <strong>São Paulo, SP</strong>
+            <span>Local a confirmar em breve</span>
+          </div>
+        </div>
+        <div class="colt-detail-item">
+          <div class="colt-detail-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="colt-detail-text">
+            <strong>2.000+ participantes esperados</strong>
+            <span>Médicos, enfermeiros e gestores</span>
+          </div>
+        </div>
+        <div class="colt-detail-item">
+          <div class="colt-detail-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          </div>
+          <div class="colt-detail-text">
+            <strong>Certificação profissional</strong>
+            <span>Horas de educação continuada reconhecidas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="colt-actions">
+        <a href="#inscricao" class="btn btn-primary">Inscrever-se no COLT</a>
+        <a href="#filiacao" class="btn btn-outline">Filiar minha Liga</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="colt-box">
+        <h3>O que você vai encontrar</h3>
+        <ul class="colt-list">
+          <li>Palestras de especialistas nacionais e internacionais</li>
+          <li>Workshops práticos com simuladores de alta fidelidade</li>
+          <li>Atualização dos protocolos de trauma</li>
+          <li>Apresentação e publicação de trabalhos científicos</li>
+          <li>Mesas redondas e debates interativos</li>
+          <li>Networking com líderes da área em todo o Brasil</li>
+          <li>Sessões de pôsteres e premiação científica</li>
+        </ul>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <div class="info-box-value">3</div>
+          <div class="info-box-label">Dias de congresso</div>
+        </div>
+        <div class="info-box">
+          <div class="info-box-value">40+</div>
+          <div class="info-box-label">Palestrantes</div>
+        </div>
+        <div class="info-box">
+          <div class="info-box-value">15+</div>
+          <div class="info-box-label">Workshops</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOTÍCIAS ═════════════════════════════════════════ -->
+<section class="section" id="noticias" aria-labelledby="noticias-title">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="divider" aria-hidden="true"></div>
+      <span class="section-label">Informações</span>
+      <h2 class="section-title" id="noticias-title">Notícias Semanais</h2>
+      <p class="section-subtitle">Fique atualizado sobre as últimas novidades do CoBraLT e do universo do trauma.</p>
+    </div>
+
+    <div class="news-grid">
+      <article class="news-card" data-animate data-animate-delay="1">
+        <div class="news-thumb">
+          <span class="news-cat">Protocolos</span>
+          📰
+        </div>
+        <div class="news-body">
+          <div class="news-meta">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <time datetime="2026-04-01">1 de abril de 2026</time>
+          </div>
+          <h3>Novo Protocolo de Atendimento Aprovado</h3>
+          <p>O comitê aprova novo protocolo que melhora significativamente os procedimentos de atendimento inicial em trauma. A iniciativa une 12 centros de referência.</p>
+          <a href="#" class="news-link">
+            Ler mais
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="news-card" data-animate data-animate-delay="2">
+        <div class="news-thumb">
+          <span class="news-cat">Educação</span>
+          🎓
+        </div>
+        <div class="news-body">
+          <div class="news-meta">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <time datetime="2026-03-28">28 de março de 2026</time>
+          </div>
+          <h3>Programa de Capacitação para Novos Profissionais</h3>
+          <p>Iniciamos programa de capacitação intensiva para profissionais que desejam integrar as ligas afiliadas ao CoBraLT em 2026.</p>
+          <a href="#" class="news-link">
+            Ler mais
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="news-card" data-animate data-animate-delay="3">
+        <div class="news-thumb">
+          <span class="news-cat">Internacional</span>
+          🌍
+        </div>
+        <div class="news-body">
+          <div class="news-meta">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <time datetime="2026-03-22">22 de março de 2026</time>
+          </div>
+          <h3>Parceria Internacional Estabelecida</h3>
+          <p>CoBraLT firma parceria com organizações de trauma internacionais para compartilhamento de diretrizes, pesquisas e experiências clínicas.</p>
+          <a href="#" class="news-link">
+            Ler mais
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LIGAS ══════════════════════════════════════════════ -->
+<section class="section leagues-section" id="ligas" aria-labelledby="ligas-title">
+  <div class="section-inner">
+    <div class="section-header centered">
+      <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
+      <span class="section-label">Rede Nacional</span>
+      <h2 class="section-title" id="ligas-title">Ligas Afiliadas</h2>
+      <p class="section-subtitle">180+ instituições organizadas em 6 ligas regionais, cobrindo todo o território nacional.</p>
+    </div>
+
+    <div class="leagues-grid">
+      <div class="league-card" data-animate>
+        <div class="league-icon" aria-hidden="true">🏥</div>
+        <h3>Liga Sudeste</h3>
+        <p>São Paulo, Rio de Janeiro, Minas Gerais e Espírito Santo. O maior polo de trauma do país.</p>
+        <span class="league-count">45 instituições</span>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="1">
+        <div class="league-icon" aria-hidden="true">🌾</div>
+        <h3>Liga Nordeste</h3>
+        <p>Cobrindo os nove estados do nordeste com protocolos adaptados à realidade regional.</p>
+        <span class="league-count">28 instituições</span>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="2">
+        <div class="league-icon" aria-hidden="true">🌳</div>
+        <h3>Liga Norte</h3>
+        <p>Expandindo a excelência em trauma para a Amazônia e os desafios do atendimento em áreas remotas.</p>
+        <span class="league-count">15 instituições</span>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="3">
+        <div class="league-icon" aria-hidden="true">🏔️</div>
+        <h3>Liga Sul</h3>
+        <p>Rio Grande do Sul, Paraná e Santa Catarina unidos em 22 centros de referência.</p>
+        <span class="league-count">22 instituições</span>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="4">
+        <div class="league-icon" aria-hidden="true">🌐</div>
+        <h3>Liga Centro-Oeste</h3>
+        <p>Atendendo o Planalto Central com 18 instituições formando rede de qualidade assistencial.</p>
+        <span class="league-count">18 instituições</span>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="5">
+        <div class="league-icon" aria-hidden="true">🚑</div>
+        <h3>Liga de Transporte</h3>
+        <p>Especializada em regulação e transporte de pacientes graves, integrada a todas as regiões.</p>
+        <span class="league-count">52 instituições</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HISTÓRIA ══════════════════════════════════════════ -->
+<section class="section" id="historia" aria-labelledby="historia-title">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="divider" aria-hidden="true"></div>
+      <span class="section-label">Trajetória</span>
+      <h2 class="section-title" id="historia-title">Nossa História</h2>
+      <p class="section-subtitle">14 anos construindo a maior rede de trauma do Brasil.</p>
+    </div>
+
+    <div class="timeline" role="list">
+      <div class="timeline-item" role="listitem" data-animate>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-year">2010</div>
+        <h3>Fundação do CoBraLT</h3>
+        <p>Criação do Comitê Brasileiro das Ligas do Trauma com o objetivo de integrar profissionais e promover excelência no atendimento ao paciente grave.</p>
+      </div>
+      <div class="timeline-item" role="listitem" data-animate>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-year">2013</div>
+        <h3>Expansão Nacional</h3>
+        <p>Estabelecimento das primeiras ligas regionais em todas as regiões do país, totalizando 100 instituições afiliadas.</p>
+      </div>
+      <div class="timeline-item" role="listitem" data-animate>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-year">2016</div>
+        <h3>Protocolos Padronizados</h3>
+        <p>Implementação de protocolos clínicos padronizados em toda a rede, com melhora significativa nos indicadores de mortalidade por trauma.</p>
+      </div>
+      <div class="timeline-item" role="listitem" data-animate>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-year">2020</div>
+        <h3>Transformação Digital</h3>
+        <p>Adoção de tecnologias digitais para gestão integrada e coordenação durante a pandemia de COVID-19, mantendo a rede ativa.</p>
+      </div>
+      <div class="timeline-item" role="listitem" data-animate>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-year">2024</div>
+        <h3>Maior Referência em Trauma</h3>
+        <p>CoBraLT consolida-se como a principal referência em trauma no Brasil, com 180 instituições afiliadas e presença em todos os estados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EVENTOS ═══════════════════════════════════════════ -->
+<section class="section leagues-section" id="eventos" aria-labelledby="eventos-title">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="divider" aria-hidden="true"></div>
+      <span class="section-label">Agenda</span>
+      <h2 class="section-title" id="eventos-title">Eventos e Congressos</h2>
+      <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos do CoBraLT.</p>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card" data-animate>
+        <div class="event-header">
+          <div class="event-date-box">
+            <div class="event-day">22</div>
+            <div class="event-month">ABR</div>
+          </div>
+          <h3 class="event-title">COLT 2026 — Congresso Brasileiro de Ligas de Trauma</h3>
+        </div>
+        <div class="event-body">
+          <div class="event-location">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            São Paulo, SP
+          </div>
+          <p class="event-desc">O maior encontro anual de profissionais de trauma com palestras internacionais e workshops práticos.</p>
+          <a href="#inscricao" class="news-link">Inscrever-se →</a>
+        </div>
+      </div>
+
+      <div class="event-card" data-animate data-animate-delay="1">
+        <div class="event-header">
+          <div class="event-date-box">
+            <div class="event-day">15</div>
+            <div class="event-month">MAI</div>
+          </div>
+          <h3 class="event-title">Workshop de Simulação Clínica</h3>
+        </div>
+        <div class="event-body">
+          <div class="event-location">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Rio de Janeiro, RJ
+          </div>
+          <p class="event-desc">Treinamento prático com simuladores de alta fidelidade para aprimoramento das habilidades em trauma.</p>
+          <a href="#" class="news-link">Saiba mais →</a>
+        </div>
+      </div>
+
+      <div class="event-card" data-animate data-animate-delay="2">
+        <div class="event-header">
+          <div class="event-date-box">
+            <div class="event-day">08</div>
+            <div class="event-month">JUN</div>
+          </div>
+          <h3 class="event-title">Reunião Regional — Liga Nordeste</h3>
+        </div>
+        <div class="event-body">
+          <div class="event-location">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Recife, PE
+          </div>
+          <p class="event-desc">Encontro regional para atualização de protocolos e planejamento de ações conjuntas da liga nordeste.</p>
+          <a href="#" class="news-link">Saiba mais →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INSCRIÇÃO COLT ════════════════════════════════════ -->
+<section class="section modal-section" id="inscricao" aria-labelledby="inscricao-title">
+  <div class="section-inner" style="max-width:960px;">
+    <div class="section-header centered">
+      <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
+      <span class="section-label">Participe</span>
+      <h2 class="section-title" id="inscricao-title">Inscreva-se no COLT 2026</h2>
+      <p class="section-subtitle">Garanta sua vaga no maior congresso de trauma do Brasil.</p>
+    </div>
+
+    <div style="max-width:580px;margin:0 auto;">
+      <div class="contact-form">
+        <form id="form-inscricao" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome-insc">Nome completo <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="nome-insc" name="nome" placeholder="Seu nome completo" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="email-insc">E-mail <span style="color:var(--danger)">*</span></label>
+              <input type="email" id="email-insc" name="email" placeholder="seu@email.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profissao-insc">Profissão <span style="color:var(--danger)">*</span></label>
+              <select id="profissao-insc" name="profissao" required>
+                <option value="">Selecione...</option>
+                <option value="medico">Médico(a)</option>
+                <option value="cirurgiao">Cirurgião(ã)</option>
+                <option value="enfermeiro">Enfermeiro(a)</option>
+                <option value="fisioterapeuta">Fisioterapeuta</option>
+                <option value="gestor">Gestor hospitalar</option>
+                <option value="estudante">Estudante</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="estado-insc">Estado <span style="color:var(--danger)">*</span></label>
+              <select id="estado-insc" name="estado" required>
+                <option value="">Selecione...</option>
+                <option>SP</option><option>RJ</option><option>MG</option><option>ES</option>
+                <option>BA</option><option>PE</option><option>CE</option><option>MA</option>
+                <option>PA</option><option>AM</option><option>RS</option><option>PR</option>
+                <option>SC</option><option>GO</option><option>DF</option><option>MT</option>
+                <option>MS</option><option>RO</option><option>AC</option><option>RR</option>
+                <option>AP</option><option>TO</option><option>AL</option><option>SE</option>
+                <option>PB</option><option>RN</option><option>PI</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="instituicao-insc">Instituição / Liga</label>
+            <input type="text" id="instituicao-insc" name="instituicao" placeholder="Nome da sua instituição ou liga" autocomplete="organization">
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="termos" required>
+              <span>Concordo com os <a href="#" style="color:var(--sky-dark);">termos de uso</a> e <a href="#" style="color:var(--sky-dark);">política de privacidade</a>.</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.875rem;">
+            Confirmar Inscrição
+          </button>
+        </form>
+        <div id="alert-inscricao" style="margin-top:1rem;" role="alert" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FILIAÇÃO ══════════════════════════════════════════ -->
+<section class="section" id="filiacao" aria-labelledby="filiacao-title">
+  <div class="section-inner" style="max-width:960px;">
+    <div class="section-header centered">
+      <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
+      <span class="section-label">Integre a rede</span>
+      <h2 class="section-title" id="filiacao-title">Filiar sua Liga ao CoBraLT</h2>
+      <p class="section-subtitle">Conecte sua instituição à maior rede de trauma do Brasil.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem;">
+      <div class="contact-form" style="background:var(--off-white);">
+        <h3 style="font-family:var(--font-display);color:var(--navy);margin-bottom:1rem;">Benefícios</h3>
+        <ul class="colt-list" style="--dot-color:var(--sky);">
+          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Participação em congressos e eventos</li>
+          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Acesso a protocolos padronizados</li>
+          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Certificação e reconhecimento nacional</li>
+          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Rede de colaboração interinstitucional</li>
+          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Suporte técnico e consultoria</li>
+        </ul>
+        <div style="margin-top:1.5rem;padding:1rem;background:var(--white);border-radius:var(--radius-md);border:1px solid var(--slate-200);">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.08em;">Taxa de filiação</div>
+          <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--navy);margin-top:4px;">A partir de R$ 500/ano</div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <form id="form-filiacao" novalidate>
+          <div class="form-group">
+            <label for="inst-fil">Nome da instituição <span style="color:var(--danger)">*</span></label>
+            <input type="text" id="inst-fil" name="instituicao" placeholder="Nome da sua liga ou hospital" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="resp-fil">Responsável <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="resp-fil" name="responsavel" placeholder="Nome do responsável" required>
+            </div>
+            <div class="form-group">
+              <label for="estado-fil">Estado <span style="color:var(--danger)">*</span></label>
+              <select id="estado-fil" name="estado" required>
+                <option value="">UF...</option>
+                <option>SP</option><option>RJ</option><option>MG</option><option>BA</option>
+                <option>PE</option><option>CE</option><option>PA</option><option>RS</option>
+                <option>PR</option><option>SC</option><option>GO</option><option>DF</option>
+                <option>Outros</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email-fil">E-mail <span style="color:var(--danger)">*</span></label>
+              <input type="email" id="email-fil" name="email" placeholder="email@inst.com" required>
+            </div>
+            <div class="form-group">
+              <label for="tel-fil">Telefone <span style="color:var(--danger)">*</span></label>
+              <input type="tel" id="tel-fil" name="telefone" placeholder="(11) 9 9999-9999" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cnpj-fil">CNPJ <span style="color:var(--danger)">*</span></label>
+            <input type="text" id="cnpj-fil" name="cnpj" placeholder="00.000.000/0000-00" required>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="autorizacao" required>
+              <span>Autorizo o CoBraLT a contatar para validação da documentação.</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-navy" style="width:100%;justify-content:center;padding:0.875rem;">
+            Enviar Solicitação de Filiação
+          </button>
+        </form>
+        <div id="alert-filiacao" style="margin-top:1rem;" role="alert" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIRETORIA ═════════════════════════════════════════ -->
+<section class="section directors-section" id="diretoria" aria-labelledby="diretoria-title">
+  <div class="section-inner">
+    <div class="section-header centered">
+      <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
+      <span class="section-label">Liderança</span>
+      <h2 class="section-title" id="diretoria-title">Nossa Diretoria</h2>
+    </div>
+
+    <div class="directors-grid">
+      <div class="director-card" data-animate>
+        <div class="director-avatar" aria-hidden="true">👨‍⚕️</div>
+        <div class="director-name">Dr. Carlos Silva</div>
+        <div class="director-role">Presidente</div>
+        <div class="director-specialty">Cirurgia de Trauma</div>
+      </div>
+      <div class="director-card" data-animate data-animate-delay="1">
+        <div class="director-avatar" aria-hidden="true">👩‍⚕️</div>
+        <div class="director-name">Dra. Mariana Costa</div>
+        <div class="director-role">Vice-Presidente</div>
+        <div class="director-specialty">Medicina de Urgência</div>
+      </div>
+      <div class="director-card" data-animate data-animate-delay="2">
+        <div class="director-avatar" aria-hidden="true">👨‍⚕️</div>
+        <div class="director-name">Dr. Roberto Santos</div>
+        <div class="director-role">Secretário Executivo</div>
+        <div class="director-specialty">Gestão em Saúde</div>
+      </div>
+      <div class="director-card" data-animate data-animate-delay="3">
+        <div class="director-avatar" aria-hidden="true">👩‍⚕️</div>
+        <div class="director-name">Dra. Ana Paula Oliveira</div>
+        <div class="director-role">Coord. de Ligas</div>
+        <div class="director-specialty">Traumatologia</div>
+      </div>
+      <div class="director-card" data-animate data-animate-delay="4">
+        <div class="director-avatar" aria-hidden="true">👨‍⚕️</div>
+        <div class="director-name">Dr. Fernando Gomes</div>
+        <div class="director-role">Diretor Científico</div>
+        <div class="director-specialty">Pesquisa em Trauma</div>
+      </div>
+      <div class="director-card" data-animate data-animate-delay="5">
+        <div class="director-avatar" aria-hidden="true">👩‍⚕️</div>
+        <div class="director-name">Dra. Juliana Martins</div>
+        <div class="director-role">Tesoureira</div>
+        <div class="director-specialty">Finanças Hospitalares</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTATO ═══════════════════════════════════════════ -->
+<section class="section" id="contato" aria-labelledby="contato-title">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="divider" aria-hidden="true"></div>
+      <span class="section-label">Fale conosco</span>
+      <h2 class="section-title" id="contato-title">Entre em Contato</h2>
+      <p class="section-subtitle">Tem dúvidas? Nossa equipe está pronta para atendê-lo.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <strong>E-mail</strong>
+            <a href="mailto:contato@cobralT.org.br">contato@cobralT.org.br</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.71-.71a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <strong>Telefone</strong>
+            <a href="tel:+5511999999999">+55 (11) 9 9999-9999</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <strong>Endereço</strong>
+            <span>São Paulo, SP — Brasil</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <form id="form-contato" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome-cont">Nome <span style="color:var(--danger)">*</span></label>
+              <input type="text" id="nome-cont" name="nome" placeholder="Seu nome" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="email-cont">E-mail <span style="color:var(--danger)">*</span></label>
+              <input type="email" id="email-cont" name="email" placeholder="seu@email.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="assunto-cont">Assunto</label>
+            <input type="text" id="assunto-cont" name="assunto" placeholder="Como podemos ajudar?">
+          </div>
+          <div class="form-group">
+            <label for="msg-cont">Mensagem <span style="color:var(--danger)">*</span></label>
+            <textarea id="msg-cont" name="mensagem" placeholder="Escreva sua mensagem..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+            Enviar Mensagem
+          </button>
+        </form>
+        <div id="alert-contato" style="margin-top:1rem;" role="alert" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:1rem;">
+          <div class="logo-mark">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">CoBraLT</span>
+            <span class="logo-tagline">Ligas do Trauma</span>
+          </div>
+        </div>
+        <p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">f</a>
+          <a href="#" class="social-link" aria-label="Instagram">in</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">li</a>
+          <a href="#" class="social-link" aria-label="YouTube">yt</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <a href="#noticias">Notícias</a>
+        <a href="#ligas">Ligas Afiliadas</a>
+        <a href="#historia">Nossa História</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#diretoria">Diretoria</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>COLT 2026</h4>
+        <a href="#colt">Sobre o Congresso</a>
+        <a href="#inscricao">Inscrição</a>
+        <a href="#filiacao">Filiação de Ligas</a>
+        <a href="#contato">Contato</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Documentos</h4>
+        <a href="#">Protocolos Clínicos</a>
+        <a href="#">Regulamentos</a>
+        <a href="#">Publicações</a>
+        <a href="#">Relatórios Anuais</a>
+        <a href="#">Política de Privacidade</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js"></script>
+<script src="js/forms.js"></script>
+</body>
+</html>
