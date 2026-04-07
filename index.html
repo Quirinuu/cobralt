@@ -167,6 +167,21 @@
 </head>
 <body>
 
+<!-- ═══ BANNER DE MANUTENÇÃO ════════════════════════════ -->
+<div style="
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+  color: #fff;
+  text-align: center;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  position: relative;
+  z-index: 9999;
+">
+  🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis. Em breve tudo novo!
+</div>
+
 <!-- ═══ HEADER ══════════════════════════════════════════ -->
 <header class="site-header" role="banner">
   <div class="header-inner">
@@ -246,18 +261,20 @@
         </a>
       </div>
 
-      <div class="hero-stats" role="list">
-        <div role="listitem">
-          <div class="hero-stat-value">180+</div>
-          <div class="hero-stat-label">Instituições afiliadas</div>
+      <div class="hero-stats" role="list" style="display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;">
+        <div role="listitem" style="display:flex;flex-direction:column;align-items:flex-start;">
+          <div class="hero-stat-value" style="font-size:2.5rem;font-weight:800;color:#fff;line-height:1;">180<span style="color:var(--sky-light);">+</span></div>
+          <div class="hero-stat-label" style="font-size:0.8rem;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">Instituições afiliadas</div>
         </div>
-        <div role="listitem">
-          <div class="hero-stat-value">2 mil+</div>
-          <div class="hero-stat-label">Participantes no COLT</div>
+        <div style="width:1px;background:rgba(255,255,255,0.15);align-self:stretch;" aria-hidden="true"></div>
+        <div role="listitem" style="display:flex;flex-direction:column;align-items:flex-start;">
+          <div class="hero-stat-value" style="font-size:2.5rem;font-weight:800;color:#fff;line-height:1;">2<span style="color:var(--sky-light);">mil+</span></div>
+          <div class="hero-stat-label" style="font-size:0.8rem;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">Participantes no COLT</div>
         </div>
-        <div role="listitem">
-          <div class="hero-stat-value">14</div>
-          <div class="hero-stat-label">Anos de história</div>
+        <div style="width:1px;background:rgba(255,255,255,0.15);align-self:stretch;" aria-hidden="true"></div>
+        <div role="listitem" style="display:flex;flex-direction:column;align-items:flex-start;">
+          <div class="hero-stat-value" style="font-size:2.5rem;font-weight:800;color:#fff;line-height:1;">14<span style="color:var(--sky-light);">anos</span></div>
+          <div class="hero-stat-label" style="font-size:0.8rem;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">De história</div>
         </div>
       </div>
     </div>
@@ -630,65 +647,26 @@
       <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
       <span class="section-label">Participe</span>
       <h2 class="section-title" id="inscricao-title">Inscreva-se no COLT 2026</h2>
-      <p class="section-subtitle">Garanta sua vaga no maior congresso de trauma do Brasil.</p>
+      <p class="section-subtitle">Garanta sua vaga no maior congresso de trauma do Brasil. As inscrições estão abertas!</p>
     </div>
 
-    <div style="max-width:580px;margin:0 auto;">
-      <div class="contact-form">
-        <form id="form-inscricao" novalidate>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="nome-insc">Nome completo <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="nome-insc" name="nome" placeholder="Seu nome completo" required autocomplete="name">
-            </div>
-            <div class="form-group">
-              <label for="email-insc">E-mail <span style="color:var(--danger)">*</span></label>
-              <input type="email" id="email-insc" name="email" placeholder="seu@email.com" required autocomplete="email">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="profissao-insc">Profissão <span style="color:var(--danger)">*</span></label>
-              <select id="profissao-insc" name="profissao" required>
-                <option value="">Selecione...</option>
-                <option value="medico">Médico(a)</option>
-                <option value="cirurgiao">Cirurgião(ã)</option>
-                <option value="enfermeiro">Enfermeiro(a)</option>
-                <option value="fisioterapeuta">Fisioterapeuta</option>
-                <option value="gestor">Gestor hospitalar</option>
-                <option value="estudante">Estudante</option>
-                <option value="outro">Outro</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="estado-insc">Estado <span style="color:var(--danger)">*</span></label>
-              <select id="estado-insc" name="estado" required>
-                <option value="">Selecione...</option>
-                <option>SP</option><option>RJ</option><option>MG</option><option>ES</option>
-                <option>BA</option><option>PE</option><option>CE</option><option>MA</option>
-                <option>PA</option><option>AM</option><option>RS</option><option>PR</option>
-                <option>SC</option><option>GO</option><option>DF</option><option>MT</option>
-                <option>MS</option><option>RO</option><option>AC</option><option>RR</option>
-                <option>AP</option><option>TO</option><option>AL</option><option>SE</option>
-                <option>PB</option><option>RN</option><option>PI</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="instituicao-insc">Instituição / Liga</label>
-            <input type="text" id="instituicao-insc" name="instituicao" placeholder="Nome da sua instituição ou liga" autocomplete="organization">
-          </div>
-          <div class="form-group">
-            <label class="form-check">
-              <input type="checkbox" name="termos" required>
-              <span>Concordo com os <a href="#" style="color:var(--sky-dark);">termos de uso</a> e <a href="#" style="color:var(--sky-dark);">política de privacidade</a>.</span>
-            </label>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.875rem;">
-            Confirmar Inscrição
-          </button>
-        </form>
-        <div id="alert-inscricao" style="margin-top:1rem;" role="alert" aria-live="polite"></div>
+    <div style="max-width:520px;margin:0 auto;text-align:center;">
+      <div class="contact-form" style="padding:2.5rem;display:flex;flex-direction:column;align-items:center;gap:1.25rem;">
+        <div style="width:64px;height:64px;background:rgba(14,165,233,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="30" height="30" fill="none" stroke="var(--sky-dark)" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </div>
+        <div>
+          <div style="font-size:0.8rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.08em;">COLT 2026 · 22 a 24 de Abril · São Paulo</div>
+          <p style="color:var(--slate-600);margin-top:0.5rem;line-height:1.7;">Clique no botão abaixo para acessar o formulário oficial de inscrição.</p>
+        </div>
+        <a href="https://www.even3.com.br/ii-cotrem-657250/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNqXphr6aIp8X6UKHzd6Quz_cINDAcG_7LLMvN3HBYRdG_kC6nKS_BKP6LYs_aem_SEZcYe9fgKKYPvMfVQCSWg"
+           target="_blank" rel="noopener noreferrer"
+           class="btn btn-primary"
+           style="font-size:1rem;padding:0.9rem 2.5rem;display:inline-flex;align-items:center;gap:0.5rem;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Acessar formulário de inscrição
+        </a>
+        <p style="font-size:0.8rem;color:var(--slate-400);">Você será redirecionado para a plataforma Even3.</p>
       </div>
     </div>
   </div>
@@ -714,59 +692,24 @@
           <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Rede de colaboração interinstitucional</li>
           <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Suporte técnico e consultoria</li>
         </ul>
-        <div style="margin-top:1.5rem;padding:1rem;background:var(--white);border-radius:var(--radius-md);border:1px solid var(--slate-200);">
-          <div style="font-size:0.75rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.08em;">Taxa de filiação</div>
-          <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--navy);margin-top:4px;">A partir de R$ 500/ano</div>
-        </div>
       </div>
 
-      <div class="contact-form">
-        <form id="form-filiacao" novalidate>
-          <div class="form-group">
-            <label for="inst-fil">Nome da instituição <span style="color:var(--danger)">*</span></label>
-            <input type="text" id="inst-fil" name="instituicao" placeholder="Nome da sua liga ou hospital" required>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="resp-fil">Responsável <span style="color:var(--danger)">*</span></label>
-              <input type="text" id="resp-fil" name="responsavel" placeholder="Nome do responsável" required>
-            </div>
-            <div class="form-group">
-              <label for="estado-fil">Estado <span style="color:var(--danger)">*</span></label>
-              <select id="estado-fil" name="estado" required>
-                <option value="">UF...</option>
-                <option>SP</option><option>RJ</option><option>MG</option><option>BA</option>
-                <option>PE</option><option>CE</option><option>PA</option><option>RS</option>
-                <option>PR</option><option>SC</option><option>GO</option><option>DF</option>
-                <option>Outros</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email-fil">E-mail <span style="color:var(--danger)">*</span></label>
-              <input type="email" id="email-fil" name="email" placeholder="email@inst.com" required>
-            </div>
-            <div class="form-group">
-              <label for="tel-fil">Telefone <span style="color:var(--danger)">*</span></label>
-              <input type="tel" id="tel-fil" name="telefone" placeholder="(11) 9 9999-9999" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="cnpj-fil">CNPJ <span style="color:var(--danger)">*</span></label>
-            <input type="text" id="cnpj-fil" name="cnpj" placeholder="00.000.000/0000-00" required>
-          </div>
-          <div class="form-group">
-            <label class="form-check">
-              <input type="checkbox" name="autorizacao" required>
-              <span>Autorizo o CoBraLT a contatar para validação da documentação.</span>
-            </label>
-          </div>
-          <button type="submit" class="btn btn-navy" style="width:100%;justify-content:center;padding:0.875rem;">
-            Enviar Solicitação de Filiação
-          </button>
-        </form>
-        <div id="alert-filiacao" style="margin-top:1rem;" role="alert" aria-live="polite"></div>
+      <div class="contact-form" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.25rem;">
+        <div style="width:64px;height:64px;background:rgba(0,43,78,0.08);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="30" height="30" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div style="font-size:0.8rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;">Filiação 2026</div>
+          <p style="color:var(--slate-600);margin-top:0.5rem;line-height:1.7;">Preencha o formulário oficial de filiação para conectar sua liga à nossa rede.</p>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxlJya6NcxHC1H_Cuao0mtN5_UehL-6RSzuhzj2JlEBtI9qA/viewform"
+           target="_blank" rel="noopener noreferrer"
+           class="btn btn-navy"
+           style="font-size:1rem;padding:0.9rem 2rem;display:inline-flex;align-items:center;gap:0.5rem;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Acessar formulário de filiação
+        </a>
+        <p style="font-size:0.8rem;color:var(--slate-400);">Você será redirecionado para o Google Forms.</p>
       </div>
     </div>
   </div>
