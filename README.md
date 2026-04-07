@@ -93,3 +93,5 @@ define('DB_PASS', 'SUA_SENHA');
 - [ ] Criar `admin/pages.php` para gerenciar páginas
 - [ ] Adicionar upload de imagens
 - [ ] Integrar posts dinâmicos na página inicial via PHP ou JSON
+
+TESTE TESTE TESTE
