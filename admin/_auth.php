@@ -7,6 +7,9 @@
 
 declare(strict_types=1);
 
+// Credenciais centralizadas
+require_once dirname(__DIR__) . '/config.php';
+
 session_start([
     'cookie_httponly' => true,
     'cookie_secure'   => isset($_SERVER['HTTPS']),
@@ -14,7 +17,7 @@ session_start([
     'use_strict_mode' => true,
 ]);
 
-// Sessão expirada após 4 horas de inatividade
+// Sessão expira após 4 horas de inatividade
 $timeout = 4 * 3600;
 
 if (
@@ -27,7 +30,7 @@ if (
     exit;
 }
 
-// Verifica se o IP não mudou (proteção contra session hijacking)
+// Proteção contra session hijacking (IP binding)
 $currentIp = $_SERVER['REMOTE_ADDR'] ?? '';
 if (!empty($_SESSION['admin_ip']) && $_SESSION['admin_ip'] !== $currentIp) {
     session_destroy();
@@ -35,15 +38,10 @@ if (!empty($_SESSION['admin_ip']) && $_SESSION['admin_ip'] !== $currentIp) {
     exit;
 }
 
-// Renova o timestamp de atividade
+// Renova timestamp de atividade
 $_SESSION['login_time'] = time();
 
 // ─── BANCO DE DADOS ───────────────────────────────────────
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'SEU_BANCO_AQUI');
-define('DB_USER', 'SEU_USUARIO_AQUI');
-define('DB_PASS', 'SUA_SENHA_AQUI');
-
 function getDB(): PDO {
     static $pdo = null;
     if ($pdo === null) {
@@ -77,11 +75,48 @@ function csrf_verify(): void {
     }
 }
 
-// ─── HELPER SEGURO DE OUTPUT ──────────────────────────────
+// ─── HELPERS ──────────────────────────────────────────────
 function e(string $str): string {
     return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function json_ok(array $data = []): never {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['success' => true] + $data);
+    exit;
+}
+
+function json_fail(string $message, int $code = 400): never {
+    http_response_code($code);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['success' => false, 'message' => $message]);
+    exit;
+}
+
+// ─── SLUG GENERATOR ───────────────────────────────────────
+function make_slug(string $str): string {
+    $str = mb_strtolower(trim($str), 'UTF-8');
+    $str = preg_replace('/[áàãâä]/u', 'a', $str);
+    $str = preg_replace('/[éèêë]/u', 'e', $str);
+    $str = preg_replace('/[íìîï]/u', 'i', $str);
+    $str = preg_replace('/[óòõôö]/u', 'o', $str);
+    $str = preg_replace('/[úùûü]/u', 'u', $str);
+    $str = preg_replace('/[ç]/u', 'c', $str);
+    $str = preg_replace('/[^a-z0-9\-]/', '-', $str);
+    $str = preg_replace('/-+/', '-', $str);
+    return trim($str, '-');
+}
+
+// ─── VERIFICAÇÃO DE ROLE ──────────────────────────────────
+function require_role(string ...$roles): void {
+    global $adminRole;
+    if (!in_array($adminRole, $roles, true)) {
+        http_response_code(403);
+        exit('<p>Acesso negado. Seu perfil não tem permissão para esta ação.</p>');
+    }
 }
 
 // Usuário logado
 $adminUser = $_SESSION['admin_user'] ?? 'Admin';
 $adminRole = $_SESSION['admin_role'] ?? 'editor';
+$adminId   = (int)($_SESSION['admin_id'] ?? 0);
