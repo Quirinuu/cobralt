@@ -87,10 +87,11 @@ body {
   gap: 0.1rem;
 }
 .nav-desktop a {
-  color: var(--slate-600);
+   color: #002B4E;
   text-decoration: none;
+  font-family: var(--font-display);
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 700;
   padding: 0.38rem 0.65rem;
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
