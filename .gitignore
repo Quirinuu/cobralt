@@ -1,0 +1,10 @@
+
+# Banco de dados
+database.sql
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

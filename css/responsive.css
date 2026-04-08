@@ -1,0 +1,45 @@
+@import 'vars.css';
+
+/* ─── TABLET ≤ 1024px ─────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-visual { display: none; }
+  .colt-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+
+/* ─── MOBILE ≤ 768px ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .hamburger { display: flex; align-items: center; justify-content: center; }
+
+  .section { padding: 4rem 1.25rem; }
+  .hero-inner { padding: 4rem 1.25rem; }
+
+  .hero-title { font-size: 2.25rem; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+
+  .news-grid { grid-template-columns: 1fr; }
+  .leagues-grid { grid-template-columns: 1fr; }
+  .directors-grid { grid-template-columns: 1fr 1fr; }
+  .events-grid { grid-template-columns: 1fr; }
+
+  .footer-top { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  .colt-banner { padding: 3rem 1.25rem; }
+  .colt-actions { flex-direction: column; }
+
+  .hero-actions { flex-direction: column; }
+  .btn { justify-content: center; }
+
+  .contact-form { padding: 1.5rem; }
+}
+
+/* ─── SMALL MOBILE ≤ 480px ────────────────────────────── */
+@media (max-width: 480px) {
+  .directors-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .header-inner { padding: 0 1rem; }
+}
