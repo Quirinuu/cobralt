@@ -24,8 +24,8 @@ body {
   top: 0;
   z-index: 900;
   background: rgba(255,255,255,0.93);
-  backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--slate-200);
   box-shadow: var(--shadow-sm);
 }
@@ -207,7 +207,7 @@ body {
   overflow: hidden;
 }
 @media (max-width: 600px) {
-  .hero { min-height: auto; }
+  .hero { min-height: unset; }
 }
 
 .hero-bg {
@@ -347,6 +347,7 @@ body {
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--radius-xl);
   padding: 1.1rem;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   width: 100%;
   box-sizing: border-box;
@@ -705,13 +706,11 @@ body {
     flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     gap: 0.9rem;
     padding-bottom: 1rem;
     margin: 0 -1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    scrollbar-width: none;
   }
   .news-grid::-webkit-scrollbar { display: none; }
   .news-grid .news-card {
@@ -726,13 +725,11 @@ body {
     flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     gap: 0.9rem;
     padding-bottom: 1rem;
     margin: 0 -1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    scrollbar-width: none;
   }
   .events-grid::-webkit-scrollbar { display: none; }
   .events-grid .event-card {
