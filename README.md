@@ -6,7 +6,7 @@
 cobralT/
 ├── index.html          ← Página principal
 ├── .htaccess           ← Segurança + cache + HTTPS
-├── database.sql        ← Execute no phpMyAdmin para criar o banco
+├── database.sqlasd        ← Execute no phpMyAdmin para criar o banco
 ├── README.md
 │
 ├── css/
