@@ -9,6 +9,9 @@ Options -Indexes
 # RewriteCond %{HTTPS} off
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Força charset UTF-8 nos assets
+AddCharset UTF-8 .css .js .html
+
 # Cabeçalhos de segurança globais
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
