@@ -4,9 +4,9 @@
 
 ```
 cobralT/
-├── index.html          ← Página principal
+├── index.html          ← Página principaASDl
 ├── .htaccess           ← Segurança + cache + HTTPS
-├── database.sqlasd        ← Execute no phpMyAdmin para criar o banco
+├── database.sqlasd        ← Execute no phpMyAdmin para criar o banco   
 ├── README.mdasdaasd
 │
 ├── css/

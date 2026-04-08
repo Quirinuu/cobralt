@@ -9,6 +9,10 @@ Options -Indexes
 # RewriteCond %{HTTPS} off
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+AddType text/css .css
+AddType application/javascript .js
+AddType text/html .html
+
 # Força charset UTF-8 nos assets
 AddCharset UTF-8 .css .js .html
 
