@@ -1184,6 +1184,30 @@ body {
   border: 1px solid #FECACA;
 }
 
+/* ─── AJUSTE LOGO PREMIUM ─── */
+
+.logo {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.logo-mark {
+  display: none !important;
+}
+
+.logo.has-image img {
+  height: 80px !important;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo:hover {
+  transform: none !important;
+  background: none !important;
+}
+
 /* ─── UTILS ───────────────────────────────────────────── */
 .text-center { text-align: center; }
 .mt-1 { margin-top: 0.5rem; }
