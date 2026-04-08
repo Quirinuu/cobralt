@@ -163,48 +163,113 @@
       letter-spacing: 0.08em;
       margin-top: 4px;
     }
+
+    /* Ajustes solicitados */
+    body {
+      scroll-behavior: smooth;
+    }
+
+    .site-header {
+      top: 0 !important;
+      z-index: 1200 !important;
+    }
+
+    .header-maintenance {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+      color: #fff;
+      text-align: center;
+      padding: 0.65rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .header-maintenance small {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+
+    .site-header .header-inner {
+      flex-wrap: wrap;
+      row-gap: 1rem;
+      min-height: auto;
+    }
+
+    .logo.has-image {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      text-decoration: none;
+    }
+
+    .logo.has-image img {
+      display: block;
+      width: auto;
+      height: 56px;
+      max-width: 180px;
+      object-fit: contain;
+    }
+
+    .btn-white-solid {
+      background: #fff !important;
+      color: var(--navy) !important;
+      border: 1px solid #fff !important;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.14);
+    }
+
+    .btn-white-solid:hover,
+    .btn-white-solid:focus-visible {
+      background: #f8fafc !important;
+      color: var(--navy) !important;
+      border-color: #f8fafc !important;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .header-maintenance {
+        font-size: 0.82rem;
+        line-height: 1.4;
+        padding: 0.55rem 0.9rem;
+      }
+
+      .header-maintenance small {
+        font-size: 0.76rem;
+      }
+
+      .logo.has-image img {
+        height: 46px;
+        max-width: 150px;
+      }
+    }
+
   </style>
 </head>
-<body>
+<body id="inicio">
 
 <div class="floating-cta" id="floatingCta">
   <div class="floating-cta-inner">
     <span class="floating-cta-label">COLT 2026 · Informações em breve</span>
     <div class="floating-cta-actions">
       <a href="#filiacao" class="btn btn-primary btn-sm">Afiliar sua Liga</a>
-      <a href="#ligas" class="btn btn-ghost-light btn-sm">Mostrar Ligas</a>
+      <a href="#ligas" class="btn btn-sm btn-white-solid">Mostrar Ligas</a>
     </div>
   </div>
 </div>
 
-<!-- ═══ BANNER DE MANUTENÇÃO ════════════════════════════ -->
-<div style="
-  background: linear-gradient(90deg, #f59e0b, #d97706);
-  color: #fff;
-  text-align: center;
-  padding: 0.65rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1100;
-">
-  <div>🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis. Em breve tudo novo!</div>
-  <div style="margin-top:0.3rem;font-size:0.82rem;font-weight:500;opacity:0.95;">Desenvolvimento por Gabriel Quirino</div>
-</div>
-
 <!-- ═══ HEADER ══════════════════════════════════════════ -->
 <header class="site-header" role="banner">
+  <div class="header-maintenance">
+    🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis. Em breve tudo novo!
+    <small>Desenvolvimento por Gabriel Quirino</small>
+  </div>
+
   <div class="header-inner">
-    <a href="#" class="logo" aria-label="CoBraLT — Início">
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-        </svg>
-      </div>
+    <a href="#inicio" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="assets/img/logo.png" alt="CoBraLT — Comitê Brasileiro das Ligas do Trauma">
       <div class="logo-text">
         <span class="logo-name">CoBraLT</span>
         <span class="logo-tagline">Ligas do Trauma</span>
@@ -270,7 +335,7 @@
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
           Afiliar sua Liga
         </a>
-        <a href="#ligas" class="btn btn-ghost-light hero-highlight-btn">
+        <a href="#ligas" class="btn btn-white-solid hero-highlight-btn">
           Mostrar Ligas
         </a>
       </div>
@@ -320,8 +385,8 @@
             <div class="colt-value">2.000+ profissionais</div>
           </div>
 
-          <a href="#inscricao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.25rem;font-size:0.9rem;">
-            Garantir vaga
+          <a href="#filiacao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.25rem;font-size:0.9rem;">
+            Afiliar sua Liga
           </a>
         </div>
       </div>
@@ -382,8 +447,8 @@
       </div>
 
       <div class="colt-actions">
-        <a href="#inscricao" class="btn btn-primary">Inscrever-se no COLT</a>
-        <a href="#filiacao" class="btn btn-outline">Filiar minha Liga</a>
+        <a href="#filiacao" class="btn btn-primary">Afiliar sua Liga</a>
+        <a href="#ligas" class="btn btn-white-solid">Mostrar Ligas</a>
       </div>
     </div>
 
@@ -806,19 +871,21 @@
 
       <div class="footer-col">
         <h4>Navegação</h4>
-        <a href="#noticias">Notícias</a>
-        <a href="#ligas">Ligas Afiliadas</a>
-        <a href="#historia">Nossa História</a>
-        <a href="#eventos">Eventos</a>
+        <a href="#noticias">Notícias semanais</a>
+        <a href="#eventos">Eventos e congressos</a>
+        <a href="#inscricao">Inscrições do COLT</a>
+        <a href="#filiacao">Filiar sua liga</a>
+        <a href="#ligas">Ligas filiadas</a>
+        <a href="#historia">História do CoBraLT</a>
         <a href="#diretoria">Diretoria</a>
       </div>
 
       <div class="footer-col">
         <h4>COLT 2026</h4>
-        <a href="#colt">Sobre o Congresso</a>
-        <a href="#inscricao">Inscrição</a>
+        <a href="#colt">Congresso oficial</a>
+        <a href="#inscricao">Inscrições do COLT</a>
         <a href="#filiacao">Filiação de Ligas</a>
-        <a href="#contato">Contato</a>
+        <a href="#ligas">Ligas filiadas</a>
       </div>
 
       <div class="footer-col">
@@ -840,6 +907,32 @@
     </div>
   </div>
 </footer>
+
+
+<script>
+  (function () {
+    const cta = document.getElementById('floatingCta');
+    const noticias = document.getElementById('noticias');
+    if (!cta || !noticias) return;
+
+    const toggleFloatingCta = () => {
+      const rect = noticias.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.2) {
+        cta.style.opacity = '0';
+        cta.style.pointerEvents = 'none';
+        cta.style.transform = 'translateY(24px)';
+      } else {
+        cta.style.opacity = '';
+        cta.style.pointerEvents = '';
+        cta.style.transform = '';
+      }
+    };
+
+    toggleFloatingCta();
+    window.addEventListener('scroll', toggleFloatingCta, { passive: true });
+    window.addEventListener('resize', toggleFloatingCta);
+  })();
+</script>
 
 <!-- Scripts -->
 <script src="js/main.js"></script>
