@@ -35,6 +35,15 @@
   .btn { justify-content: center; }
 
   .contact-form { padding: 1.5rem; }
+  .hero-card-stack {
+  max-width: 100%;
+  width: 100%;
+}
+
+.hero-card {
+  max-width: 100%;
+  box-sizing: border-box;
+}
 }
 
 /* ─── SMALL MOBILE ≤ 480px ────────────────────────────── */
@@ -42,4 +51,13 @@
   .directors-grid { grid-template-columns: 1fr; }
   .hero-stats { grid-template-columns: 1fr; }
   .header-inner { padding: 0 1rem; }
+  .hero-card-stack {
+  max-width: 100%;
+  width: 100%;
+}
+
+.hero-card {
+  max-width: 100%;
+  box-sizing: border-box;
+}
 }
