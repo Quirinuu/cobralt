@@ -167,6 +167,16 @@
 </head>
 <body>
 
+<div class="floating-cta" id="floatingCta">
+  <div class="floating-cta-inner">
+    <span class="floating-cta-label">COLT 2026 · Informações em breve</span>
+    <div class="floating-cta-actions">
+      <a href="#filiacao" class="btn btn-primary btn-sm">Afiliar sua Liga</a>
+      <a href="#ligas" class="btn btn-ghost-light btn-sm">Mostrar Ligas</a>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ BANNER DE MANUTENÇÃO ════════════════════════════ -->
 <div style="
   background: linear-gradient(90deg, #f59e0b, #d97706);
@@ -176,8 +186,11 @@
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.01em;
-  position: relative;
-  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
 ">
   <div>🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis. Em breve tudo novo!</div>
   <div style="margin-top:0.3rem;font-size:0.82rem;font-weight:500;opacity:0.95;">Desenvolvimento por Gabriel Quirino</div>
@@ -253,12 +266,12 @@
       </p>
 
       <div class="hero-actions">
-        <a href="#inscricao" class="btn btn-primary">
+        <a href="#filiacao" class="btn btn-primary">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-          Inscrever-se no COLT
+          Afiliar sua Liga
         </a>
-        <a href="#filiacao" class="btn btn-outline">
-          Filiar sua Liga
+        <a href="#ligas" class="btn btn-ghost-light hero-highlight-btn">
+          Mostrar Ligas
         </a>
       </div>
 
@@ -491,8 +504,8 @@
       <div class="event-card" data-animate>
         <div class="event-header">
           <div class="event-date-box">
-            <div class="event-day">22</div>
-            <div class="event-month">ABR</div>
+            <div class="event-day">X</div>
+            <div class="event-month">A DEF</div>
           </div>
           <h3 class="event-title">COLT 2026 — Congresso Brasileiro de Ligas de Trauma</h3>
         </div>
@@ -502,7 +515,7 @@
             X
           </div>
           <p class="event-desc">O maior encontro anual de profissionais de trauma com palestras internacionais e workshops práticos.</p>
-          <a href="#inscricao" class="news-link">Inscrever-se →</a>
+          <a href="#inscricao" class="news-link">Inscrições em breve →</a>
         </div>
       </div>
 
