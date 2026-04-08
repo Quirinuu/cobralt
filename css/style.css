@@ -4,7 +4,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* Base reduzido ~25% vs original (16px → 12px) */
-html { scroll-behavior: smooth; font-size: 20px; }
+html { scroll-behavior: smooth; font-size: 20px;overflow-x: hidden;
+  max-width: 100%; }
 
 body {
   font-family: var(--font-body);
@@ -12,6 +13,8 @@ body {
   background: var(--white);
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* ─── HEADER ─────────────────────────────────────────── */
