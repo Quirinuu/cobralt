@@ -54,8 +54,9 @@ body {
 .logo-mark { display: none !important; }
 
 .logo.has-image img {
-  height: 28px !important;
+  height: 36px !important;
   width: auto;
+  max-width: 60px;
   object-fit: contain;
   display: block;
 }
