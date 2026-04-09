@@ -18,8 +18,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css?v=1.7">
-  <link rel="stylesheet" href="css/responsive.css?v=1.7">
+  <link rel="stylesheet" href="css/style.css?v=1.8">
+  <link rel="stylesheet" href="css/responsive.css?v=1.8">
 
     <style>
     /* ── Animações de entrada ──────────────────────────── */
@@ -137,19 +137,6 @@
     }
   </style>
 </head>
-
-<script>
-  document.querySelectorAll('.director-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const isSelected = card.classList.contains('selected');
-      // desmarca todos
-      document.querySelectorAll('.director-card').forEach(c => c.classList.remove('selected'));
-      // se não estava selecionado, seleciona
-      if (!isSelected) card.classList.add('selected');
-    });
-  });
-</script>
-
 <body id="inicio">
 
 <!-- ═══ HEADER ══════════════════════════════════════════ -->
@@ -230,8 +217,12 @@
       </p>
 
       <div class="hero-actions">
-        <a href="#inscricao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">
-            Inscrições COLT 2026
+        <a href="#filiacao" class="btn btn-primary">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          Afiliar sua Liga
+        </a>
+        <a href="#ligas" class="btn btn-white-solid hero-highlight-btn">
+          Mostrar Ligas
         </a>
       </div>
 
@@ -280,9 +271,9 @@
             <div class="colt-value">2.000+ profissionais</div>
           </div>
 
-          <a href="#filiacao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">
-            Afiliar sua Liga
-          </a>
+          <a href="#inscricao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">
+  Inscrições COLT 2026
+</a>
         </div>
       </div>
     </div>
@@ -342,8 +333,9 @@
       </div>
 
       <div class="colt-actions" data-animate data-animate-delay="4">
-        <a href="#filiacao" class="btn btn-primary">Afiliar sua Liga</a>
-        <a href="#ligas" class="btn btn-white-solid">Mostrar Ligas</a>
+        <a href="#inscricao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">
+  Inscrições COLT 2026
+</a>
       </div>
     </div>
 
