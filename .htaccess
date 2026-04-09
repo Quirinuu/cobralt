@@ -24,6 +24,45 @@ AddCharset UTF-8 .css .js .html
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
+# ─── CACHE — CSS e JS sempre revalidam no servidor ────────
+# O browser pergunta "mudou?" a cada visita.
+# Se não mudou: servidor responde 304 (rápido, sem baixar).
+# Se mudou: servidor manda o arquivo novo automaticamente.
+# Resultado: visitante SEMPRE vê a versão mais recente,
+# sem precisar de ?v= manual ou limpar cache.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+        Header unset ETag
+    </FilesMatch>
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # CSS e JS: sem cache longo — controlado pelo must-revalidate acima
+    ExpiresByType text/css                "access plus 0 seconds"
+    ExpiresByType application/javascript  "access plus 0 seconds"
+    ExpiresByType text/html               "access plus 0 seconds"
+    # Imagens e fontes: cache longo (raramente mudam)
+    ExpiresByType image/png               "access plus 6 months"
+    ExpiresByType image/jpg               "access plus 6 months"
+    ExpiresByType image/jpeg              "access plus 6 months"
+    ExpiresByType image/webp              "access plus 6 months"
+    ExpiresByType image/svg+xml           "access plus 6 months"
+    ExpiresByType font/woff2              "access plus 1 year"
+</IfModule>
+
+# ETag habilitado para comparação de versão
+FileETag MTime Size
+
+# Compressão gzip
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript
+</IfModule>
+
 # Bloqueia acesso a arquivos sensíveis
 <FilesMatch "\.(sql|log|env|sh|json)$">
     Order Allow,Deny
@@ -36,24 +75,6 @@ AddCharset UTF-8 .css .js .html
     Deny from all
 </FilesMatch>
 
-# Cache de assets estáticos
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType image/png "access plus 6 months"
-    ExpiresByType image/jpg "access plus 6 months"
-    ExpiresByType image/jpeg "access plus 6 months"
-    ExpiresByType image/webp "access plus 6 months"
-    ExpiresByType image/svg+xml "access plus 6 months"
-    ExpiresByType font/woff2 "access plus 1 year"
-</IfModule>
-
-# Compressão gzip
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css application/javascript
-</IfModule>
-
-# Erros customizados (crie as páginas depois)
+# Erros customizados
 # ErrorDocument 404 /pages/404.html
 # ErrorDocument 500 /pages/500.html
