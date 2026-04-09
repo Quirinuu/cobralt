@@ -6,7 +6,7 @@
 cobralT/
 ├── index.html          ← Página principaASDl
 ├── .htaccess           ← Segurança + cache + HTTPS
-├── database.sqlasd        ← Execute no phpMyAdmin para criar o banco   
+├── database.sqlasd ç       ← Execute no phpMyAdmin para criar o banco   
 ├── README.mdasdaasd
 │
 ├── css/
