@@ -3,9 +3,10 @@
    Importa todos os módulos CSS na ordem correta.
    ═══════════════════════════════════════════════════════ */
 
-@import 'base.css';        /* Reset, html, body           */
-@import 'animations.css';  /* Animações de entrada e misc  */
-@import 'header.css';      /* Header, logo, nav, drawer    */
-@import 'hero.css';        /* Seção hero / banner inicial  */
-@import 'sections.css';    /* Botões + todas as seções     */
-@import 'responsive.css';  /* Media queries (mobile/tablet)*/
+@import 'vars.css?v=6.1';
+@import 'base.css?v=6.1';
+@import 'animations.css?v=6.1';
+@import 'header.css?v=6.1';
+@import 'hero.css?v=6.1';
+@import 'sections.css?v=6.1';
+@import 'responsive.css?v=6.1';
