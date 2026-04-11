@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ligas do Trauma da Região Centro-Oeste — CoBraLT">
+  <meta name="theme-color" content="#013684">
+  <title>Região Centro-Oeste — CoBraLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=6.0">
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="header-maintenance">
+    🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis.
+    <small>Desenvolvimento por Gabriel Quirino</small>
+  </div>
+  <div class="header-inner">
+    <a href="../index.html" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="../assets/img/logo.png" alt="CoBraLT">
+    </a>
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="../index.html#noticias">Notícias semanais</a>
+      <a href="../index.html#eventos">Eventos e congressos</a>
+      <a href="../index.html#inscricao">Inscrições do Pré-CoLT</a>
+      <a href="../index.html#filiacao">Filiar sua liga</a>
+      <a href="../index.html#ligas" class="active">Ligas filiadas</a>
+      <a href="historia.html">História do CoBraLT</a>
+      <a href="diretoria.html">Diretoria</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <span class="drawer-header-logo">CoBraLT</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav">
+    <a href="../index.html#noticias">Notícias semanais</a>
+    <a href="../index.html#eventos">Eventos e congressos</a>
+    <a href="../index.html#inscricao">Inscrições do Pré-CoLT</a>
+    <a href="../index.html#filiacao">Filiar sua liga</a>
+    <a href="../index.html#ligas">Ligas filiadas</a>
+    <a href="historia.html">História do CoBraLT</a>
+    <a href="diretoria.html">Diretoria</a>
+  </nav>
+</aside>
+
+<main id="main-content">
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb">
+      <a href="../index.html">Início</a><span>›</span>
+      <a href="../index.html#ligas">Ligas filiadas</a><span>›</span>
+      <span>Região Centro-Oeste</span>
+    </nav>
+    <div class="page-hero-label">Ligas filiadas · CoBraLT</div>
+    <h1 class="page-hero-title">Região Centro-Oeste</h1>
+    <p class="page-hero-sub">Distrito Federal, Goiás, Mato Grosso e Mato Grosso do Sul — ligas filiadas ao CoBraLT.</p>
+    <div class="region-stats">
+      <div class="region-stat">
+        <div class="region-stat-value">27</div>
+        <div class="region-stat-label">ligas filiadas</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">4</div>
+        <div class="region-stat-label">estados</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="regions-nav" aria-label="Regiões">
+  <div class="regions-nav-inner">
+    <a href="regiao-norte.html">Norte</a>
+    <a href="regiao-nordeste.html">Nordeste</a>
+    <a href="regiao-centro-oeste.html" class="active">Centro-Oeste</a>
+    <a href="regiao-sudeste-mg.html">Sudeste – MG</a>
+    <a href="regiao-sudeste-sp.html">Sudeste – SP</a>
+    <a href="regiao-sudeste-rjes.html">Sudeste – RJ/ES</a>
+    <a href="regiao-sul.html">Sul</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="section-inner">
+
+    <div class="filter-bar" data-animate>
+      <label for="filtroEstado">Filtrar por estado:</label>
+      <select id="filtroEstado" class="filter-select" onchange="filtrarLigas()">
+        <option value="">Todos os estados</option>
+        <option value="DF">DF</option>
+        <option value="GO">GO</option>
+        <option value="MS">MS</option>
+        <option value="MT">MT</option>
+      </select>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
+
+    <div class="ligas-grid" id="ligasGrid">
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lamede.png" alt="Logo LAMEDE"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lamede.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAMEDE</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Medicina de Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lemt.png" alt="Logo LEMT"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lemt.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LEMT</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Emergências Médicas e Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laue-co.png" alt="Logo LAUE-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laue-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAUE-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência Medicina</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-let-co.png" alt="Logo LET-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-let-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LET-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga da Emergência e do Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laome.png" alt="Logo LAOME"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laome.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAOME</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Ortopedia e Medicina do Esporte</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-latem-co.png" alt="Logo LATEM-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-latem-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATEM-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica do Trauma e Emergência Médica</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lacet-co.png" alt="Logo LACET-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lacet-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LACET-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Cirurgia e Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laort-co.png" alt="Logo LAORT-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laort-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAORT-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Ortopedia e Traumatologia</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laaph-co.png" alt="Logo LAAPH-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laaph-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAAPH-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Atendimento Pré-Hospitalar</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laem.png" alt="Logo LAEM"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laem.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAEM</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Emergências Médicas</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laots.png" alt="Logo LAOTS"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laots.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAOTS</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Ortopedia e Traumatologia</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lamurgem-co.png" alt="Logo LAMURGEM-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lamurgem-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAMURGEM-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Medicina de Urgência e Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laot.png" alt="Logo LAOT"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laot.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAOT</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Ortopedia e Traumatologia</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-litrauma-co.png" alt="Logo LITRAUMA-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-litrauma-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LITRAUMA-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica do Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-ortopliga.png" alt="Logo ORTOPLIGA"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-ortopliga.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">ORTOPLIGA</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Ortopedia</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lato-co.png" alt="Logo LATO-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lato-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATO-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Traumatologia e Ortopedia</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-latue.png" alt="Logo LATUE"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-latue.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATUE</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma, Urgência e Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-latesgo.png" alt="Logo LATESGO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-latesgo.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATESGO</div>
+            <div class="liga-card-inst">Sudoeste Goiano</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência do Sudoeste Goiano</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio Verde, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lacit-co.png" alt="Logo LACIT-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lacit-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LACIT-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Cirurgia do Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-ltfmufg.png" alt="Logo LTFMUFG"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-ltfmufg.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LTFMUFG</div>
+            <div class="liga-card-inst">UFG</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica do Trauma da UFG</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-latomed.png" alt="Logo LATOMED"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-latomed.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATOMED</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Traumato-Ortopedia e Medicina do Esporte</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-letes.png" alt="Logo LETES"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-letes.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LETES</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Emergência e Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-luemu.png" alt="Logo LUEMU"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-luemu.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LUEMU</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lem-co.png" alt="Logo LEM-CO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lem-co.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LEM-CO</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-left.png" alt="Logo LEFT"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-left.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LEFT</div>
+            <div class="liga-card-inst">Centro-Oeste</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Emergência e Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Goiânia, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="DF">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-let-unb.png" alt="Logo LET-UnB"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-let-unb.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LET-UnB</div>
+            <div class="liga-card-inst">UnB</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Emergência e Trauma da UnB</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Brasília, DF</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="GO">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lamurgem-formosa.png" alt="Logo LAMURGEM-FORMOSA"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lamurgem-formosa.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAMURGEM-FORMOSA</div>
+            <div class="liga-card-inst">Formosa</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Medicina de Urgência e Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Formosa, GO</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="colt-banner" style="padding:3rem 2rem;">
+  <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div>
+      <h2 class="section-title" style="color:#fff;margin-bottom:.5rem;">Sua liga não está aqui?</h2>
+      <p style="color:rgba(255,255,255,.6);font-size:.88rem;">Afilie-se ao CoBraLT e faça parte da maior rede de Ligas do Trauma do Brasil.</p>
+    </div>
+    <a href="../index.html#filiacao" class="btn btn-primary" style="flex-shrink:0;">Filiar minha liga</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div><p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p></div>
+      <div class="footer-col"><h4>Navegação</h4><a href="../index.html#noticias">Notícias semanais</a><a href="../index.html#eventos">Eventos e congressos</a><a href="../index.html#filiacao">Filiar sua liga</a><a href="historia.html">História do CoBraLT</a><a href="diretoria.html">Diretoria</a></div>
+      <div class="footer-col"><h4>Pré-CoLT 2026</h4><a href="../index.html#inscricao">Inscrições</a><a href="../index.html#filiacao">Filiação de Ligas</a></div>
+      <div class="footer-col"><h4>Documentos</h4><a href="#">Protocolos Clínicos</a><a href="#">Regulamentos</a><a href="#">Política de Privacidade</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:1.5rem;"><a href="#">Privacidade</a><a href="#">Termos de Uso</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="../js/main.js"></script>
+<script src="../js/animations.js"></script>
+<script>
+(function () {
+  function filtrarLigas() {
+    var sel = document.getElementById('filtroEstado').value;
+    var cards = document.querySelectorAll('#ligasGrid .liga-card');
+    var count = 0;
+    cards.forEach(function(c) {
+      var match = !sel || c.dataset.estado === sel;
+      c.classList.toggle('hidden', !match);
+      if (match) count++;
+    });
+    document.getElementById('resultsCount').textContent =
+      sel ? count + ' liga' + (count !== 1 ? 's' : '') : '';
+  }
+  window.filtrarLigas = filtrarLigas;
+  // Inicializa contagem
+  var total = document.querySelectorAll('#ligasGrid .liga-card').length;
+  // não exibe nada no início
+})();
+</script>
+</body>
+</html>

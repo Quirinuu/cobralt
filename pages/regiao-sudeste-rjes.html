@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ligas do Trauma da Região Sudeste – RJ/ES — CoBraLT">
+  <meta name="theme-color" content="#013684">
+  <title>Sudeste — RJ e ES — CoBraLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=6.0">
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="header-maintenance">
+    🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis.
+    <small>Desenvolvimento por Gabriel Quirino</small>
+  </div>
+  <div class="header-inner">
+    <a href="../index.html" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="../assets/img/logo.png" alt="CoBraLT">
+    </a>
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="../index.html#noticias">Notícias semanais</a>
+      <a href="../index.html#eventos">Eventos e congressos</a>
+      <a href="../index.html#inscricao">Inscrições do Pré-CoLT</a>
+      <a href="../index.html#filiacao">Filiar sua liga</a>
+      <a href="../index.html#ligas" class="active">Ligas filiadas</a>
+      <a href="historia.html">História do CoBraLT</a>
+      <a href="diretoria.html">Diretoria</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <span class="drawer-header-logo">CoBraLT</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav">
+    <a href="../index.html#noticias">Notícias semanais</a>
+    <a href="../index.html#eventos">Eventos e congressos</a>
+    <a href="../index.html#inscricao">Inscrições do Pré-CoLT</a>
+    <a href="../index.html#filiacao">Filiar sua liga</a>
+    <a href="../index.html#ligas">Ligas filiadas</a>
+    <a href="historia.html">História do CoBraLT</a>
+    <a href="diretoria.html">Diretoria</a>
+  </nav>
+</aside>
+
+<main id="main-content">
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb">
+      <a href="../index.html">Início</a><span>›</span>
+      <a href="../index.html#ligas">Ligas filiadas</a><span>›</span>
+      <span>Sudeste — RJ e ES</span>
+    </nav>
+    <div class="page-hero-label">Ligas filiadas · CoBraLT</div>
+    <h1 class="page-hero-title">Sudeste — RJ e ES</h1>
+    <p class="page-hero-sub">Rio de Janeiro e Espírito Santo — conheça as ligas de trauma filiadas ao CoBraLT nesta sub-região.</p>
+    <div class="region-stats">
+      <div class="region-stat">
+        <div class="region-stat-value">17</div>
+        <div class="region-stat-label">ligas filiadas</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">2</div>
+        <div class="region-stat-label">estados</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="regions-nav" aria-label="Regiões">
+  <div class="regions-nav-inner">
+    <a href="regiao-norte.html">Norte</a>
+    <a href="regiao-nordeste.html">Nordeste</a>
+    <a href="regiao-centro-oeste.html">Centro-Oeste</a>
+    <a href="regiao-sudeste-mg.html">Sudeste – MG</a>
+    <a href="regiao-sudeste-sp.html">Sudeste – SP</a>
+    <a href="regiao-sudeste-rjes.html" class="active">Sudeste – RJ/ES</a>
+    <a href="regiao-sul.html">Sul</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="section-inner">
+
+    <div class="filter-bar" data-animate>
+      <label for="filtroEstado">Filtrar por estado:</label>
+      <select id="filtroEstado" class="filter-select" onchange="filtrarLigas()">
+        <option value="">Todos os estados</option>
+        <option value="RJ">RJ</option>
+        <option value="ES">ES</option>
+      </select>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
+
+    <div class="ligas-grid" id="ligasGrid">
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-late-fmp.png" alt="Logo LATE-FMP"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-late-fmp.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATE-FMP</div>
+            <div class="liga-card-inst">FMP</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência da Faculdade de Medicina de Petrópolis</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Petrópolis, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lutrec.png" alt="Logo LUTREC"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lutrec.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LUTREC</div>
+            <div class="liga-card-inst">Estácio</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Trauma e Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lamurgem.png" alt="Logo LAMURGEM"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lamurgem.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAMURGEM</div>
+            <div class="liga-card-inst">Rio de Janeiro</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Medicina de Urgência, Emergência e Trauma</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-ltemsm.png" alt="Logo LTEMSM"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-ltemsm.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LTEMSM</div>
+            <div class="liga-card-inst">EMSM</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Trauma da Escola de Medicina Souza Marques</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lacitre-unirio.png" alt="Logo LACITRE-UNIRIO"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lacitre-unirio.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LACITRE-UNIRIO</div>
+            <div class="liga-card-inst">UNIRIO</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Cirurgia, Trauma e Emergência</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lateu.png" alt="Logo LATEU"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lateu.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATEU</div>
+            <div class="liga-card-inst">Unigranrio</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Trauma e Emergência da Unigranrio</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lates-ufrj.png" alt="Logo LATES-UFRJ"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lates-ufrj.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATES-UFRJ</div>
+            <div class="liga-card-inst">UFRJ</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência e Simulação</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-litre-uff.png" alt="Logo LITRE-UFF"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-litre-uff.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LITRE-UFF</div>
+            <div class="liga-card-inst">UFF</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma, Reanimação e Emergência da UFF</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Niterói, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-latem.png" alt="Logo LATEM"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-latem.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATEM</div>
+            <div class="liga-card-inst">Macaé</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência de Macaé</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Macaé, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-latees.png" alt="Logo LATEES"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-latees.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATEES</div>
+            <div class="liga-card-inst">Estácio de Sá</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência da Estácio de Sá</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lutiev.png" alt="Logo LUTIEV"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lutiev.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LUTIEV</div>
+            <div class="liga-card-inst">Vassouras</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de UTI e Emergência de Vassouras</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Vassouras, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RJ">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lte-uerj.png" alt="Logo LTE-UERJ"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lte-uerj.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LTE-UERJ</div>
+            <div class="liga-card-inst">UERJ</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Trauma e Emergência da UERJ</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Rio de Janeiro, RJ</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="ES">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-laite-ufes.png" alt="Logo LAITE-UFES"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-laite-ufes.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LAITE-UFES</div>
+            <div class="liga-card-inst">UFES</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga de Atendimento Integrado ao Trauma e à Emergência da UFES</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Vitória, ES</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="ES">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lite-es.png" alt="Logo LITE-ES"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lite-es.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LITE-ES</div>
+            <div class="liga-card-inst">Espírito Santo</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência do Espírito Santo</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Vitória, ES</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="ES">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-liacc.png" alt="Logo LIACC"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-liacc.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LIACC</div>
+            <div class="liga-card-inst">Espírito Santo</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica Capixaba de Cirurgia</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Vitória, ES</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="ES">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lateme.png" alt="Logo LATEME"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lateme.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LATEME</div>
+            <div class="liga-card-inst">Espírito Santo</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica do Trauma e Emergências Médicas</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Espírito Santo, ES</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="ES">
+        <div class="liga-card-photo">
+          <!-- Para adicionar foto: <img src="../assets/img/liga-lacates.png" alt="Logo LACATES"> -->
+          <div class="liga-card-photo-placeholder">🏥</div>
+        </div>
+        <div class="liga-card-header">
+          <div class="liga-card-icon">🏥
+            <!-- <img src="../assets/img/icon-lacates.png" alt=""> -->
+          </div>
+          <div>
+            <div class="liga-card-sigla">LACATES</div>
+            <div class="liga-card-inst">Espírito Santo</div>
+          </div>
+        </div>
+        <div class="liga-card-name">Liga Acadêmica de Cirurgia e Atendimento ao Trauma do Espírito Santo</div>
+        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Espírito Santo, ES</div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="colt-banner" style="padding:3rem 2rem;">
+  <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div>
+      <h2 class="section-title" style="color:#fff;margin-bottom:.5rem;">Sua liga não está aqui?</h2>
+      <p style="color:rgba(255,255,255,.6);font-size:.88rem;">Afilie-se ao CoBraLT e faça parte da maior rede de Ligas do Trauma do Brasil.</p>
+    </div>
+    <a href="../index.html#filiacao" class="btn btn-primary" style="flex-shrink:0;">Filiar minha liga</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div><p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p></div>
+      <div class="footer-col"><h4>Navegação</h4><a href="../index.html#noticias">Notícias semanais</a><a href="../index.html#eventos">Eventos e congressos</a><a href="../index.html#filiacao">Filiar sua liga</a><a href="historia.html">História do CoBraLT</a><a href="diretoria.html">Diretoria</a></div>
+      <div class="footer-col"><h4>Pré-CoLT 2026</h4><a href="../index.html#inscricao">Inscrições</a><a href="../index.html#filiacao">Filiação de Ligas</a></div>
+      <div class="footer-col"><h4>Documentos</h4><a href="#">Protocolos Clínicos</a><a href="#">Regulamentos</a><a href="#">Política de Privacidade</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:1.5rem;"><a href="#">Privacidade</a><a href="#">Termos de Uso</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="../js/main.js"></script>
+<script src="../js/animations.js"></script>
+<script>
+(function () {
+  function filtrarLigas() {
+    var sel = document.getElementById('filtroEstado').value;
+    var cards = document.querySelectorAll('#ligasGrid .liga-card');
+    var count = 0;
+    cards.forEach(function(c) {
+      var match = !sel || c.dataset.estado === sel;
+      c.classList.toggle('hidden', !match);
+      if (match) count++;
+    });
+    document.getElementById('resultsCount').textContent =
+      sel ? count + ' liga' + (count !== 1 ? 's' : '') : '';
+  }
+  window.filtrarLigas = filtrarLigas;
+  // Inicializa contagem
+  var total = document.querySelectorAll('#ligasGrid .liga-card').length;
+  // não exibe nada no início
+})();
+</script>
+</body>
+</html>

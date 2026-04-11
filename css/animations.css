@@ -1,0 +1,65 @@
+/* ═══════════════════════════════════════════════════════
+   ANIMAÇÕES — Entrada (scroll), Hero, Misc
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Animações de entrada (scroll) ───────────────────── */
+[data-animate] {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+[data-animate].animated { opacity: 1; transform: translateY(0); }
+[data-animate-delay="1"] { transition-delay: 0.08s; }
+[data-animate-delay="2"] { transition-delay: 0.16s; }
+[data-animate-delay="3"] { transition-delay: 0.24s; }
+[data-animate-delay="4"] { transition-delay: 0.32s; }
+[data-animate-delay="5"] { transition-delay: 0.40s; }
+
+[data-animate-left]  { opacity: 0; transform: translateX(-26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+[data-animate-left].animated  { opacity: 1; transform: translateX(0); }
+[data-animate-right] { opacity: 0; transform: translateX(26px);  transition: opacity 0.7s ease, transform 0.7s ease; }
+[data-animate-right].animated { opacity: 1; transform: translateX(0); }
+[data-animate-fade]  { opacity: 0; transition: opacity 0.8s ease; }
+[data-animate-fade].animated  { opacity: 1; }
+
+[data-animate-left][data-animate-delay="1"],
+[data-animate-right][data-animate-delay="1"],
+[data-animate-fade][data-animate-delay="1"]  { transition-delay: 0.1s; }
+[data-animate-left][data-animate-delay="2"],
+[data-animate-right][data-animate-delay="2"],
+[data-animate-fade][data-animate-delay="2"]  { transition-delay: 0.2s; }
+[data-animate-left][data-animate-delay="3"],
+[data-animate-right][data-animate-delay="3"],
+[data-animate-fade][data-animate-delay="3"]  { transition-delay: 0.3s; }
+[data-animate-left][data-animate-delay="4"],
+[data-animate-right][data-animate-delay="4"],
+[data-animate-fade][data-animate-delay="4"]  { transition-delay: 0.4s; }
+
+/* ─── Hero animação de entrada ────────────────────────── */
+.hero-content > * { animation: heroFadeUp 0.75s ease both; }
+.hero-content > *:nth-child(1) { animation-delay: 0.08s; }
+.hero-content > *:nth-child(2) { animation-delay: 0.22s; }
+.hero-content > *:nth-child(3) { animation-delay: 0.36s; }
+.hero-content > *:nth-child(4) { animation-delay: 0.50s; }
+.hero-content > *:nth-child(5) { animation-delay: 0.64s; }
+.hero-visual { animation: heroFadeRight 0.9s ease 0.3s both; }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Misc reutilizável ────────────────────────────────── */
+.divider {
+  width: 40px; height: 3px;
+  background: linear-gradient(90deg, var(--sky) 0%, var(--sky-light) 100%);
+  border-radius: 9999px;
+  margin-bottom: 0.8rem;
+}
+.modal-section {
+  background: var(--off-white);
+  border-top: 1px solid var(--slate-200);
+}

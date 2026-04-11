@@ -1,4 +1,142 @@
-@import 'vars.css';
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVIDADE
+   ═══════════════════════════════════════════════════════ */
 
-/* Toda responsividade esta consolidada no style.css */
-/* Este arquivo e mantido apenas para compatibilidade */
+/* ─── Tablet / 900px ───────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Header */
+  html { scroll-padding-top: 100px; }
+  #main-content { padding-top: 50px; }
+  .site-header .header-inner { padding: 0 2rem; min-height: 50px; }
+  .header-inner { padding: 0 2rem; }
+  .nav-desktop { display: none; }
+  .hamburger { display: flex; }
+  .header-maintenance small { display: block; }
+
+  /* Hero */
+  .hero-inner { grid-template-columns: 1fr; padding: 3rem 2rem; gap: 2rem; }
+  .hero-visual { display: none; }
+  .hero-title { font-size: clamp(1.6rem, 5vw, 2.4rem); }
+
+  /* Layout geral */
+  .section { padding: 3rem 2rem; }
+  .colt-banner { padding: 3rem 2rem; }
+  .site-footer { padding: 2.5rem 2rem 1.5rem; }
+
+  /* Grids */
+  .colt-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ─── Mobile / 600px ───────────────────────────────────── */
+@media (max-width: 600px) {
+  html, body { overflow-x: hidden; }
+
+  /* Header */
+  html { scroll-padding-top: 88px; }
+  #main-content { padding-top: 48px; }
+  .site-header .header-inner { padding: 0 1rem; min-height: 48px; }
+  .header-inner { padding: 0 1rem; height: 48px; }
+  .logo.has-image img { height: 32px !important; }
+  .header-maintenance { font-size: 0.67rem; padding: 0.35rem 0.75rem; }
+  .header-maintenance small { display: none; }
+
+  /* Layout */
+  .section { padding: 2.5rem 1rem; }
+  .colt-banner { padding: 2rem 1rem; }
+  .site-footer { padding: 2rem 1rem 1.25rem; }
+
+  /* Hero */
+  .hero-inner { padding: 1.5rem 1rem !important; gap: 1rem; }
+  .hero-title { font-size: clamp(1.35rem, 7vw, 1.9rem); }
+  .hero-subtitle { font-size: 0.82rem; }
+  .hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-stat-value { font-size: 1.2rem; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.78rem;
+    padding: 0.55rem 1rem;
+  }
+
+  /* Hero visual (mobile: mostra simplificado) */
+  .hero-visual { display: block; width: 100%; overflow: hidden; }
+  .hero-card-stack { max-width: 100% !important; width: 100% !important; }
+  .hero-card { max-width: 100% !important; width: 100% !important; }
+  .hero-card-back { display: none; }
+
+  /* COLT */
+  .colt-grid { gap: 1rem; }
+  .colt-details { order: 1; margin-top: 0; }
+  .colt-box    { order: 2; width: 100%; }
+  .colt-actions { order: 3; flex-direction: column; width: 100%; }
+  .colt-actions .btn { width: 100%; justify-content: center; }
+
+  /* Carrossel: Notícias */
+  .news-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.9rem;
+    padding-bottom: 1rem;
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    scrollbar-width: none;
+  }
+  .news-grid::-webkit-scrollbar { display: none; }
+  .news-grid .news-card {
+    flex: 0 0 80vw;
+    max-width: 80vw;
+    scroll-snap-align: start;
+  }
+
+  /* Carrossel: Eventos */
+  .events-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.9rem;
+    padding-bottom: 1rem;
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    scrollbar-width: none;
+  }
+  .events-grid::-webkit-scrollbar { display: none; }
+  .events-grid .event-card {
+    flex: 0 0 80vw;
+    max-width: 80vw;
+    scroll-snap-align: start;
+  }
+
+  /* Grids */
+  .leagues-grid { grid-template-columns: 1fr; }
+  .directors-grid { grid-template-columns: 1fr 1fr; }
+  .info-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-top { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-form { padding: 1.25rem; }
+
+  /* Tipografia */
+  .section-title { font-size: clamp(1.15rem, 5vw, 1.5rem); }
+}
+
+/* ─── Mobile pequeno / 380px ───────────────────────────── */
+@media (max-width: 380px) {
+  .directors-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ─── Filiação & CoLT+COTREM grids ─────────────────────── */
+@media (max-width: 700px) {
+  .filiacao-grid { grid-template-columns: 1fr !important; }
+  .coltcotrem-grid { grid-template-columns: 1fr !important; }
+}

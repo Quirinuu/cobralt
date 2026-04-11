@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="[NOME DA LIGA] — Liga filiada ao CoBraLT, Região [REGIÃO].">
+  <meta name="theme-color" content="#013684">
+  <title>[NOME DA LIGA] — CoBraLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=6.0">
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="header-maintenance">
+    🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis. Em breve tudo novo!
+    <small>Desenvolvimento por Gabriel Quirino</small>
+  </div>
+  <div class="header-inner">
+    <a href="../index.html" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="../assets/img/logo.png" alt="CoBraLT">
+    </a>
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="../index.html#noticias">Notícias semanais</a>
+      <a href="../index.html#eventos">Eventos e congressos</a>
+      <a href="../index.html#inscricao">Inscrições do COLT</a>
+      <a href="../index.html#filiacao">Filiar sua liga</a>
+      <a href="../index.html#ligas" class="active">Ligas filiadas</a>
+      <a href="historia.html">História do CoBraLT</a>
+      <a href="diretoria.html">Diretoria</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <span class="drawer-header-logo">CoBraLT</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav">
+    <a href="../index.html#noticias">Notícias semanais</a>
+    <a href="../index.html#eventos">Eventos e congressos</a>
+    <a href="../index.html#inscricao">Inscrições do COLT</a>
+    <a href="../index.html#filiacao">Filiar sua liga</a>
+    <a href="../index.html#ligas">Ligas filiadas</a>
+    <a href="historia.html">História do CoBraLT</a>
+    <a href="diretoria.html">Diretoria</a>
+  </nav>
+</aside>
+
+<main id="main-content">
+
+<!-- HERO DA LIGA -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-logo">
+      <!-- <img src="../assets/img/liga-[SIGLA].png" alt="Logo da liga"> -->
+      🏥
+    </div>
+    <div class="page-hero-text">
+      <nav class="breadcrumb"><a href="../index.html">Início</a><span>›</span><a href="../index.html#ligas">Ligas filiadas</a><span>›</span><span>[NOME DA LIGA]</span></nav>
+      <div class="page-hero-label">Liga filiada · Região [REGIÃO]</div>
+      <h1 class="page-hero-title">[NOME DA LIGA]</h1>
+      <p class="page-hero-sub">[SIGLA] · [UNIVERSIDADE / HOSPITAL] · [CIDADE, ESTADO]</p>
+    </div>
+  </div>
+</div>
+
+<!-- INFO RÁPIDA -->
+<div class="liga-info-bar">
+  <div class="liga-info-inner">
+    <div class="liga-info-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span><strong>[CIDADE]</strong>, [ESTADO]</span>
+    </div>
+    <div class="liga-info-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span><strong>[UNIVERSIDADE / HOSPITAL]</strong></span>
+    </div>
+    <div class="liga-info-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Afiliada desde <strong>[ANO]</strong></span>
+    </div>
+    <div class="liga-info-item">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span><strong>[X] membros</strong> ativos</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEÚDO -->
+<section class="section">
+  <div class="section-inner">
+    <div class="liga-grid">
+
+      <!-- CORPO -->
+      <div class="liga-body" data-animate>
+
+        <h2>Sobre a liga</h2>
+        <p>[Descrição geral da liga — missão, visão, como surgiu, qual o foco de atuação dentro do trauma.]</p>
+        <p>[Segundo parágrafo — dados da liga, parceiros, hospital escola, cursos oferecidos.]</p>
+
+        <h2>Atividades e projetos</h2>
+        <p>[Descreva as principais atividades da liga: treinamentos, simulações, extensão comunitária, publicações, etc.]</p>
+        <ul>
+          <li>[Atividade 1]</li>
+          <li>[Atividade 2]</li>
+          <li>[Atividade 3]</li>
+          <li>[Atividade 4]</li>
+        </ul>
+
+        <h2>Conquistas</h2>
+        <p>[Premiações, participações no COLT, publicações científicas, projetos de destaque.]</p>
+
+        <h2>Coordenação</h2>
+        <p>[Nome do coordenador responsável, orientador médico, e informações sobre a diretoria da liga.]</p>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="liga-sidebar">
+
+        <div class="liga-sidebar-card" data-animate>
+          <h4>Contato</h4>
+          <div class="liga-contact-item">
+            <svg fill="none" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:[EMAIL]">[EMAIL]</a>
+          </div>
+          <div class="liga-contact-item">
+            <svg fill="none" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+            <a href="tel:[TELEFONE]">[TELEFONE]</a>
+          </div>
+          <div class="liga-contact-item">
+            <svg fill="none" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <a href="https://instagram.com/[INSTAGRAM]" target="_blank">@[INSTAGRAM]</a>
+          </div>
+        </div>
+
+        <div class="liga-sidebar-card" data-animate>
+          <h4>Áreas de atuação</h4>
+          <div>
+            <span class="liga-tag">Trauma</span>
+            <span class="liga-tag">Cirurgia</span>
+            <span class="liga-tag">[ÁREA 3]</span>
+            <span class="liga-tag">[ÁREA 4]</span>
+            <span class="liga-tag">[ÁREA 5]</span>
+          </div>
+        </div>
+
+        <div class="liga-sidebar-card" data-animate>
+          <h4>Participações no COLT</h4>
+          <p style="font-size:.8rem;color:var(--sky-dark);line-height:1.7;">[Anos de participação no COLT, posições alcançadas, trabalhos apresentados.]</p>
+        </div>
+
+        <a href="../index.html#filiacao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.5rem;">
+          Saiba como se filiar
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div><p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p></div>
+      <div class="footer-col"><h4>Navegação</h4><a href="../index.html#noticias">Notícias semanais</a><a href="../index.html#eventos">Eventos e congressos</a><a href="../index.html#filiacao">Filiar sua liga</a><a href="historia.html">História do CoBraLT</a><a href="diretoria.html">Diretoria</a></div>
+      <div class="footer-col"><h4>COLT 2026</h4><a href="../index.html#inscricao">Inscrições do COLT</a><a href="../index.html#filiacao">Filiação de Ligas</a></div>
+      <div class="footer-col"><h4>Documentos</h4><a href="#">Protocolos Clínicos</a><a href="#">Regulamentos</a><a href="#">Política de Privacidade</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:1.5rem;"><a href="#">Privacidade</a><a href="#">Termos de Uso</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Scripts -->
+<script src="../js/main.js"></script>
+<script src="../js/animations.js"></script>
+
+</body>
+</html>

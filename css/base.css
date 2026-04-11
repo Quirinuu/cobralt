@@ -1,0 +1,23 @@
+/* ═══════════════════════════════════════════════════════
+   BASE — Reset, HTML, Body
+   Importa vars.css
+   ═══════════════════════════════════════════════════════ */
+
+@import 'vars.css';
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 12px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--navy);
+  background: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  max-width: 100%;
+}

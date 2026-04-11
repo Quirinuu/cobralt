@@ -18,124 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css?v=5.1">
-  <link rel="stylesheet" href="css/responsive.css?v=5.1">
-
-    <style>
-    /* ── Animações de entrada ──────────────────────────── */
-    [data-animate] {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    [data-animate].animated { opacity: 1; transform: translateY(0); }
-    [data-animate-delay="1"] { transition-delay: 0.08s; }
-    [data-animate-delay="2"] { transition-delay: 0.16s; }
-    [data-animate-delay="3"] { transition-delay: 0.24s; }
-    [data-animate-delay="4"] { transition-delay: 0.32s; }
-    [data-animate-delay="5"] { transition-delay: 0.40s; }
-
-    [data-animate-left] { opacity: 0; transform: translateX(-26px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    [data-animate-left].animated { opacity: 1; transform: translateX(0); }
-    [data-animate-right] { opacity: 0; transform: translateX(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    [data-animate-right].animated { opacity: 1; transform: translateX(0); }
-    [data-animate-fade] { opacity: 0; transition: opacity 0.8s ease; }
-    [data-animate-fade].animated { opacity: 1; }
-
-    [data-animate-left][data-animate-delay="1"],[data-animate-right][data-animate-delay="1"],[data-animate-fade][data-animate-delay="1"] { transition-delay: 0.1s; }
-    [data-animate-left][data-animate-delay="2"],[data-animate-right][data-animate-delay="2"],[data-animate-fade][data-animate-delay="2"] { transition-delay: 0.2s; }
-    [data-animate-left][data-animate-delay="3"],[data-animate-right][data-animate-delay="3"],[data-animate-fade][data-animate-delay="3"] { transition-delay: 0.3s; }
-    [data-animate-left][data-animate-delay="4"],[data-animate-right][data-animate-delay="4"],[data-animate-fade][data-animate-delay="4"] { transition-delay: 0.4s; }
-
-    /* ── Hero animação ─────────────────────────────────── */
-    .hero-content > * { animation: heroFadeUp 0.75s ease both; }
-    .hero-content > *:nth-child(1) { animation-delay: 0.08s; }
-    .hero-content > *:nth-child(2) { animation-delay: 0.22s; }
-    .hero-content > *:nth-child(3) { animation-delay: 0.36s; }
-    .hero-content > *:nth-child(4) { animation-delay: 0.50s; }
-    .hero-content > *:nth-child(5) { animation-delay: 0.64s; }
-    .hero-visual { animation: heroFadeRight 0.9s ease 0.3s both; }
-    @keyframes heroFadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes heroFadeRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-
-    /* ── Misc ──────────────────────────────────────────── */
-    .divider { width: 40px; height: 3px; background: linear-gradient(90deg, var(--sky) 0%, var(--sky-light) 100%); border-radius: 9999px; margin-bottom: 0.8rem; }
-    .modal-section { background: var(--off-white); border-top: 1px solid var(--slate-200); }
-
-    /* ── Header premium override ───────────────────────── */
-    html { scroll-padding-top: 120px; }
-    #main-content { padding-top: 54px; }
-
-    .site-header {
-      position: fixed !important;
-      top: 0 !important; left: 0; right: 0;
-      z-index: 900 !important;
-      background: rgba(255,255,255,0.93) !important;
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border-bottom: 1px solid rgba(148,163,184,0.2) !important;
-      box-shadow: 0 2px 20px rgba(2,24,43,0.08) !important;
-    }
-
-    .header-maintenance {
-      background: linear-gradient(90deg, #f59e0b 0%, #ea8c07 45%, #d97706 100%);
-      color: #fff;
-      text-align: center;
-      padding: 0.45rem 1rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-    .header-maintenance small { display: block; margin-top: 0.1rem; font-size: 0.65rem; font-weight: 600; opacity: 0.96; }
-
-    .site-header .header-inner {
-      max-width: 1180px;
-      min-height: 54px;
-      padding: 0 3.5rem;
-      gap: 1.5rem;
-      flex-wrap: nowrap;
-    }
-
-    /* Nav pill premium */
-    .nav-desktop {
-      margin-left: auto;
-      gap: 0.2rem;
-      padding: 0.28rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(148,163,184,0.18);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
-    }
-    .nav-desktop a {
-      color: var(--navy);
-      font-size: 0.76rem;
-      font-weight: 600;
-      padding: 0.55rem 0.7rem;
-      border-radius: 999px;
-      transition: color 0.2s ease, background 0.2s ease;
-    }
-    .nav-desktop a:hover { background: rgba(14,165,233,0.11); }
-    .nav-desktop a.active { color: var(--sky-dark); background: rgba(14,165,233,0.14); }
-
-    .hamburger {
-      color: var(--navy);
-      background: rgba(255,255,255,0.66);
-      border: 1px solid rgba(148,163,184,0.2);
-      box-shadow: 0 4px 12px rgba(15,23,42,0.07);
-    }
-
-    @media (max-width: 900px) {
-      html { scroll-padding-top: 100px; }
-      #main-content { padding-top: 50px; }
-      .site-header .header-inner { padding: 0 2rem; min-height: 50px; }
-    }
-    @media (max-width: 600px) {
-      html { scroll-padding-top: 88px; }
-      #main-content { padding-top: 48px; }
-      .site-header .header-inner { padding: 0 1rem; min-height: 48px; }
-      .header-maintenance { font-size: 0.67rem; padding: 0.35rem 0.75rem; }
-      .header-maintenance small { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css?v=7.0">
 </head>
 <body id="inicio">
 
@@ -154,11 +37,11 @@
     <nav class="nav-desktop" aria-label="Navegação principal">
       <a href="#noticias">Notícias semanais</a>
       <a href="#eventos">Eventos e congressos</a>
-      <a href="#inscricao">Inscrições do COLT</a>
+      <a href="#inscricao">Inscrições do Pré-CoLT</a>
       <a href="#filiacao">Filiar sua liga</a>
       <a href="#ligas">Ligas filiadas</a>
-      <a href="#historia">História do CoBraLT</a>
-      <a href="#diretoria">Diretoria</a>
+      <a href="pages/historia.html">História do CoBraLT</a>
+      <a href="pages/diretoria.html">Diretoria</a>
     </nav>
 
     <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
@@ -185,11 +68,11 @@
   <nav class="drawer-nav">
     <a href="#noticias">Notícias semanais</a>
     <a href="#eventos">Eventos e congressos</a>
-    <a href="#inscricao">Inscrições do COLT</a>
+    <a href="#inscricao">Inscrições do Pré-CoLT</a>
     <a href="#filiacao">Filiar sua liga</a>
     <a href="#ligas">Ligas filiadas</a>
-    <a href="#historia">História do CoBraLT</a>
-    <a href="#diretoria">Diretoria</a>
+    <a href="pages/historia.html">História do CoBraLT</a>
+    <a href="pages/diretoria.html">Diretoria</a>
   </nav>
 </aside>
 
@@ -202,9 +85,9 @@
 
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-badge" aria-label="COLT 2026 — informações em breve">
+      <div class="hero-badge" aria-label="XXVIII Pré-CoLT — 17 de Abril, Campinas">
         <span class="hero-badge-dot" aria-hidden="true"></span>
-        COLT 2026 — Data: X · Local: X
+        XXVIII Pré-CoLT — 17 de Abril · Campinas, SP
       </div>
 
       <h1 class="hero-title">
@@ -254,25 +137,25 @@
             </div>
             <div>
               <div style="color:rgba(255,255,255,0.5);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;">Próximo evento</div>
-              <div style="color:#fff;font-weight:700;font-size:0.9rem;">COLT 2026</div>
+              <div style="color:#fff;font-weight:700;font-size:0.9rem;">XXVIII Pré-CoLT</div>
             </div>
           </div>
 
           <div class="colt-info-card">
             <div class="colt-label">Data</div>
-            <div class="colt-value">X</div>
+            <div class="colt-value">17 de Abril · Sexta-feira, 9h</div>
           </div>
           <div class="colt-info-card">
             <div class="colt-label">Local</div>
-            <div class="colt-value">X</div>
+            <div class="colt-value">SMCC — Campinas, SP</div>
           </div>
           <div class="colt-info-card" style="margin-bottom:0;">
-            <div class="colt-label">Participantes esperados</div>
-            <div class="colt-value">2.000+ profissionais</div>
+            <div class="colt-label">Inscrições</div>
+            <div class="colt-value">Gratuitas · via QR Code</div>
           </div>
 
           <a href="#inscricao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">
-  Inscrições COLT 2026
+  Inscrever-se — Gratuito
 </a>
         </div>
       </div>
@@ -280,17 +163,17 @@
   </div>
 </section>
 
-<!-- ═══ COLT BANNER ══════════════════════════════════════ -->
+<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ -->
 <section class="colt-banner" id="colt" aria-labelledby="colt-title">
   <div class="colt-grid">
     <div data-animate-left>
-      <span class="section-label" style="color:var(--sky-light);">Congresso Oficial</span>
+      <span class="section-label" style="color:var(--sky-light);">Evento Oficial CoBraLT</span>
       <h2 class="section-title" style="color:#fff;" id="colt-title">
-        COLT 2026<br>Congresso Brasileiro<br>de Ligas de Trauma
+        XXVIII Pré-CoLT<br>Congresso Brasileiro<br>de Ligas de Trauma
       </h2>
       <p style="color:rgba(255,255,255,0.6);font-size:0.98rem;line-height:1.75;margin:0.9rem 0 0;" data-animate-fade data-animate-delay="1">
-        O maior encontro anual de profissionais de trauma do Brasil. Palestras internacionais,
-        workshops práticos, atualização de protocolos e networking de alto nível.
+        Edição Campinas — Um dia completo de ciência, prática e networking dedicado
+        ao atendimento ao trauma, com especialistas nacionais e internacionais.
       </p>
 
       <div class="colt-details">
@@ -299,8 +182,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
           <div class="colt-detail-text">
-            <strong>X</strong>
-            <span>Data a definir</span>
+            <strong>17 de Abril de 2026</strong>
+            <span>Sexta-feira, a partir das 9h00</span>
           </div>
         </div>
         <div class="colt-detail-item" data-animate data-animate-delay="2">
@@ -308,8 +191,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div class="colt-detail-text">
-            <strong>X</strong>
-            <span>Local a definir</span>
+            <strong>SMCC — Campinas, SP</strong>
+            <span>Rua Delfino Cintra, 63, Centro</span>
           </div>
         </div>
         <div class="colt-detail-item" data-animate data-animate-delay="3">
@@ -317,8 +200,8 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <div class="colt-detail-text">
-            <strong>2.000+ participantes esperados</strong>
-            <span>Médicos, enfermeiros e gestores</span>
+            <strong>Realização: Unicamp · CoBraLT</strong>
+            <span>Disciplina de Cirurgia do Trauma</span>
           </div>
         </div>
         <div class="colt-detail-item" data-animate data-animate-delay="4">
@@ -326,45 +209,45 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
           </div>
           <div class="colt-detail-text">
-            <strong>Certificação profissional</strong>
-            <span>Horas de educação continuada reconhecidas</span>
+            <strong>Inscrições gratuitas</strong>
+            <span>Acesse o link ou escaneie o QR Code</span>
           </div>
         </div>
       </div>
 
       <div class="colt-actions" data-animate data-animate-delay="4">
         <a href="#inscricao" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">
-  Inscrições COLT 2026
-</a>
+          Inscrever-se gratuitamente
+        </a>
       </div>
     </div>
 
     <div data-animate-right>
       <div class="colt-box">
-        <h3>O que você vai encontrar</h3>
+        <h3>Programa Científico</h3>
         <ul class="colt-list">
-          <li>Palestras de especialistas nacionais e internacionais</li>
-          <li>Workshops práticos com simuladores de alta fidelidade</li>
-          <li>Atualização dos protocolos de trauma</li>
-          <li>Apresentação e publicação de trabalhos científicos</li>
-          <li>Mesas redondas e debates interativos</li>
-          <li>Networking com líderes da área em todo o Brasil</li>
-          <li>Sessões de pôsteres e premiação científica</li>
+          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">9h–10h30</strong> Mass Casualty Management (MCM) — O preparo do HC Unicamp</li>
+          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">11h–12h</strong> Vida no Trânsito: experiência em Campinas</li>
+          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">13h30–15h</strong> P.A.R.T.Y. em Campinas + apresentações nacionais e internacionais</li>
+          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">15h15–16h15</strong> Mesa-redonda: Estratégias de múltiplas vítimas</li>
+          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">16h15–16h45</strong> Conferência: Doenças raras no pronto-socorro</li>
+          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">16h45–18h</strong> Onda Amarela — Trabalhos no Congresso Europeu (Estocolmo)</li>
+          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">18h00</strong> Encerramento</li>
         </ul>
       </div>
 
       <div class="info-grid">
         <div class="info-box" data-animate data-animate-delay="1">
-          <div class="info-box-value">3</div>
-          <div class="info-box-label">Dias de congresso</div>
+          <div class="info-box-value">1</div>
+          <div class="info-box-label">Dia de evento</div>
         </div>
         <div class="info-box" data-animate data-animate-delay="2">
-          <div class="info-box-value">40+</div>
+          <div class="info-box-value">10+</div>
           <div class="info-box-label">Palestrantes</div>
         </div>
         <div class="info-box" data-animate data-animate-delay="3">
-          <div class="info-box-value">15+</div>
-          <div class="info-box-label">Workshops</div>
+          <div class="info-box-value">Free</div>
+          <div class="info-box-label">Inscrição</div>
         </div>
       </div>
     </div>
@@ -449,75 +332,75 @@
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Agenda</span>
       <h2 class="section-title" id="eventos-title">Eventos e Congressos</h2>
-      <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos do CoBraLT.</p>
+      <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos do CoBraLT e da área de trauma.</p>
     </div>
 
     <div class="events-grid">
       <div class="event-card" data-animate>
         <div class="event-header">
           <div class="event-date-box">
-            <div class="event-day">X</div>
-            <div class="event-month">A DEF</div>
+            <div class="event-day">17</div>
+            <div class="event-month">ABR</div>
           </div>
-          <h3 class="event-title">COLT 2026 — Congresso Brasileiro de Ligas de Trauma</h3>
+          <h3 class="event-title">XXVIII Pré-CoLT — Congresso Brasileiro de Ligas de Trauma · Edição Campinas</h3>
         </div>
         <div class="event-body">
           <div class="event-location">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            X
+            SMCC — Campinas, SP
           </div>
-          <p class="event-desc">O maior encontro anual de profissionais de trauma com palestras internacionais e workshops práticos.</p>
-          <a href="#inscricao" class="news-link">Inscrições em breve →</a>
+          <p class="event-desc">Sexta-feira, 9h às 18h. MCM, P.A.R.T.Y., mesa-redonda de múltiplas vítimas, Onda Amarela e muito mais. Inscrição gratuita.</p>
+          <a href="#inscricao" class="news-link">Inscrever-se gratuitamente →</a>
         </div>
       </div>
 
       <div class="event-card" data-animate data-animate-delay="1">
         <div class="event-header">
           <div class="event-date-box">
-            <div class="event-day">15</div>
-            <div class="event-month">MAI</div>
+            <div class="event-day">11</div>
+            <div class="event-month">JUN</div>
           </div>
-          <h3 class="event-title">Workshop de Simulação Clínica</h3>
+          <h3 class="event-title">XVI Congresso Brasileiro de Queimaduras</h3>
         </div>
         <div class="event-body">
           <div class="event-location">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Rio de Janeiro, RJ
+            Expo D. Pedro — Campinas, SP
           </div>
-          <p class="event-desc">Treinamento prático com simuladores de alta fidelidade para aprimoramento das habilidades em trauma.</p>
-          <a href="#" class="news-link">Saiba mais →</a>
+          <p class="event-desc">CNNAQ: 9 e 10/06 · Congresso: 11 e 12/06. "Da ciência à assistência: Integrando Saberes." O maior congresso de queimaduras do Brasil.</p>
+          <a href="https://cbqueimaduras.com.br" target="_blank" rel="noopener noreferrer" class="news-link">Inscrever-se →</a>
         </div>
       </div>
 
       <div class="event-card" data-animate data-animate-delay="2">
         <div class="event-header">
           <div class="event-date-box">
-            <div class="event-day">08</div>
-            <div class="event-month">JUN</div>
+            <div class="event-day" style="font-size:1rem;line-height:1.1;">21–23</div>
+            <div class="event-month">MAI</div>
           </div>
-          <h3 class="event-title">Reunião Regional — Liga Nordeste</h3>
+          <h3 class="event-title">XXVIII CoLT + II COTREM — Congresso Internacional de Trauma e Emergências Médicas</h3>
         </div>
         <div class="event-body">
           <div class="event-location">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Recife, PE
+            A definir — Formosa, GO
           </div>
-          <p class="event-desc">Encontro regional para atualização de protocolos e planejamento de ações conjuntas da liga nordeste.</p>
-          <a href="#" class="news-link">Saiba mais →</a>
+          <p class="event-desc">21 a 23/05/2026 · 08h–18h. Edição conjunta do XXVIII CoLT e do II COTREM, unindo ligas acadêmicas, profissionais e especialistas nacionais e internacionais. Organizado pela UniRV – Campus Formosa em parceria com o CoBraLT.</p>
+          <a href="#colt-cotrem" class="news-link">Saiba mais →</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ INSCRIÇÃO COLT ════════════════════════════════════ -->
+<!-- ═══ INSCRIÇÃO PRÉ-CoLT ═══════════════════════════════ -->
 <section class="section modal-section" id="inscricao" aria-labelledby="inscricao-title">
   <div class="section-inner" style="max-width:960px;">
     <div class="section-header centered" data-animate>
       <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
       <span class="section-label">Participe</span>
-      <h2 class="section-title" id="inscricao-title">Inscreva-se no COLT 2026</h2>
-      <p class="section-subtitle">Garanta sua vaga no maior congresso de trauma do Brasil. As inscrições estão abertas!</p>
+      <h2 class="section-title" id="inscricao-title">Inscreva-se no XXVIII Pré-CoLT</h2>
+      <p class="section-subtitle">17 de Abril · Campinas, SP · Inscrições gratuitas!</p>
     </div>
 
     <div style="max-width:520px;margin:0 auto;text-align:center;" data-animate data-animate-delay="2">
@@ -526,17 +409,143 @@
           <svg width="27" height="27" fill="none" stroke="var(--sky-dark)" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
         </div>
         <div>
-          <div style="font-size:0.76rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.08em;">COLT 2026 · Data: X · Local: X</div>
-          <p style="color:var(--slate-600);margin-top:0.5rem;line-height:1.7;font-size:0.93rem;">Clique no botão abaixo para acessar o formulário oficial de inscrição.</p>
+          <div style="font-size:0.76rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.08em;">XXVIII Pré-CoLT · 17 Abr · SMCC, Campinas</div>
+          <p style="color:var(--slate-600);margin-top:0.5rem;line-height:1.7;font-size:0.93rem;">Inscrição gratuita. Clique no botão abaixo para garantir sua vaga no formulário oficial.</p>
         </div>
         <a href="https://www.even3.com.br/ii-cotrem-657250/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNqXphr6aIp8X6UKHzd6Quz_cINDAcG_7LLMvN3HBYRdG_kC6nKS_BKP6LYs_aem_SEZcYe9fgKKYPvMfVQCSWg"
            target="_blank" rel="noopener noreferrer"
            class="btn btn-primary"
            style="font-size:0.95rem;padding:0.85rem 2.25rem;display:inline-flex;align-items:center;gap:0.5rem;">
           <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Acessar formulário de inscrição
+          Inscrever-se gratuitamente
         </a>
-        <p style="font-size:0.76rem;color:var(--slate-400);">Você será redirecionado para a plataforma Even3.</p>
+        <p style="font-size:0.76rem;color:var(--slate-400);">Você será redirecionado para o formulário de inscrição.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CoLT + COTREM ══════════════════════════════════════ -->
+<section class="section colt-banner" id="colt-cotrem" aria-labelledby="colt-cotrem-title" style="background:linear-gradient(135deg,var(--navy) 0%,#003f6b 100%);">
+  <div class="section-inner" style="max-width:980px;">
+    <div class="section-header centered" data-animate>
+      <div class="divider" style="margin:0 auto 1rem;background:rgba(255,255,255,0.2);" aria-hidden="true"></div>
+      <span class="section-label" style="color:var(--sky-light);">Evento Oficial CoBraLT · 2026</span>
+      <h2 class="section-title" style="color:#fff;" id="colt-cotrem-title">
+        XXVIII CoLT + II COTREM<br>
+        <span style="font-size:0.65em;opacity:0.85;">Congresso Brasileiro das Ligas do Trauma<br>+ Congresso Internacional de Trauma e Emergências Médicas</span>
+      </h2>
+      <p class="section-subtitle" style="color:rgba(255,255,255,0.7);">21 a 23 de maio de 2026 · Formosa, Goiás · A maior edição conjunta da história do CoBraLT</p>
+    </div>
+
+    <!-- Info cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2.5rem;" data-animate data-animate-delay="1">
+      <div class="colt-info-card">
+        <div class="colt-label">Data</div>
+        <div class="colt-value">21–23 de Maio · 08h–18h (GMT-3)</div>
+      </div>
+      <div class="colt-info-card">
+        <div class="colt-label">Local</div>
+        <div class="colt-value">A definir — Formosa, GO, Brasil</div>
+      </div>
+      <div class="colt-info-card">
+        <div class="colt-label">Formato</div>
+        <div class="colt-value">Presencial</div>
+      </div>
+      <div class="colt-info-card">
+        <div class="colt-label">Organização</div>
+        <div class="colt-value">UniRV – Campus Formosa + CoBraLT</div>
+      </div>
+    </div>
+
+    <!-- Sobre o evento -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem;" class="coltcotrem-grid" data-animate data-animate-delay="2">
+      <div>
+        <h3 style="font-family:var(--font-display);color:#fff;font-size:1.1rem;margin-bottom:1rem;">Sobre o Evento</h3>
+        <p style="color:rgba(255,255,255,0.75);line-height:1.75;font-size:0.93rem;margin-bottom:0.9rem;">
+          Após o grande sucesso do I COTREM, nasce em 2026 uma nova edição ainda mais robusta e inovadora. O evento acontece em conjunto com o <strong style="color:#fff;">XXVIII Congresso Brasileiro das Ligas do Trauma (CoLT)</strong>, unindo duas grandes iniciativas em um único encontro científico de alto nível.
+        </p>
+        <p style="color:rgba(255,255,255,0.75);line-height:1.75;font-size:0.93rem;">
+          O II COTREM e o XXVIII CoLT representam um espaço de construção coletiva do conhecimento, incentivo à inovação e fortalecimento da assistência em trauma e emergências médicas no Brasil e no mundo.
+        </p>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);color:#fff;font-size:1.1rem;margin-bottom:1rem;">Patrocinadores</h3>
+        <ul class="colt-list" style="margin-bottom:1.5rem;">
+          <li>Tai Viagens</li>
+          <li>Auto Posto Somar</li>
+          <li>Samir Sahori Incorporadora</li>
+          <li>Clínica CER</li>
+        </ul>
+        <div class="colt-actions" style="gap:0.75rem;flex-wrap:wrap;">
+          <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:0.88rem;padding:0.75rem 1.6rem;display:inline-flex;align-items:center;gap:0.5rem;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Realizar inscrição
+          </a>
+          <a href="#atividades-cotrem" class="btn" style="font-size:0.88rem;padding:0.75rem 1.6rem;background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25);display:inline-flex;align-items:center;gap:0.5rem;">
+            Ver atividades
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Atividades 21/05 -->
+    <div id="atividades-cotrem" data-animate data-animate-delay="3">
+      <h3 style="font-family:var(--font-display);color:#fff;font-size:1.1rem;margin-bottom:1.25rem;border-top:1px solid rgba(255,255,255,0.15);padding-top:1.5rem;">
+        Atividades — Quinta, 21/05
+      </h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:0.75rem;">
+
+        <!-- 08:00–10:00 -->
+        <div class="colt-box" style="padding:1rem 1.25rem;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--sky-light);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;">08:00 – 10:00</div>
+          <ul class="colt-list" style="font-size:0.83rem;">
+            <li>Workshop — Acesso Intraósseo</li>
+            <li>Workshop — Atendimento ao Paciente Neurocrítico</li>
+            <li>Workshop — Manejo da Via Aérea Difícil</li>
+            <li>Workshop — Manejo do paciente vítima de queimaduras</li>
+            <li>Workshop — Manejo do Trauma Torácico</li>
+            <li>Workshop — Mobilização com RMC</li>
+            <li>Workshop — Resgate de Submersão e Afogamento</li>
+            <li>Workshop — Stop The Bleed</li>
+            <li>Workshop — Técnicas em Sutura</li>
+          </ul>
+        </div>
+
+        <!-- 10:30–12:30 -->
+        <div class="colt-box" style="padding:1rem 1.25rem;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--sky-light);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;">10:30 – 12:30</div>
+          <ul class="colt-list" style="font-size:0.83rem;">
+            <li>Workshop — Acesso Central</li>
+            <li>Workshop — Acesso Intraósseo</li>
+            <li>Workshop — Imobilização de Fraturas</li>
+            <li>Workshop — Manejo da Via Aérea Difícil</li>
+            <li>Workshop — Manejo do Abdome Agudo Cirúrgico</li>
+            <li>Workshop — Mobilização com RMC</li>
+            <li>Workshop — Stop The Bleed</li>
+            <li>Workshop — Técnicas em Sutura</li>
+          </ul>
+        </div>
+
+        <!-- 14:00–16:00 -->
+        <div class="colt-box" style="padding:1rem 1.25rem;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--sky-light);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;">14:00 – 16:00</div>
+          <ul class="colt-list" style="font-size:0.83rem;">
+            <li>Workshop — Atendimento ao Paciente Neurocrítico</li>
+            <li>Workshop — Incidente com Múltiplas Vítimas</li>
+            <li>Workshop — Manejo do paciente vítima de queimaduras</li>
+            <li>Workshop — Manejo do Trauma Torácico</li>
+            <li>Workshop — Resgate de Submersão e Afogamento</li>
+            <li>Workshop — Técnicas em Sutura</li>
+          </ul>
+        </div>
+
+      </div>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:0.9rem;padding:0.8rem 2rem;display:inline-flex;align-items:center;gap:0.5rem;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Quero participar das atividades
+        </a>
       </div>
     </div>
   </div>
@@ -552,7 +561,7 @@
       <p class="section-subtitle">Conecte sua instituição à maior rede de trauma do Brasil.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.25rem;">
+    <div class="filiacao-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.25rem;">
       <div class="contact-form" style="background:var(--off-white);" data-animate-left data-animate-delay="1">
         <h3 style="font-family:var(--font-display);color:var(--navy);margin-bottom:1rem;font-size:1.1rem;">Benefícios</h3>
         <ul class="colt-list" style="--dot-color:var(--sky);">
@@ -598,39 +607,52 @@
     <div class="leagues-grid">
       <div class="league-card" data-animate>
         <div class="league-icon" aria-hidden="true">🏥</div>
-        <h3>Liga Sudeste</h3>
-        <p>São Paulo, Rio de Janeiro, Minas Gerais e Espírito Santo. O maior polo de trauma do país.</p>
-        <span class="league-count">45 instituições</span>
+        <h3>Sudeste — MG</h3>
+        <p>Minas Gerais — 32 ligas acadêmicas filiadas cobrindo as principais universidades do estado.</p>
+        <span class="league-count">32 ligas</span>
+        <a href="pages/regiao-sudeste-mg.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <div class="league-card" data-animate data-animate-delay="1">
-        <div class="league-icon" aria-hidden="true">🌾</div>
-        <h3>Liga Nordeste</h3>
-        <p>Cobrindo os nove estados do nordeste com protocolos adaptados à realidade regional.</p>
-        <span class="league-count">28 instituições</span>
+        <div class="league-icon" aria-hidden="true">🏙️</div>
+        <h3>Sudeste — SP</h3>
+        <p>São Paulo — o maior polo de trauma do Brasil, com ligas nas principais universidades do estado.</p>
+        <span class="league-count">45 ligas</span>
+        <a href="pages/regiao-sudeste-sp.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <div class="league-card" data-animate data-animate-delay="2">
-        <div class="league-icon" aria-hidden="true">🌳</div>
-        <h3>Liga Norte</h3>
-        <p>Expandindo a excelência em trauma para a Amazônia e os desafios do atendimento em áreas remotas.</p>
-        <span class="league-count">15 instituições</span>
+        <div class="league-icon" aria-hidden="true">🌊</div>
+        <h3>Sudeste — RJ e ES</h3>
+        <p>Rio de Janeiro e Espírito Santo — 17 ligas cobrindo as principais instituições da sub-região.</p>
+        <span class="league-count">17 ligas</span>
+        <a href="pages/regiao-sudeste-rjes.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <div class="league-card" data-animate data-animate-delay="3">
-        <div class="league-icon" aria-hidden="true">🏔️</div>
-        <h3>Liga Sul</h3>
-        <p>Rio Grande do Sul, Paraná e Santa Catarina unidos em 22 centros de referência.</p>
-        <span class="league-count">22 instituições</span>
+        <div class="league-icon" aria-hidden="true">🌾</div>
+        <h3>Nordeste</h3>
+        <p>9 estados nordestinos — 24 ligas com protocolos adaptados à realidade regional.</p>
+        <span class="league-count">24 ligas</span>
+        <a href="pages/regiao-nordeste.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <div class="league-card" data-animate data-animate-delay="4">
-        <div class="league-icon" aria-hidden="true">🌐</div>
-        <h3>Liga Centro-Oeste</h3>
-        <p>Atendendo o Planalto Central com 18 instituições formando rede de qualidade assistencial.</p>
-        <span class="league-count">18 instituições</span>
+        <div class="league-icon" aria-hidden="true">🌳</div>
+        <h3>Norte</h3>
+        <p>7 estados — 23 ligas expandindo a excelência em trauma para a Amazônia e áreas remotas.</p>
+        <span class="league-count">23 ligas</span>
+        <a href="pages/regiao-norte.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <div class="league-card" data-animate data-animate-delay="5">
-        <div class="league-icon" aria-hidden="true">🚑</div>
-        <h3>Liga de Transporte</h3>
-        <p>Especializada em regulação e transporte de pacientes graves, integrada a todas as regiões.</p>
-        <span class="league-count">52 instituições</span>
+        <div class="league-icon" aria-hidden="true">🌐</div>
+        <h3>Centro-Oeste</h3>
+        <p>DF, GO, MS e MT — 27 ligas atendendo o Planalto Central e região.</p>
+        <span class="league-count">27 ligas</span>
+        <a href="pages/regiao-centro-oeste.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="6">
+        <div class="league-icon" aria-hidden="true">🏔️</div>
+        <h3>Sul</h3>
+        <p>Paraná, Rio Grande do Sul e Santa Catarina — 20 ligas unidas em rede de qualidade assistencial.</p>
+        <span class="league-count">20 ligas</span>
+        <a href="pages/regiao-sul.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
     </div>
   </div>
@@ -643,40 +665,53 @@
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Trajetória</span>
       <h2 class="section-title" id="historia-title">Nossa História</h2>
-      <p class="section-subtitle">14 anos construindo a maior rede de trauma do Brasil.</p>
+      <p class="section-subtitle">De 1999 ao presente — construindo a maior rede acadêmica de trauma do Brasil.</p>
     </div>
 
     <div class="timeline" role="list">
       <div class="timeline-item" role="listitem" data-animate>
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">2010</div>
-        <h3>Fundação do CoBraLT</h3>
-        <p>Criação do Comitê Brasileiro das Ligas do Trauma com o objetivo de integrar profissionais e promover excelência no atendimento ao paciente grave.</p>
+        <div class="timeline-year">1999</div>
+        <h3>O Marco Inicial — Surgimento do CoLT</h3>
+        <p>Realização do primeiro Congresso Brasileiro das Ligas do Trauma (CoLT), idealizado por estudantes e coordenado por importantes nomes da cirurgia do trauma no Brasil, dando início à mobilização nacional das ligas.</p>
       </div>
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="1">
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">2013</div>
-        <h3>Expansão Nacional</h3>
-        <p>Estabelecimento das primeiras ligas regionais em todas as regiões do país, totalizando 100 instituições afiliadas.</p>
+        <div class="timeline-year">2010</div>
+        <h3>Fundação do CoBraLT</h3>
+        <p>Fundação oficial do Comitê Brasileiro das Ligas do Trauma, assumindo papel estratégico na articulação entre ligas, padronização de ações e fortalecimento institucional em todo o território nacional.</p>
       </div>
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="2">
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">2016</div>
-        <h3>Protocolos Padronizados</h3>
-        <p>Implementação de protocolos clínicos padronizados em toda a rede, com melhora significativa nos indicadores de mortalidade por trauma.</p>
+        <div class="timeline-year">2013</div>
+        <h3>Expansão Nacional</h3>
+        <p>Criação de representações regionais e fortalecimento das ligas em todas as regiões do Brasil, consolidando uma rede ampla e integrada de ensino, pesquisa e extensão.</p>
       </div>
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="3">
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">2020</div>
-        <h3>Transformação Digital</h3>
-        <p>Adoção de tecnologias digitais para gestão integrada e coordenação durante a pandemia de COVID-19, mantendo a rede ativa.</p>
+        <div class="timeline-year">2016</div>
+        <h3>Protocolos Padronizados</h3>
+        <p>Implementação de protocolos clínicos padronizados nas ligas filiadas, aproximando o meio acadêmico da prática assistencial e reduzindo índices de morbimortalidade.</p>
       </div>
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="4">
         <div class="timeline-dot" aria-hidden="true"></div>
-        <div class="timeline-year">2024</div>
-        <h3>Maior Referência em Trauma</h3>
-        <p>CoBraLT consolida-se como a principal referência em trauma no Brasil, com 180 instituições afiliadas e presença em todos os estados.</p>
+        <div class="timeline-year">2020</div>
+        <h3>Transformação Digital</h3>
+        <p>Durante a pandemia de COVID-19, o CoBraLT adotou novas tecnologias, ampliando seu alcance, fortalecendo a comunicação nacional e modernizando a gestão da rede.</p>
       </div>
+      <div class="timeline-item" role="listitem" data-animate data-animate-delay="5">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-year">Hoje</div>
+        <h3>Referência Nacional em Trauma</h3>
+        <p>Principal organização de ligas acadêmicas de trauma do Brasil, reunindo centenas de instituições e milhares de estudantes e profissionais comprometidos com a melhoria da assistência ao paciente traumatizado.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;" data-animate>
+      <a href="pages/historia.html" class="btn btn-navy" style="display:inline-flex;align-items:center;gap:.5rem;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Ler a história completa
+      </a>
     </div>
   </div>
 </section>
@@ -909,17 +944,18 @@
         <h4>Navegação</h4>
         <a href="#noticias">Notícias semanais</a>
         <a href="#eventos">Eventos e congressos</a>
-        <a href="#inscricao">Inscrições do COLT</a>
+        <a href="#inscricao">Inscrições do Pré-CoLT</a>
         <a href="#filiacao">Filiar sua liga</a>
         <a href="#ligas">Ligas filiadas</a>
-        <a href="#historia">História do CoBraLT</a>
-        <a href="#diretoria">Diretoria</a>
+        <a href="pages/historia.html">História do CoBraLT</a>
+        <a href="pages/diretoria.html">Diretoria</a>
       </div>
 
       <div class="footer-col" data-animate-fade data-animate-delay="2">
-        <h4>COLT 2026</h4>
-        <a href="#colt">Congresso oficial</a>
-        <a href="#inscricao">Inscrições do COLT</a>
+        <h4>Eventos 2026</h4>
+        <a href="#colt">Pré-CoLT — Edição Campinas</a>
+        <a href="#inscricao">Inscrições do Pré-CoLT</a>
+        <a href="#colt-cotrem">XXVIII CoLT + II COTREM</a>
         <a href="#filiacao">Filiação de Ligas</a>
         <a href="#ligas">Ligas filiadas</a>
       </div>
@@ -947,55 +983,6 @@
 <!-- Scripts -->
 <script src="js/main.js"></script>
 <script src="js/forms.js"></script>
-
-<script>
-(function () {
-  // ── Intersection Observer para animações ──────────────
-  const animEls = document.querySelectorAll('[data-animate],[data-animate-left],[data-animate-right],[data-animate-fade]');
-  if (animEls.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('animated'); io.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    animEls.forEach(el => io.observe(el));
-  }
-
-  // ── Drawer lateral mobile ─────────────────────────────
-  const hamburger   = document.getElementById('hamburger');
-  const drawer      = document.getElementById('mobileDrawer');
-  const overlay     = document.getElementById('drawerOverlay');
-  const closeBtn    = document.getElementById('drawerClose');
-  const drawerLinks = drawer ? drawer.querySelectorAll('a') : [];
-
-  function openDrawer() {
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    hamburger.setAttribute('aria-expanded', 'true');
-  }
-
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-    hamburger.setAttribute('aria-expanded', 'false');
-  }
-
-  if (hamburger) hamburger.addEventListener('click', openDrawer);
-  if (closeBtn)  closeBtn.addEventListener('click', closeDrawer);
-  if (overlay)   overlay.addEventListener('click', closeDrawer);
-  drawerLinks.forEach(a => a.addEventListener('click', closeDrawer));
-
-  // Fechar com ESC
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-
-  // ── Header scrolled shadow ────────────────────────────
-  const header = document.querySelector('.site-header');
-  if (header) {
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 10);
-    }, { passive: true });
-  }
-})();
-</script>
+<script src="js/animations.js"></script>
 </body>
 </html>
