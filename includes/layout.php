@@ -15,6 +15,14 @@ function layout_head(string $title, string $desc = '', string $base = '../'): vo
   <meta name="description" content="<?= htmlspecialchars($desc ?: 'CoBraLT — Comitê Brasileiro das Ligas do Trauma.') ?>">
   <meta name="theme-color" content="#013684">
   <title><?= htmlspecialchars($title) ?> — CoBraLT</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="<?= $base ?>assets/img/logo.png">
+  <link rel="apple-touch-icon" href="<?= $base ?>assets/img/logo.png">
+  <!-- Open Graph -->
+  <meta property="og:title" content="<?= htmlspecialchars($title) ?> — CoBraLT">
+  <meta property="og:description" content="<?= htmlspecialchars($desc ?: 'CoBraLT — Comitê Brasileiro das Ligas do Trauma.') ?>">
+  <meta property="og:image" content="https://cobralT.org.br/assets/img/logo.png">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">

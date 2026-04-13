@@ -49,7 +49,7 @@ layout_header('ligas');
         <h3><?= h($liga['nome']) ?></h3>
         <p><?= h($liga['descricao']) ?></p>
         <span class="league-count"><?= h($liga['contagem']) ?></span>
-        <a href="<?= h($liga['link']) ?>" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+        <a href="<?= h(str_replace('pages/', '', $liga['link'])) ?>" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <?php endforeach; endif; ?>
     </div>

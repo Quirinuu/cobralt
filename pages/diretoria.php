@@ -20,10 +20,10 @@ try {
 
 $ordemGrupos = [
     'Diretoria Deliberativa',
+    'Diretoria de Marketing',
     'Diretoria Executiva',
     'Diretoria de Prevenção e Extensão',
     'Diretoria Interdisciplinar',
-    'Diretoria de Marketing',
 ];
 
 layout_head('Diretoria', 'Conheça os líderes do Comitê Brasileiro das Ligas do Trauma.');

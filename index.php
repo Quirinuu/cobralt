@@ -81,9 +81,14 @@ $catEmoji = [
   <meta name="theme-color" content="#002B4E">
   <title>CoBraLT — Comitê Brasileiro das Ligas do Trauma</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="apple-touch-icon" href="assets/img/logo.png">
+
   <!-- Open Graph -->
   <meta property="og:title" content="CoBraLT — Comitê Brasileiro das Ligas do Trauma">
   <meta property="og:description" content="Conectando as Ligas do Trauma para salvar vidas em todo o Brasil.">
+  <meta property="og:image" content="https://cobralT.org.br/assets/img/logo.png">
   <meta property="og:type" content="website">
 
   <!-- Fonts -->
@@ -547,10 +552,10 @@ $catEmoji = [
       <?php
       $ordemGrupos = [
           'Diretoria Deliberativa',
+          'Diretoria de Marketing',
           'Diretoria Executiva',
           'Diretoria de Prevenção e Extensão',
           'Diretoria Interdisciplinar',
-          'Diretoria de Marketing',
       ];
       foreach ($ordemGrupos as $grupo):
         if (empty($diretoria[$grupo])) continue;
