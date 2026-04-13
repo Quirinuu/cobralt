@@ -148,7 +148,7 @@ layout_header('historia');
       <div class="timeline-full-item" data-animate>
         <div class="timeline-full-dot"></div>
         <div class="timeline-full-year">2026</div>
-        <h3>🏛️ Difíceis Negociações</h3>
+        <h3>🤝 Reposicionamento Institucional</h3>
         <p>A gestão do CoBraLT, após difíceis negociações com a Diretoria Executiva da SBAIT de 2024/2025, teve que tomar a difícil decisão de se desvincular da sociedade, que ainda não tem o devido reconhecimento pela Associação Médica Brasileira (AMB).</p>
         <p style="margin-top:.75rem;">Acreditamos que o fortalecimento da residência médica e a busca da especialidade são assuntos prioritários, que estão diretamente relacionados com a existência do CoBraLT e com o futuro da Cirurgia do Trauma no Brasil.</p>
       </div>
