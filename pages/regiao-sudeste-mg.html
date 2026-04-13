@@ -3,27 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ligas do Trauma da Região Sudeste – Minas Gerais — CoBraLT">
+  <meta name="description" content="Ligas do Trauma — Sudeste — Minas Gerais — CoBraLT">
   <meta name="theme-color" content="#013684">
-  <title>Sudeste — Minas Gerais — CoBraLT</title>
+  <title>Sudeste — Minas Gerais — Ligas CoBraLT</title>
+  <link rel="icon" type="image/png" href="../assets/img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=6.1">
+  <link rel="stylesheet" href="../css/style.css?v=6.2">
+  <style>
+    .liga-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.25rem;display:flex;flex-direction:column;gap:.45rem;transition:box-shadow .2s,transform .2s;}
+    .liga-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-2px);}
+    .liga-card-emoji{font-size:2rem;line-height:1;}
+    .liga-card-sigla{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--navy);}
+    .liga-card-inst{font-size:.78rem;color:var(--sky);font-weight:600;}
+    .liga-card-name{font-size:.82rem;color:var(--slate-600);line-height:1.5;flex:1;}
+    .liga-card-city{font-size:.75rem;color:var(--slate-400);display:flex;align-items:center;gap:4px;}
+    .liga-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;padding-top:.65rem;border-top:1px solid var(--slate-100);}
+    .liga-card-since{font-size:.7rem;color:var(--slate-400);}
+    .liga-card-arrow{font-size:.78rem;color:var(--sky);font-weight:600;display:flex;align-items:center;gap:3px;}
+    .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;padding:1rem;}
+    .modal-backdrop.open{display:flex;}
+    .modal-box{background:var(--white);border-radius:var(--radius-xl);padding:2rem;max-width:460px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.25);position:relative;animation:mIn .18s ease;}
+    @keyframes mIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:var(--slate-400);padding:4px;line-height:0;}
+    .modal-close:hover{color:var(--navy);}
+    .regions-nav{background:var(--white);border-bottom:1px solid var(--slate-200);position:sticky;top:64px;z-index:90;}
+    .regions-nav-inner{max-width:1180px;margin:0 auto;padding:.6rem 1.5rem;display:flex;gap:.4rem;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;}
+    .regions-nav-inner::-webkit-scrollbar{display:none;}
+    .regions-nav-inner a{white-space:nowrap;padding:.4rem .85rem;border-radius:var(--radius-full);font-size:.82rem;font-weight:500;color:var(--slate-600);text-decoration:none;transition:background .15s,color .15s;}
+    .regions-nav-inner a:hover{background:var(--slate-100);color:var(--navy);}
+    .regions-nav-inner a.active{background:var(--navy);color:#fff;}
+  </style>
 </head>
 <body>
 
 <header class="site-header" role="banner">
-<div class="header-inner">
+  <div class="header-inner">
     <a href="../index.php" class="logo has-image" aria-label="CoBraLT — Início">
-      <img src="../assets/img/logo.png?v=6.1" alt="CoBraLT">
+      <img src="../assets/img/logo.png?v=6.2" alt="CoBraLT">
     </a>
-        <nav class="nav-desktop" aria-label="Navegação principal">
-      <a href="noticias.php">Notícias semanais</a>
-      <a href="eventos.php">Eventos e congressos</a>
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="noticias.php">Notícias</a>
+      <a href="eventos.php">Eventos</a>
+      <a href="projetos.php">Projetos</a>
+      <a href="educacao.php">Educação</a>
       <a href="ligas.php">Ligas filiadas</a>
-      <a href="historia.php">História do CoBraLT</a>
+      <a href="historia.php">História</a>
       <a href="diretoria.php">Diretoria</a>
+      <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
       <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
@@ -31,7 +59,6 @@
     </button>
   </div>
 </header>
-
 <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
 <aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
   <div class="drawer-header">
@@ -40,40 +67,18 @@
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
-    <nav class="drawer-nav">
-    <a href="noticias.php">Notícias semanais</a>
-    <a href="eventos.php">Eventos e congressos</a>
+  <nav class="drawer-nav">
+    <a href="noticias.php">Notícias</a>
+    <a href="eventos.php">Eventos</a>
+    <a href="projetos.php">Projetos</a>
+    <a href="educacao.php">Educação</a>
     <a href="ligas.php">Ligas filiadas</a>
-    <a href="historia.php">História do CoBraLT</a>
+    <a href="historia.php">História</a>
     <a href="diretoria.php">Diretoria</a>
+    <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a>
     <a href="login.html" class="nav-login">Admin</a>
   </nav>
 </aside>
-
-<main id="main-content">
-
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span>
-      <a href="ligas.php">Ligas filiadas</a><span>›</span>
-      <span>Sudeste — Minas Gerais</span>
-</nav>
-    <div class="page-hero-label">Ligas filiadas · CoBraLT</div>
-    <h1 class="page-hero-title">Sudeste — Minas Gerais</h1>
-    <p class="page-hero-sub">Minas Gerais — conheça as ligas de trauma filiadas ao CoBraLT neste estado.</p>
-    <div class="region-stats">
-      <div class="region-stat">
-        <div class="region-stat-value">32</div>
-        <div class="region-stat-label">ligas filiadas</div>
-      </div>
-      <div class="region-stat">
-        <div class="region-stat-value">1</div>
-        <div class="region-stat-label">estado</div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <nav class="regions-nav" aria-label="Regiões">
   <div class="regions-nav-inner">
@@ -85,692 +90,580 @@
     <a href="regiao-sudeste-rjes.html">Sudeste – RJ/ES</a>
     <a href="regiao-sul.html">Sul</a>
   </div>
-      <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
+</nav>
+
+<main id="main-content">
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb">
+      <a href="../index.php">Início</a><span>›</span>
+      <a href="ligas.php">Ligas filiadas</a><span>›</span>
+      <span>Sudeste — Minas Gerais</span>
     </nav>
+    <div class="page-hero-label">Ligas filiadas · CoBraLT</div>
+    <h1 class="page-hero-title">Sudeste — Minas Gerais</h1>
+    <p class="page-hero-sub">Minas Gerais — ligas de trauma filiadas ao CoBraLT.</p>
+    <div class="region-stats">
+      <div class="region-stat"><div class="region-stat-value">32</div><div class="region-stat-label">ligas filiadas</div></div>
+      <div class="region-stat"><div class="region-stat-value">1</div><div class="region-stat-label">estado</div></div>
+    </div>
+  </div>
+</div>
 
 <section class="section">
   <div class="section-inner">
-
     <div class="filter-bar" data-animate>
       <label for="filtroEstado">Filtrar por estado:</label>
       <select id="filtroEstado" class="filter-select" onchange="filtrarLigas()">
-        <option value="">Todos os estados</option>
+        <option value="">Todos</option>
         <option value="MG">MG</option>
       </select>
       <span class="results-count" id="resultsCount"></span>
     </div>
-
-    <div class="ligas-grid" id="ligasGrid">
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-late-ufjf-gv.png" alt="Logo LATE-UFJF/GV"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-late-ufjf-gv.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LATE-UFJF/GV</div>
-            <div class="liga-card-inst">UFJF — Gov. Valadares</div>
-          </div>
-        </div>
+    <div class="ligas-grid" id="ligasGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1.5rem;">
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LATE-UFJF/GV" data-inst="UFJF — Gov. Valadares"
+           data-name="Liga Acadêmica de Trauma e Emergência de Governador Valadares" data-city="Governador Valadares, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATE-UFJF/GV</div>
+        <div class="liga-card-inst">UFJF — Gov. Valadares</div>
         <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência de Governador Valadares</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Governador Valadares, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Governador Valadares, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lacite-gv.png" alt="Logo LACITE-GV"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lacite-gv.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LACITE-GV</div>
-            <div class="liga-card-inst">Governador Valadares</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LACITE-GV" data-inst="Governador Valadares"
+           data-name="Liga Acadêmica de Cirurgia, Trauma e Emergência de Governador Valadares" data-city="Governador Valadares, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACITE-GV</div>
+        <div class="liga-card-inst">Governador Valadares</div>
         <div class="liga-card-name">Liga Acadêmica de Cirurgia, Trauma e Emergência de Governador Valadares</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Governador Valadares, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Governador Valadares, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lacit-ufu.png" alt="Logo LACIT-UFU"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lacit-ufu.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LACIT-UFU</div>
-            <div class="liga-card-inst">UFU</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LACIT-UFU" data-inst="UFU"
+           data-name="Liga Acadêmica de Cirurgia e Trauma" data-city="Uberlândia, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACIT-UFU</div>
+        <div class="liga-card-inst">UFU</div>
         <div class="liga-card-name">Liga Acadêmica de Cirurgia e Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Uberlândia, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Uberlândia, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-latre-unipac.png" alt="Logo LATRE-UNIPAC"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-latre-unipac.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LATRE-UNIPAC</div>
-            <div class="liga-card-inst">UNIPAC</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LATRE-UNIPAC" data-inst="UNIPAC"
+           data-name="Liga Acadêmica do Trauma e Emergência" data-city="Minas Gerais, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATRE-UNIPAC</div>
+        <div class="liga-card-inst">UNIPAC</div>
         <div class="liga-card-name">Liga Acadêmica do Trauma e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Minas Gerais, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Minas Gerais, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lt-uftm.png" alt="Logo LT-UFTM"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lt-uftm.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LT-UFTM</div>
-            <div class="liga-card-inst">UFTM</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LT-UFTM" data-inst="UFTM"
+           data-name="Liga do Trauma" data-city="Uberaba, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LT-UFTM</div>
+        <div class="liga-card-inst">UFTM</div>
         <div class="liga-card-name">Liga do Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Uberaba, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Uberaba, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-latenf-univale.png" alt="Logo LATENF-UNIVALE"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-latenf-univale.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LATENF-UNIVALE</div>
-            <div class="liga-card-inst">UNIVALE</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LATENF-UNIVALE" data-inst="UNIVALE"
+           data-name="Liga Acadêmica de Trauma e Emergência em Enfermagem" data-city="Governador Valadares, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATENF-UNIVALE</div>
+        <div class="liga-card-inst">UNIVALE</div>
         <div class="liga-card-name">Liga Acadêmica de Trauma e Emergência em Enfermagem</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Governador Valadares, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Governador Valadares, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lute-ufv.png" alt="Logo LUTE-UFV"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lute-ufv.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LUTE-UFV</div>
-            <div class="liga-card-inst">UFV</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LUTE-UFV" data-inst="UFV"
+           data-name="Liga Universitária de Trauma, Emergência e Cirurgia" data-city="Viçosa, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LUTE-UFV</div>
+        <div class="liga-card-inst">UFV</div>
         <div class="liga-card-name">Liga Universitária de Trauma, Emergência e Cirurgia</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Viçosa, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Viçosa, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-litap.png" alt="Logo LITAP"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-litap.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LITAP</div>
-            <div class="liga-card-inst">Além Paraíba</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LITAP" data-inst="Além Paraíba"
+           data-name="Liga de Trauma de Além Paraíba" data-city="Além Paraíba, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LITAP</div>
+        <div class="liga-card-inst">Além Paraíba</div>
         <div class="liga-card-name">Liga de Trauma de Além Paraíba</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Além Paraíba, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Além Paraíba, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lacit-puc minas.png" alt="Logo LACIT-PUC MINAS"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lacit-puc minas.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LACIT-PUC MINAS</div>
-            <div class="liga-card-inst">PUC Minas</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LACIT-PUC MINAS" data-inst="PUC Minas"
+           data-name="Liga Acadêmica de Cirurgia e Trauma" data-city="Belo Horizonte, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACIT-PUC MINAS</div>
+        <div class="liga-card-inst">PUC Minas</div>
         <div class="liga-card-name">Liga Acadêmica de Cirurgia e Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Belo Horizonte, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Belo Horizonte, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-laute-ufsj.png" alt="Logo LAUTE-UFSJ"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-laute-ufsj.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAUTE-UFSJ</div>
-            <div class="liga-card-inst">UFSJ</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAUTE-UFSJ" data-inst="UFSJ"
+           data-name="Liga Acadêmica de Urgência, Trauma e Emergência" data-city="São João del-Rei, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUTE-UFSJ</div>
+        <div class="liga-card-inst">UFSJ</div>
         <div class="liga-card-name">Liga Acadêmica de Urgência, Trauma e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> São João del-Rei, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          São João del-Rei, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lite-unifenas.png" alt="Logo LITE-UNIFENAS"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lite-unifenas.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LITE-UNIFENAS</div>
-            <div class="liga-card-inst">UNIFENAS</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LITE-UNIFENAS" data-inst="UNIFENAS"
+           data-name="Liga de Trauma e Emergência" data-city="Alfenas, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LITE-UNIFENAS</div>
+        <div class="liga-card-inst">UNIFENAS</div>
         <div class="liga-card-name">Liga de Trauma e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Alfenas, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Alfenas, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lacitra-faminas bh.png" alt="Logo LACITRA-FAMINAS BH"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lacitra-faminas bh.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LACITRA-FAMINAS BH</div>
-            <div class="liga-card-inst">FAMINAS BH</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LACITRA-FAMINAS BH" data-inst="FAMINAS BH"
+           data-name="Liga Acadêmica de Cirurgia e Traumatologia" data-city="Belo Horizonte, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACITRA-FAMINAS BH</div>
+        <div class="liga-card-inst">FAMINAS BH</div>
         <div class="liga-card-name">Liga Acadêmica de Cirurgia e Traumatologia</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Belo Horizonte, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Belo Horizonte, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-let-unifenas alfenas.png" alt="Logo LET-UNIFENAS ALFENAS"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-let-unifenas alfenas.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LET-UNIFENAS ALFENAS</div>
-            <div class="liga-card-inst">UNIFENAS Alfenas</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LET-UNIFENAS ALFENAS" data-inst="UNIFENAS Alfenas"
+           data-name="Liga de Emergência e Trauma" data-city="Alfenas, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LET-UNIFENAS ALFENAS</div>
+        <div class="liga-card-inst">UNIFENAS Alfenas</div>
         <div class="liga-card-name">Liga de Emergência e Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Alfenas, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Alfenas, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lamurge-unibh.png" alt="Logo LAMURGE-UniBH"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lamurge-unibh.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAMURGE-UniBH</div>
-            <div class="liga-card-inst">UniBH</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAMURGE-UniBH" data-inst="UniBH"
+           data-name="Liga Acadêmica de Medicina de Urgência e Emergência do UniBH" data-city="Belo Horizonte, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAMURGE-UniBH</div>
+        <div class="liga-card-inst">UniBH</div>
         <div class="liga-card-name">Liga Acadêmica de Medicina de Urgência e Emergência do UniBH</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Belo Horizonte, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Belo Horizonte, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-latec-ufop.png" alt="Logo LATEC-UFOP"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-latec-ufop.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LATEC-UFOP</div>
-            <div class="liga-card-inst">UFOP</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LATEC-UFOP" data-inst="UFOP"
+           data-name="Liga Acadêmica do Trauma e Emergências Clínicas" data-city="Ouro Preto, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATEC-UFOP</div>
+        <div class="liga-card-inst">UFOP</div>
         <div class="liga-card-name">Liga Acadêmica do Trauma e Emergências Clínicas</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ouro Preto, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Ouro Preto, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-laaph-fcms.png" alt="Logo LAAPH-FCMS"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-laaph-fcms.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAAPH-FCMS</div>
-            <div class="liga-card-inst">FCMS</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAAPH-FCMS" data-inst="FCMS"
+           data-name="Liga Acadêmica de Atendimento Pré-Hospitalar" data-city="Minas Gerais, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAAPH-FCMS</div>
+        <div class="liga-card-inst">FCMS</div>
         <div class="liga-card-name">Liga Acadêmica de Atendimento Pré-Hospitalar</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Minas Gerais, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Minas Gerais, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-laitec-facig.png" alt="Logo LAITEC-FACIG"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-laitec-facig.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAITEC-FACIG</div>
-            <div class="liga-card-inst">FACIG</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAITEC-FACIG" data-inst="FACIG"
+           data-name="Liga Acadêmica Integrada ao Trauma, Emergência e Cirurgia" data-city="Minas Gerais, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAITEC-FACIG</div>
+        <div class="liga-card-inst">FACIG</div>
         <div class="liga-card-name">Liga Acadêmica Integrada ao Trauma, Emergência e Cirurgia</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Minas Gerais, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Minas Gerais, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-late-ufmg.png" alt="Logo LATE-UFMG"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-late-ufmg.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LATE-UFMG</div>
-            <div class="liga-card-inst">UFMG</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LATE-UFMG" data-inst="UFMG"
+           data-name="Liga Acadêmica do Trauma e Emergências Clínicas" data-city="Belo Horizonte, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATE-UFMG</div>
+        <div class="liga-card-inst">UFMG</div>
         <div class="liga-card-name">Liga Acadêmica do Trauma e Emergências Clínicas</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Belo Horizonte, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Belo Horizonte, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-late-ufjf.png" alt="Logo LATE-UFJF"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-late-ufjf.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LATE-UFJF</div>
-            <div class="liga-card-inst">UFJF</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LATE-UFJF" data-inst="UFJF"
+           data-name="Liga Acadêmica do Trauma e Emergência" data-city="Juiz de Fora, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATE-UFJF</div>
+        <div class="liga-card-inst">UFJF</div>
         <div class="liga-card-name">Liga Acadêmica do Trauma e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Juiz de Fora, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Juiz de Fora, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-latf-faseh.png" alt="Logo LATF-Faseh"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-latf-faseh.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LATF-Faseh</div>
-            <div class="liga-card-inst">Faseh</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LATF-Faseh" data-inst="Faseh"
+           data-name="Liga Acadêmica do Trauma" data-city="Vespasiano, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATF-Faseh</div>
+        <div class="liga-card-inst">Faseh</div>
         <div class="liga-card-name">Liga Acadêmica do Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Vespasiano, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Vespasiano, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lanmue-funorte.png" alt="Logo LANMUE-FUNORTE"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lanmue-funorte.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LANMUE-FUNORTE</div>
-            <div class="liga-card-inst">FUNORTE</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LANMUE-FUNORTE" data-inst="FUNORTE"
+           data-name="Liga Acadêmica Norte Mineira de Urgência e Emergência" data-city="Montes Claros, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LANMUE-FUNORTE</div>
+        <div class="liga-card-inst">FUNORTE</div>
         <div class="liga-card-name">Liga Acadêmica Norte Mineira de Urgência e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Montes Claros, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Montes Claros, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lauefa.png" alt="Logo LAUEFA"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lauefa.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAUEFA</div>
-            <div class="liga-card-inst">Faculdade Atenas</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAUEFA" data-inst="Faculdade Atenas"
+           data-name="Liga Acadêmica de Urgência e Emergência da Faculdade Atenas" data-city="Paracatu, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUEFA</div>
+        <div class="liga-card-inst">Faculdade Atenas</div>
         <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência da Faculdade Atenas</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Paracatu, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Paracatu, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-laue-fadip.png" alt="Logo LAUE-FADIP"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-laue-fadip.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAUE-FADIP</div>
-            <div class="liga-card-inst">FADIP</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAUE-FADIP" data-inst="FADIP"
+           data-name="Liga Acadêmica de Urgência e Emergência" data-city="Diamantina, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUE-FADIP</div>
+        <div class="liga-card-inst">FADIP</div>
         <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Diamantina, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Diamantina, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lauem-uemg.png" alt="Logo LAUEM-UEMG"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lauem-uemg.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAUEM-UEMG</div>
-            <div class="liga-card-inst">UEMG</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAUEM-UEMG" data-inst="UEMG"
+           data-name="Liga Acadêmica de Urgência e Emergência" data-city="Minas Gerais, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUEM-UEMG</div>
+        <div class="liga-card-inst">UEMG</div>
         <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Minas Gerais, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Minas Gerais, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lat-univaço.png" alt="Logo LAT-UNIVAÇO"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lat-univaço.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAT-UNIVAÇO</div>
-            <div class="liga-card-inst">UNIVAÇO</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAT-UNIVAÇO" data-inst="UNIVAÇO"
+           data-name="Liga Acadêmica de Trauma" data-city="Ipatinga, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAT-UNIVAÇO</div>
+        <div class="liga-card-inst">UNIVAÇO</div>
         <div class="liga-card-name">Liga Acadêmica de Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Ipatinga, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Ipatinga, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lauem-ufvjm.png" alt="Logo LAUEM-UFVJM"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lauem-ufvjm.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAUEM-UFVJM</div>
-            <div class="liga-card-inst">UFVJM</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAUEM-UFVJM" data-inst="UFVJM"
+           data-name="Liga Acadêmica de Urgência e Emergência" data-city="Diamantina, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUEM-UFVJM</div>
+        <div class="liga-card-inst">UFVJM</div>
         <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Diamantina, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Diamantina, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lamu-ufla.png" alt="Logo LAMU-UFLA"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lamu-ufla.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAMU-UFLA</div>
-            <div class="liga-card-inst">UFLA</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAMU-UFLA" data-inst="UFLA"
+           data-name="Liga Acadêmica de Medicina de Urgência e Emergência" data-city="Lavras, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAMU-UFLA</div>
+        <div class="liga-card-inst">UFLA</div>
         <div class="liga-card-name">Liga Acadêmica de Medicina de Urgência e Emergência</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lavras, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Lavras, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lacgt-unifal.png" alt="Logo LACGT-UNIFAL"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lacgt-unifal.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LACGT-UNIFAL</div>
-            <div class="liga-card-inst">UNIFAL</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LACGT-UNIFAL" data-inst="UNIFAL"
+           data-name="Liga Acadêmica de Cirurgia Geral e do Trauma" data-city="Alfenas, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACGT-UNIFAL</div>
+        <div class="liga-card-inst">UNIFAL</div>
         <div class="liga-card-name">Liga Acadêmica de Cirurgia Geral e do Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Alfenas, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Alfenas, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-laccime.png" alt="Logo LACCIME"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-laccime.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LACCIME</div>
-            <div class="liga-card-inst">Ciências Médicas</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LACCIME" data-inst="Ciências Médicas"
+           data-name="Liga Acadêmica de Cirurgia da Ciências Médicas" data-city="Minas Gerais, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACCIME</div>
+        <div class="liga-card-inst">Ciências Médicas</div>
         <div class="liga-card-name">Liga Acadêmica de Cirurgia da Ciências Médicas</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Minas Gerais, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Minas Gerais, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-liracirt-unec.png" alt="Logo LIRACIRT-UNEC"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-liracirt-unec.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LIRACIRT-UNEC</div>
-            <div class="liga-card-inst">UNEC</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LIRACIRT-UNEC" data-inst="UNEC"
+           data-name="Liga Acadêmica de Cirurgia e Traumatologia" data-city="Caratinga, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LIRACIRT-UNEC</div>
+        <div class="liga-card-inst">UNEC</div>
         <div class="liga-card-name">Liga Acadêmica de Cirurgia e Traumatologia</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Caratinga, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Caratinga, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lauem-uit.png" alt="Logo LAUEM-UIT"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lauem-uit.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAUEM-UIT</div>
-            <div class="liga-card-inst">UIT</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAUEM-UIT" data-inst="UIT"
+           data-name="Liga Acadêmica de Urgências e Emergências Médicas" data-city="Itabira, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUEM-UIT</div>
+        <div class="liga-card-inst">UIT</div>
         <div class="liga-card-name">Liga Acadêmica de Urgências e Emergências Médicas</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Itabira, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Itabira, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
-      <div class="liga-card" data-estado="MG">
-        <div class="liga-card-photo">
-          <!-- Para adicionar foto: <img src="../assets/img/liga-lat-barbacena.png" alt="Logo LAT-BARBACENA"> -->
-          <div class="liga-card-photo-placeholder">🏥</div>
-        </div>
-        <div class="liga-card-header">
-          <div class="liga-card-icon">🏥
-            <!-- <img src="../assets/img/icon-lat-barbacena.png" alt=""> -->
-          </div>
-          <div>
-            <div class="liga-card-sigla">LAT-BARBACENA</div>
-            <div class="liga-card-inst">Barbacena</div>
-          </div>
-        </div>
+      <div class="liga-card" data-estado="MG"
+           data-sigla="LAT-BARBACENA" data-inst="Barbacena"
+           data-name="Liga Acadêmica de Trauma" data-city="Barbacena, MG"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAT-BARBACENA</div>
+        <div class="liga-card-inst">Barbacena</div>
         <div class="liga-card-name">Liga Acadêmica de Trauma</div>
-        <div class="liga-card-city"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Barbacena, MG</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Barbacena, MG
+        </div>
         <div class="liga-card-footer">
           <span class="liga-card-since">Liga filiada</span>
-          <span class="liga-card-arrow">Ver liga <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
     </div>
@@ -783,48 +676,93 @@
       <h2 class="section-title" style="color:#fff;margin-bottom:.5rem;">Sua liga não está aqui?</h2>
       <p style="color:rgba(255,255,255,.6);font-size:.88rem;">Afilie-se ao CoBraLT e faça parte da maior rede de Ligas do Trauma do Brasil.</p>
     </div>
-    <a href="../index.php#filiacao" class="btn btn-primary" style="flex-shrink:0;">Filiar minha liga</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxlJya6NcxHC1H_Cuao0mtN5_UehL-6RSzuhzj2JlEBtI9qA/viewform"
+       target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex-shrink:0;">Filiar minha liga</a>
   </div>
 </section>
 
 </main>
 
+<!-- Modal backdrop blur -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModalOutside(event)">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalSigla">
+    <button class="modal-close" onclick="closeModal()" aria-label="Fechar">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div style="font-size:2.5rem;margin-bottom:.75rem;">🏥</div>
+    <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:.2rem;" id="modalSigla"></div>
+    <div style="font-size:.85rem;color:var(--sky);font-weight:600;margin-bottom:.6rem;" id="modalInst"></div>
+    <div style="font-size:.95rem;color:var(--slate-700);line-height:1.6;margin-bottom:.75rem;" id="modalName"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--slate-500);margin-bottom:1.5rem;">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span id="modalCity"></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem;padding:.6rem .9rem;background:rgba(1,54,132,.06);border-radius:var(--radius-md);margin-bottom:1.25rem;">
+      <svg width="15" height="15" fill="none" stroke="var(--sky)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span style="font-size:.8rem;color:var(--slate-600);">Liga filiada ao CoBraLT</span>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxlJya6NcxHC1H_Cuao0mtN5_UehL-6RSzuhzj2JlEBtI9qA/viewform"
+       target="_blank" rel="noopener noreferrer"
+       class="btn btn-primary" style="width:100%;justify-content:center;font-size:.9rem;">
+      Quero filiar minha liga
+    </a>
+  </div>
+</div>
+
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-brand"><div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div><p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p></div>
-      <div class="footer-col"><h4>Navegação</h4><a href="noticias.php">Notícias semanais</a><a href="eventos.php">Eventos e congressos</a><a href="../index.php#filiacao">Filiar sua liga</a><a href="historia.php">História do CoBraLT</a><a href="diretoria.php">Diretoria</a></div>
-      <div class="footer-col"><h4>Pré-CoLT 2026</h4><a href="../index.php#filiacao">Filiação de Ligas</a></div>
-      <div class="footer-col"><h4>Documentos</h4><a href="#">Protocolos Clínicos</a><a href="#">Regulamentos</a><a href="#">Política de Privacidade</a></div>
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div>
+        <p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p>
+        <div class="social-links" style="margin-top:1rem;">
+          <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Conteúdo</h4><a href="noticias.php">Notícias</a><a href="eventos.php">Eventos</a><a href="ligas.php">Ligas filiadas</a><a href="historia.php">História</a><a href="diretoria.php">Diretoria</a></div>
+      <div class="footer-col"><h4>CoBraLT</h4><a href="../index.php#filiacao">Filiar minha liga</a><a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer">Instagram</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacidade.php">Política de Privacidade</a><a href="termos.php">Termos de Uso</a></div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
-      <div style="display:flex;gap:1.5rem;"><a href="#">Privacidade</a><a href="#">Termos de Uso</a></div>
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados. <span style="opacity:.4;font-size:.78em;">Dev Gabriel Quirino</span></p>
+      <div style="display:flex;gap:1.5rem;"><a href="privacidade.php">Privacidade</a><a href="termos.php">Termos</a></div>
     </div>
   </div>
 </footer>
 
-<!-- Scripts -->
-<script src="../js/main.js"></script>
-<script src="../js/animations.js"></script>
+<script src="../js/main.js?v=6.2"></script>
+<script src="../js/animations.js?v=6.2"></script>
 <script>
-(function () {
-  function filtrarLigas() {
+(function(){
+  window.filtrarLigas = function(){
     var sel = document.getElementById('filtroEstado').value;
     var cards = document.querySelectorAll('#ligasGrid .liga-card');
     var count = 0;
-    cards.forEach(function(c) {
+    cards.forEach(function(c){
       var match = !sel || c.dataset.estado === sel;
-      c.classList.toggle('hidden', !match);
-      if (match) count++;
+      c.style.display = match ? '' : 'none';
+      if(match) count++;
     });
-    document.getElementById('resultsCount').textContent =
-      sel ? count + ' liga' + (count !== 1 ? 's' : '') : '';
-  }
-  window.filtrarLigas = filtrarLigas;
-  // Inicializa contagem
-  var total = document.querySelectorAll('#ligasGrid .liga-card').length;
-  // não exibe nada no início
+    document.getElementById('resultsCount').textContent = sel ? count + ' liga' + (count!==1?'s':'') : '';
+  };
+  window.openModal = function(card){
+    document.getElementById('modalSigla').textContent = card.dataset.sigla;
+    document.getElementById('modalInst').textContent  = card.dataset.inst;
+    document.getElementById('modalName').textContent  = card.dataset.name;
+    document.getElementById('modalCity').textContent  = card.dataset.city;
+    document.getElementById('modalBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeModal = function(){
+    document.getElementById('modalBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  window.closeModalOutside = function(e){
+    if(e.target === document.getElementById('modalBackdrop')) closeModal();
+  };
+  document.addEventListener('keydown', function(e){if(e.key==='Escape') closeModal();});
 })();
 </script>
 </body>
