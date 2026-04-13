@@ -187,7 +187,7 @@ $catEmoji = [
         </div>
         <div style="width:1px;background:rgba(255,255,255,0.15);align-self:stretch;" aria-hidden="true"></div>
         <div role="listitem" style="display:flex;flex-direction:column;align-items:flex-start;">
-          <div class="hero-stat-value" style="font-size:2.2rem;font-weight:800;color:#fff;line-height:1;">14<span style="color:var(--sky-light);">anos</span></div>
+          <div class="hero-stat-value" style="font-size:2.2rem;font-weight:800;color:#fff;line-height:1;">23<span style="color:var(--sky-light);">anos</span></div>
           <div class="hero-stat-label" style="font-size:0.74rem;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">De história</div>
         </div>
       </div>
