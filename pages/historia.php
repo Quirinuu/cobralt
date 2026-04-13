@@ -45,7 +45,7 @@ layout_header('historia');
       <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
       <span class="section-label">Quem somos</span>
       <h2 class="section-title">O CoBraLT em 5 pilares</h2>
-      <p class="section-subtitle" style="margin:0 auto;">O Comitê Brasileiro das Ligas do Trauma é o órgão nacional que conecta as Ligas do Trauma de todo o Brasil, promovendo integração acadêmica, excelência no ensino e impacto direto na formação médica e na assistência ao paciente traumatizado.</p>
+      <p class="section-subtitle" style="margin:0 auto;">O Comitê Brasileiro das Ligas do Trauma é a associação nacional que conecta as Ligas do Trauma de todo o Brasil, promovendo integração acadêmica, excelência no ensino e impacto direto na formação médica e na assistência ao paciente traumatizado.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-top:2rem;">
@@ -71,13 +71,13 @@ layout_header('historia');
       <div class="contact-form" data-animate data-animate-delay="3" style="padding:1.5rem;display:flex;flex-direction:column;gap:.75rem;">
         <div style="font-size:1.6rem;">🚑</div>
         <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1rem;font-weight:800;">Impacto em Saúde Pública</h3>
-        <p style="font-size:.82rem;color:var(--slate-600);line-height:1.7;">Desenvolvimento e apoio a projetos nacionais de prevenção ao trauma, educação comunitária e redução da mortalidade por causas externas, em parceria com instituições como a SBAIT.</p>
+        <p style="font-size:.82rem;color:var(--slate-600);line-height:1.7;">Desenvolvimento e apoio a projetos nacionais de prevenção ao trauma, educação comunitária e redução da mortalidade por causas externas, em parceria com diversas instituições.</p>
       </div>
 
       <div class="contact-form" data-animate data-animate-delay="4" style="padding:1.5rem;display:flex;flex-direction:column;gap:.75rem;">
         <div style="font-size:1.6rem;">🏛️</div>
         <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1rem;font-weight:800;">Organização e Representatividade</h3>
-        <p style="font-size:.82rem;color:var(--slate-600);line-height:1.7;">Responsável pela articulação nacional das ligas e pela organização do Congresso Brasileiro das Ligas do Trauma (CoLT), o maior evento acadêmico de trauma do país.</p>
+        <p style="font-size:.82rem;color:var(--slate-600);line-height:1.7;">Responsável pela articulação nacional das ligas e pela organização anualmente do Congresso Brasileiro das Ligas do Trauma (CoLT), o maior evento acadêmico de trauma do país.</p>
       </div>
 
     </div>
@@ -101,7 +101,7 @@ layout_header('historia');
         <div class="timeline-full-dot"></div>
         <div class="timeline-full-year">Anos 80–90</div>
         <h3>🧠 Origem do Movimento das Ligas do Trauma</h3>
-        <p>A história do CoBraLT está diretamente ligada ao crescimento do ensino do trauma no Brasil. Desde as décadas de 1980 e 1990, com a consolidação da cirurgia do trauma como área essencial na formação médica e a criação da Sociedade Brasileira de Atendimento Integrado ao Traumatizado (SBAIT), surgiu a necessidade de ampliar o acesso ao conhecimento na área.</p>
+        <p>A história do CoBraLT está diretamente ligada ao crescimento do ensino do trauma no Brasil. Desde as décadas de 1980 e 1990, com a consolidação da cirurgia do trauma como área essencial na formação médica e a criação da Sociedade Brasileira de Atendimento Integrado ao Traumatizado (SBAIT), em 1982, surgiu a necessidade de ampliar o acesso ao conhecimento na área.</p>
         <p style="margin-top:.75rem;">Nesse contexto, as Ligas Acadêmicas do Trauma emergiram como um importante instrumento de ensino, pesquisa e extensão, permitindo que estudantes de medicina tivessem contato prático e teórico com a abordagem ao paciente traumatizado.</p>
       </div>
 
@@ -109,15 +109,15 @@ layout_header('historia');
         <div class="timeline-full-dot"></div>
         <div class="timeline-full-year">1999</div>
         <h3>🔥 O Marco Inicial: Surgimento do CoLT</h3>
-        <p>O grande ponto de virada ocorreu em 1999, com a realização do primeiro Congresso Brasileiro das Ligas do Trauma (CoLT), idealizado por estudantes e coordenado por importantes nomes da cirurgia do trauma no Brasil.</p>
+        <p>O grande ponto de virada ocorreu em 1999, com a realização do primeiro Congresso Brasileiro das Ligas do Trauma (CoLT), idealizado por estudantes e coordenado por importantes nomes da cirurgia do trauma no Brasil, como os professores Mario Mantovani, Dario Birolini, Evandro Freire e Gustavo P. Fraga.</p>
         <p style="margin-top:.75rem;">O evento marcou o início de uma mobilização nacional, reunindo ligas de diferentes instituições e promovendo integração entre acadêmicos, profissionais de saúde e equipes multidisciplinares envolvidas no atendimento ao trauma.</p>
       </div>
 
       <div class="timeline-full-item" data-animate>
         <div class="timeline-full-dot"></div>
-        <div class="timeline-full-year">2010</div>
+        <div class="timeline-full-year">2003</div>
         <h3>🏛️ Fundação do CoBraLT</h3>
-        <p>Em 2010, foi oficialmente fundado o Comitê Brasileiro das Ligas do Trauma (CoBraLT), com o objetivo de centralizar, organizar e representar as ligas do trauma em todo o território nacional.</p>
+        <p>Em 2003, foi oficialmente fundado o Comitê Brasileiro das Ligas do Trauma (CoBraLT), com o objetivo de centralizar, organizar e representar as ligas do trauma em todo o território nacional.</p>
         <p style="margin-top:.75rem;">Desde sua criação, o CoBraLT assumiu um papel estratégico, atuando como órgão de articulação entre as ligas, promovendo padronização de ações, fortalecimento institucional e ampliação da atuação acadêmica no país.</p>
       </div>
 
@@ -147,9 +147,17 @@ layout_header('historia');
 
       <div class="timeline-full-item" data-animate>
         <div class="timeline-full-dot"></div>
+        <div class="timeline-full-year">2026</div>
+        <h3>🏛️ Difíceis Negociações</h3>
+        <p>A gestão do CoBraLT, após difíceis negociações com a Diretoria Executiva da SBAIT de 2024/2025, teve que tomar a difícil decisão de se desvincular da sociedade, que ainda não tem o devido reconhecimento pela Associação Médica Brasileira (AMB).</p>
+        <p style="margin-top:.75rem;">Acreditamos que o fortalecimento da residência médica e a busca da especialidade são assuntos prioritários, que estão diretamente relacionados com a existência do CoBraLT e com o futuro da Cirurgia do Trauma no Brasil.</p>
+      </div>
+
+      <div class="timeline-full-item" data-animate>
+        <div class="timeline-full-dot"></div>
         <div class="timeline-full-year">Hoje</div>
         <h3>🚀 CoBraLT na Atualidade</h3>
-        <p>Atualmente, o CoBraLT é reconhecido como a principal organização de ligas acadêmicas de trauma no Brasil, reunindo centenas de instituições e milhares de estudantes e profissionais da saúde.</p>
+        <p>Atualmente, o CoBraLT é reconhecido como a principal organização de ligas acadêmicas de trauma no Brasil, reunindo dezenas de instituições e milhares de estudantes e profissionais da saúde.</p>
         <p style="margin-top:.75rem;">Sua atuação abrange desde a formação acadêmica até o impacto direto na sociedade, por meio de projetos de prevenção, eventos científicos e integração nacional.</p>
       </div>
 
