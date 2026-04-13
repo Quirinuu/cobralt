@@ -9,27 +9,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=6.0">
+  <link rel="stylesheet" href="../css/style.css?v=6.1">
 </head>
 <body>
 
 <header class="site-header" role="banner">
-  <div class="header-maintenance">
-    🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis.
-    <small>Desenvolvimento por Gabriel Quirino</small>
-  </div>
-  <div class="header-inner">
-    <a href="../index.html" class="logo has-image" aria-label="CoBraLT — Início">
+<div class="header-inner">
+    <a href="../index.php" class="logo has-image" aria-label="CoBraLT — Início">
       <img src="../assets/img/logo.png?v=6.1" alt="CoBraLT">
     </a>
-    <nav class="nav-desktop" aria-label="Navegação principal">
-      <a href="../index.html#noticias">Notícias semanais</a>
-      <a href="../index.html#eventos">Eventos e congressos</a>
-      <a href="../index.html#inscricao">Inscrições do Pré-CoLT</a>
-      <a href="../index.html#filiacao">Filiar sua liga</a>
-      <a href="../index.html#ligas" class="active">Ligas filiadas</a>
-      <a href="historia.html">História do CoBraLT</a>
-      <a href="diretoria.html">Diretoria</a>
+        <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="noticias.php">Notícias semanais</a>
+      <a href="eventos.php">Eventos e congressos</a>
+      <a href="ligas.php">Ligas filiadas</a>
+      <a href="historia.php">História do CoBraLT</a>
+      <a href="diretoria.php">Diretoria</a>
+      <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -45,14 +40,13 @@
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
-  <nav class="drawer-nav">
-    <a href="../index.html#noticias">Notícias semanais</a>
-    <a href="../index.html#eventos">Eventos e congressos</a>
-    <a href="../index.html#inscricao">Inscrições do Pré-CoLT</a>
-    <a href="../index.html#filiacao">Filiar sua liga</a>
-    <a href="../index.html#ligas">Ligas filiadas</a>
-    <a href="historia.html">História do CoBraLT</a>
-    <a href="diretoria.html">Diretoria</a>
+    <nav class="drawer-nav">
+    <a href="noticias.php">Notícias semanais</a>
+    <a href="eventos.php">Eventos e congressos</a>
+    <a href="ligas.php">Ligas filiadas</a>
+    <a href="historia.php">História do CoBraLT</a>
+    <a href="diretoria.php">Diretoria</a>
+    <a href="login.html" class="nav-login">Admin</a>
   </nav>
 </aside>
 
@@ -61,10 +55,10 @@
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.html">Início</a><span>›</span>
-      <a href="../index.html#ligas">Ligas filiadas</a><span>›</span>
+      <a href="../index.php">Início</a><span>›</span>
+      <a href="ligas.php">Ligas filiadas</a><span>›</span>
       <span>Região Sul</span>
-    </nav>
+</nav>
     <div class="page-hero-label">Ligas filiadas · CoBraLT</div>
     <h1 class="page-hero-title">Região Sul</h1>
     <p class="page-hero-sub">Paraná, Rio Grande do Sul e Santa Catarina — ligas filiadas ao CoBraLT.</p>
@@ -91,7 +85,8 @@
     <a href="regiao-sudeste-rjes.html">Sudeste – RJ/ES</a>
     <a href="regiao-sul.html" class="active">Sul</a>
   </div>
-</nav>
+      <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
+    </nav>
 
 <section class="section">
   <div class="section-inner">
@@ -538,7 +533,7 @@
       <h2 class="section-title" style="color:#fff;margin-bottom:.5rem;">Sua liga não está aqui?</h2>
       <p style="color:rgba(255,255,255,.6);font-size:.88rem;">Afilie-se ao CoBraLT e faça parte da maior rede de Ligas do Trauma do Brasil.</p>
     </div>
-    <a href="../index.html#filiacao" class="btn btn-primary" style="flex-shrink:0;">Filiar minha liga</a>
+    <a href="../index.php#filiacao" class="btn btn-primary" style="flex-shrink:0;">Filiar minha liga</a>
   </div>
 </section>
 
@@ -548,8 +543,8 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand"><div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div><p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p></div>
-      <div class="footer-col"><h4>Navegação</h4><a href="../index.html#noticias">Notícias semanais</a><a href="../index.html#eventos">Eventos e congressos</a><a href="../index.html#filiacao">Filiar sua liga</a><a href="historia.html">História do CoBraLT</a><a href="diretoria.html">Diretoria</a></div>
-      <div class="footer-col"><h4>Pré-CoLT 2026</h4><a href="../index.html#inscricao">Inscrições</a><a href="../index.html#filiacao">Filiação de Ligas</a></div>
+      <div class="footer-col"><h4>Navegação</h4><a href="noticias.php">Notícias semanais</a><a href="eventos.php">Eventos e congressos</a><a href="../index.php#filiacao">Filiar sua liga</a><a href="historia.php">História do CoBraLT</a><a href="diretoria.php">Diretoria</a></div>
+      <div class="footer-col"><h4>Pré-CoLT 2026</h4><a href="../index.php#filiacao">Filiação de Ligas</a></div>
       <div class="footer-col"><h4>Documentos</h4><a href="#">Protocolos Clínicos</a><a href="#">Regulamentos</a><a href="#">Política de Privacidade</a></div>
     </div>
     <div class="footer-bottom">

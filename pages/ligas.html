@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ligas Filiadas ao CoBraLT — Rede nacional de ligas acadêmicas de trauma.">
+  <meta name="theme-color" content="#013684">
+  <title>Ligas Filiadas — CoBraLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=6.1">
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="header-maintenance">
+    🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis.
+    <small>Desenvolvimento por Gabriel Quirino</small>
+  </div>
+  <div class="header-inner">
+    <a href="../index.php" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="../assets/img/logo.png?v=6.1" alt="CoBraLT">
+    </a>
+        <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="noticias.php">Notícias semanais</a>
+      <a href="eventos.php">Eventos e congressos</a>
+      <a href="ligas.php" class="active">Ligas filiadas</a>
+      <a href="historia.html">História do CoBraLT</a>
+      <a href="diretoria.php">Diretoria</a>
+      <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <span class="drawer-header-logo">CoBraLT</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+    <nav class="drawer-nav">
+    <a href="noticias.php">Notícias semanais</a>
+    <a href="eventos.php">Eventos e congressos</a>
+    <a href="ligas.php" class="active">Ligas filiadas</a>
+    <a href="historia.html">História do CoBraLT</a>
+    <a href="diretoria.php">Diretoria</a>
+    <a href="login.html" class="nav-login">Admin</a>
+  </nav>
+</aside>
+
+<main id="main-content">
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb">
+      <a href="../index.php">Início</a><span>›</span><span>Ligas Filiadas</span>
+    </nav>
+    <div class="page-hero-label">Rede Nacional</div>
+    <h1 class="page-hero-title">Ligas Filiadas</h1>
+    <p class="page-hero-sub">180+ instituições organizadas em 7 ligas regionais, cobrindo todo o território nacional.</p>
+    <div class="region-stats">
+      <div class="region-stat">
+        <div class="region-stat-value">180+</div>
+        <div class="region-stat-label">instituições filiadas</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">7</div>
+        <div class="region-stat-label">ligas regionais</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">5</div>
+        <div class="region-stat-label">regiões do Brasil</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">1999</div>
+        <div class="region-stat-label">fundação do CoBraLT</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="section-inner">
+    <div class="leagues-grid">
+      <div class="league-card" data-animate>
+        <div class="league-icon">🏥</div>
+        <h3>Sudeste — MG</h3>
+        <p>Minas Gerais — 32 ligas acadêmicas filiadas cobrindo as principais universidades do estado.</p>
+        <span class="league-count">32 ligas</span>
+        <a href="regiao-sudeste-mg.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="1">
+        <div class="league-icon">🏙️</div>
+        <h3>Sudeste — SP</h3>
+        <p>São Paulo — o maior polo de trauma do Brasil, com ligas nas principais universidades do estado.</p>
+        <span class="league-count">45 ligas</span>
+        <a href="regiao-sudeste-sp.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="2">
+        <div class="league-icon">🌊</div>
+        <h3>Sudeste — RJ e ES</h3>
+        <p>Rio de Janeiro e Espírito Santo — 17 ligas cobrindo as principais instituições da sub-região.</p>
+        <span class="league-count">17 ligas</span>
+        <a href="regiao-sudeste-rjes.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="3">
+        <div class="league-icon">🌾</div>
+        <h3>Nordeste</h3>
+        <p>9 estados nordestinos — 24 ligas com protocolos adaptados à realidade regional.</p>
+        <span class="league-count">24 ligas</span>
+        <a href="regiao-nordeste.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="4">
+        <div class="league-icon">🌳</div>
+        <h3>Norte</h3>
+        <p>7 estados — 23 ligas expandindo a excelência em trauma para a Amazônia e áreas remotas.</p>
+        <span class="league-count">23 ligas</span>
+        <a href="regiao-norte.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="5">
+        <div class="league-icon">🌐</div>
+        <h3>Centro-Oeste</h3>
+        <p>DF, GO, MS e MT — 27 ligas atendendo o Planalto Central e região.</p>
+        <span class="league-count">27 ligas</span>
+        <a href="regiao-centro-oeste.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+      <div class="league-card" data-animate data-animate-delay="6">
+        <div class="league-icon">🏔️</div>
+        <h3>Sul</h3>
+        <p>Paraná, Rio Grande do Sul e Santa Catarina — 20 ligas unidas em rede de qualidade assistencial.</p>
+        <span class="league-count">20 ligas</span>
+        <a href="regiao-sul.html" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--slate-200);" data-animate>
+      <p style="color:var(--slate-500);margin-bottom:1.25rem;">Quer filiar sua liga ao CoBraLT?</p>
+      <a href="../index.php#filiacao" class="btn btn-primary">Filiar minha liga</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div><p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p></div>
+      <div class="footer-col"><h4>Navegação</h4><a href="noticias.php">Notícias semanais</a><a href="eventos.php">Eventos e congressos</a><a href="../index.php#filiacao">Filiar sua liga</a><a href="historia.html">História do CoBraLT</a><a href="diretoria.php">Diretoria</a></div>
+      <div class="footer-col"><h4>Eventos 2026</h4><a href="../index.php#colt">Pré-CoLT — Campinas</a><a href="../index.php#colt-cotrem">XXVIII CoLT + II COTREM</a><a href="../index.php#filiacao">Filiação de Ligas</a></div>
+      <div class="footer-col"><h4>Documentos</h4><a href="#">Protocolos Clínicos</a><a href="#">Regulamentos</a><a href="#">Política de Privacidade</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:1.5rem;"><a href="#">Privacidade</a><a href="#">Termos de Uso</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js?v=6.1"></script>
+<script src="../js/animations.js?v=6.1"></script>
+</body>
+</html>

@@ -1,4 +1,15 @@
-/* forms.js — Lida com todos os formulários do site */
+/* forms.js — Formulários async do CoBraLT
+ *
+ * ATENÇÃO — APIs pendentes de criação:
+ *   api/inscricao.php  ← salvar inscrições no COLT
+ *   api/filiacao.php   ← salvar solicitações de filiação
+ *   api/contato.php    ← formulário de contato geral
+ *
+ * Enquanto esses arquivos não existirem, os respectivos
+ * formulários vão exibir erro de conexão ao serem submetidos.
+ * Crie os endpoints seguindo o padrão de api/posts.php
+ * (responder JSON com { success: true|false, message: "..." }).
+ */
 'use strict';
 
 function showAlert(container, type, message) {

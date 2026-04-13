@@ -140,3 +140,8 @@
   .filiacao-grid { grid-template-columns: 1fr !important; }
   .coltcotrem-grid { grid-template-columns: 1fr !important; }
 }
+
+/* ─── hide-mobile utility ────────────────────────────── */
+@media (max-width: 768px) {
+  .hide-mobile { display: none !important; }
+}

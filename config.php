@@ -8,9 +8,9 @@
 // ─── BANCO DE DADOS ───────────────────────────────────────────────────────────
 // Preencha com os dados do painel da Hostinger → Banco de Dados → MySQL
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'SEU_BANCO_AQUI');     // ex: u123456789_cobralT
-define('DB_USER', 'SEU_USUARIO_AQUI');  // ex: u123456789_admin
-define('DB_PASS', 'SUA_SENHA_AQUI');
+define('DB_NAME', 'u464752963_NewSiteCobralt');     // ex: u123456789_cobralT
+define('DB_USER', 'u464752963_NewSite');  // ex: u123456789_admin
+define('DB_PASS', '>F9m;WsOURY');
 
 // ─── UPLOADS ──────────────────────────────────────────────────────────────────
 define('UPLOAD_DIR', __DIR__ . '/assets/img/uploads/');
@@ -19,4 +19,4 @@ define('UPLOAD_MAX_MB', 5);
 
 // ─── SITE ─────────────────────────────────────────────────────────────────────
 define('SITE_NAME', 'CoBraLT');
-define('SITE_URL', 'https://seusite.com.br'); // sem barra no final
+define('SITE_URL', 'https://cobralT.org.br'); // ← troque pelo seu domínio real (sem barra no final)

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://cobralT.org.br/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://cobralT.org.br/pages/noticias.php</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://cobralT.org.br/pages/eventos.php</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://cobralT.org.br/pages/projetos.php</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cobralT.org.br/pages/educacao.php</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cobralT.org.br/pages/ligas.php</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cobralT.org.br/pages/historia.php</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cobralT.org.br/pages/diretoria.php</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>

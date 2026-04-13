@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Notícias Semanais do CoBraLT — Fique por dentro das últimas novidades do universo do trauma.">
+  <meta name="theme-color" content="#013684">
+  <title>Notícias Semanais — CoBraLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=6.1">
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="header-maintenance">
+    🚧 Site em manutenção — algumas funcionalidades podem estar indisponíveis.
+    <small>Desenvolvimento por Gabriel Quirino</small>
+  </div>
+  <div class="header-inner">
+    <a href="../index.php" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="../assets/img/logo.png?v=6.1" alt="CoBraLT">
+    </a>
+        <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="noticias.php" class="active">Notícias semanais</a>
+      <a href="eventos.php">Eventos e congressos</a>
+      <a href="ligas.php">Ligas filiadas</a>
+      <a href="historia.html">História do CoBraLT</a>
+      <a href="diretoria.php">Diretoria</a>
+      <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <span class="drawer-header-logo">CoBraLT</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+    <nav class="drawer-nav">
+    <a href="noticias.php" class="active">Notícias semanais</a>
+    <a href="eventos.php">Eventos e congressos</a>
+    <a href="ligas.php">Ligas filiadas</a>
+    <a href="historia.html">História do CoBraLT</a>
+    <a href="diretoria.php">Diretoria</a>
+    <a href="login.html" class="nav-login">Admin</a>
+  </nav>
+</aside>
+
+<main id="main-content">
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb">
+      <a href="../index.php">Início</a><span>›</span><span>Notícias Semanais</span>
+    </nav>
+    <div class="page-hero-label">CoBraLT Informa</div>
+    <h1 class="page-hero-title">Notícias Semanais</h1>
+    <p class="page-hero-sub">Fique atualizado sobre as últimas novidades do CoBraLT, atualizações científicas e acontecimentos do universo do trauma.</p>
+    <div class="region-stats">
+      <div class="region-stat">
+        <div class="region-stat-value">Semanal</div>
+        <div class="region-stat-label">publicações</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">2026</div>
+        <div class="region-stat-label">ano em curso</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">180+</div>
+        <div class="region-stat-label">ligas na rede</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">5</div>
+        <div class="region-stat-label">regiões do Brasil</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Grid de Notícias -->
+<section class="section" style="padding-top:3rem;">
+  <div class="section-inner">
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
+
+      <article class="news-card" data-animate>
+        <div class="news-thumb"><span class="news-cat">Protocolos</span>📰</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <time datetime="2026-04-01">1 de abril de 2026</time>
+          </div>
+          <h3>Novo Protocolo de Atendimento Aprovado</h3>
+          <p>O comitê aprova novo protocolo que melhora significativamente os procedimentos de atendimento inicial em trauma, unindo 12 centros de referência.</p>
+          <a href="#" class="news-link">Ler notícia →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-animate data-animate-delay="1">
+        <div class="news-thumb"><span class="news-cat">Eventos</span>🏆</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <time datetime="2026-03-25">25 de março de 2026</time>
+          </div>
+          <h3>CoBraLT anuncia CoLT+COTREM 2026</h3>
+          <p>O XXVIII Congresso Brasileiro das Ligas do Trauma acontecerá em Formosa-GO junto ao II COTREM, marcando a maior edição conjunta da história.</p>
+          <a href="../index.php#colt-cotrem" class="news-link">Saiba mais →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-animate data-animate-delay="2">
+        <div class="news-thumb"><span class="news-cat">Pesquisa</span>🔬</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <time datetime="2026-03-18">18 de março de 2026</time>
+          </div>
+          <h3>Publicação de Diretrizes Internacionais</h3>
+          <p>Pesquisadores das ligas filiadas participam da elaboração de novas diretrizes de trauma publicadas em revista científica de alto impacto.</p>
+          <a href="#" class="news-link">Ler notícia →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-animate>
+        <div class="news-thumb"><span class="news-cat">Filiação</span>🤝</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <time datetime="2026-03-10">10 de março de 2026</time>
+          </div>
+          <h3>3 novas ligas filiadas em março</h3>
+          <p>O CoBraLT recebe três novas ligas acadêmicas neste mês, fortalecendo a rede nacional e ampliando o alcance das atividades em trauma.</p>
+          <a href="ligas.php" class="news-link">Ver ligas →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-animate data-animate-delay="1">
+        <div class="news-thumb"><span class="news-cat">Formação</span>📚</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <time datetime="2026-03-03">3 de março de 2026</time>
+          </div>
+          <h3>Módulo online de Stop The Bleed disponível</h3>
+          <p>Liga parceira disponibiliza módulo online gratuito de Stop The Bleed para membros das ligas filiadas ao CoBraLT.</p>
+          <a href="#" class="news-link">Acessar →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-animate data-animate-delay="2">
+        <div class="news-thumb"><span class="news-cat">Institucional</span>🏛️</div>
+        <div class="news-body">
+          <div class="news-meta">
+            <time datetime="2026-02-24">24 de fevereiro de 2026</time>
+          </div>
+          <h3>Nova gestão 2026 toma posse</h3>
+          <p>A diretoria eleita para o biênio 2026-2027 toma posse durante cerimônia realizada na sede do CoBraLT, com representantes de todas as regiões.</p>
+          <a href="diretoria.php" class="news-link">Ver diretoria →</a>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div><p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p></div>
+      <div class="footer-col"><h4>Navegação</h4><a href="noticias.php">Notícias semanais</a><a href="eventos.php">Eventos e congressos</a><a href="../index.php#filiacao">Filiar sua liga</a><a href="historia.html">História do CoBraLT</a><a href="diretoria.php">Diretoria</a></div>
+      <div class="footer-col"><h4>Eventos 2026</h4><a href="../index.php#colt">Pré-CoLT — Campinas</a><a href="../index.php#colt-cotrem">XXVIII CoLT + II COTREM</a><a href="../index.php#filiacao">Filiação de Ligas</a></div>
+      <div class="footer-col"><h4>Documentos</h4><a href="#">Protocolos Clínicos</a><a href="#">Regulamentos</a><a href="#">Política de Privacidade</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:1.5rem;"><a href="#">Privacidade</a><a href="#">Termos de Uso</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js?v=6.1"></script>
+<script src="../js/animations.js?v=6.1"></script>
+</body>
+</html>

@@ -15,6 +15,8 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 
 require_once dirname(__DIR__) . '/config.php';
+error_log('[DEBUG] username: ' . ($_POST['username'] ?? 'VAZIO'));
+error_log('[DEBUG] password: ' . ($_POST['password'] ?? 'VAZIO'));
 
 // ─── SESSÃO ───────────────────────────────────────────────
 session_start([
@@ -38,10 +40,10 @@ if (time() - $rate['first'] > 900) {
     $rate = ['count' => 0, 'first' => time()];
 }
 
-if ($rate['count'] >= 5) {
-    $wait = 900 - (time() - $rate['first']);
-    json_fail("Muitas tentativas. Aguarde " . ceil($wait / 60) . " minuto(s).");
-}
+//if ($rate['count'] >= 5) {
+  //  $wait = 900 - (time() - $rate['first']);
+  //  json_fail("Muitas tentativas. Aguarde " . ceil($wait / 60) . " minuto(s).");
+//}
 
 // ─── INPUTS ───────────────────────────────────────────────
 $username = trim($_POST['username'] ?? '');
