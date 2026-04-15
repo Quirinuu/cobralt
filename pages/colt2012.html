@@ -99,12 +99,12 @@
       <div class="colt2012-gallery" id="gallery2012">
         <?php for($i=1;$i<=15;$i++): $n=str_pad($i,2,'0',STR_PAD_LEFT); ?>
         <div class="gallery-slide">
-          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.jpg" alt="XIV CoLT 2012 — foto <?= $i ?>" loading="lazy">
+          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.JPG" alt="XIV CoLT 2012 — foto <?= $i ?>" loading="lazy">
         </div>
         <?php endfor; ?>
         <!-- Fallback: se não usar PHP, use as tags abaixo -->
         <noscript>
-          <div class="gallery-slide"><img src="../assets/img/colt2012/colt2012-01.jpg" alt="XIV CoLT 2012 — foto 1"></div>
+          <div class="gallery-slide"><img src="../assets/img/colt2012/colt2012-01.JPG" alt="XIV CoLT 2012 — foto 1"></div>
         </noscript>
       </div>
 
@@ -122,7 +122,7 @@
       <div class="gallery-thumbs" id="galleryThumbs">
         <?php for($i=1;$i<=15;$i++): $n=str_pad($i,2,'0',STR_PAD_LEFT); ?>
         <button class="gallery-thumb<?= $i===1?' active':'' ?>" data-index="<?= $i-1 ?>" aria-label="Foto <?= $i ?>">
-          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.jpg" alt="" loading="lazy">
+          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.JPG" alt="" loading="lazy">
         </button>
         <?php endfor; ?>
       </div>
@@ -144,7 +144,7 @@
     var div = document.createElement('div');
     div.className = 'gallery-slide';
     var img = document.createElement('img');
-    img.src = '../assets/img/colt2012/colt2012-' + n + '.jpg';
+    img.src = '../assets/img/colt2012/colt2012-' + n + '.JPG';
     img.alt = 'XIV CoLT 2012 — foto ' + i;
     img.loading = 'lazy';
     div.appendChild(img);
@@ -161,7 +161,7 @@
       btn.setAttribute('data-index', j-1);
       btn.setAttribute('aria-label', 'Foto ' + j);
       var timg = document.createElement('img');
-      timg.src = '../assets/img/colt2012/colt2012-' + nn + '.jpg';
+      timg.src = '../assets/img/colt2012/colt2012-' + nn + '.JPG';
       timg.alt = '';
       timg.loading = 'lazy';
       btn.appendChild(timg);
