@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
 
-layout_head('História', 'História do CoBraLT — Desde 1999 conectando as Ligas do Trauma do Brasil.');
+layout_head('História', 'História do CoBraLT — Desde 2003 conectando as Ligas do Trauma do Brasil.');
 layout_header('historia');
 ?>
 
@@ -14,12 +14,12 @@ layout_header('historia');
     <nav class="breadcrumb">
       <a href="../index.php">Início</a><span>›</span><span>História</span>
     </nav>
-    <div class="page-hero-label">Desde 1999</div>
+    <div class="page-hero-label">Desde 2003</div>
     <h1 class="page-hero-title">A História do CoBraLT</h1>
     <p class="page-hero-sub">De um congresso idealizado por estudantes ao maior comitê de ligas acadêmicas de trauma do Brasil — uma trajetória de mais de 25 anos em prol da vida.</p>
     <div class="region-stats">
       <div class="region-stat">
-        <div class="region-stat-value">1999</div>
+        <div class="region-stat-value">2003</div>
         <div class="region-stat-label">primeiro CoLT</div>
       </div>
       <div class="region-stat">
@@ -107,9 +107,9 @@ layout_header('historia');
 
       <div class="timeline-full-item" data-animate>
         <div class="timeline-full-dot"></div>
-        <div class="timeline-full-year">1999</div>
+        <div class="timeline-full-year">2003</div>
         <h3>🔥 O Marco Inicial: Surgimento do CoLT</h3>
-        <p>O grande ponto de virada ocorreu em 1999, com a realização do primeiro Congresso Brasileiro das Ligas do Trauma (CoLT), idealizado por estudantes e coordenado por importantes nomes da cirurgia do trauma no Brasil, como os professores Mario Mantovani, Dario Birolini, Evandro Freire e Gustavo P. Fraga.</p>
+        <p>O grande ponto de virada ocorreu em 2003, com a realização do primeiro Congresso Brasileiro das Ligas do Trauma (CoLT), idealizado por estudantes e coordenado por importantes nomes da cirurgia do trauma no Brasil, como os professores Mario Mantovani, Dario Birolini, Evandro Freire e Gustavo P. Fraga.</p>
         <p style="margin-top:.75rem;">O evento marcou o início de uma mobilização nacional, reunindo ligas de diferentes instituições e promovendo integração entre acadêmicos, profissionais de saúde e equipes multidisciplinares envolvidas no atendimento ao trauma.</p>
       </div>
 

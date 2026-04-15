@@ -350,6 +350,28 @@ $catEmoji = [
       </div>
       <?php endforeach; endif; ?>
     </div>
+
+    <!-- Realizados preview -->
+    <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--slate-200);" data-animate>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.5rem;">
+        <div>
+          <span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--slate-400);">Memória</span>
+          <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1rem;margin:0.15rem 0 0;">Eventos Realizados</h3>
+        </div>
+        <a href="pages/eventos.php#realizados" class="news-link" style="font-size:0.82rem;">Ver todos →</a>
+      </div>
+      <div style="display:flex;gap:1rem;overflow-x:auto;scrollbar-width:none;padding-bottom:0.25rem;">
+        <a href="pages/colt2012.html" style="flex:0 0 220px;background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.1rem;text-decoration:none;display:flex;flex-direction:column;gap:0.3rem;transition:all var(--transition);box-shadow:var(--shadow-sm);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">
+          <span style="font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(135deg,var(--navy),var(--sky-dark));color:#fff;padding:2px 8px;border-radius:99px;width:fit-content;">RJ · 2012</span>
+          <div style="font-size:1.5rem;margin:0.2rem 0;">🏆</div>
+          <div style="font-size:0.68rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.1em;">XIV CoLT</div>
+          <div style="font-family:var(--font-display);color:var(--navy);font-size:0.92rem;font-weight:800;">XIV CoLT 2012</div>
+          <div style="color:var(--slate-400);font-size:0.72rem;">Rio de Janeiro, RJ</div>
+          <div style="color:var(--slate-600);font-size:0.7rem;margin-top:0.25rem;">3.500 participantes · 72 palestrantes internacionais</div>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--sky-dark);margin-top:0.5rem;">Ver detalhes →</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -426,14 +448,30 @@ $catEmoji = [
     </div>
     <div class="filiacao-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.25rem;">
       <div class="contact-form" style="background:var(--off-white);" data-animate-left data-animate-delay="1">
-        <h3 style="font-family:var(--font-display);color:var(--navy);margin-bottom:1rem;font-size:1.1rem;">Benefícios</h3>
-        <ul class="colt-list" style="--dot-color:var(--sky);">
-          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Participação em congressos e eventos</li>
-          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Acesso a protocolos padronizados</li>
-          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Certificação e reconhecimento nacional</li>
-          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;margin-bottom:0.5rem;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Rede de colaboração interinstitucional</li>
-          <li style="color:var(--slate-600);display:flex;gap:10px;align-items:center;"><span style="width:6px;height:6px;background:var(--sky);border-radius:50%;flex-shrink:0;"></span>Suporte técnico e consultoria</li>
-        </ul>
+        <h3 style="font-family:var(--font-display);color:var(--navy);margin-bottom:1.1rem;font-size:1.1rem;">O que sua liga ganha</h3>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+            <span style="width:28px;height:28px;background:linear-gradient(135deg,var(--sky),var(--navy));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.72rem;">🏥</span>
+            <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Programas Clínicos Exclusivos</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">Acesso ao Salvando Vidas, P.A.R.T.Y e Conecta Trauma</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+            <span style="width:28px;height:28px;background:linear-gradient(135deg,var(--sky),var(--navy));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.72rem;">🎓</span>
+            <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Descontos em Congressos</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">CoLT, eventos parceiros e acesso antecipado aos Pré-CoLTs</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+            <span style="width:28px;height:28px;background:linear-gradient(135deg,var(--sky),var(--navy));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.72rem;">🔬</span>
+            <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Ciência & Pesquisa Nacional</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">Participação em projetos científicos e apoio institucional a publicações</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+            <span style="width:28px;height:28px;background:linear-gradient(135deg,var(--sky),var(--navy));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.72rem;">🤝</span>
+            <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Rede Interinstitucional</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">Integração com ligas e orientadores de todo o Brasil</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+            <span style="width:28px;height:28px;background:linear-gradient(135deg,var(--sky),var(--navy));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.72rem;">📋</span>
+            <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Consultoria & Materiais</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">Suporte para abertura de ligas, cartilhas revisadas e apoio institucional</div></div>
+          </div>
+        </div>
+        <a href="pages/ligas.php#beneficios" style="display:inline-flex;align-items:center;gap:5px;margin-top:1rem;font-size:0.78rem;font-weight:600;color:var(--sky-dark);text-decoration:none;">Ver todos os benefícios →</a>
       </div>
       <div class="contact-form" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.1rem;" data-animate-right data-animate-delay="1">
         <div style="width:58px;height:58px;background:rgba(0,43,78,0.08);border-radius:50%;display:flex;align-items:center;justify-content:center;">
@@ -491,10 +529,10 @@ $catEmoji = [
         <a href="pages/historia.php" class="section-title-link">Nossa História</a>
         <a href="pages/historia.php" class="section-page-link">ver página →</a>
       </h2>
-      <p class="section-subtitle">De 1999 ao presente — construindo a maior rede acadêmica de trauma do Brasil.</p>
+      <p class="section-subtitle">De 2003 ao presente — construindo a maior rede acadêmica de trauma do Brasil.</p>
     </div>
     <div class="timeline" role="list">
-      <div class="timeline-item" role="listitem" data-animate><div class="timeline-dot" aria-hidden="true"></div><div class="timeline-year">1999</div><h3>O Marco Inicial — Surgimento do CoLT</h3><p>Realização do primeiro Congresso Brasileiro das Ligas do Trauma (CoLT), idealizado por estudantes e coordenado por importantes nomes da cirurgia do trauma no Brasil, dando início à mobilização nacional das ligas.</p></div>
+      <div class="timeline-item" role="listitem" data-animate><div class="timeline-dot" aria-hidden="true"></div><div class="timeline-year">2003</div><h3>O Marco Inicial — Surgimento do CoLT</h3><p>Realização do primeiro Congresso Brasileiro das Ligas do Trauma (CoLT), idealizado por estudantes e coordenado por importantes nomes da cirurgia do trauma no Brasil, dando início à mobilização nacional das ligas.</p></div>
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="1"><div class="timeline-dot" aria-hidden="true"></div><div class="timeline-year">2003</div><h3>Fundação do CoBraLT</h3><p>Fundação oficial do Comitê Brasileiro das Ligas do Trauma, assumindo papel estratégico na articulação entre ligas, padronização de ações e fortalecimento institucional em todo o território nacional.</p></div>
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="2"><div class="timeline-dot" aria-hidden="true"></div><div class="timeline-year">2013</div><h3>Expansão Nacional</h3><p>Criação de representações regionais e fortalecimento das ligas em todas as regiões do Brasil, consolidando uma rede ampla e integrada de ensino, pesquisa e extensão.</p></div>
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="3"><div class="timeline-dot" aria-hidden="true"></div><div class="timeline-year">2016</div><h3>Protocolos Padronizados</h3><p>Implementação de protocolos clínicos padronizados nas ligas filiadas, aproximando o meio acadêmico da prática assistencial e reduzindo índices de morbimortalidade.</p></div>
