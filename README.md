@@ -12,7 +12,7 @@ cobralT/
 ├── robots.txt
 │
 ├── includes/
-│   ├── db.php              ← Conexão PDO + função h() de escape
+│   ├── db.php              ← aaConexão PDO + função h() de escape
 │   ├── layout.php          ← Header, footer e head compartilhados (layout_head/header/footer)
 │   └── posts_helpers.php   ← fmtDate(), get_posts_by_tipo(), render_posts_grid()
 │
