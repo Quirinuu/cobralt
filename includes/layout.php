@@ -33,13 +33,14 @@ function layout_head(string $title, string $desc = '', string $base = '../'): vo
 
 function layout_header(string $active = '', string $base = '../'): void {
   $nav = [
-    'noticias'  => ['href' => 'noticias.php',  'label' => 'Notícias'],
-    'eventos'   => ['href' => 'eventos.php',   'label' => 'Eventos'],
-    'projetos'  => ['href' => 'projetos.php',  'label' => 'Projetos'],
-    'educacao'  => ['href' => 'educacao.php',  'label' => 'Educação'],
-    'ligas'     => ['href' => 'ligas.php',     'label' => 'Ligas filiadas'],
-    'historia'  => ['href' => 'historia.php',  'label' => 'História'],
-    'diretoria' => ['href' => 'diretoria.php', 'label' => 'Diretoria'],
+    'noticias'   => ['href' => 'noticias.php',   'label' => 'Notícias'],
+    'eventos'    => ['href' => 'eventos.php',    'label' => 'Eventos'],
+    'projetos'   => ['href' => 'projetos.php',   'label' => 'Projetos'],
+    'educacao'   => ['href' => 'educacao.php',   'label' => 'Educação'],
+    'ligas'      => ['href' => 'ligas.php',      'label' => 'Ligas filiadas'],
+    'apoiadores' => ['href' => 'apoiadores.html','label' => 'Apoiadores'],
+    'historia'   => ['href' => 'historia.php',   'label' => 'História'],
+    'diretoria'  => ['href' => 'diretoria.php',  'label' => 'Diretoria'],
   ];
   $ig = INSTAGRAM_URL;
 ?>

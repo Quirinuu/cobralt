@@ -19,11 +19,17 @@
       <img src="../assets/img/logo.png?v=6.1" alt="CoBraLT">
     </a>
     <nav class="nav-desktop" aria-label="Navegação principal">
-      <a href="noticias.php">Notícias semanais</a>
-      <a href="eventos.php" class="active">Eventos e congressos</a>
+      <a href="noticias.php">Notícias</a>
+      <a href="eventos.php">Eventos</a>
+      <a href="projetos.php">Projetos</a>
+      <a href="educacao.php">Educação</a>
       <a href="ligas.php">Ligas filiadas</a>
-      <a href="historia.html">História do CoBraLT</a>
+      <a href="apoiadores.php">Apoiadores</a>
+      <a href="historia.php">História</a>
       <a href="diretoria.php">Diretoria</a>
+      <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram do CoBraLT">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
       <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
@@ -41,11 +47,18 @@
     </button>
   </div>
   <nav class="drawer-nav">
-    <a href="noticias.php">Notícias semanais</a>
-    <a href="eventos.php" class="active">Eventos e congressos</a>
+    <a href="noticias.php">Notícias</a>
+    <a href="eventos.php">Eventos</a>
+    <a href="projetos.php">Projetos</a>
+    <a href="educacao.php">Educação</a>
     <a href="ligas.php">Ligas filiadas</a>
-    <a href="historia.html">História do CoBraLT</a>
+    <a href="apoiadores.php">Apoiadores</a>
+    <a href="historia.php">História</a>
     <a href="diretoria.php">Diretoria</a>
+    <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Instagram
+    </a>
     <a href="login.html" class="nav-login">Admin</a>
   </nav>
 </aside>
@@ -99,12 +112,12 @@
       <div class="colt2012-gallery" id="gallery2012">
         <?php for($i=1;$i<=15;$i++): $n=str_pad($i,2,'0',STR_PAD_LEFT); ?>
         <div class="gallery-slide">
-          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.JPG" alt="XIV CoLT 2012 — foto <?= $i ?>" loading="lazy">
+          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.jpg" alt="XIV CoLT 2012 — foto <?= $i ?>" loading="lazy">
         </div>
         <?php endfor; ?>
         <!-- Fallback: se não usar PHP, use as tags abaixo -->
         <noscript>
-          <div class="gallery-slide"><img src="../assets/img/colt2012/colt2012-01.JPG" alt="XIV CoLT 2012 — foto 1"></div>
+          <div class="gallery-slide"><img src="../assets/img/colt2012/colt2012-01.jpg" alt="XIV CoLT 2012 — foto 1"></div>
         </noscript>
       </div>
 
@@ -122,7 +135,7 @@
       <div class="gallery-thumbs" id="galleryThumbs">
         <?php for($i=1;$i<=15;$i++): $n=str_pad($i,2,'0',STR_PAD_LEFT); ?>
         <button class="gallery-thumb<?= $i===1?' active':'' ?>" data-index="<?= $i-1 ?>" aria-label="Foto <?= $i ?>">
-          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.JPG" alt="" loading="lazy">
+          <img src="../assets/img/colt2012/colt2012-<?= $n ?>.jpg" alt="" loading="lazy">
         </button>
         <?php endfor; ?>
       </div>
@@ -144,7 +157,7 @@
     var div = document.createElement('div');
     div.className = 'gallery-slide';
     var img = document.createElement('img');
-    img.src = '../assets/img/colt2012/colt2012-' + n + '.JPG';
+    img.src = '../assets/img/colt2012/colt2012-' + n + '.jpg';
     img.alt = 'XIV CoLT 2012 — foto ' + i;
     img.loading = 'lazy';
     div.appendChild(img);
@@ -161,7 +174,7 @@
       btn.setAttribute('data-index', j-1);
       btn.setAttribute('aria-label', 'Foto ' + j);
       var timg = document.createElement('img');
-      timg.src = '../assets/img/colt2012/colt2012-' + nn + '.JPG';
+      timg.src = '../assets/img/colt2012/colt2012-' + nn + '.jpg';
       timg.alt = '';
       timg.loading = 'lazy';
       btn.appendChild(timg);

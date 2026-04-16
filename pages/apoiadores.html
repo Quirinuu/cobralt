@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apoiadores do CoBraLT — Comitê Científico e orientadores que apoiam as Ligas do Trauma no Brasil.">
+  <meta name="theme-color" content="#013684">
+  <title>Apoiadores — CoBraLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=6.1">
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="../index.php" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="../assets/img/logo.png?v=6.1" alt="CoBraLT">
+    </a>
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="noticias.php">Notícias</a>
+      <a href="eventos.php">Eventos</a>
+      <a href="projetos.php">Projetos</a>
+      <a href="educacao.php">Educação</a>
+      <a href="ligas.php">Ligas filiadas</a>
+      <a href="apoiadores.html" class="active">Apoiadores</a>
+      <a href="historia.php">História</a>
+      <a href="diretoria.php">Diretoria</a>
+      <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+      <a href="login.html" class="nav-login">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Admin
+      </a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <span class="drawer-header-logo">CoBraLT</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav">
+    <a href="noticias.php">Notícias</a>
+    <a href="eventos.php">Eventos</a>
+    <a href="projetos.php">Projetos</a>
+    <a href="educacao.php">Educação</a>
+    <a href="ligas.php">Ligas filiadas</a>
+    <a href="apoiadores.html" class="active">Apoiadores</a>
+    <a href="historia.php">História</a>
+    <a href="diretoria.php">Diretoria</a>
+    <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Instagram
+    </a>
+    <a href="login.html" class="nav-login">Admin</a>
+  </nav>
+</aside>
+
+<main id="main-content">
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb">
+      <a href="../index.php">Início</a><span>›</span><span>Apoiadores</span>
+    </nav>
+    <div class="page-hero-label">Comitê Científico</div>
+    <h1 class="page-hero-title">Nossos Apoiadores</h1>
+    <p class="page-hero-sub">Profissionais e instituições que apoiam e orientam as ligas acadêmicas de trauma filiadas ao CoBraLT.</p>
+    <div class="region-stats">
+      <div class="region-stat">
+        <div class="region-stat-value">28</div>
+        <div class="region-stat-label">apoiadores</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">15+</div>
+        <div class="region-stat-label">instituições</div>
+      </div>
+      <div class="region-stat">
+        <div class="region-stat-value">5</div>
+        <div class="region-stat-label">regiões do Brasil</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GRID DE APOIADORES -->
+<section class="section" style="padding-top:3rem;" aria-labelledby="apoiadores-grid-title">
+  <div class="section-inner" style="max-width:1100px;">
+
+    <div class="section-header centered" data-animate>
+      <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
+      <span class="section-label">Em ordem alfabética</span>
+      <h2 class="section-title" id="apoiadores-grid-title">Comitê de Apoiadores</h2>
+    </div>
+
+    <div class="supporters-grid">
+      <!-- Os cards já têm nome e liga embutidos na imagem -->
+
+      <!-- Amauri Clemente da Rocha -->
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Amauri Clemente da Rocha em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/amauri-clemente.png" alt="Amauri Clemente da Rocha" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AC</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Antonio Toshimitsu Onimaru -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Antonio Toshimitsu Onimaru em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/antonio-toshimitsu.png" alt="Antonio Toshimitsu Onimaru" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AT</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Dr. Caio Duarte -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Dr. Caio Duarte em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/caio-duarte.png" alt="Dr. Caio Duarte" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CD</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Cesar Vanderlei Carmona -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Cesar Vanderlei Carmona em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/cesar-vanderlei.png" alt="Cesar Vanderlei Carmona" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CV</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Cláudio Diunky Okawa 
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Cláudio Diunky Okawa em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/claudio-diunky.png" alt="Cláudio Diunky Okawa" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CO</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>  -->
+
+      <!-- Francisco Eduardo Silva -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Francisco Eduardo Silva em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/francisco-eduardo.png" alt="Francisco Eduardo Silva" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FE</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Frederico Michelino -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Frederico Michelino em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/frederico-michelino.png" alt="Frederico Michelino" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FM</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Guilherme Biazotto -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Guilherme Biazotto em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/guilherme-biazotto.png" alt="Guilherme Biazotto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GB</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Gustavo de Mendonça Borges -->
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Gustavo de Mendonça Borges em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/gustavo-mendonca.png" alt="Gustavo de Mendonça Borges" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GM</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Gustavo P. Fraga -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Gustavo P. Fraga em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/gustavo-fraga.png" alt="Gustavo P. Fraga" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GF</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Henrique José V. Silveira -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Henrique José V. Silveira em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/henrique-jose.png" alt="Henrique José V. Silveira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>HJ</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Henrique Valério de Mesquita -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Henrique Valério de Mesquita em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/henrique-valerio.png" alt="Henrique Valério de Mesquita" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>HV</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Jackson Vinícius de Lima Bertuol -->
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Jackson Vinícius de Lima Bertuol em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/jackson-vinicius.png" alt="Jackson Vinícius de Lima Bertuol" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JV</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- José Alberto Fernandes da Silva Filho -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de José Alberto Fernandes da Silva Filho em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/jose-alberto.png" alt="José Alberto Fernandes da Silva Filho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JA</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Larissa Berbert -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Larissa Berbert em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/larissa-berbert.png" alt="Larissa Berbert" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LB</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Nara Gelle de Oliveira -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Nara Gelle de Oliveira em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/nara-gelle.png" alt="Nara Gelle de Oliveira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>NG</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Phillipe Abreu -->
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Phillipe Abreu em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/phillipe-abreu.png" alt="Phillipe Abreu" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>PA</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Dr. Renato Diniz Lins -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Dr. Renato Diniz Lins em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/renato-diniz.png" alt="Dr. Renato Diniz Lins" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RD</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Rodrigo Barros de Carvalho -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Rodrigo Barros de Carvalho em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/rodrigo-barros.png" alt="Rodrigo Barros de Carvalho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RB</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Rodrigo Caselli Belém -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Rodrigo Caselli Belém em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/rodrigo-caselli.png" alt="Rodrigo Caselli Belém" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RC</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Romeo L. Simões -->
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Romeo L. Simões em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/romeo-simoes.png" alt="Romeo L. Simões" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RS</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Prof. Dr. Santiago Servin -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Prof. Dr. Santiago Servin em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/santiago-servin.png" alt="Prof. Dr. Santiago Servin" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>SS</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Thiago R. Calderan -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Thiago R. Calderan em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/thiago-calderan.png" alt="Thiago R. Calderan" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>TC</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Tiago Leal Ghezzi -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Tiago Leal Ghezzi em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/tiago-leal.png" alt="Tiago Leal Ghezzi" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>TG</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Vitor F. Kruger -->
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Vitor F. Kruger em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/vitor-kruger.png" alt="Vitor F. Kruger" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>VK</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Waldemar Prandi Filho -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Waldemar Prandi Filho em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/waldemar-prandi.png" alt="Waldemar Prandi Filho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WP</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Wellington José dos Santos -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Wellington José dos Santos em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/wellington-santos.png" alt="Wellington José dos Santos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WS</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Willian G. Hashimoto Hilgert de Sousa -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Willian G. Hashimoto Hilgert de Sousa em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/willian-hashimoto.png" alt="Willian G. Hashimoto Hilgert de Sousa" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WH</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+    </div><!-- /supporters-grid -->
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div>
+        <p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p>
+      </div>
+      <div class="footer-col"><h4>Navegação</h4><a href="noticias.php">Notícias</a><a href="eventos.php">Eventos</a><a href="ligas.php">Ligas filiadas</a><a href="apoiadores.html">Apoiadores</a><a href="historia.php">História</a><a href="diretoria.php">Diretoria</a></div>
+      <div class="footer-col"><h4>Eventos 2026</h4><a href="../index.php#colt">Pré-CoLT — Campinas</a><a href="../index.php#colt-cotrem">XXVIII CoLT + II COTREM</a><a href="../index.php#filiacao">Filiação de Ligas</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacidade.php">Política de Privacidade</a><a href="termos.php">Termos de Uso</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:1.5rem;"><a href="privacidade.php">Privacidade</a><a href="termos.php">Termos de Uso</a></div>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* ─── Grid de apoiadores ─────────────────────────────────── */
+.supporters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.1rem;
+  margin-top: 2rem;
+}
+
+.sup-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  position: relative;
+}
+.sup-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+
+/* Remove button default styles */
+.sup-card-btn {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+  position: relative;
+}
+
+/* The image fills the card — aspect ratio matches the card template (portrait) */
+.sup-photo-wrap {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: linear-gradient(135deg, var(--slate-100), var(--slate-200));
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.sup-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.sup-card:hover .sup-photo-wrap img { transform: scale(1.03); }
+
+/* Zoom hint overlay */
+.sup-zoom-hint {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+  background: rgba(1, 54, 132, 0.75);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+.sup-card:hover .sup-zoom-hint {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Lightbox ─────────────────────────────────────────────── */
+#sup-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.88);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: zoom-out;
+  animation: lbFadeIn 0.2s ease;
+}
+#sup-lightbox.active { display: flex; }
+@keyframes lbFadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+#sup-lightbox-img-wrap {
+  position: relative;
+  max-width: min(480px, 90vw);
+  max-height: 92vh;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  cursor: default;
+  animation: lbScaleIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes lbScaleIn {
+  from { transform: scale(0.88); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+#sup-lightbox-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 92vh;
+  object-fit: contain;
+}
+
+#sup-lightbox-close {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+  backdrop-filter: blur(4px);
+}
+#sup-lightbox-close:hover { background: rgba(255,255,255,0.28); }
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .supporters-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+}
+@media (max-width: 380px) {
+  .supporters-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<!-- Lightbox -->
+<div id="sup-lightbox" role="dialog" aria-modal="true" aria-label="Visualizar card do apoiador">
+  <div id="sup-lightbox-img-wrap">
+    <img id="sup-lightbox-img" src="" alt="">
+  </div>
+  <button id="sup-lightbox-close" aria-label="Fechar">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
+<script>
+function openLightbox(btn) {
+  const img = btn.querySelector('img');
+  const lb = document.getElementById('sup-lightbox');
+  const lbImg = document.getElementById('sup-lightbox-img');
+  lbImg.src = img.src;
+  lbImg.alt = img.alt;
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('sup-lightbox-close').focus();
+}
+document.getElementById('sup-lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.getElementById('sup-lightbox-close').addEventListener('click', closeLightbox);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+function closeLightbox() {
+  document.getElementById('sup-lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+</script>
+
+<script src="../js/main.js?v=6.1"></script>
+<script src="../js/animations.js?v=6.1"></script>
+</body>
+</html>
