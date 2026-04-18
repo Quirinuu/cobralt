@@ -217,7 +217,7 @@ $catEmoji = [
   </div>
 </section>
 
-<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ -->
+<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ 
 <section class="colt-banner" id="colt" aria-labelledby="colt-title">
   <div class="colt-grid">
     <div data-animate-left>
@@ -245,7 +245,7 @@ $catEmoji = [
       <div class="colt-actions" data-animate data-animate-delay="4">
         <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">Inscrever-se gratuitamente</a>
       </div>
-    </div>
+    </div> 
     <div data-animate-right>
       <div class="colt-box hide-mobile">
         <h3>Programa Científico</h3>
@@ -266,7 +266,7 @@ $catEmoji = [
       </div>
     </div>
   </div>
-</section>
+</section>-->
 
 <!-- ═══ APOIADORES ══════════════════════════════════════════ -->
 <section class="section" id="apoiadores" style="padding-top:2.5rem;padding-bottom:2.5rem;background:var(--off-white);overflow:hidden;" aria-labelledby="apoiadores-label">
