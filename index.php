@@ -109,13 +109,11 @@ $catEmoji = [
     </a>
 
     <nav class="nav-desktop" aria-label="Navegação principal">
-      
       <a href="pages/noticias.php">Notícias</a>
       <a href="pages/eventos.php">Eventos</a>
       <a href="pages/projetos.php">Projetos</a>
       <a href="pages/educacao.php">Educação</a>
       <a href="pages/ligas.php">Ligas filiadas</a>
-      <a href="pages/apoiadores.php">Apoiadores</a>
       <a href="pages/historia.php">História</a>
       <a href="pages/diretoria.php">Diretoria</a>
       <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram do CoBraLT">
@@ -146,7 +144,6 @@ $catEmoji = [
     <a href="pages/projetos.php">Projetos</a>
     <a href="pages/educacao.php">Educação</a>
     <a href="pages/ligas.php">Ligas filiadas</a>
-    <a href="pages/apoiadores.php">Apoiadores</a>
     <a href="pages/historia.php">História</a>
     <a href="pages/diretoria.php">Diretoria</a>
     <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;">
@@ -275,7 +272,7 @@ $catEmoji = [
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem;" data-animate>
       <div>
         <div class="divider" aria-hidden="true" style="margin-bottom:0.75rem;"></div>
-        <span class="section-label" id="apoiadores-label">Apoio</span>
+        <span class="section-label" id="apoiadores-label">Comitê Científico</span>
         <h2 class="section-title" style="margin:0.2rem 0 0;">Nossos Apoiadores</h2>
       </div>
       <a href="pages/apoiadores.html" class="btn" style="font-size:0.85rem;padding:0.6rem 1.25rem;background:var(--white);border:1px solid var(--slate-200);color:var(--navy);display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm);">
@@ -284,287 +281,222 @@ $catEmoji = [
     </div>
 
     <!-- Carrossel de apoiadores -->
-    <div class="sup-carousel-outer" aria-label="Carrossel de apoiadores">
-      <button class="sup-carousel-btn sup-carousel-prev" id="supPrev" aria-label="Anterior">
+    <div class="sup-carousel-outer">
+      <button class="sup-carousel-btn" id="supPrev" aria-label="Anterior">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <div class="sup-carousel-viewport" id="supViewport">
-        <div class="supporters-track" id="supportersTrack">
+      <div class="sup-viewport" id="supViewport">
+        <div class="sup-track" id="supTrack">
           <?php
           $apoiadores = [
-            ['nome'=>'Amauri Clemente da Rocha',          'inst'=>'LAETE',                      'foto'=>'amauri-clemente'],
-            ['nome'=>'Antonio Toshimitsu Onimaru',         'inst'=>'SAMU',                       'foto'=>'antonio-toshimitsu'],
-            ['nome'=>'Dr. Caio Duarte',                    'inst'=>'Universidade Vila Velha',    'foto'=>'caio-duarte'],
-            ['nome'=>'Cesar Vanderlei Carmona',            'inst'=>'Liga do Trauma Unicamp',     'foto'=>'cesar-vanderlei'],
-          //  ['nome'=>'Cláudio Diunky Okawa',               'inst'=>'LAUE Atenas',                'foto'=>'claudio-diunky'], 
-            ['nome'=>'Francisco Eduardo Silva',            'inst'=>'Hosp. Estadual Alberto Torres','foto'=>'francisco-eduardo'],
-            ['nome'=>'Frederico Michelino',                'inst'=>'Liga Cirurgia Geral - FMJ',  'foto'=>'frederico-michelino'],
-            ['nome'=>'Guilherme Biazotto',                 'inst'=>'Liga do Trauma Unicamp',     'foto'=>'guilherme-biazotto'],
-            ['nome'=>'Gustavo de Mendonça Borges',         'inst'=>'Liga do Trauma Unicamp',     'foto'=>'gustavo-mendonca'],
-            ['nome'=>'Gustavo P. Fraga',                   'inst'=>'Liga do Trauma Unicamp',     'foto'=>'gustavo-fraga'],
-            ['nome'=>'Henrique José V. Silveira',          'inst'=>'Liga do Trauma Unicamp',     'foto'=>'henrique-jose'],
-            ['nome'=>'Henrique Valério de Mesquita',       'inst'=>'Liga do Trauma Unicamp',     'foto'=>'henrique-valerio'],
-            ['nome'=>'Jackson Vinícius de Lima Bertuol',   'inst'=>'LIACIT - UNIOESTE',          'foto'=>'jackson-vinicius'],
-            ['nome'=>'José Alberto Fernandes da Silva Filho','inst'=>'Liga do Trauma Unicamp',   'foto'=>'jose-alberto'],
-            ['nome'=>'Larissa Berbert',                    'inst'=>'Liga do Trauma Unicamp',     'foto'=>'larissa-berbert'],
-            ['nome'=>'Nara Gelle de Oliveira',             'inst'=>'Liga do Trauma Unicamp',     'foto'=>'nara-gelle'],
-            ['nome'=>'Phillipe Abreu',                     'inst'=>'Univ. of Colorado Anschutz', 'foto'=>'phillipe-abreu'],
-            ['nome'=>'Dr. Renato Diniz Lins',              'inst'=>'Centro de Trauma HBDF',      'foto'=>'renato-diniz'],
-            ['nome'=>'Rodrigo Barros de Carvalho',         'inst'=>'Liga do Trauma - Mandic',    'foto'=>'rodrigo-barros'],
-            ['nome'=>'Rodrigo Caselli Belém',              'inst'=>'Centro de Trauma HBDF',      'foto'=>'rodrigo-caselli'],
-            ['nome'=>'Romeo L. Simões',                    'inst'=>'LACITE - GV - UniVale',      'foto'=>'romeo-simoes'],
-            ['nome'=>'Prof. Dr. Santiago Servin',          'inst'=>'LATE - Maranhão',            'foto'=>'santiago-servin'],
-            ['nome'=>'Thiago R. Calderan',                 'inst'=>'Liga do Trauma Unicamp',     'foto'=>'thiago-calderan'],
-            ['nome'=>'Tiago Leal Ghezzi',                  'inst'=>'Liga do Trauma PUCRS',       'foto'=>'tiago-leal'],
-            ['nome'=>'Vitor F. Kruger',                    'inst'=>'Liga do Trauma Unicamp',     'foto'=>'vitor-kruger'],
-            ['nome'=>'Waldemar Prandi Filho',              'inst'=>'Liga do Trauma Unicamp',     'foto'=>'waldemar-prandi'],
-            ['nome'=>'Wellington José dos Santos',         'inst'=>'LATEC - UniRV',              'foto'=>'wellington-santos'],
-            ['nome'=>'Willian G. Hashimoto H. de Sousa',  'inst'=>'Liga do Trauma Unicamp',     'foto'=>'willian-hashimoto'],
+            ['nome'=>'Amauri Clemente da Rocha',           'foto'=>'amauri-clemente'],
+            ['nome'=>'Antonio Toshimitsu Onimaru',          'foto'=>'antonio-toshimitsu'],
+            ['nome'=>'Dr. Caio Duarte',                     'foto'=>'caio-duarte'],
+            ['nome'=>'Cesar Vanderlei Carmona',             'foto'=>'cesar-vanderlei'],
+            ['nome'=>'Cláudio Diunky Okawa',                'foto'=>'claudio-diunky'],
+            ['nome'=>'Francisco Eduardo Silva',             'foto'=>'francisco-eduardo'],
+            ['nome'=>'Frederico Michelino',                 'foto'=>'frederico-michelino'],
+            ['nome'=>'Guilherme Biazotto',                  'foto'=>'guilherme-biazotto'],
+            ['nome'=>'Gustavo de Mendonça Borges',          'foto'=>'gustavo-mendonca'],
+            ['nome'=>'Gustavo P. Fraga',                    'foto'=>'gustavo-fraga'],
+            ['nome'=>'Henrique José V. Silveira',           'foto'=>'henrique-jose'],
+            ['nome'=>'Henrique Valério de Mesquita',        'foto'=>'henrique-valerio'],
+            ['nome'=>'Jackson Vinícius de Lima Bertuol',    'foto'=>'jackson-vinicius'],
+            ['nome'=>'José Alberto Fernandes da Silva Filho','foto'=>'jose-alberto'],
+            ['nome'=>'Larissa Berbert',                     'foto'=>'larissa-berbert'],
+            ['nome'=>'Nara Gelle de Oliveira',              'foto'=>'nara-gelle'],
+            ['nome'=>'Phillipe Abreu',                      'foto'=>'phillipe-abreu'],
+            ['nome'=>'Dr. Renato Diniz Lins',               'foto'=>'renato-diniz'],
+            ['nome'=>'Rodrigo Barros de Carvalho',          'foto'=>'rodrigo-barros'],
+            ['nome'=>'Rodrigo Caselli Belém',               'foto'=>'rodrigo-caselli'],
+            ['nome'=>'Romeo L. Simões',                     'foto'=>'romeo-simoes'],
+            ['nome'=>'Prof. Dr. Santiago Servin',           'foto'=>'santiago-servin'],
+            ['nome'=>'Thiago R. Calderan',                  'foto'=>'thiago-calderan'],
+            ['nome'=>'Tiago Leal Ghezzi',                   'foto'=>'tiago-leal'],
+            ['nome'=>'Vitor F. Kruger',                     'foto'=>'vitor-kruger'],
+            ['nome'=>'Waldemar Prandi Filho',               'foto'=>'waldemar-prandi'],
+            ['nome'=>'Wellington José dos Santos',          'foto'=>'wellington-santos'],
+            ['nome'=>'Willian G. Hashimoto H. de Sousa',   'foto'=>'willian-hashimoto'],
           ];
-          // Duplicar para loop infinito
-          $all = array_merge($apoiadores, $apoiadores);
-          foreach ($all as $ap): ?>
-          <div class="supporter-slide">
-            <div class="supporter-img-wrap">
-              <img src="assets/img/apoiadores/<?= h($ap['foto']) ?>.png" alt="<?= h($ap['nome']) ?>" loading="lazy" onerror="this.closest('.supporter-img-wrap').style.background='var(--slate-100)'">
+          foreach ($apoiadores as $ap): ?>
+          <div class="sup-slide">
+            <div class="sup-img-wrap">
+              <img src="assets/img/apoiadores/<?= h($ap['foto']) ?>.png" alt="<?= h($ap['nome']) ?>" loading="lazy" onerror="this.style.opacity='0'">
             </div>
           </div>
           <?php endforeach; ?>
         </div>
       </div>
-      <button class="sup-carousel-btn sup-carousel-next" id="supNext" aria-label="Próximo">
+      <button class="sup-carousel-btn" id="supNext" aria-label="Próximo">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
-    <!-- Dots -->
-    <div class="sup-dots" id="supDots" aria-label="Navegação do carrossel"></div>
+    <div class="sup-dots" id="supDots"></div>
   </div>
 </section>
 
 <style>
-/* ─── Carrossel de apoiadores ──────────────────────────────── */
+/* ── Carrossel Apoiadores ─────────────────────────────────── */
 .sup-carousel-outer {
-  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-
-.sup-carousel-viewport {
+.sup-viewport {
   flex: 1;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  /* Fade nas bordas */
-  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
-
-.supporters-track {
+.sup-track {
   display: flex;
   gap: 0.85rem;
-  width: max-content;
-  animation: supScroll 60s linear infinite;
-  will-change: transform;
+  /* scroll via JS — sem animação CSS */
 }
-.supporters-track:hover,
-.supporters-track.paused { animation-play-state: paused; }
-
-@keyframes supScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* Card: aspect-ratio portrait para mostrar o card completo */
-.supporter-slide {
-  flex: 0 0 160px;
+.sup-slide {
+  flex: 0 0 150px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  cursor: default;
 }
-.supporter-slide:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px) scale(1.02); }
-
-.supporter-img-wrap {
+.sup-slide:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.sup-img-wrap {
   width: 100%;
   aspect-ratio: 9 / 16;
   background: linear-gradient(135deg, var(--slate-100), var(--slate-200));
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-.supporter-img-wrap img {
-  width: 100%;
-  height: 100%;
+.sup-img-wrap img {
+  width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.4s ease;
 }
-.supporter-slide:hover .supporter-img-wrap img { transform: scale(1.04); }
-
-/* Botões prev/next */
 .sup-carousel-btn {
-  flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
+  flex-shrink: 0;
+  width: 36px; height: 36px;
   border-radius: 50%;
   background: var(--white);
   border: 1px solid var(--slate-200);
   color: var(--navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-  z-index: 2;
-  flex-shrink: 0;
+  transition: background 0.18s, color 0.18s, transform 0.15s;
 }
-.sup-carousel-btn:hover { background: var(--navy); color: #fff; box-shadow: var(--shadow-md); transform: scale(1.06); }
-
-/* Dots */
+.sup-carousel-btn:hover { background: var(--navy); color: #fff; transform: scale(1.08); }
 .sup-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.4rem;
-  margin-top: 1rem;
+  display: flex; justify-content: center;
+  gap: 0.45rem; margin-top: 0.9rem;
 }
 .sup-dot {
-  width: 7px;
-  height: 7px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--slate-300);
-  border: none;
+  border: none; padding: 0;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
-  padding: 0;
 }
-.sup-dot.active {
-  background: var(--navy);
-  transform: scale(1.4);
-}
-
-/* ─── Responsive ──────────────────────────────────────────── */
+.sup-dot.active { background: var(--navy); transform: scale(1.45); }
 @media (max-width: 640px) {
-  .supporter-slide { flex: 0 0 130px; }
-  .sup-carousel-btn { width: 32px; height: 32px; }
+  .sup-slide { flex: 0 0 120px; }
+  .sup-carousel-btn { width: 30px; height: 30px; }
 }
 @media (max-width: 400px) {
-  .supporter-slide { flex: 0 0 110px; }
-  .sup-carousel-outer { gap: 0.25rem; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .supporters-track { animation: none; }
+  .sup-slide { flex: 0 0 100px; }
 }
 </style>
 
 <script>
-(function() {
-  const track = document.getElementById('supportersTrack');
-  const viewport = document.getElementById('supViewport');
-  const dotsContainer = document.getElementById('supDots');
-  if (!track || !viewport) return;
+(function () {
+  const track   = document.getElementById('supTrack');
+  const vp      = document.getElementById('supViewport');
+  const dotsEl  = document.getElementById('supDots');
+  const btnPrev = document.getElementById('supPrev');
+  const btnNext = document.getElementById('supNext');
+  if (!track || !vp) return;
 
-  // How many unique items (half the duplicated list)
-  const slides = track.querySelectorAll('.supporter-slide');
-  const total = slides.length / 2;
+  const slides = Array.from(track.querySelectorAll('.sup-slide'));
+  const TOTAL  = slides.length;
+  const GAP    = 14;   // px — deve bater com o gap do CSS (0.85rem ≈ 14px)
+  const STEP   = 3;    // slides por clique/swipe
+  const DELAY  = 2800; // ms entre avanços automáticos
 
-  // Build dots (show max 8 dots representing groups)
-  const DOT_COUNT = Math.min(total, 8);
-  let dots = [];
-  for (let i = 0; i < DOT_COUNT; i++) {
+  let current  = 0;
+  let paused   = false; // pausa durante hover
+
+  /* ── dimensões ── */
+  function sw()      { return slides[0].offsetWidth + GAP; }
+  function maxIdx()  { return Math.max(0, TOTAL - Math.round(vp.offsetWidth / sw())); }
+
+  /* ── mover ── */
+  function moveTo(idx, animated) {
+    current = Math.max(0, Math.min(idx, maxIdx()));
+    track.style.transition = animated ? 'transform 0.4s ease' : 'none';
+    track.style.transform  = `translateX(${-(current * sw())}px)`;
+    syncDots();
+  }
+
+  /* ── avançar (loop no fim) ── */
+  function go(delta) {
+    let next = current + delta;
+    if (next > maxIdx()) next = 0;
+    if (next < 0)        next = maxIdx();
+    moveTo(next, true);
+  }
+
+  /* ── dots ── */
+  const N = Math.min(7, TOTAL);
+  const dots = Array.from({ length: N }, (_, i) => {
     const d = document.createElement('button');
-    d.className = 'sup-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', `Grupo ${i + 1}`);
-    d.addEventListener('click', () => jumpTo(i));
-    dotsContainer.appendChild(d);
-    dots.push(d);
+    d.className = 'sup-dot';
+    d.setAttribute('aria-label', 'Página ' + (i + 1));
+    d.addEventListener('click', () => {
+      moveTo(Math.round(i * maxIdx() / Math.max(1, N - 1)), true);
+    });
+    dotsEl.appendChild(d);
+    return d;
+  });
+
+  function syncDots() {
+    const mx = maxIdx();
+    const active = mx > 0 ? Math.round((current / mx) * (N - 1)) : 0;
+    dots.forEach((d, i) => d.classList.toggle('active', i === active));
   }
 
-  function jumpTo(groupIdx) {
-    // Pause auto scroll, jump
-    track.classList.add('paused');
-    const slideW = slides[0].offsetWidth + 14; // gap ~0.85rem ≈ 14px
-    const scrollTo = groupIdx * slideW * Math.ceil(total / DOT_COUNT);
-    viewport.scrollTo ? null : null; // we use translate instead
-    // Temporarily override animation to snap
-    track.style.animationPlayState = 'paused';
-    track.style.transform = `translateX(-${scrollTo}px)`;
-    updateDots(groupIdx);
-    // Resume after 3s
-    clearTimeout(window._supResume);
-    window._supResume = setTimeout(() => {
-      track.style.transform = '';
-      track.style.animationPlayState = '';
-      track.classList.remove('paused');
-    }, 3000);
-  }
+  /* ── setas ── */
+  btnPrev.addEventListener('click', () => go(-STEP));
+  btnNext.addEventListener('click', () => go(STEP));
 
-  function updateDots(activeIdx) {
-    dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
-  }
-
-  // Update active dot based on animation progress
+  /* ── auto-play: ticker independente, não usa go() para não criar loops ── */
   setInterval(() => {
-    if (track.classList.contains('paused')) return;
-    const style = window.getComputedStyle(track);
-    const matrix = new DOMMatrix(style.transform);
-    const tx = Math.abs(matrix.m41);
-    const halfW = track.scrollWidth / 2;
-    const progress = (tx % halfW) / halfW;
-    const activeIdx = Math.round(progress * (DOT_COUNT - 1)) % DOT_COUNT;
-    updateDots(activeIdx);
-  }, 400);
-
-  // Prev / Next buttons scroll by ~3 cards
-  const STEP = 3;
-  document.getElementById('supPrev')?.addEventListener('click', () => {
-    const slideW = (slides[0].offsetWidth + 14) * STEP;
-    nudgeCarousel(-slideW);
-  });
-  document.getElementById('supNext')?.addEventListener('click', () => {
-    const slideW = (slides[0].offsetWidth + 14) * STEP;
-    nudgeCarousel(slideW);
-  });
-
-  function nudgeCarousel(delta) {
-    track.classList.add('paused');
-    const style = window.getComputedStyle(track);
-    const matrix = new DOMMatrix(style.transform);
-    const current = matrix.m41;
-    const halfW = track.scrollWidth / 2;
-    let next = current - delta;
-    // Clamp within one full loop
-    if (Math.abs(next) >= halfW) next = 0;
-    if (next > 0) next = -(halfW - Math.abs(next));
-    track.style.transition = 'transform 0.4s ease';
-    track.style.transform = `translateX(${next}px)`;
-    clearTimeout(window._supResume);
-    window._supResume = setTimeout(() => {
-      track.style.transition = '';
-      track.style.transform = '';
-      track.classList.remove('paused');
-    }, 3500);
-  }
-
-  // Touch/swipe support
-  let touchStartX = 0;
-  viewport.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  viewport.addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) {
-      const slideW = (slides[0].offsetWidth + 14) * STEP;
-      nudgeCarousel(diff > 0 ? slideW : -slideW);
+    if (!paused) {
+      let next = current + 1;
+      if (next > maxIdx()) next = 0;
+      moveTo(next, true);
     }
+  }, DELAY);
+
+  /* ── pausa no hover (desktop) ── */
+  vp.addEventListener('mouseenter', () => { paused = true; });
+  vp.addEventListener('mouseleave', () => { paused = false; });
+
+  /* ── swipe (mobile) ── */
+  let tx0 = 0;
+  vp.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; paused = true; }, { passive: true });
+  vp.addEventListener('touchend',   e => {
+    const d = tx0 - e.changedTouches[0].clientX;
+    if (Math.abs(d) > 40) go(d > 0 ? STEP : -STEP);
+    paused = false;
   }, { passive: true });
+
+  /* ── init ── */
+  moveTo(0, false);
 })();
 </script>
-
-
-<!-- ═══ NOTÍCIAS ═════════════════════════════════════════ -->
-
 
 <!-- ═══ NOTÍCIAS ═════════════════════════════════════════ -->
 <section class="section" id="noticias" aria-labelledby="noticias-title">
