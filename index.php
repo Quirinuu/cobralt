@@ -114,6 +114,7 @@ $catEmoji = [
       <a href="pages/projetos.php">Projetos</a>
       <a href="pages/educacao.php">Educação</a>
       <a href="pages/ligas.php">Ligas filiadas</a>
+      <a href="apoiadores.html" >Apoiadores</a>
       <a href="pages/historia.php">História</a>
       <a href="pages/diretoria.php">Diretoria</a>
       <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram do CoBraLT">
@@ -144,6 +145,7 @@ $catEmoji = [
     <a href="pages/projetos.php">Projetos</a>
     <a href="pages/educacao.php">Educação</a>
     <a href="pages/ligas.php">Ligas filiadas</a>
+    <a href="apoiadores.html">Apoiadores</a>
     <a href="pages/historia.php">História</a>
     <a href="pages/diretoria.php">Diretoria</a>
     <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;">
