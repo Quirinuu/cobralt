@@ -230,6 +230,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             ['nome'=>'Jackson Vinícius de Lima Bertuol',    'foto'=>'jackson-vinicius'],
             ['nome'=>'José Alberto Fernandes da Silva Filho','foto'=>'jose-alberto'],
             ['nome'=>'Larissa Berbert',                     'foto'=>'larissa-berbert'],
+            ['nome'=>'Lucas Fileni',                        'foto'=>'lucas-fileni'],
             ['nome'=>'Nara Gelle de Oliveira',              'foto'=>'nara-gelle'],
             ['nome'=>'Phillipe Abreu',                      'foto'=>'phillipe-abreu'],
             ['nome'=>'Dr. Renato Diniz Lins',               'foto'=>'renato-diniz'],

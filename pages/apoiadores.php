@@ -226,6 +226,18 @@ layout_header('apoiadores');
         </button>
       </div>
 
+      <!-- Lucas Fileni -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Lucas Fileni em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/lucas-fileni.png" alt="Lucas Fileni" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LF</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
       <!-- Nara Gelle de Oliveira -->
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Nara Gelle de Oliveira em tela cheia">
