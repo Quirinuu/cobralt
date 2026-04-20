@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ligas do Trauma — Norte — CoBraLT">
+  <meta name="theme-color" content="#013684">
+  <title>Norte — Ligas CoBraLT</title>
+  <link rel="icon" type="image/png" href="../assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=6.2">
+  <style>
+    .liga-card{background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.25rem;display:flex;flex-direction:column;gap:.45rem;transition:box-shadow .2s,transform .2s;}
+    .liga-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-2px);}
+    .liga-card-emoji{font-size:2rem;line-height:1;}
+    .liga-card-sigla{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--navy);}
+    .liga-card-inst{font-size:.78rem;color:var(--sky);font-weight:600;}
+    .liga-card-name{font-size:.82rem;color:var(--slate-600);line-height:1.5;flex:1;}
+    .liga-card-city{font-size:.75rem;color:var(--slate-400);display:flex;align-items:center;gap:4px;}
+    .liga-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;padding-top:.65rem;border-top:1px solid var(--slate-100);}
+    .liga-card-since{font-size:.7rem;color:var(--slate-400);}
+    .liga-card-arrow{font-size:.78rem;color:var(--sky);font-weight:600;display:flex;align-items:center;gap:3px;}
+    .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;padding:1rem;}
+    .modal-backdrop.open{display:flex;}
+    .modal-box{background:var(--white);border-radius:var(--radius-xl);padding:2rem;max-width:460px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.25);position:relative;animation:mIn .18s ease;}
+    @keyframes mIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:var(--slate-400);padding:4px;line-height:0;}
+    .modal-close:hover{color:var(--navy);}
+    .regions-nav{background:var(--white);border-bottom:1px solid var(--slate-200);position:sticky;top:64px;z-index:90;}
+    .regions-nav-inner{max-width:1180px;margin:0 auto;padding:.6rem 1.5rem;display:flex;gap:.4rem;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;}
+    .regions-nav-inner::-webkit-scrollbar{display:none;}
+    .regions-nav-inner a{white-space:nowrap;padding:.4rem .85rem;border-radius:var(--radius-full);font-size:.82rem;font-weight:500;color:var(--slate-600);text-decoration:none;transition:background .15s,color .15s;}
+    .regions-nav-inner a:hover{background:var(--slate-100);color:var(--navy);}
+    .regions-nav-inner a.active{background:var(--navy);color:#fff;}
+  </style>
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="../index.php" class="logo has-image" aria-label="CoBraLT — Início">
+      <img src="../assets/img/logo.png?v=6.2" alt="CoBraLT">
+    </a>
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="noticias.php">Notícias</a>
+      <a href="eventos.php">Eventos</a>
+      <a href="projetos.php">Projetos</a>
+      <a href="educacao.php">Educação</a>
+      <a href="ligas.php">Ligas filiadas</a>
+      <a href="historia.php">História</a>
+      <a href="diretoria.php">Diretoria</a>
+      <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+<aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <span class="drawer-header-logo">CoBraLT</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav">
+    <a href="noticias.php">Notícias</a>
+    <a href="eventos.php">Eventos</a>
+    <a href="projetos.php">Projetos</a>
+    <a href="educacao.php">Educação</a>
+    <a href="ligas.php">Ligas filiadas</a>
+    <a href="historia.php">História</a>
+    <a href="diretoria.php">Diretoria</a>
+    <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a>
+    <a href="login.html" class="nav-login">Admin</a>
+  </nav>
+</aside>
+
+<nav class="regions-nav" aria-label="Regiões">
+  <div class="regions-nav-inner">
+    <a href="regiao-norte.html" class="active">Norte</a>
+    <a href="regiao-nordeste.html">Nordeste</a>
+    <a href="regiao-centro-oeste.html">Centro-Oeste</a>
+    <a href="regiao-sudeste-mg.html">Sudeste – MG</a>
+    <a href="regiao-sudeste-sp.html">Sudeste – SP</a>
+    <a href="regiao-sudeste-rjes.html">Sudeste – RJ/ES</a>
+    <a href="regiao-sul.html">Sul</a>
+  </div>
+</nav>
+
+<main id="main-content">
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb">
+      <a href="../index.php">Início</a><span>›</span>
+      <a href="ligas.php">Ligas filiadas</a><span>›</span>
+      <span>Norte</span>
+    </nav>
+    <div class="page-hero-label">Ligas filiadas · CoBraLT</div>
+    <h1 class="page-hero-title">Norte</h1>
+    <p class="page-hero-sub">As ligas do Trauma da região Norte do Brasil.</p>
+    <div class="region-stats">
+      <div class="region-stat"><div class="region-stat-value">23</div><div class="region-stat-label">ligas filiadas</div></div>
+      <div class="region-stat"><div class="region-stat-value">7</div><div class="region-stat-label">estados</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="filter-bar" data-animate>
+      <label for="filtroEstado">Filtrar por estado:</label>
+      <select id="filtroEstado" class="filter-select" onchange="filtrarLigas()">
+        <option value="">Todos</option>
+        <option value="AC">AC</option>
+        <option value="AM">AM</option>
+        <option value="AP">AP</option>
+        <option value="PA">PA</option>
+        <option value="RO">RO</option>
+        <option value="RR">RR</option>
+        <option value="TO">TO</option>
+      </select>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
+    <div class="ligas-grid" id="ligasGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1.5rem;">
+      <div class="liga-card" data-estado="RO"
+           data-sigla="LACCRO" data-inst="Rondônia"
+           data-name="Liga Acadêmica de Clínica Cirúrgica de Rondônia" data-city="Porto Velho, RO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACCRO</div>
+        <div class="liga-card-inst">Rondônia</div>
+        <div class="liga-card-name">Liga Acadêmica de Clínica Cirúrgica de Rondônia</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Porto Velho, RO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="TO"
+           data-sigla="LUTTE-UFT" data-inst="UFT"
+           data-name="Liga Universitária Tocantinense de Trauma e Emergência" data-city="Palmas, TO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LUTTE-UFT</div>
+        <div class="liga-card-inst">UFT</div>
+        <div class="liga-card-name">Liga Universitária Tocantinense de Trauma e Emergência</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Palmas, TO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="TO"
+           data-sigla="LCT-ITPAC" data-inst="ITPAC"
+           data-name="Liga de Cirurgia do Trauma do ITPAC" data-city="Araguaína, TO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LCT-ITPAC</div>
+        <div class="liga-card-inst">ITPAC</div>
+        <div class="liga-card-name">Liga de Cirurgia do Trauma do ITPAC</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Araguaína, TO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LAT" data-inst="Amazonas"
+           data-name="Liga Amazonense do Trauma" data-city="Manaus, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAT</div>
+        <div class="liga-card-inst">Amazonas</div>
+        <div class="liga-card-name">Liga Amazonense do Trauma</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Manaus, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AC"
+           data-sigla="ALFA-RB" data-inst="Rio Branco"
+           data-name="Projeto Alfa Rio Branco" data-city="Rio Branco, AC"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">ALFA-RB</div>
+        <div class="liga-card-inst">Rio Branco</div>
+        <div class="liga-card-name">Projeto Alfa Rio Branco</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Rio Branco, AC
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="ALFA-MN" data-inst="Manaus"
+           data-name="Projeto Alfa Manaus" data-city="Manaus, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">ALFA-MN</div>
+        <div class="liga-card-inst">Manaus</div>
+        <div class="liga-card-name">Projeto Alfa Manaus</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Manaus, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="TO"
+           data-sigla="LAT-ARA" data-inst="Araguaína"
+           data-name="Liga Araguainense do Trauma" data-city="Araguaína, TO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAT-ARA</div>
+        <div class="liga-card-inst">Araguaína</div>
+        <div class="liga-card-name">Liga Araguainense do Trauma</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Araguaína, TO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="TO"
+           data-sigla="LATE-ARA" data-inst="Araguaína"
+           data-name="Liga Araguainense do Trauma de Enfermagem" data-city="Araguaína, TO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATE-ARA</div>
+        <div class="liga-card-inst">Araguaína</div>
+        <div class="liga-card-name">Liga Araguainense do Trauma de Enfermagem</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Araguaína, TO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="PA"
+           data-sigla="LPT" data-inst="Pará"
+           data-name="Liga Paraense do Trauma" data-city="Belém, PA"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LPT</div>
+        <div class="liga-card-inst">Pará</div>
+        <div class="liga-card-name">Liga Paraense do Trauma</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Belém, PA
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LATEENF-UEA" data-inst="UEA"
+           data-name="Liga do Trauma e Emergência de Enfermagem da UEA" data-city="Manaus, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LATEENF-UEA</div>
+        <div class="liga-card-inst">UEA</div>
+        <div class="liga-card-name">Liga do Trauma e Emergência de Enfermagem da UEA</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Manaus, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RR"
+           data-sigla="LTRR" data-inst="Roraima"
+           data-name="Liga do Trauma de Roraima" data-city="Boa Vista, RR"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LTRR</div>
+        <div class="liga-card-inst">Roraima</div>
+        <div class="liga-card-name">Liga do Trauma de Roraima</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Boa Vista, RR
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="TO"
+           data-sigla="LAIT-UFT" data-inst="UFT"
+           data-name="Liga Acadêmica Intensiva do Trauma da UFT" data-city="Palmas, TO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAIT-UFT</div>
+        <div class="liga-card-inst">UFT</div>
+        <div class="liga-card-name">Liga Acadêmica Intensiva do Trauma da UFT</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Palmas, TO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LAIRT" data-inst="Norte"
+           data-name="Liga de Atendimento Integrado e Reabilitação ao Trauma" data-city="Norte, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAIRT</div>
+        <div class="liga-card-inst">Norte</div>
+        <div class="liga-card-name">Liga de Atendimento Integrado e Reabilitação ao Trauma</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Norte, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LAUEEN" data-inst="Norte"
+           data-name="Liga Acadêmica de Urgência e Emergência em Enfermagem" data-city="Norte, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUEEN</div>
+        <div class="liga-card-inst">Norte</div>
+        <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência em Enfermagem</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Norte, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RO"
+           data-sigla="LACITRE-RO" data-inst="Rondônia"
+           data-name="Liga Acadêmica de Cirurgia, Trauma e Emergência de Rondônia" data-city="Porto Velho, RO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACITRE-RO</div>
+        <div class="liga-card-inst">Rondônia</div>
+        <div class="liga-card-name">Liga Acadêmica de Cirurgia, Trauma e Emergência de Rondônia</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Porto Velho, RO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="TO"
+           data-sigla="LAUM-UNIRG" data-inst="Unirg"
+           data-name="Liga Acadêmica de Urgências Médicas da Unirg" data-city="Gurupi, TO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUM-UNIRG</div>
+        <div class="liga-card-inst">Unirg</div>
+        <div class="liga-card-name">Liga Acadêmica de Urgências Médicas da Unirg</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Gurupi, TO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="TO"
+           data-sigla="LAMUEM-UNIRG" data-inst="Unirg"
+           data-name="Liga Acadêmica de Medicina de Urgência e Emergência da Unirg" data-city="Gurupi, TO"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAMUEM-UNIRG</div>
+        <div class="liga-card-inst">Unirg</div>
+        <div class="liga-card-name">Liga Acadêmica de Medicina de Urgência e Emergência da Unirg</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Gurupi, TO
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LAMEU" data-inst="Norte"
+           data-name="Liga Acadêmica de Medicina de Emergência e Urgência" data-city="Norte, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAMEU</div>
+        <div class="liga-card-inst">Norte</div>
+        <div class="liga-card-name">Liga Acadêmica de Medicina de Emergência e Urgência</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Norte, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="RR"
+           data-sigla="LTFRR" data-inst="Roraima"
+           data-name="Liga do Trauma de Fisioterapia de Roraima" data-city="Boa Vista, RR"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LTFRR</div>
+        <div class="liga-card-inst">Roraima</div>
+        <div class="liga-card-name">Liga do Trauma de Fisioterapia de Roraima</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Boa Vista, RR
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AP"
+           data-sigla="LAUEM-AP" data-inst="Amapá"
+           data-name="Liga Acadêmica de Urgência e Emergência do Amapá" data-city="Macapá, AP"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAUEM-AP</div>
+        <div class="liga-card-inst">Amapá</div>
+        <div class="liga-card-name">Liga Acadêmica de Urgência e Emergência do Amapá</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Macapá, AP
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LACASH" data-inst="Norte"
+           data-name="Liga Acadêmica de Cuidados Avançados em Saúde" data-city="Norte, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LACASH</div>
+        <div class="liga-card-inst">Norte</div>
+        <div class="liga-card-name">Liga Acadêmica de Cuidados Avançados em Saúde</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Norte, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LOT-ULBRA" data-inst="ULBRA"
+           data-name="Liga de Ortopedia e Traumatologia" data-city="Norte, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LOT-ULBRA</div>
+        <div class="liga-card-inst">ULBRA</div>
+        <div class="liga-card-name">Liga de Ortopedia e Traumatologia</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Norte, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+      <div class="liga-card" data-estado="AM"
+           data-sigla="LAEC" data-inst="Norte"
+           data-name="Liga Acadêmica de Emergências Clínicas" data-city="Norte, AM"
+           onclick="openModal(this)" style="cursor:pointer;">
+        <div class="liga-card-emoji">🏥</div>
+        <div class="liga-card-sigla">LAEC</div>
+        <div class="liga-card-inst">Norte</div>
+        <div class="liga-card-name">Liga Acadêmica de Emergências Clínicas</div>
+        <div class="liga-card-city">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Norte, AM
+        </div>
+        <div class="liga-card-footer">
+          <span class="liga-card-since">Liga filiada</span>
+          <span class="liga-card-arrow">Ver detalhes <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="colt-banner" style="padding:3rem 2rem;">
+  <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div>
+      <h2 class="section-title" style="color:#fff;margin-bottom:.5rem;">Sua liga não está aqui?</h2>
+      <p style="color:rgba(255,255,255,.6);font-size:.88rem;">Afilie-se ao CoBraLT e faça parte da maior rede de Ligas do Trauma do Brasil.</p>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxlJya6NcxHC1H_Cuao0mtN5_UehL-6RSzuhzj2JlEBtI9qA/viewform"
+       target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex-shrink:0;">Filiar minha liga</a>
+  </div>
+</section>
+
+</main>
+
+<!-- Modal backdrop blur -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModalOutside(event)">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalSigla">
+    <button class="modal-close" onclick="closeModal()" aria-label="Fechar">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div style="font-size:2.5rem;margin-bottom:.75rem;">🏥</div>
+    <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:.2rem;" id="modalSigla"></div>
+    <div style="font-size:.85rem;color:var(--sky);font-weight:600;margin-bottom:.6rem;" id="modalInst"></div>
+    <div style="font-size:.95rem;color:var(--slate-700);line-height:1.6;margin-bottom:.75rem;" id="modalName"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--slate-500);margin-bottom:1.5rem;">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span id="modalCity"></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem;padding:.6rem .9rem;background:rgba(1,54,132,.06);border-radius:var(--radius-md);margin-bottom:1.25rem;">
+      <svg width="15" height="15" fill="none" stroke="var(--sky)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span style="font-size:.8rem;color:var(--slate-600);">Liga filiada ao CoBraLT</span>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxlJya6NcxHC1H_Cuao0mtN5_UehL-6RSzuhzj2JlEBtI9qA/viewform"
+       target="_blank" rel="noopener noreferrer"
+       class="btn btn-primary" style="width:100%;justify-content:center;font-size:.9rem;">
+      Quero filiar minha liga
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:1rem;"><div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div></div>
+        <p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p>
+        <div class="social-links" style="margin-top:1rem;">
+          <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Conteúdo</h4><a href="noticias.php">Notícias</a><a href="eventos.php">Eventos</a><a href="ligas.php">Ligas filiadas</a><a href="historia.php">História</a><a href="diretoria.php">Diretoria</a></div>
+      <div class="footer-col"><h4>CoBraLT</h4><a href="../index.php#filiacao">Filiar minha liga</a><a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer">Instagram</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacidade.php">Política de Privacidade</a><a href="termos.php">Termos de Uso</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados. <span style="opacity:.4;font-size:.78em;">Dev Gabriel Quirino</span></p>
+      <div style="display:flex;gap:1.5rem;"><a href="privacidade.php">Privacidade</a><a href="termos.php">Termos</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js?v=6.2"></script>
+<script src="../js/animations.js?v=6.2"></script>
+<script>
+(function(){
+  window.filtrarLigas = function(){
+    var sel = document.getElementById('filtroEstado').value;
+    var cards = document.querySelectorAll('#ligasGrid .liga-card');
+    var count = 0;
+    cards.forEach(function(c){
+      var match = !sel || c.dataset.estado === sel;
+      c.style.display = match ? '' : 'none';
+      if(match) count++;
+    });
+    document.getElementById('resultsCount').textContent = sel ? count + ' liga' + (count!==1?'s':'') : '';
+  };
+  window.openModal = function(card){
+    document.getElementById('modalSigla').textContent = card.dataset.sigla;
+    document.getElementById('modalInst').textContent  = card.dataset.inst;
+    document.getElementById('modalName').textContent  = card.dataset.name;
+    document.getElementById('modalCity').textContent  = card.dataset.city;
+    document.getElementById('modalBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeModal = function(){
+    document.getElementById('modalBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  window.closeModalOutside = function(e){
+    if(e.target === document.getElementById('modalBackdrop')) closeModal();
+  };
+  document.addEventListener('keydown', function(e){if(e.key==='Escape') closeModal();});
+})();
+</script>
+</body>
+</html>
