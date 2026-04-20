@@ -178,7 +178,7 @@ layout_header('historia');
     <span class="section-label" style="color:var(--sky-light);">Faça parte</span>
     <h2 class="section-title" style="color:#fff;margin-bottom:1rem;">Escreva a próxima página dessa história</h2>
     <p style="color:rgba(255,255,255,.6);font-size:.9rem;max-width:480px;margin:0 auto 2rem;">Afilie sua liga ao CoBraLT e contribua para a excelência no atendimento ao trauma no Brasil.</p>
-    <a href="../index.php#filiacao" class="btn btn-primary">Filiar minha liga</a>
+    <a href="../index.php#filiacao" class="btn btn-affiliate">Filiar minha liga</a>
   </div>
 </section>
 

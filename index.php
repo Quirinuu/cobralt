@@ -8,6 +8,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/posts_helpers.php';
 
+require_once __DIR__ . '/includes/layout.php';
+
 // ─── Busca os dados do banco ───────────────────────────────
 try {
     $db = getPublicDB();
@@ -72,90 +74,12 @@ $catEmoji = [
     'Institucional' => '🏛️',
 ];
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CoBraLT — Comitê Brasileiro das Ligas do Trauma. Conectando profissionais de saúde para salvar vidas.">
-  <meta name="theme-color" content="#002B4E">
-  <title>CoBraLT — Comitê Brasileiro das Ligas do Trauma</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/img/logo.png">
-  <link rel="apple-touch-icon" href="assets/img/logo.png">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="CoBraLT — Comitê Brasileiro das Ligas do Trauma">
-  <meta property="og:description" content="Conectando as Ligas do Trauma para salvar vidas em todo o Brasil.">
-  <meta property="og:image" content="https://cobralT.org.br/assets/img/logo.png">
-  <meta property="og:type" content="website">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css?v=6.1">
-</head>
+<?php
+// Head padronizado — index usa base './'
+layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT — Comitê Brasileiro das Ligas do Trauma. Conectando profissionais de saúde para salvar vidas.', './');
+?>
 <body id="inicio">
-
-<!-- ═══ HEADER ══════════════════════════════════════════ -->
-<header class="site-header" role="banner">
-  <div class="header-inner">
-    <a href="#inicio" class="logo has-image" aria-label="CoBraLT — Início">
-      <img src="assets/img/logo.png?v=6.2" alt="CoBraLT — Comitê Brasileiro das Ligas do Trauma">
-    </a>
-
-    <nav class="nav-desktop" aria-label="Navegação principal">
-      <a href="pages/noticias.php">Notícias</a>
-      <a href="pages/eventos.php">Eventos</a>
-      <a href="pages/projetos.php">Projetos</a>
-      <a href="pages/educacao.php">Educação</a>
-      <a href="pages/ligas.php">Ligas filiadas</a>
-      <a href="pages/apoiadores.html">Apoiadores</a>
-      <a href="pages/historia.php">História</a>
-      <a href="pages/diretoria.php">Diretoria</a>
-      <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram do CoBraLT">
-        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      </a>
-      <a href="pages/login.html" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
-    </nav>
-
-    <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
-      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true">
-        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
-  </div>
-</header>
-
-<div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
-<aside class="mobile-drawer" id="mobileDrawer" aria-label="Menu de navegação" role="dialog" aria-modal="true">
-  <div class="drawer-header">
-    <span class="drawer-header-logo">CoBraLT</span>
-    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <nav class="drawer-nav">
-    <a href="pages/noticias.php">Notícias</a>
-    <a href="pages/eventos.php">Eventos</a>
-    <a href="pages/projetos.php">Projetos</a>   
-    <a href="pages/educacao.php">Educação</a>
-    <a href="pages/ligas.php">Ligas filiadas</a>
-    <a href="pages/apoiadores.html">Apoiadores</a>
-    <a href="pages/historia.php">História</a>
-    <a href="pages/diretoria.php">Diretoria</a>
-    <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      Instagram
-    </a>
-    <a href="pages/login.html" class="nav-login">Admin</a>
-  </nav>
-</aside>
-
+<?php layout_header('', './', '#inicio', 'pages/'); ?>
 <main id="main-content">
 
 <!-- ═══ HERO ═════════════════════════════════════════════ -->
@@ -171,11 +95,11 @@ $catEmoji = [
       <h1 class="hero-title">Conectando as <span>Ligas do Trauma</span> para salvar vidas</h1>
       <p class="hero-subtitle">O Comitê Brasileiro das Ligas do Trauma reúne profissionais de saúde de todas as regiões do Brasil em torno da excelência no atendimento ao paciente grave.</p>
       <div class="hero-actions">
-        <a href="#filiacao" class="btn btn-primary">
+        <a href="#filiacao" class="btn btn-cta">
           <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
           Afiliar sua Liga
         </a>
-        <a href="#ligas" class="btn btn-white-solid hero-highlight-btn">Mostrar Ligas</a>
+        <a href="#ligas" class="btn btn-secondary">Mostrar Ligas</a>
       </div>
       <div class="hero-stats" role="list" style="display:flex;gap:1.75rem;margin-top:1.75rem;flex-wrap:wrap;">
         <div role="listitem" style="display:flex;flex-direction:column;align-items:flex-start;">
@@ -210,14 +134,14 @@ $catEmoji = [
           <div class="colt-info-card"><div class="colt-label">Data</div><div class="colt-value">17 de Abril · Sexta-feira, 9h</div></div>
           <div class="colt-info-card"><div class="colt-label">Local</div><div class="colt-value">SMCC — Campinas, SP</div></div>
           <div class="colt-info-card" style="margin-bottom:0;"><div class="colt-label">Inscrições</div><div class="colt-value">Gratuitas · via QR Code</div></div>
-          <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">Inscrever-se — Gratuito</a>
+          <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">Inscrever-se — Gratuito</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ 
+<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ -->
 <section class="colt-banner" id="colt" aria-labelledby="colt-title">
   <div class="colt-grid">
     <div data-animate-left>
@@ -243,9 +167,9 @@ $catEmoji = [
         </div>
       </div>
       <div class="colt-actions" data-animate data-animate-delay="4">
-        <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.1rem;font-size:0.86rem;">Inscrever-se gratuitamente</a>
+        <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">Inscrever-se gratuitamente</a>
       </div>
-    </div> 
+    </div>
     <div data-animate-right>
       <div class="colt-box hide-mobile">
         <h3>Programa Científico</h3>
@@ -266,7 +190,7 @@ $catEmoji = [
       </div>
     </div>
   </div>
-</section>-->
+</section>
 
 <!-- ═══ APOIADORES ══════════════════════════════════════════ -->
 <section class="section" id="apoiadores" style="padding-top:2.5rem;padding-bottom:2.5rem;background:var(--off-white);overflow:hidden;" aria-labelledby="apoiadores-label">
@@ -277,7 +201,7 @@ $catEmoji = [
         <span class="section-label" id="apoiadores-label">Comitê Científico</span>
         <h2 class="section-title" style="margin:0.2rem 0 0;">Nossos Apoiadores</h2>
       </div>
-      <a href="pages/apoiadores.html" class="btn" style="font-size:0.85rem;padding:0.6rem 1.25rem;background:var(--white);border:1px solid var(--slate-200);color:var(--navy);display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm);">
+      <a href="pages/apoiadores.php" class="btn btn-secondary">
         Ver todos →
       </a>
     </div>
@@ -595,7 +519,7 @@ $catEmoji = [
         <a href="pages/eventos.php#realizados" class="news-link" style="font-size:0.82rem;">Ver todos →</a>
       </div>
       <div style="display:flex;gap:1rem;overflow-x:auto;scrollbar-width:none;padding-bottom:0.25rem;">
-        <a href="pages/colt2012.html" style="flex:0 0 220px;background:var(--white);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.1rem;text-decoration:none;display:flex;flex-direction:column;gap:0.3rem;transition:all var(--transition);box-shadow:var(--shadow-sm);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">
+        <a href="pages/colt2012.php" class="colt2012-card">
           <span style="font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(135deg,var(--navy),var(--sky-dark));color:#fff;padding:2px 8px;border-radius:99px;width:fit-content;">RJ · 2012</span>
           <div style="font-size:1.5rem;margin:0.2rem 0;">🏆</div>
           <div style="font-size:0.68rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.1em;">XIV CoLT</div>
@@ -637,11 +561,11 @@ $catEmoji = [
         <h3 style="font-family:var(--font-display);color:#fff;font-size:1.1rem;margin-bottom:1rem;">Patrocinadores</h3>
         <ul class="colt-list" style="margin-bottom:1.5rem;"><li>Tai Viagens</li><li>Auto Posto Somar</li><li>Samir Sahori Incorporadora</li><li>Clínica CER</li></ul>
         <div class="colt-actions" style="gap:0.75rem;flex-wrap:wrap;">
-          <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:0.88rem;padding:0.75rem 1.6rem;display:inline-flex;align-items:center;gap:0.5rem;">
+          <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Realizar inscrição
           </a>
-          <a href="#atividades-cotrem" class="btn" style="font-size:0.88rem;padding:0.75rem 1.6rem;background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25);display:inline-flex;align-items:center;gap:0.5rem;">Ver atividades</a>
+          <a href="#atividades-cotrem" class="btn btn-ghost-light">Ver atividades</a>
         </div>
       </div>
     </div>
@@ -662,7 +586,7 @@ $catEmoji = [
         </div>
       </div>
       <div style="text-align:center;margin-top:1.5rem;">
-        <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:0.9rem;padding:0.8rem 2rem;display:inline-flex;align-items:center;gap:0.5rem;">
+        <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Quero participar das atividades
         </a>
@@ -715,7 +639,7 @@ $catEmoji = [
           <div style="font-size:0.76rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;">Filiação 2026</div>
           <p style="color:var(--slate-600);margin-top:0.5rem;line-height:1.7;font-size:0.93rem;">Preencha o formulário oficial de filiação para conectar sua liga à nossa rede.</p>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxlJya6NcxHC1H_Cuao0mtN5_UehL-6RSzuhzj2JlEBtI9qA/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-navy" style="font-size:0.95rem;padding:0.85rem 1.9rem;display:inline-flex;align-items:center;gap:0.5rem;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxlJya6NcxHC1H_Cuao0mtN5_UehL-6RSzuhzj2JlEBtI9qA/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-affiliate">
           <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Acessar formulário de filiação
         </a>
@@ -775,7 +699,7 @@ $catEmoji = [
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="6"><div class="timeline-dot" aria-hidden="true"></div><div class="timeline-year">Hoje</div><h3>Referência Nacional em Trauma</h3><p>Principal organização de ligas acadêmicas de trauma do Brasil, reunindo centenas de instituições e milhares de estudantes e profissionais comprometidos com a melhoria da assistência ao paciente traumatizado.</p></div>
     </div>
     <div style="margin-top:2.5rem;" data-animate>
-      <a href="pages/historia.php" class="btn btn-navy" style="display:inline-flex;align-items:center;gap:.5rem;">
+      <a href="pages/historia.php" class="btn btn-secondary">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         Ler a história completa
       </a>
@@ -860,53 +784,5 @@ $catEmoji = [
 </main>
 
 <!-- ═══ FOOTER ════════════════════════════════════════════ -->
-<footer class="site-footer" role="contentinfo">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand" data-animate-fade>
-        <div class="logo" style="margin-bottom:1rem;">
-          <div class="logo-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-          <div class="logo-text"><span class="logo-name">CoBraLT</span><span class="logo-tagline">Ligas do Trauma</span></div>
-        </div>
-        <p>Conectando profissionais de saúde de todo o Brasil em torno da excelência no atendimento ao trauma.</p>
-        <div class="social-links" style="margin-top:1rem;">
-          <a href="https://www.instagram.com/cobralt_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram do CoBraLT">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer-col" data-animate-fade data-animate-delay="1">
-        <h4>Navegação</h4>
-        <a href="#noticias">Notícias semanais</a>
-        <a href="#eventos">Eventos e congressos</a>
-        <a href="#filiacao">Filiar sua liga</a>
-        <a href="#ligas">Ligas filiadas</a>
-        <a href="pages/historia.php">História</a>
-        <a href="pages/diretoria.php">Diretoria</a>
-      </div>
-      <div class="footer-col" data-animate-fade data-animate-delay="2">
-        <h4>Eventos 2026</h4>
-        <a href="#colt">Pré-CoLT — Edição Campinas</a>
-        <a href="#colt-cotrem">XXVIII CoLT + II COTREM</a>
-        <a href="#filiacao">Filiação de Ligas</a>
-        <a href="#ligas">Ligas filiadas</a>
-      </div>
-      <div class="footer-col" data-animate-fade data-animate-delay="3">
-        <h4>Legal</h4>
-        <a href="pages/privacidade.php">Política de Privacidade</a>
-        <a href="pages/termos.php">Termos de Uso</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados. <span style="opacity:.4;font-size:.78em;">Dev Gabriel Quirino</span></p>
-      <div style="display:flex;gap:1.5rem;"><a href="pages/privacidade.php">Privacidade</a><a href="pages/termos.php">Termos de Uso</a></div>
-    </div>
-  </div>
-</footer>
 
-<!-- Scripts -->
-<script src="js/main.js?v=6.2"></script>
-<script src="js/forms.js?v=6.2"></script>
-<script src="js/animations.js?v=6.2"></script>
-</body>
-</html>
+<?php layout_footer('./', ['js/forms.js']); ?>

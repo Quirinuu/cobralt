@@ -26,7 +26,7 @@ if (
     (time() - $_SESSION['login_time']) > $timeout
 ) {
     session_destroy();
-    header('Location: /admin/login.html?expired=1');
+    header('Location: /admin/login.php?expired=1');
     exit;
 }
 
@@ -34,7 +34,7 @@ if (
 $currentIp = $_SERVER['REMOTE_ADDR'] ?? '';
 if (!empty($_SESSION['admin_ip']) && $_SESSION['admin_ip'] !== $currentIp) {
     session_destroy();
-    header('Location: /admin/login.html?security=1');
+    header('Location: /admin/login.php?security=1');
     exit;
 }
 

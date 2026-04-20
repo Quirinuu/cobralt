@@ -27,7 +27,7 @@ if (!$post) {
     header('HTTP/1.0 404 Not Found');
     layout_head('Publicação não encontrada');
     layout_header();
-    echo '<main id="main-content"><div style="text-align:center;padding:6rem 1rem;"><h1 style="font-family:var(--font-display);color:var(--navy);">Publicação não encontrada</h1><p style="color:var(--slate-500);margin:1rem 0 2rem;">O conteúdo que você procura não existe ou foi removido.</p><a href="noticias.php" class="btn btn-primary">← Voltar</a></div></main>';
+    echo '<main id="main-content"><div style="text-align:center;padding:6rem 1rem;"><h1 style="font-family:var(--font-display);color:var(--navy);">Publicação não encontrada</h1><p style="color:var(--slate-500);margin:1rem 0 2rem;">O conteúdo que você procura não existe ou foi removido.</p><a href="noticias.php" class="btn btn-secondary">← Voltar</a></div></main>';
     layout_footer('../');
     exit;
 }
@@ -103,7 +103,7 @@ layout_header($post['tipo'] ?? 'noticias');
 
     <!-- Voltar -->
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--slate-200);">
-      <a href="<?= h($tipoPage) ?>" class="btn btn-navy" style="display:inline-flex;align-items:center;gap:6px;">
+      <a href="<?= h($tipoPage) ?>" class="btn btn-secondary">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         Voltar para <?= h($label) ?>
       </a>

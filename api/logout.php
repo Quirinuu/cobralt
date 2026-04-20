@@ -2,5 +2,5 @@
 // api/logout.php
 session_start();
 session_destroy();
-header('Location: /admin/login.html');
+header('Location: /admin/login.php');
 exit;

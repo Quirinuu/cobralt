@@ -75,7 +75,7 @@ layout_header('');
     </div>
 
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--slate-200);">
-      <a href="../index.php" class="btn btn-navy" style="display:inline-flex;align-items:center;gap:6px;">
+      <a href="../index.php" class="btn btn-secondary">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         Voltar ao início
       </a>

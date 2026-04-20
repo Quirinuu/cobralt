@@ -844,3 +844,396 @@
 .colt-list li { color: rgba(255,255,255,0.72); font-size: 0.85rem; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); line-height: 1.5; }
 .colt-list li:last-child { border-bottom: none; }
 .colt-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+
+/* ─── BOTÕES SEMÂNTICOS (padronização v6.3) ──────────────── */
+
+/* CTA principal — destaque máximo, hero e filiação */
+.btn-cta {
+  background: var(--sky);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(14,165,233,0.40);
+  padding: 0.75rem 1.75rem;
+  font-size: 0.92rem;
+}
+.btn-cta:hover {
+  background: var(--sky-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(14,165,233,0.50);
+}
+
+/* Botão de evento — inscrição em congresso/evento externo */
+.btn-event {
+  background: var(--sky);
+  color: var(--white);
+  box-shadow: 0 3px 12px rgba(14,165,233,0.30);
+  padding: 0.7rem 1.5rem;
+  font-size: 0.87rem;
+  width: 100%;
+  justify-content: center;
+}
+.btn-event:hover {
+  background: var(--sky-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(14,165,233,0.45);
+}
+
+/* Botão de filiação — ação de afiliação/formulário */
+.btn-affiliate {
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: var(--shadow-navy);
+  padding: 0.85rem 2rem;
+  font-size: 0.95rem;
+}
+.btn-affiliate:hover {
+  background: var(--navy-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(1,30,74,0.45);
+}
+
+/* Botão secundário — "Ver mais", "Mostrar Ligas", etc. */
+.btn-secondary {
+  background: var(--white);
+  color: var(--navy);
+  border: 1.5px solid var(--slate-200);
+  box-shadow: var(--shadow-sm);
+  padding: 0.65rem 1.4rem;
+  font-size: 0.87rem;
+}
+.btn-secondary:hover {
+  background: var(--off-white);
+  border-color: var(--slate-300);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Botão ghost sobre fundo escuro — "Ver atividades" em banners navy/sky */
+.btn-ghost-light {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.30);
+  padding: 0.7rem 1.5rem;
+  font-size: 0.87rem;
+}
+.btn-ghost-light:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.55);
+  transform: translateY(-2px);
+}
+
+/* Card CoLT 2012 — seção de eventos */
+.colt2012-card {
+  flex: 0 0 220px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.colt2012-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── GALERIA COLT 2012 ──────────────────────────────────── */
+.colt2012-gallery-wrapper {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: rgba(0,0,0,0.3);
+  user-select: none;
+}
+
+.colt2012-gallery {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+
+.gallery-slide {
+  flex: 0 0 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Prev / Next buttons */
+.gallery-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+.gallery-btn:hover { background: rgba(0,0,0,0.80); transform: translateY(-50%) scale(1.08); }
+.gallery-prev { left: 0.75rem; }
+.gallery-next { right: 0.75rem; }
+
+/* Counter */
+.gallery-counter {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  background: rgba(0,0,0,0.55);
+  color: rgba(255,255,255,0.9);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  letter-spacing: 0.04em;
+}
+
+/* Thumbnails strip */
+.gallery-thumbs {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.6rem 0.5rem;
+  overflow-x: auto;
+  background: rgba(0,0,0,0.35);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+.gallery-thumbs::-webkit-scrollbar { height: 4px; }
+.gallery-thumbs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 2px; }
+
+.gallery-thumb {
+  flex: 0 0 64px;
+  height: 44px;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, opacity 0.2s;
+  opacity: 0.55;
+  padding: 0;
+  background: none;
+}
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.gallery-thumb:hover { opacity: 0.85; }
+.gallery-thumb.active { border-color: var(--sky); opacity: 1; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .gallery-btn { width: 34px; height: 34px; }
+  .gallery-thumb { flex: 0 0 52px; height: 36px; }
+}
+
+/* ─── CARD COLT 2012 (link na seção de eventos) ──────────── */
+.colt2012-card {
+  flex: 0 0 220px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.colt2012-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── APOIADORES PAGE — Grid + Lightbox ──────────────────── */
+
+/* Grid responsivo: 5 colunas desktop → 2 mobile */
+.supporters-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+@media (max-width: 1100px) { .supporters-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 800px)  { .supporters-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 540px)  { .supporters-grid { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; } }
+
+/* Card individual */
+.sup-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.sup-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+
+/* Botão que envolve a foto (abre lightbox) */
+.sup-card-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Wrap da foto — proporção 9/16 (retrato) igual ao carousel do index */
+.sup-photo-wrap {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: linear-gradient(135deg, var(--slate-100), var(--slate-200));
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.sup-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.sup-card-btn:hover .sup-photo-wrap img { transform: scale(1.04); }
+
+/* Avatar fallback (quando imagem falha) */
+.sup-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy);
+  background: linear-gradient(135deg, var(--slate-100), var(--slate-200));
+}
+
+/* Ícone de zoom no hover */
+.sup-zoom-hint {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.2s, transform 0.2s;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+.sup-card-btn:hover .sup-zoom-hint,
+.sup-card:hover .sup-zoom-hint {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Lightbox ─────────────────────────────────────────────── */
+.sup-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.88);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+  animation: lbFadeIn 0.2s ease;
+}
+.sup-lightbox.open { display: flex; }
+@keyframes lbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.sup-lightbox-img {
+  max-height: 90vh;
+  max-width: min(480px, 90vw);
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+  animation: lbZoomIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes lbZoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.sup-lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s;
+  backdrop-filter: blur(4px);
+}
+.sup-lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+/* Nav prev/next no lightbox */
+.sup-lightbox-prev,
+.sup-lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, transform 0.18s;
+  backdrop-filter: blur(4px);
+}
+.sup-lightbox-prev { left: 1rem; }
+.sup-lightbox-next { right: 1rem; }
+.sup-lightbox-prev:hover,
+.sup-lightbox-next:hover { background: rgba(255,255,255,0.3); transform: translateY(-50%) scale(1.08); }
+
+@media (max-width: 480px) {
+  .sup-lightbox-prev { left: 0.4rem; }
+  .sup-lightbox-next { right: 0.4rem; }
+}

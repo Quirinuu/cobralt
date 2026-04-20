@@ -86,7 +86,7 @@ layout_header('eventos');
     <div class="events-carousel-wrapper" data-animate>
       <div class="events-carousel" id="eventsCarousel">
 
-        <a href="colt2012.html" class="past-event-card">
+        <a href="colt2012.php" class="past-event-card">
           <div class="past-event-badge">RJ · 2012</div>
           <div class="past-event-icon">🏆</div>
           <div class="past-event-edition">XIV CoLT</div>
