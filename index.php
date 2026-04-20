@@ -237,6 +237,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             ['nome'=>'Rodrigo Caselli Belém',               'foto'=>'rodrigo-caselli'],
             ['nome'=>'Romeo L. Simões',                     'foto'=>'romeo-simoes'],
             ['nome'=>'Prof. Dr. Santiago Servin',           'foto'=>'santiago-servin'],
+            ['nome'=>'Saulo Ferreira',                      'foto'=>'saulo-ferreira'],
             ['nome'=>'Thiago R. Calderan',                  'foto'=>'thiago-calderan'],
             ['nome'=>'Tiago Leal Ghezzi',                   'foto'=>'tiago-leal'],
             ['nome'=>'Vitor F. Kruger',                     'foto'=>'vitor-kruger'],
