@@ -7,6 +7,109 @@ layout_header('', '../');
 ?>
 <main id="main-content">
 
+<style>
+/* ── Gallery ───────────────────────────────────────────── */
+.colt2012-gallery-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(0,0,0,0.4);
+}
+.colt2012-gallery {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+  max-height: 480px;
+}
+.gallery-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+}
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px; height: 42px;
+  background: rgba(1,54,132,0.85);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+.gallery-btn:hover { background: var(--navy); transform: translateY(-50%) scale(1.1); }
+.gallery-prev { left: 12px; }
+.gallery-next { right: 12px; }
+.gallery-counter {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+.gallery-thumbs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: rgba(0,0,0,0.55);
+}
+.gallery-thumbs::-webkit-scrollbar { display: none; }
+.gallery-thumb {
+  flex: 0 0 60px;
+  height: 42px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  transition: all var(--transition);
+  opacity: 0.55;
+}
+.gallery-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery-thumb.active, .gallery-thumb:hover {
+  border-color: var(--sky);
+  opacity: 1;
+}
+/* ── benefit-card ──────────────────────────────────────── */
+.benefit-card { background:var(--white); border:1px solid var(--slate-200); border-radius:var(--radius-lg); padding:1.4rem 1.5rem; display:flex; gap:1rem; align-items:flex-start; box-shadow:var(--shadow-sm); transition:all var(--transition); position:relative; overflow:hidden; }
+.benefit-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--sky),var(--navy)); transform:scaleX(0); transition:transform var(--transition); }
+.benefit-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+.benefit-card:hover::before { transform:scaleX(1); }
+.benefit-icon { width:40px; height:40px; background:linear-gradient(135deg,rgba(14,165,233,0.12),rgba(1,54,132,0.1)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.benefit-content h4 { font-family:var(--font-display); color:var(--navy); font-size:0.9rem; font-weight:700; margin-bottom:0.35rem; }
+.benefit-content p { color:var(--slate-600); font-size:0.8rem; line-height:1.65; margin:0; }
+.benefit-content strong { color:var(--navy); }
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .colt2012-grid { grid-template-columns: 1fr !important; }
+  .colt2012-gallery { aspect-ratio: 4/3; max-height: 300px; }
+  .gallery-thumb { flex: 0 0 48px; height: 34px; }
+  .benefit-card { flex-direction:column; gap:0.75rem; }
+}
+</style>
+
 <!-- HERO -->
 <div class="page-hero" style="background:linear-gradient(135deg,var(--navy-dark) 0%,#002a55 50%,var(--navy-light) 100%);">
   <div class="page-hero-inner">
