@@ -141,7 +141,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   </div>
 </section>
 
-<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ -->
+<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ 
 <section class="colt-banner" id="colt" aria-labelledby="colt-title">
   <div class="colt-grid">
     <div data-animate-left>
@@ -169,7 +169,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="colt-actions" data-animate data-animate-delay="4">
         <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">Inscrever-se gratuitamente</a>
       </div>
-    </div>
+    </div>-->
     <div data-animate-right>
       <div class="colt-box hide-mobile">
         <h3>Programa Científico</h3>
