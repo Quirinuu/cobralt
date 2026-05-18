@@ -911,6 +911,34 @@
   background: var(--slate-100);
   box-shadow: var(--shadow-sm);
 }
+.colt-memory-card {
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(1.4rem, 4vw, 2.2rem);
+}
+.colt-memory-card h2 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+  margin: 0.35rem 0 0.8rem;
+}
+.colt-memory-card p {
+  color: var(--slate-600);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  margin: 0;
+}
+.colt-memory-card strong {
+  color: var(--navy);
+}
+.colt-memory-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
 
 @media (max-width: 600px) {
   .colt-gallery-edition-head {

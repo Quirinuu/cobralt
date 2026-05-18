@@ -34,9 +34,22 @@
     return null;
   }
 
-  async function collectPhotos(folder) {
-    const base = await resolveBase(folder);
-    if (!base) return [];
+  async function collectPhotos(edition) {
+    const folders = Array.isArray(edition.folders) && edition.folders.length
+      ? edition.folders
+      : [edition.folder];
+    let base = null;
+    let folder = null;
+
+    for (const candidate of folders) {
+      base = await resolveBase(candidate);
+      if (base) {
+        folder = candidate;
+        break;
+      }
+    }
+
+    if (!base || !folder) return [];
 
     const photos = [];
     for (let index = 1; index <= maxPhotos; index += 1) {
@@ -81,7 +94,7 @@
   async function init() {
     let rendered = 0;
     for (const edition of editions) {
-      const photos = await collectPhotos(edition.folder);
+      const photos = await collectPhotos(edition);
       if (photos.length) {
         renderEdition(edition, photos);
         rendered += 1;

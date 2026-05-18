@@ -2,9 +2,10 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/db.php';
 require_once dirname(__DIR__) . '/includes/colt_editions.php';
 
-$editions = colt_editions();
+$editions = colt_editions_newest_first();
 $editionsJson = htmlspecialchars(
     json_encode($editions, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?: '[]',
     ENT_QUOTES | ENT_SUBSTITUTE,
@@ -45,7 +46,7 @@ layout_header('eventos');
     <div
       id="coltGalleryRoot"
       class="colt-gallery-root is-loading"
-      data-bases="../assets/img/colts/|../assets/img/|../"
+      data-bases="../assets/img/Imagens Colts/|../assets/img/colts/|../assets/img/|../"
       data-max-photos="300"
       data-editions='<?= $editionsJson ?>'
     >
