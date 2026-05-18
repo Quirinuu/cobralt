@@ -86,6 +86,23 @@ layout_header('eventos');
     <div class="events-carousel-wrapper" data-animate>
       <div class="events-carousel" id="eventsCarousel">
 
+        <a href="colts.php" class="past-event-card">
+          <div class="past-event-badge">Acervo</div>
+          <div class="past-event-icon">📷</div>
+          <div class="past-event-edition">Memórias dos CoLTs</div>
+          <h3 class="past-event-name">Galeria histórica</h3>
+          <p class="past-event-city">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            Fotos organizadas por edição
+          </p>
+          <div class="past-event-stats">
+            <span>Carrega pastas automaticamente</span>
+            <span>Sequência 1.png, 2.png, 3.png...</span>
+            <span>Ignora edições sem fotos</span>
+          </div>
+          <span class="past-event-link">Ver galeria →</span>
+        </a>
+
         <a href="colt2012.html" class="past-event-card">
           <div class="past-event-badge">RJ · 2012</div>
           <div class="past-event-icon">🏆</div>

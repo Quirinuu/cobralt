@@ -1,22 +1,36 @@
 <?php
 /**
- * config.php — Configurações centrais do CoBraLT
- * Coloque na RAIZ do site (mesmo nível de index.html)
- * NUNCA versione este arquivo com senhas reais.
+ * config.php — Configurações centrais do CoBraLT.
+ *
+ * Para credenciais reais, crie um arquivo config.local.php na raiz
+ * ou configure variáveis de ambiente na hospedagem. Esse arquivo pode
+ * ser versionado sem expor senha de banco.
  */
 
-// ─── BANCO DE DADOS ───────────────────────────────────────────────────────────
-// Preencha com os dados do painel da Hostinger → Banco de Dados → MySQL
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'u464752963_NewSiteCobralt');     // ex: u123456789_cobralT
-define('DB_USER', 'u464752963_NewSite');  // ex: u123456789_admin
-define('DB_PASS', '>F9m;WsOURY');
+declare(strict_types=1);
 
-// ─── UPLOADS ──────────────────────────────────────────────────────────────────
-define('UPLOAD_DIR', __DIR__ . '/assets/img/uploads/');
-define('UPLOAD_URL', '/assets/img/uploads/');
-define('UPLOAD_MAX_MB', 5);
+$localConfig = __DIR__ . '/config.local.php';
+if (is_file($localConfig)) {
+    require $localConfig;
+}
 
-// ─── SITE ─────────────────────────────────────────────────────────────────────
-define('SITE_NAME', 'CoBraLT');
-define('SITE_URL', 'https://cobralT.org.br'); // ← troque pelo seu domínio real (sem barra no final)
+function define_if_missing(string $name, $value): void {
+    if (!defined($name)) {
+        define($name, $value);
+    }
+}
+
+// Banco de dados
+define_if_missing('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define_if_missing('DB_NAME', getenv('DB_NAME') ?: '');
+define_if_missing('DB_USER', getenv('DB_USER') ?: '');
+define_if_missing('DB_PASS', getenv('DB_PASS') ?: '');
+
+// Uploads
+define_if_missing('UPLOAD_DIR', __DIR__ . '/assets/img/uploads/');
+define_if_missing('UPLOAD_URL', '/assets/img/uploads/');
+define_if_missing('UPLOAD_MAX_MB', 5);
+
+// Site
+define_if_missing('SITE_NAME', 'CoBraLT');
+define_if_missing('SITE_URL', getenv('SITE_URL') ?: 'https://cobralT.org.br');

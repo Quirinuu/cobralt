@@ -2,7 +2,7 @@
 declare(strict_types=1);
 // Redireciona se já autenticado
 session_start();
-if (!empty($_SESSION['admin_logged_in'])) {
+if (!empty($_SESSION['admin_id'])) {
     header('Location: ../admin/dashboard.php');
     exit;
 }

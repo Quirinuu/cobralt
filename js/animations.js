@@ -59,4 +59,26 @@
     }, { passive: true });
   }
 
+  /* Mantém a aba regional ativa visível no mobile */
+  const activeRegion = document.querySelector('.regions-nav-inner a.active');
+  if (activeRegion && typeof activeRegion.scrollIntoView === 'function') {
+    activeRegion.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }
+
+  /* Acessibilidade para cards clicáveis das páginas regionais */
+  document.querySelectorAll('.liga-card[onclick]').forEach(card => {
+    if (!card.hasAttribute('tabindex')) card.setAttribute('tabindex', '0');
+    if (!card.hasAttribute('role')) card.setAttribute('role', 'button');
+    if (!card.hasAttribute('aria-label')) {
+      const sigla = card.dataset.sigla || card.querySelector('.liga-card-sigla')?.textContent || 'Liga';
+      card.setAttribute('aria-label', `Ver detalhes de ${sigla.trim()}`);
+    }
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
 })();

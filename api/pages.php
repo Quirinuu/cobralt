@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && in_array($action, ['create', 'updat
 
     $id      = (int)($_POST['id'] ?? 0);
     $title   = trim($_POST['title'] ?? '');
-    $content = trim($_POST['content'] ?? '');
+    $content = sanitize_editor_html(trim($_POST['content'] ?? ''));
     $status  = in_array($_POST['status'] ?? '', ['draft', 'published']) ? $_POST['status'] : 'draft';
 
     if (empty($title))   json_fail('O título é obrigatório.');

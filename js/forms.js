@@ -13,9 +13,12 @@
 'use strict';
 
 function showAlert(container, type, message) {
-  container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+  const alert = document.createElement('div');
+  alert.className = `alert alert-${type}`;
+  alert.textContent = message;
+  container.replaceChildren(alert);
   container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  setTimeout(() => { container.innerHTML = ''; }, 5000);
+  setTimeout(() => { container.replaceChildren(); }, 5000);
 }
 
 /* ─── FORMULÁRIO DE INSCRIÇÃO NO COLT ─────────────────── */

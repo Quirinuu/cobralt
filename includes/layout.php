@@ -48,6 +48,7 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
     'diretoria'  => ['href' => $nav_prefix . 'diretoria.php',  'label' => 'Diretoria'],
   ];
   $ig = INSTAGRAM_URL;
+  $adminHref = $base . 'admin/login.php';
 ?>
 <header class="site-header" role="banner">
   <div class="header-inner">
@@ -61,7 +62,7 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
       <a href="<?= $ig ?>" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram do CoBraLT">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
-      <a href="<?= $nav_prefix ?>login.php" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
+      <a href="<?= $adminHref ?>" class="nav-login"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Admin</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
       <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -84,13 +85,14 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       Instagram
     </a>
-    <a href="<?= $nav_prefix ?>login.php" class="nav-login">Admin</a>
+    <a href="<?= $adminHref ?>" class="nav-login">Admin</a>
   </nav>
 </aside>
 <?php }
 
 function layout_footer(string $base = '../', array $extra_scripts = []): void {
   $ig = INSTAGRAM_URL;
+  $pageBase = $base === './' ? 'pages/' : '';
 ?>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
@@ -108,29 +110,29 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
       </div>
       <div class="footer-col">
         <h4>Conteúdo</h4>
-        <a href="noticias.php">Notícias</a>
-        <a href="eventos.php">Eventos</a>
-        <a href="projetos.php">Projetos</a>
-        <a href="educacao.php">Educação</a>
+        <a href="<?= $pageBase ?>noticias.php">Notícias</a>
+        <a href="<?= $pageBase ?>eventos.php">Eventos</a>
+        <a href="<?= $pageBase ?>projetos.php">Projetos</a>
+        <a href="<?= $pageBase ?>educacao.php">Educação</a>
       </div>
       <div class="footer-col">
         <h4>CoBraLT</h4>
-        <a href="ligas.php">Ligas filiadas</a>
-        <a href="diretoria.php">Diretoria</a>
-        <a href="historia.php">História</a>
+        <a href="<?= $pageBase ?>ligas.php">Ligas filiadas</a>
+        <a href="<?= $pageBase ?>diretoria.php">Diretoria</a>
+        <a href="<?= $pageBase ?>historia.php">História</a>
         <a href="<?= $base ?>index.php#filiacao">Filiar minha liga</a>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
-        <a href="privacidade.php">Política de Privacidade</a>
-        <a href="termos.php">Termos de Uso</a>
+        <a href="<?= $pageBase ?>privacidade.php">Política de Privacidade</a>
+        <a href="<?= $pageBase ?>termos.php">Termos de Uso</a>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados. <span style="opacity:.4;font-size:.78em;">Dev Gabriel Quirino</span></p>
       <div style="display:flex;gap:1.5rem;">
-        <a href="privacidade.php">Privacidade</a>
-        <a href="termos.php">Termos de Uso</a>
+        <a href="<?= $pageBase ?>privacidade.php">Privacidade</a>
+        <a href="<?= $pageBase ?>termos.php">Termos de Uso</a>
       </div>
     </div>
   </div>

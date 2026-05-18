@@ -173,6 +173,17 @@
 }
 .drawer-nav a:hover { color: var(--sky-dark); background: var(--slate-100); }
 .drawer-nav a:active { background: #E0F2FE; color: var(--sky-dark); }
+.drawer-nav .nav-login {
+  justify-content: center;
+  opacity: 1;
+  border-color: var(--slate-200);
+  background: var(--slate-100);
+  margin-top: 0.35rem;
+}
+.drawer-nav .nav-login:hover {
+  background: #E0F2FE;
+  color: var(--sky-dark);
+}
 
 /* oculta o antigo mobile-menu */
 .mobile-menu { display: none !important; }

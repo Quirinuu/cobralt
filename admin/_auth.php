@@ -107,6 +107,15 @@ function make_slug(string $str): string {
     return trim($str, '-');
 }
 
+function sanitize_editor_html(string $html): string {
+    $allowed = '<p><br><strong><b><em><i><u><s><strike><blockquote><ol><ul><li><a><h2><h3><h4>';
+    $html = strip_tags($html, $allowed);
+    $html = preg_replace('/\s+on[a-z]+\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
+    $html = preg_replace('/\s+style\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
+    $html = preg_replace('/href\s*=\s*([\'"])\s*javascript:[^\'"]*\1/i', 'href="#"', $html) ?? $html;
+    return $html;
+}
+
 // ─── VERIFICAÇÃO DE ROLE ──────────────────────────────────
 function require_role(string ...$roles): void {
     global $adminRole;

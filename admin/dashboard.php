@@ -393,9 +393,12 @@ $recentPosts = $db->query('SELECT id, title, status, created_at FROM posts ORDER
             <td>
               <div class="actions">
                 <a href="post-editor.php?id=<?= (int)$post['id'] ?>" class="btn-sm outline">Editar</a>
-                <a href="../api/posts.php?action=delete&id=<?= (int)$post['id'] ?>&csrf=<?= csrf_token() ?>"
-                   class="btn-sm danger"
-                   onclick="return confirm('Excluir este post?')">Excluir</a>
+                <form action="../api/posts.php" method="post" style="display:inline;" onsubmit="return confirm('Excluir este post?')">
+                  <input type="hidden" name="action" value="delete">
+                  <input type="hidden" name="id" value="<?= (int)$post['id'] ?>">
+                  <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+                  <button type="submit" class="btn-sm danger" style="border:0;cursor:pointer;">Excluir</button>
+                </form>
               </div>
             </td>
           </tr>

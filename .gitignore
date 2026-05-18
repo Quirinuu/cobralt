@@ -2,6 +2,11 @@
 # Banco de dados
 database.sql
 
+# Configurações locais e pacotes de deploy
+config.local.php
+site.zip
+*.zip
+
 # Sistema operacional
 .DS_Store
 Thumbs.db

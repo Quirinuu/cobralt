@@ -15,8 +15,6 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 
 require_once dirname(__DIR__) . '/config.php';
-error_log('[DEBUG] username: ' . ($_POST['username'] ?? 'VAZIO'));
-error_log('[DEBUG] password: ' . ($_POST['password'] ?? 'VAZIO'));
 
 // ─── SESSÃO ───────────────────────────────────────────────
 session_start([
