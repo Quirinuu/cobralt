@@ -106,6 +106,30 @@ layout_header('apoiadores');
         </button>
       </div>  
 
+      <!-- cristhian-jaillita -->
+            <div class="sup-card" data-animate>
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de cristhian-jaillita Okawa em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/cristhian-jaillita.png" alt="cristhian-jaillita" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CO</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>  
+
+      <!-- Filipe Barcelos -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Filipe Barcelos em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/filipe-barcelos.png" alt="Filipe Barcelos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FE</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
       <!-- Francisco Eduardo Silva -->
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Francisco Eduardo Silva em tela cheia">
