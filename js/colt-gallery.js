@@ -5,7 +5,7 @@
   if (!root) return;
 
   const editions = JSON.parse(root.dataset.editions || '[]');
-  const bases = (root.dataset.bases || '../assets/img/colts/|../assets/img/|../')
+  const bases = (root.dataset.bases || '../assets/img/Imagens Colts/|../assets/img/colts/|../assets/img/|../')
     .split('|')
     .map(item => item.trim())
     .filter(Boolean);
