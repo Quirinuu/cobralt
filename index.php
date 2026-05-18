@@ -220,6 +220,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             ['nome'=>'Dr. Caio Duarte',                     'foto'=>'caio-duarte'],
             ['nome'=>'Cesar Vanderlei Carmona',             'foto'=>'cesar-vanderlei'],
             ['nome'=>'Cláudio Diunky Okawa',                'foto'=>'claudio-diunky'],
+            ['nome'=>'Cristhian Jaillita Meneses',          'foto'=>'cristhian-jaillita'],
+            ['nome'=>'Filipe Barcelos',                      'foto'=>'filipe-barcelos'],
             ['nome'=>'Francisco Eduardo Silva',             'foto'=>'francisco-eduardo'],
             ['nome'=>'Frederico Michelino',                 'foto'=>'frederico-michelino'],
             ['nome'=>'Guilherme Biazotto',                  'foto'=>'guilherme-biazotto'],
