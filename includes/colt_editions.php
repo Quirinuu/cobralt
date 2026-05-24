@@ -33,7 +33,7 @@ function colt_editions(): array {
         ['slug' => 'colt-25-brasilia-2023', 'file' => 'colt-25-brasilia-2023.php', 'folder' => 'CoLT 25_Brasilia_2023', 'folders' => ['CoLT 25_Brasilia_2023', 'CoLT 25 Brasilia 2023'], 'edition' => 'XXV CoLT', 'number' => 25, 'year' => '2023', 'place' => 'Brasília', 'badge' => 'Brasília · 2023'],
         ['slug' => 'colt-26', 'file' => 'colt-26.php', 'folder' => 'CoLT 26', 'edition' => 'XXVI CoLT', 'number' => 26, 'year' => '', 'place' => 'Brasil', 'badge' => 'XXVI CoLT'],
         ['slug' => 'colt-27', 'file' => 'colt-27.php', 'folder' => 'CoLT 27', 'edition' => 'XXVII CoLT', 'number' => 27, 'year' => '', 'place' => 'Brasil', 'badge' => 'XXVII CoLT'],
-        ['slug' => 'colt-28', 'file' => 'colt-28.php', 'folder' => 'CoLT 28', 'edition' => 'XXVIII CoLT', 'number' => 28, 'year' => '', 'place' => 'Brasil', 'badge' => 'XXVIII CoLT'],
+        ['slug' => 'colt-28', 'file' => 'colt-28.php', 'folder' => 'CoLT 28', 'edition' => 'XXVIII CoLT + II COTREM', 'number' => 28, 'year' => '2026', 'place' => 'Formosa, GO', 'badge' => 'Formosa · 2026'],
     ];
 }
 

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/posts_helpers.php';
+require_once __DIR__ . '/includes/colt_editions.php';
 
 require_once __DIR__ . '/includes/layout.php';
 
@@ -29,6 +30,10 @@ try {
         "SELECT dia, mes, titulo, local, descricao, link, link_texto, link_externo
          FROM eventos
          WHERE ativo = 1
+           AND titulo NOT LIKE '%Pré-CoLT%'
+           AND titulo NOT LIKE '%Pre-CoLT%'
+           AND titulo NOT LIKE '%COTREM%'
+           AND titulo NOT LIKE '%XXVIII CoLT%'
          ORDER BY ordem ASC
          LIMIT 3"
     );
@@ -73,6 +78,8 @@ $catEmoji = [
     'Eventos'       => '📅',
     'Institucional' => '🏛️',
 ];
+
+$homePastColts = array_slice(colt_editions_newest_first(), 0, 8);
 ?>
 <?php
 // Head padronizado — index usa base './'
@@ -88,9 +95,9 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-badge" aria-label="XXVIII Pré-CoLT — 17 de Abril, Campinas">
+      <div class="hero-badge" aria-label="Rede Nacional de Ligas do Trauma no Brasil">
         <span class="hero-badge-dot" aria-hidden="true"></span>
-        XXVIII Pré-CoLT — 17 de Abril · Campinas, SP
+        Rede Nacional — Ligas do Trauma no Brasil
       </div>
       <h1 class="hero-title">Conectando as <span>Ligas do Trauma</span> para salvar vidas</h1>
       <p class="hero-subtitle">O Comitê Brasileiro das Ligas do Trauma reúne profissionais de saúde de todas as regiões do Brasil em torno da excelência no atendimento ao paciente grave.</p>
@@ -127,70 +134,19 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
               <svg width="17" height="17" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
             <div>
-              <div style="color:rgba(255,255,255,0.5);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;">Próximo evento</div>
-              <div style="color:#fff;font-weight:700;font-size:0.9rem;">XXVIII Pré-CoLT</div>
+              <div style="color:rgba(255,255,255,0.5);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;">Acervo de eventos</div>
+              <div style="color:#fff;font-weight:700;font-size:0.9rem;">CoLTs realizados</div>
             </div>
           </div>
-          <div class="colt-info-card"><div class="colt-label">Data</div><div class="colt-value">17 de Abril · Sexta-feira, 9h</div></div>
-          <div class="colt-info-card"><div class="colt-label">Local</div><div class="colt-value">SMCC — Campinas, SP</div></div>
-          <div class="colt-info-card" style="margin-bottom:0;"><div class="colt-label">Inscrições</div><div class="colt-value">Gratuitas · via QR Code</div></div>
-          <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">Inscrever-se — Gratuito</a>
+          <div class="colt-info-card"><div class="colt-label">Histórico</div><div class="colt-value">Congressos das Ligas do Trauma</div></div>
+          <div class="colt-info-card"><div class="colt-label">Mais recente</div><div class="colt-value">XXVIII CoLT + II COTREM</div></div>
+          <div class="colt-info-card" style="margin-bottom:0;"><div class="colt-label">Memória</div><div class="colt-value">Acervo de fotos e edições</div></div>
+          <a href="pages/eventos.php#realizados" class="btn btn-event">Ver eventos realizados</a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ═══ PRÉ-CoLT BANNER ══════════════════════════════════ 
-<section class="colt-banner" id="colt" aria-labelledby="colt-title">
-  <div class="colt-grid">
-    <div data-animate-left>
-      <span class="section-label" style="color:var(--sky-light);">Evento Oficial CoBraLT</span>
-      <h2 class="section-title" style="color:#fff;" id="colt-title">XXVIII Pré-CoLT<br>Congresso Brasileiro<br>de Ligas de Trauma</h2>
-      <p style="color:rgba(255,255,255,0.6);font-size:0.98rem;line-height:1.75;margin:0.9rem 0 0;" data-animate-fade data-animate-delay="1">Edição Campinas — Um dia completo de ciência, prática e networking dedicado ao atendimento ao trauma, com especialistas nacionais e internacionais.</p>
-      <div class="colt-details">
-        <div class="colt-detail-item" data-animate data-animate-delay="1">
-          <div class="colt-detail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-          <div class="colt-detail-text"><strong>17 de Abril de 2026</strong><span>Sexta-feira, a partir das 9h00</span></div>
-        </div>
-        <div class="colt-detail-item" data-animate data-animate-delay="2">
-          <div class="colt-detail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div class="colt-detail-text"><strong>SMCC — Campinas, SP</strong><span>Rua Delfino Cintra, 63, Centro</span></div>
-        </div>
-        <div class="colt-detail-item" data-animate data-animate-delay="3">
-          <div class="colt-detail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div class="colt-detail-text"><strong>Realização: Unicamp · CoBraLT</strong><span>Disciplina de Cirurgia do Trauma</span></div>
-        </div>
-        <div class="colt-detail-item" data-animate data-animate-delay="4">
-          <div class="colt-detail-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
-          <div class="colt-detail-text"><strong>Inscrições gratuitas</strong><span>Acesse o link ou escaneie o QR Code</span></div>
-        </div>
-      </div>
-      <div class="colt-actions" data-animate data-animate-delay="4">
-        <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">Inscrever-se gratuitamente</a>
-      </div>
-    </div>
-    <div data-animate-right>
-      <div class="colt-box hide-mobile">
-        <h3>Programa Científico</h3>
-        <ul class="colt-list">
-          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">9h–10h30</strong> Mass Casualty Management (MCM) — O preparo do HC Unicamp</li>
-          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">11h–12h</strong> Vida no Trânsito: experiência em Campinas</li>
-          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">13h30–15h</strong> P.A.R.T.Y. em Campinas + apresentações nacionais e internacionais</li>
-          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">15h15–16h15</strong> Mesa-redonda: Estratégias de múltiplas vítimas</li>
-          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">16h15–16h45</strong> Conferência: Doenças raras no pronto-socorro</li>
-          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">16h45–18h</strong> Onda Amarela — Trabalhos no Congresso Europeu (Estocolmo)</li>
-          <li><strong style="color:rgba(255,255,255,0.6);font-size:0.72rem;">18h00</strong> Encerramento</li>
-        </ul>
-      </div>
-      <div class="info-grid">
-        <div class="info-box" data-animate data-animate-delay="1"><div class="info-box-value">1</div><div class="info-box-label">Dia de evento</div></div>
-        <div class="info-box" data-animate data-animate-delay="2"><div class="info-box-value">10+</div><div class="info-box-label">Palestrantes</div></div>
-        <div class="info-box" data-animate data-animate-delay="3"><div class="info-box-value">Free</div><div class="info-box-label">Inscrição</div></div>
-      </div>
-    </div>
-  </div>
-</section>-->
 
 <!-- ═══ APOIADORES ══════════════════════════════════════════ -->
 <section class="section" id="apoiadores" style="padding-top:2.5rem;padding-bottom:2.5rem;background:var(--off-white);overflow:hidden;" aria-labelledby="apoiadores-label">
@@ -523,76 +479,20 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <a href="pages/eventos.php#realizados" class="news-link" style="font-size:0.82rem;">Ver todos →</a>
       </div>
       <div style="display:flex;gap:1rem;overflow-x:auto;scrollbar-width:none;padding-bottom:0.25rem;">
-        <a href="pages/colt2012.php" class="colt2012-card">
-          <span style="font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(135deg,var(--navy),var(--sky-dark));color:#fff;padding:2px 8px;border-radius:99px;width:fit-content;">RJ · 2012</span>
+        <?php foreach ($homePastColts as $colt):
+          $title = trim($colt['edition'] . ($colt['year'] ? ' ' . $colt['year'] : ''));
+          $placeLine = trim(($colt['place'] ?: 'Brasil') . ($colt['year'] ? ', ' . $colt['year'] : ''));
+        ?>
+        <a href="pages/<?= h($colt['file']) ?>" class="colt2012-card" style="flex:0 0 220px;">
+          <span style="font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(135deg,var(--navy),var(--sky-dark));color:#fff;padding:2px 8px;border-radius:99px;width:fit-content;"><?= h($colt['badge']) ?></span>
           <div style="font-size:1.5rem;margin:0.2rem 0;">🏆</div>
-          <div style="font-size:0.68rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.1em;">XIV CoLT</div>
-          <div style="font-family:var(--font-display);color:var(--navy);font-size:0.92rem;font-weight:800;">XIV CoLT 2012</div>
-          <div style="color:var(--slate-400);font-size:0.72rem;">Rio de Janeiro, RJ</div>
-          <div style="color:var(--slate-600);font-size:0.7rem;margin-top:0.25rem;">3.500 participantes · 72 palestrantes internacionais</div>
+          <div style="font-size:0.68rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.1em;"><?= h($colt['edition']) ?></div>
+          <div style="font-family:var(--font-display);color:var(--navy);font-size:0.92rem;font-weight:800;line-height:1.2;"><?= h($title) ?></div>
+          <div style="color:var(--slate-400);font-size:0.72rem;"><?= h($placeLine) ?></div>
+          <div style="color:var(--slate-600);font-size:0.7rem;margin-top:0.25rem;">Acervo histórico do CoBraLT</div>
           <span style="font-size:0.75rem;font-weight:600;color:var(--sky-dark);margin-top:0.5rem;">Ver detalhes →</span>
         </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CoLT + COTREM ══════════════════════════════════════ -->
-<section class="section colt-banner" id="colt-cotrem" aria-labelledby="colt-cotrem-title" style="background:linear-gradient(135deg,var(--navy) 0%,#003f6b 100%);">
-  <div class="section-inner" style="max-width:980px;">
-    <div class="section-header centered" data-animate>
-      <div class="divider" style="margin:0 auto 1rem;background:rgba(255,255,255,0.2);" aria-hidden="true"></div>
-      <span class="section-label" style="color:var(--sky-light);">Evento Oficial CoBraLT · 2026</span>
-      <h2 class="section-title" style="color:#fff;" id="colt-cotrem-title">
-        XXVIII CoLT + II COTREM<br>
-        <span style="font-size:0.65em;opacity:0.85;">Congresso Brasileiro das Ligas do Trauma<br>+ Congresso Internacional de Trauma e Emergências Médicas</span>
-      </h2>
-      <p class="section-subtitle" style="color:rgba(255,255,255,0.7);">21 a 23 de maio de 2026 · Formosa, Goiás · A maior edição conjunta da história do CoBraLT</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2.5rem;" data-animate data-animate-delay="1">
-      <div class="colt-info-card"><div class="colt-label">Data</div><div class="colt-value">21–23 de Maio · 08h–18h (GMT-3)</div></div>
-      <div class="colt-info-card"><div class="colt-label">Local</div><div class="colt-value">A definir — Formosa, GO, Brasil</div></div>
-      <div class="colt-info-card"><div class="colt-label">Formato</div><div class="colt-value">Presencial</div></div>
-      <div class="colt-info-card"><div class="colt-label">Organização</div><div class="colt-value">UniRV – Campus Formosa + CoBraLT</div></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem;" class="coltcotrem-grid" data-animate data-animate-delay="2">
-      <div>
-        <h3 style="font-family:var(--font-display);color:#fff;font-size:1.1rem;margin-bottom:1rem;">Sobre o Evento</h3>
-        <p style="color:rgba(255,255,255,0.75);line-height:1.75;font-size:0.93rem;margin-bottom:0.9rem;">Após o grande sucesso do I COTREM, nasce em 2026 uma nova edição ainda mais robusta e inovadora. O evento acontece em conjunto com o <strong style="color:#fff;">XXVIII Congresso Brasileiro das Ligas do Trauma (CoLT)</strong>, unindo duas grandes iniciativas em um único encontro científico de alto nível.</p>
-        <p style="color:rgba(255,255,255,0.75);line-height:1.75;font-size:0.93rem;">O II COTREM e o XXVIII CoLT representam um espaço de construção coletiva do conhecimento, incentivo à inovação e fortalecimento da assistência em trauma e emergências médicas no Brasil e no mundo.</p>
-      </div>
-      <div>
-        <h3 style="font-family:var(--font-display);color:#fff;font-size:1.1rem;margin-bottom:1rem;">Patrocinadores</h3>
-        <ul class="colt-list" style="margin-bottom:1.5rem;"><li>Tai Viagens</li><li>Auto Posto Somar</li><li>Samir Sahori Incorporadora</li><li>Clínica CER</li></ul>
-        <div class="colt-actions" style="gap:0.75rem;flex-wrap:wrap;">
-          <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Realizar inscrição
-          </a>
-        </div>
-      </div>
-    </div>
-    <div id="atividades-cotrem" class="hide-mobile" data-animate data-animate-delay="3">
-      <h3 style="font-family:var(--font-display);color:#fff;font-size:1.1rem;margin-bottom:1.25rem;border-top:1px solid rgba(255,255,255,0.15);padding-top:1.5rem;">Atividades — Quinta, 21/05</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:0.75rem;">
-        <div class="colt-box" style="padding:1rem 1.25rem;">
-          <div style="font-size:0.72rem;font-weight:700;color:var(--sky-light);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;">08:00 – 10:00</div>
-          <ul class="colt-list" style="font-size:0.83rem;"><li>Workshop — Acesso Intraósseo</li><li>Workshop — Atendimento ao Paciente Neurocrítico</li><li>Workshop — Manejo da Via Aérea Difícil</li><li>Workshop — Manejo do paciente vítima de queimaduras</li><li>Workshop — Manejo do Trauma Torácico</li><li>Workshop — Mobilização com RMC</li><li>Workshop — Resgate de Submersão e Afogamento</li><li>Workshop — Stop The Bleed</li><li>Workshop — Técnicas em Sutura</li></ul>
-        </div>
-        <div class="colt-box" style="padding:1rem 1.25rem;">
-          <div style="font-size:0.72rem;font-weight:700;color:var(--sky-light);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;">10:30 – 12:30</div>
-          <ul class="colt-list" style="font-size:0.83rem;"><li>Workshop — Acesso Central</li><li>Workshop — Acesso Intraósseo</li><li>Workshop — Imobilização de Fraturas</li><li>Workshop — Manejo da Via Aérea Difícil</li><li>Workshop — Manejo do Abdome Agudo Cirúrgico</li><li>Workshop — Mobilização com RMC</li><li>Workshop — Stop The Bleed</li><li>Workshop — Técnicas em Sutura</li></ul>
-        </div>
-        <div class="colt-box" style="padding:1rem 1.25rem;">
-          <div style="font-size:0.72rem;font-weight:700;color:var(--sky-light);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;">14:00 – 16:00</div>
-          <ul class="colt-list" style="font-size:0.83rem;"><li>Workshop — Atendimento ao Paciente Neurocrítico</li><li>Workshop — Incidente com Múltiplas Vítimas</li><li>Workshop — Manejo do paciente vítima de queimaduras</li><li>Workshop — Manejo do Trauma Torácico</li><li>Workshop — Resgate de Submersão e Afogamento</li><li>Workshop — Técnicas em Sutura</li></ul>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:1.5rem;">
-        <a href="https://www.even3.com.br/ii-cotrem-657250/" target="_blank" rel="noopener noreferrer" class="btn btn-event">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Quero participar das atividades
-        </a>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
@@ -617,7 +517,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
           <div style="display:flex;align-items:flex-start;gap:0.75rem;">
             <span style="width:28px;height:28px;background:linear-gradient(135deg,var(--sky),var(--navy));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.72rem;">🎓</span>
-            <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Descontos em Congressos</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">CoLT, eventos parceiros e acesso antecipado aos Pré-CoLTs</div></div>
+            <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Descontos em Congressos</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">Condições especiais em CoLTs, eventos parceiros e atividades futuras</div></div>
           </div>
           <div style="display:flex;align-items:flex-start;gap:0.75rem;">
             <span style="width:28px;height:28px;background:linear-gradient(135deg,var(--sky),var(--navy));border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.72rem;">🔬</span>

@@ -12,7 +12,13 @@ try {
     $db = getPublicDB();
     $eventos = $db->query(
         "SELECT dia, mes, titulo, local, descricao, link, link_texto, link_externo
-         FROM eventos WHERE ativo = 1 ORDER BY ordem ASC"
+         FROM eventos
+         WHERE ativo = 1
+           AND titulo NOT LIKE '%Pré-CoLT%'
+           AND titulo NOT LIKE '%Pre-CoLT%'
+           AND titulo NOT LIKE '%COTREM%'
+           AND titulo NOT LIKE '%XXVIII CoLT%'
+         ORDER BY ordem ASC"
     )->fetchAll();
 } catch (PDOException $e) {
     $eventos = [];
@@ -45,7 +51,7 @@ layout_header('eventos');
 <section class="section" style="padding-top:3rem;">
   <div class="section-inner">
     <?php if (empty($eventos)): ?>
-      <p style="color:var(--slate-400);text-align:center;padding:3rem 0;">Nenhum evento cadastrado.</p>
+      <p style="color:var(--slate-400);text-align:center;padding:3rem 0;">Nenhum próximo evento cadastrado no momento.</p>
     <?php else: ?>
     <div class="events-grid">
       <?php foreach ($eventos as $i => $ev):
