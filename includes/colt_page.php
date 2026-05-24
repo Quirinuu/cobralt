@@ -46,7 +46,7 @@ layout_header('eventos');
       <div class="region-stat"><div class="region-stat-value"><?= h((string)$edition['number']) ?></div><div class="region-stat-label">edição</div></div>
       <div class="region-stat"><div class="region-stat-value"><?= h($edition['year'] ?: '—') ?></div><div class="region-stat-label">ano</div></div>
       <div class="region-stat"><div class="region-stat-value"><?= h($place) ?></div><div class="region-stat-label">local</div></div>
-      <div class="region-stat"><div class="region-stat-value">auto</div><div class="region-stat-label">galeria</div></div>
+      <div class="region-stat"><div class="region-stat-value">fotos</div><div class="region-stat-label">acervo</div></div>
     </div>
   </div>
 </div>
@@ -57,7 +57,7 @@ layout_header('eventos');
       <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
       <span class="section-label">Galeria</span>
       <h2 class="section-title">Memórias do <?= h($edition['edition']) ?></h2>
-      <p class="section-subtitle">As imagens são carregadas automaticamente da pasta <strong><?= h($edition['folder']) ?></strong>, em ordem numérica.</p>
+      <p class="section-subtitle">Clique em qualquer imagem para visualizar em tela cheia.</p>
     </div>
 
     <div
@@ -67,9 +67,9 @@ layout_header('eventos');
       data-max-photos="300"
       data-editions='<?= $editionsJson ?>'
     >
-      <p class="colt-gallery-loading">Carregando fotos disponíveis...</p>
+      <p class="colt-gallery-loading">Preparando acervo fotográfico...</p>
     </div>
-    <p id="coltGalleryEmpty" class="colt-gallery-empty" hidden>Nenhuma imagem encontrada para esta edição.</p>
+    <p id="coltGalleryEmpty" class="colt-gallery-empty" hidden>As fotos desta edição ainda serão publicadas.</p>
   </div>
 </section>
 
@@ -78,7 +78,7 @@ layout_header('eventos');
     <div class="colt-memory-card" data-animate>
       <span class="section-label">Sobre esta edição</span>
       <h2><?= h($title) ?></h2>
-      <p>Esta página preserva o acervo fotográfico do <?= h($edition['edition']) ?> dentro da história do CoBraLT. A galeria não exige cadastro manual de fotos: basta manter os arquivos como <strong>1.png</strong>, <strong>2.png</strong>, <strong>3.png</strong> e assim por diante dentro da pasta da edição.</p>
+      <p>Esta página preserva o acervo fotográfico do <?= h($edition['edition']) ?> dentro da história do CoBraLT, reunindo registros visuais que ajudam a contar a trajetória das Ligas do Trauma no Brasil.</p>
       <div class="colt-memory-actions">
         <a href="eventos.php#realizados" class="btn btn-secondary">← Voltar aos eventos</a>
         <a href="colts.php" class="btn btn-primary">Ver acervo completo</a>

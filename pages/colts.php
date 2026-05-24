@@ -25,11 +25,11 @@ layout_header('eventos');
     </nav>
     <div class="page-hero-label">Acervo CoBraLT</div>
     <h1 class="page-hero-title">Memórias dos CoLTs</h1>
-    <p class="page-hero-sub">Galerias carregadas automaticamente a partir das pastas de cada edição.</p>
+    <p class="page-hero-sub">Um acervo visual dos Congressos Brasileiros das Ligas do Trauma, organizado por edição.</p>
     <div class="region-stats">
-      <div class="region-stat"><div class="region-stat-value"><?= count($editions) ?></div><div class="region-stat-label">edições mapeadas</div></div>
-      <div class="region-stat"><div class="region-stat-value">1.png</div><div class="region-stat-label">início da sequência</div></div>
-      <div class="region-stat"><div class="region-stat-value">auto</div><div class="region-stat-label">carregamento</div></div>
+      <div class="region-stat"><div class="region-stat-value"><?= count($editions) ?></div><div class="region-stat-label">edições</div></div>
+      <div class="region-stat"><div class="region-stat-value">1999</div><div class="region-stat-label">primeiro registro</div></div>
+      <div class="region-stat"><div class="region-stat-value">CoLT</div><div class="region-stat-label">memória viva</div></div>
     </div>
   </div>
 </div>
@@ -40,7 +40,7 @@ layout_header('eventos');
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Fotos históricas</span>
       <h2 class="section-title">Galeria por edição</h2>
-      <p class="section-subtitle">Cada pasta é lida em ordem numérica. Quando a próxima imagem não existe, aquela edição para ali.</p>
+      <p class="section-subtitle">Clique em qualquer imagem para visualizar em tela cheia.</p>
     </div>
 
     <div
@@ -50,9 +50,9 @@ layout_header('eventos');
       data-max-photos="300"
       data-editions='<?= $editionsJson ?>'
     >
-      <p class="colt-gallery-loading">Carregando fotos disponíveis...</p>
+      <p class="colt-gallery-loading">Preparando acervo fotográfico...</p>
     </div>
-    <p id="coltGalleryEmpty" class="colt-gallery-empty" hidden>Nenhuma imagem encontrada nas pastas configuradas.</p>
+    <p id="coltGalleryEmpty" class="colt-gallery-empty" hidden>As fotos desta seção ainda serão publicadas.</p>
   </div>
 </section>
 

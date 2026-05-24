@@ -101,9 +101,9 @@ layout_header('eventos');
             <?= h($placeLine) ?>
           </p>
           <div class="past-event-stats">
-            <span>Galeria carregada automaticamente</span>
-            <span>Fotos em sequência numérica</span>
-            <span><?= h($colt['folder']) ?></span>
+            <span>Acervo fotográfico</span>
+            <span>Memórias por edição</span>
+            <span>Registro histórico CoBraLT</span>
           </div>
           <span class="past-event-link">Ver detalhes →</span>
         </a>
