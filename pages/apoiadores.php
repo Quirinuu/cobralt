@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+
+if (pb_render_managed_page_if_exists('apoiadores', 'apoiadores')) { exit; }
 
 layout_head('Apoiadores', 'Apoiadores do CoBraLT — Comitê Científico e orientadores que apoiam as Ligas do Trauma no Brasil.');
 layout_header('apoiadores');

@@ -130,7 +130,7 @@ $pages = $db->query(
   </div>
   <div class="content">
     <div class="info-box">
-      💡 Páginas são conteúdos fixos do site (ex: Sobre, Membros, Projetos). São acessadas via URL como <code>/pagina/seu-slug</code>.
+      Páginas criadas aqui usam blocos editáveis e ficam disponíveis em <code>/pagina/seu-slug</code>. O editor permite ligar ou desligar títulos, textos, imagens, cores, botões, cards, galerias e seções.
     </div>
 
     <div class="card">
@@ -149,7 +149,7 @@ $pages = $db->query(
           <?php foreach ($pages as $page): ?>
           <tr>
             <td><span class="page-title"><?= e($page['title']) ?></span></td>
-            <td><span class="page-slug">/pagina/<?= e($page['slug']) ?></span></td>
+            <td><a class="page-slug" href="../pages/page.php?slug=<?= e($page['slug']) ?>" target="_blank">/pagina/<?= e($page['slug']) ?></a></td>
             <td>
               <span class="badge badge-<?= e($page['status']) ?>">
                 <?= $page['status'] === 'published' ? 'Publicada' : 'Rascunho' ?>
@@ -160,6 +160,7 @@ $pages = $db->query(
             <td>
               <div class="actions">
                 <a href="page-editor.php?id=<?= (int)$page['id'] ?>" class="btn-sm outline">Editar</a>
+                <a href="../pages/page.php?slug=<?= e($page['slug']) ?>" target="_blank" class="btn-sm outline">Ver</a>
                 <button class="btn-sm danger" onclick="deletePage(<?= (int)$page['id'] ?>, this)">Excluir</button>
               </div>
             </td>

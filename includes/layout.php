@@ -92,7 +92,11 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
 
 function layout_footer(string $base = '../', array $extra_scripts = []): void {
   $ig = INSTAGRAM_URL;
+  $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
   $pageBase = $base === './' ? 'pages/' : '';
+  if ($base === '../' && strpos($requestPath, '/pagina/') === 0) {
+      $pageBase = '../pages/';
+  }
 ?>
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">

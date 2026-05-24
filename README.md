@@ -25,13 +25,13 @@ cobralT/
 │   ├── diretoria.php       ← Diretoria (banco)
 │   ├── historia.php        ← História do CoBraLT (estática, usa layout.php)
 │   ├── post.php            ← Visualização de um post individual (?slug=xxx)
-│   ├── login.html          ← Tela de login do admin
-│   └── regiao-*.html       ← Páginas das ligas regionais (estáticas, a migrar futuramente)
+│   ├── page.php            ← Renderizador público das páginas criadas no admin
+│   └── regiao-*.php        ← Páginas das ligas regionais
 │
 ├── admin/
 │   ├── .htaccess           ← Bloqueia acesso direto a arquivos _auth
 │   ├── _auth.php           ← Guard de autenticação (inclua em todo .php do admin)
-│   ├── login.html          ← Login do painel admin
+│   ├── login.php           ← Login do painel admin
 │   ├── dashboard.php       ← Painel principal
 │   ├── posts.php           ← Listagem de posts
 │   ├── post-editor.php     ← Criar/editar posts
@@ -63,7 +63,8 @@ cobralT/
 ├── js/
 │   ├── main.js             ← Scroll spy do nav + smooth scroll
 │   ├── animations.js       ← IntersectionObserver (data-animate-*) + drawer mobile + header shadow
-│   └── forms.js            ← Formulários async (ATENÇÃO: depende de APIs ainda não criadas)
+│   ├── forms.js            ← Formulários async
+│   └── admin-page-builder.js ← Construtor de páginas do painel admin
 │
 └── assets/
     └── img/                ← Fotos da diretoria, logo, uploads
@@ -106,7 +107,7 @@ define('SITE_URL', 'https://cobralT.org.br'); // ← sem barra no final
 2. No `.htaccess`, descomente as linhas de redirecionamento HTTPS
 
 ### 5. Acesso ao admin
-- URL: `seudominio.com.br/admin/login.html`
+- URL: `seudominio.com.br/admin/login.php`
 - Usuário: `admin`
 - Senha: a definida no passo 1
 
@@ -128,6 +129,6 @@ define('SITE_URL', 'https://cobralT.org.br'); // ← sem barra no final
 - [ ] Criar `api/inscricao.php` — salvar inscrições no COLT no banco
 - [ ] Criar `api/filiacao.php` — salvar solicitações de filiação
 - [ ] Criar `api/contato.php` — formulário de contato geral
-- [ ] Migrar páginas `regiao-*.html` para PHP com `layout.php`
+- [x] Migrar páginas `regiao-*.html` para PHP com `layout.php`
 - [ ] Preencher `SITE_URL` em `config.php` com o domínio real
 - [ ] Atualizar `sitemap.xml` com slugs reais dos posts após publicar conteúdo

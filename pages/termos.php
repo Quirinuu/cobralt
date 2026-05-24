@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+
+if (pb_render_managed_page_if_exists('termos', '')) { exit; }
 
 layout_head('Termos de Uso', 'Termos de Uso do site do CoBraLT — Comitê Brasileiro das Ligas do Trauma.');
 layout_header('');

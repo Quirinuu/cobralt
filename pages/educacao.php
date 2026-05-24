@@ -3,6 +3,9 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/db.php';
 require_once dirname(__DIR__) . '/includes/layout.php';
 require_once dirname(__DIR__) . '/includes/posts_helpers.php';
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+
+if (pb_render_managed_page_if_exists('educacao', 'educacao')) { exit; }
 
 try {
     $db    = getPublicDB();

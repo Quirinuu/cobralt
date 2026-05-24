@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+
+if (pb_render_managed_page_if_exists('historia', 'historia')) { exit; }
 
 layout_head('História', 'História do CoBraLT — Desde 2003 conectando as Ligas do Trauma do Brasil.');
 layout_header('historia');

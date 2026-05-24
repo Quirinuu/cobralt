@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+
+if (pb_render_managed_page_if_exists('privacidade', '')) { exit; }
 
 layout_head('Política de Privacidade', 'Política de Privacidade do CoBraLT — Comitê Brasileiro das Ligas do Trauma.');
 layout_header('');

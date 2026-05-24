@@ -4,6 +4,11 @@
 
 Options -Indexes
 
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^pagina/([a-z0-9-]+)/?$ pages/page.php?slug=$1 [L,QSA,NC]
+</IfModule>
+
 # Força HTTPS (descomente após ter o SSL ativo na Hostinger)
 # RewriteEngine On
 # RewriteCond %{HTTPS} off

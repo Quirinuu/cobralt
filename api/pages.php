@@ -6,6 +6,7 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/admin/_auth.php';
+require_once dirname(__DIR__) . '/includes/page_builder.php';
 require_role('superadmin', 'admin');
 
 $db     = getDB();
@@ -34,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && in_array($action, ['create', 'updat
 
     $id      = (int)($_POST['id'] ?? 0);
     $title   = trim($_POST['title'] ?? '');
-    $content = sanitize_editor_html(trim($_POST['content'] ?? ''));
+    $blocksJson = trim($_POST['blocks_json'] ?? '');
+    $content = $blocksJson !== ''
+        ? pb_encode_content($blocksJson, $title)
+        : sanitize_editor_html(trim($_POST['content'] ?? ''));
     $status  = in_array($_POST['status'] ?? '', ['draft', 'published']) ? $_POST['status'] : 'draft';
 
     if (empty($title))   json_fail('O título é obrigatório.');

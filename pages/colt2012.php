@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+
+if (pb_render_managed_page_if_exists('colt2012', 'eventos')) { exit; }
 
 layout_head('XIV CoLT 2012', 'XIV CoLT 2012 — Rio de Janeiro. O maior congresso de ligas de trauma do Brasil.');
 layout_header('', '../');
