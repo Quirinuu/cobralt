@@ -121,6 +121,30 @@ layout_header('apoiadores');
         </button>
       </div>  
 
+      <!-- Fernando Antonio C. Spencer Netto -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Fernando Antonio C. Spencer Netto em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/fernando-antonio.png" alt="Fernando Antonio C. Spencer Netto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FA</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Fernando López Mozos -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Fernando López Mozos em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/fernando-lopes.png" alt="Fernando López Mozos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FL</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
       <!-- Filipe Barcelos -->
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Filipe Barcelos em tela cheia">
@@ -241,6 +265,18 @@ layout_header('apoiadores');
         </button>
       </div>
 
+      <!-- José Aurélio Ramalho -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de José Aurélio Ramalho em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/jose-aurelio.png" alt="José Aurélio Ramalho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JA</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
       <!-- Larissa Berbert -->
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Larissa Berbert em tela cheia">
@@ -258,6 +294,18 @@ layout_header('apoiadores');
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Lucas Fileni em tela cheia">
           <div class="sup-photo-wrap">
             <img src="../assets/img/apoiadores/lucas-fileni.png" alt="Lucas Fileni" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LF</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Luis Teodoro da Luz -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Luis Teodoro da Luz em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/luis-teodoro.png" alt="Luis Teodoro da Luz" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LT</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
