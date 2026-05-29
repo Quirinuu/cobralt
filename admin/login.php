@@ -1,5 +1,10 @@
 <?php
-session_start();
+session_start([
+    'cookie_httponly' => true,
+    'cookie_secure'   => isset($_SERVER['HTTPS']),
+    'cookie_samesite' => 'Strict',
+    'use_strict_mode' => true,
+]);
 if (!empty($_SESSION['admin_id'])) {
     header('Location: dashboard.php');
     exit;

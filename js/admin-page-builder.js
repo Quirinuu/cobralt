@@ -370,6 +370,7 @@
 
   window.savePage = function (forcedStatus) {
     var title = el('title').value.trim();
+    var slug = el('slug') ? el('slug').value.trim() : '';
     var status = forcedStatus || (document.querySelector('input[name=statusRadio]:checked') || {}).value || 'draft';
     if (!title) {
       showToast('O titulo e obrigatorio.', 'error');
@@ -385,6 +386,7 @@
     fd.append('action', window.PAGE_ID ? 'update' : 'create');
     fd.append('csrf_token', window.CSRF || '');
     fd.append('title', title);
+    fd.append('slug', slug);
     fd.append('status', status);
     fd.append('blocks_json', JSON.stringify({ builder_version: 1, blocks: state.blocks }));
     if (window.PAGE_ID) fd.append('id', window.PAGE_ID);

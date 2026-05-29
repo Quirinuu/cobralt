@@ -180,9 +180,14 @@ $pageTitle = $post ? 'Editar Post' : 'Novo Post';
                      value="<?= e($post['title'] ?? '') ?>">
             </div>
             <div class="form-group">
+              <label for="slug">Slug / URL</label>
+              <input type="text" id="slug" placeholder="ex: congresso-nacional-trauma"
+                     value="<?= e($post['slug'] ?? '') ?>">
+            </div>
+            <div class="form-group">
               <label>Conteúdo *</label>
               <div class="quill-wrap">
-                <div id="quill-editor"><?= $post['content'] ?? '' ?></div>
+                <div id="quill-editor"><?= sanitize_editor_html($post['content'] ?? '') ?></div>
               </div>
             </div>
           </div>
@@ -214,6 +219,29 @@ $pageTitle = $post ? 'Editar Post' : 'Novo Post';
                   <?= ($post && $post['status'] === 'published') ? 'checked' : '' ?>>
                 <label for="statusPublished">Publicado</label>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Tipo de conteudo</h3></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="tipo">Onde este post aparece</label>
+              <select id="tipo">
+                <?php
+                $tipos = [
+                  'noticias' => 'Noticias',
+                  'eventos'  => 'Eventos',
+                  'projetos' => 'Projetos',
+                  'educacao' => 'Educacao',
+                ];
+                foreach ($tipos as $value => $label):
+                  $sel = ($post['tipo'] ?? 'noticias') === $value ? 'selected' : '';
+                ?>
+                <option value="<?= e($value) ?>" <?= $sel ?>><?= e($label) ?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
           </div>
         </div>
@@ -304,8 +332,10 @@ document.getElementById('fileInput').addEventListener('change', async (e) => {
 // Salvar
 async function savePost(forcedStatus) {
   const title   = document.getElementById('title').value.trim();
+  const slug    = document.getElementById('slug').value.trim();
   const content = quill.root.innerHTML;
   const excerpt = document.getElementById('excerpt').value.trim();
+  const tipo    = document.getElementById('tipo').value;
   const cat     = document.getElementById('category').value;
   const cover   = document.getElementById('coverUrl').value;
   const status  = forcedStatus ||
@@ -320,8 +350,10 @@ async function savePost(forcedStatus) {
   fd.append('action',      POST_ID ? 'update' : 'create');
   fd.append('csrf_token',  CSRF);
   fd.append('title',       title);
+  fd.append('slug',        slug);
   fd.append('content',     content);
   fd.append('excerpt',     excerpt);
+  fd.append('tipo',        tipo);
   fd.append('category',    cat);
   fd.append('status',      status);
   fd.append('cover_image', cover);

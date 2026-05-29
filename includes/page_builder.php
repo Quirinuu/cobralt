@@ -62,7 +62,13 @@ function pb_html($html): string {
     $html = strip_tags($html, $allowed);
     $html = preg_replace('/\s+on[a-z]+\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
     $html = preg_replace('/\s+style\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
-    $html = preg_replace('/href\s*=\s*([\'"])\s*javascript:[^\'"]*\1/i', 'href="#"', $html) ?? $html;
+    $html = preg_replace_callback('/\s+href\s*=\s*("[^"]*"|\'[^\']*\'|[^\s>]+)/i', static function (array $match): string {
+        $raw = trim($match[1], " \t\n\r\0\x0B\"'");
+        if (preg_match('/^(https?:\/\/|mailto:|tel:|\/|#|\.\.?\/)/i', $raw)) {
+            return ' href="' . htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"';
+        }
+        return ' href="#"';
+    }, $html) ?? $html;
     return trim($html);
 }
 

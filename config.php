@@ -21,10 +21,13 @@ function define_if_missing(string $name, $value): void {
 }
 
 // Banco de dados
+define_if_missing('DB_DSN', getenv('DB_DSN') ?: '');
 define_if_missing('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define_if_missing('DB_NAME', getenv('DB_NAME') ?: '');
 define_if_missing('DB_USER', getenv('DB_USER') ?: '');
 define_if_missing('DB_PASS', getenv('DB_PASS') ?: '');
+define_if_missing('DB_DRIVER', getenv('DB_DRIVER') ?: (DB_NAME !== '' ? 'mysql' : 'sqlite'));
+define_if_missing('SQLITE_PATH', getenv('SQLITE_PATH') ?: __DIR__ . '/storage/cobralt.sqlite');
 
 // Uploads
 define_if_missing('UPLOAD_DIR', __DIR__ . '/assets/img/uploads/');

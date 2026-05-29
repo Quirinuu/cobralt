@@ -7,7 +7,7 @@ $db = getDB();
 $totalPosts  = $db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
 $pubPosts    = $db->query('SELECT COUNT(*) FROM posts WHERE status = "published"')->fetchColumn();
 $totalPages  = $db->query('SELECT COUNT(*) FROM pages')->fetchColumn();
-$recentPosts = $db->query('SELECT id, title, status, created_at FROM posts ORDER BY created_at DESC LIMIT 8')->fetchAll();
+$recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts ORDER BY created_at DESC LIMIT 8')->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -258,6 +258,9 @@ $recentPosts = $db->query('SELECT id, title, status, created_at FROM posts ORDER
     .post-date{color:var(--slate-400);font-size:0.82rem;}
 
     .actions{display:flex;gap:8px;}
+    .toast{position:fixed;bottom:2rem;right:2rem;padding:1rem 1.5rem;border-radius:10px;font-weight:600;font-size:0.9rem;z-index:9999;display:none;}
+    .toast.success{background:#D1FAE5;color:#065F46;}
+    .toast.error{background:#FEE2E2;color:#991B1B;}
 
     @media(max-width:768px){
       .sidebar{transform:translateX(-100%);transition:transform 0.25s;}
@@ -393,12 +396,7 @@ $recentPosts = $db->query('SELECT id, title, status, created_at FROM posts ORDER
             <td>
               <div class="actions">
                 <a href="post-editor.php?id=<?= (int)$post['id'] ?>" class="btn-sm outline">Editar</a>
-                <form action="../api/posts.php" method="post" style="display:inline;" onsubmit="return confirm('Excluir este post?')">
-                  <input type="hidden" name="action" value="delete">
-                  <input type="hidden" name="id" value="<?= (int)$post['id'] ?>">
-                  <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
-                  <button type="submit" class="btn-sm danger" style="border:0;cursor:pointer;">Excluir</button>
-                </form>
+                <button type="button" class="btn-sm danger" onclick="deletePost(<?= (int)$post['id'] ?>, this)">Excluir</button>
               </div>
             </td>
           </tr>
@@ -409,6 +407,37 @@ $recentPosts = $db->query('SELECT id, title, status, created_at FROM posts ORDER
     </div>
   </div>
 </div>
+
+<div class="toast" id="toast"></div>
+<script>
+const CSRF = '<?= csrf_token() ?>';
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+async function deletePost(id, btn) {
+  if (!confirm('Excluir este post?')) return;
+  btn.disabled = true;
+  const fd = new FormData();
+  fd.append('action', 'delete');
+  fd.append('id', id);
+  fd.append('csrf_token', CSRF);
+  try {
+    const res = await fetch('../api/posts.php', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Erro ao excluir.');
+    btn.closest('tr').remove();
+    showToast('Post excluido.');
+  } catch (err) {
+    showToast(err.message || 'Erro ao excluir.', 'error');
+    btn.disabled = false;
+  }
+}
+</script>
 
 </body>
 </html>

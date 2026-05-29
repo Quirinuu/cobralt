@@ -1,14 +1,14 @@
 <?php
 /**
  * admin/_auth.php
- * Inclua no TOPO de toda página do painel admin:
+ * Include no topo de toda pagina do painel admin:
  *   require_once __DIR__ . '/_auth.php';
  */
 
 declare(strict_types=1);
 
-// Credenciais centralizadas
 require_once dirname(__DIR__) . '/config.php';
+require_once dirname(__DIR__) . '/includes/db.php';
 
 session_start([
     'cookie_httponly' => true,
@@ -17,7 +17,24 @@ session_start([
     'use_strict_mode' => true,
 ]);
 
-// Sessão expira após 4 horas de inatividade
+function admin_auth_is_api_request(): bool {
+    $script = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+    return str_contains($script, '/api/');
+}
+
+function admin_auth_fail(string $reason, int $code = 401): never {
+    session_destroy();
+    if (admin_auth_is_api_request()) {
+        http_response_code($code);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => false, 'message' => $reason], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+    header('Location: /admin/login.php?expired=1');
+    exit;
+}
+
+// Sessao expira apos 4 horas de inatividade.
 $timeout = 4 * 3600;
 
 if (
@@ -25,41 +42,21 @@ if (
     empty($_SESSION['login_time']) ||
     (time() - $_SESSION['login_time']) > $timeout
 ) {
-    session_destroy();
-    header('Location: /admin/login.php?expired=1');
-    exit;
+    admin_auth_fail('Sessao expirada. Faca login novamente.', 401);
 }
 
-// Proteção contra session hijacking (IP binding)
-$currentIp = $_SERVER['REMOTE_ADDR'] ?? '';
-if (!empty($_SESSION['admin_ip']) && $_SESSION['admin_ip'] !== $currentIp) {
-    session_destroy();
-    header('Location: /admin/login.php?security=1');
-    exit;
+// Protecao leve contra sequestro de sessao sem prender a sessao ao IP.
+$currentUa = substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 200);
+if (!empty($_SESSION['admin_ua']) && !hash_equals((string)$_SESSION['admin_ua'], $currentUa)) {
+    admin_auth_fail('Sessao encerrada por seguranca. Faca login novamente.', 401);
 }
 
-// Renova timestamp de atividade
 $_SESSION['login_time'] = time();
 
-// ─── BANCO DE DADOS ───────────────────────────────────────
 function getDB(): PDO {
-    static $pdo = null;
-    if ($pdo === null) {
-        $pdo = new PDO(
-            "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4",
-            DB_USER,
-            DB_PASS,
-            [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-            ]
-        );
-    }
-    return $pdo;
+    return getPublicDB();
 }
 
-// ─── CSRF TOKEN ───────────────────────────────────────────
 function csrf_token(): string {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -71,40 +68,39 @@ function csrf_verify(): void {
     $token = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
     if (!hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
         http_response_code(403);
-        exit(json_encode(['success' => false, 'message' => 'Token de segurança inválido.']));
+        header('Content-Type: application/json; charset=utf-8');
+        exit(json_encode(['success' => false, 'message' => 'Token de seguranca invalido.'], JSON_UNESCAPED_UNICODE));
     }
 }
 
-// ─── HELPERS ──────────────────────────────────────────────
 function e(string $str): string {
     return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 function json_ok(array $data = []): never {
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(['success' => true] + $data);
+    echo json_encode(['success' => true] + $data, JSON_UNESCAPED_UNICODE);
     exit;
 }
 
 function json_fail(string $message, int $code = 400): never {
     http_response_code($code);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(['success' => false, 'message' => $message]);
+    echo json_encode(['success' => false, 'message' => $message], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
-// ─── SLUG GENERATOR ───────────────────────────────────────
 function make_slug(string $str): string {
-    $str = mb_strtolower(trim($str), 'UTF-8');
-    $str = preg_replace('/[áàãâä]/u', 'a', $str);
-    $str = preg_replace('/[éèêë]/u', 'e', $str);
-    $str = preg_replace('/[íìîï]/u', 'i', $str);
-    $str = preg_replace('/[óòõôö]/u', 'o', $str);
-    $str = preg_replace('/[úùûü]/u', 'u', $str);
-    $str = preg_replace('/[ç]/u', 'c', $str);
-    $str = preg_replace('/[^a-z0-9\-]/', '-', $str);
-    $str = preg_replace('/-+/', '-', $str);
-    return trim($str, '-');
+    $str = trim($str);
+    $ascii = function_exists('iconv') ? @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str) : false;
+    if (is_string($ascii) && $ascii !== '') {
+        $str = $ascii;
+    }
+    $str = mb_strtolower($str, 'UTF-8');
+    $str = preg_replace('/[^a-z0-9]+/i', '-', $str) ?? '';
+    $str = preg_replace('/-+/', '-', $str) ?? '';
+    $str = trim($str, '-');
+    return $str !== '' ? $str : 'item';
 }
 
 function sanitize_editor_html(string $html): string {
@@ -112,20 +108,28 @@ function sanitize_editor_html(string $html): string {
     $html = strip_tags($html, $allowed);
     $html = preg_replace('/\s+on[a-z]+\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
     $html = preg_replace('/\s+style\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
-    $html = preg_replace('/href\s*=\s*([\'"])\s*javascript:[^\'"]*\1/i', 'href="#"', $html) ?? $html;
-    return $html;
+    $html = preg_replace_callback('/\s+href\s*=\s*("[^"]*"|\'[^\']*\'|[^\s>]+)/i', static function (array $match): string {
+        $raw = trim($match[1], " \t\n\r\0\x0B\"'");
+        if (preg_match('/^(https?:\/\/|mailto:|tel:|\/|#|\.\.?\/)/i', $raw)) {
+            return ' href="' . htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"';
+        }
+        return ' href="#"';
+    }, $html) ?? $html;
+    return trim($html);
 }
 
-// ─── VERIFICAÇÃO DE ROLE ──────────────────────────────────
 function require_role(string ...$roles): void {
     global $adminRole;
     if (!in_array($adminRole, $roles, true)) {
         http_response_code(403);
-        exit('<p>Acesso negado. Seu perfil não tem permissão para esta ação.</p>');
+        if (admin_auth_is_api_request()) {
+            header('Content-Type: application/json; charset=utf-8');
+            exit(json_encode(['success' => false, 'message' => 'Sem permissao para esta acao.'], JSON_UNESCAPED_UNICODE));
+        }
+        exit('<p>Acesso negado. Seu perfil nao tem permissao para esta acao.</p>');
     }
 }
 
-// Usuário logado
 $adminUser = $_SESSION['admin_user'] ?? 'Admin';
 $adminRole = $_SESSION['admin_role'] ?? 'editor';
 $adminId   = (int)($_SESSION['admin_id'] ?? 0);

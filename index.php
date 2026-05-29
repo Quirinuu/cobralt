@@ -8,8 +8,11 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/posts_helpers.php';
 require_once __DIR__ . '/includes/colt_editions.php';
+require_once __DIR__ . '/includes/page_builder.php';
 
 require_once __DIR__ . '/includes/layout.php';
+
+if (pb_render_managed_page_if_exists('home', '', './')) { exit; }
 
 // ─── Busca os dados do banco ───────────────────────────────
 try {
@@ -291,12 +294,140 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   transition: background 0.2s, transform 0.2s;
 }
 .sup-dot.active { background: var(--navy); transform: scale(1.45); }
+
+/* ── Programas em destaque ───────────────────────────────── */
+.programs-feature {
+  margin: 0 0 2rem;
+  padding: 1.15rem;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #fff 0%, #F8FAFC 100%);
+  box-shadow: var(--shadow-sm);
+}
+.programs-feature-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.programs-feature-head h3 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: 1.05rem;
+  line-height: 1.2;
+  margin: 0.15rem 0 0;
+}
+.programs-feature-head p {
+  color: var(--slate-600);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0.25rem 0 0;
+}
+.programs-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.program-card {
+  --program-accent: var(--sky);
+  --program-accent-dark: var(--navy);
+  display: grid;
+  grid-template-columns: 122px minmax(0, 1fr);
+  min-height: 210px;
+  border: 1px solid var(--slate-200);
+  border: 1px solid color-mix(in srgb, var(--program-accent) 36%, var(--slate-200));
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.program-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--program-accent), var(--program-accent-dark));
+}
+.program-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--program-accent);
+  border-color: color-mix(in srgb, var(--program-accent) 70%, var(--slate-200));
+}
+.program-card--salvando { --program-accent: #DC2626; --program-accent-dark: #013684; }
+.program-card--party { --program-accent: #22C55E; --program-accent-dark: #0EA5E9; }
+.program-card-media {
+  background: linear-gradient(135deg, #E0F2FE, #F8FAFC);
+  overflow: hidden;
+}
+.program-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.program-card-body {
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.program-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  background: #E0F2FE;
+  background: color-mix(in srgb, var(--program-accent) 14%, #fff);
+  color: var(--program-accent-dark);
+  border: 1px solid var(--slate-200);
+  border: 1px solid color-mix(in srgb, var(--program-accent) 35%, #fff);
+  border-radius: var(--radius-full);
+  padding: 3px 9px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+.program-card h4 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: 1rem;
+  line-height: 1.22;
+  margin: 0 0 0.45rem;
+}
+.program-card p {
+  color: var(--slate-600);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0 0 0.8rem;
+}
+.program-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--program-accent-dark);
+  font-weight: 700;
+  font-size: 0.76rem;
+  margin-top: auto;
+}
 @media (max-width: 640px) {
   .sup-slide { flex: 0 0 120px; }
   .sup-carousel-btn { width: 30px; height: 30px; }
+  .programs-feature { padding: 1rem; }
+  .programs-feature-head { align-items: flex-start; flex-direction: column; }
+  .programs-feature-grid { grid-template-columns: 1fr; }
+  .program-card { grid-template-columns: 104px minmax(0, 1fr); min-height: 190px; }
+  .program-card-body { padding: 1rem; }
 }
 @media (max-width: 400px) {
   .sup-slide { flex: 0 0 100px; }
+  .program-card { grid-template-columns: 1fr; }
+  .program-card-media { aspect-ratio: 16 / 9; }
 }
 </style>
 
@@ -443,7 +574,44 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <a href="pages/eventos.php" class="section-title-link">Eventos e Congressos</a>
         <a href="pages/eventos.php" class="section-page-link">ver página →</a>
       </h2>
-      <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos do CoBraLT e da área de trauma.</p>
+      <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos, congressos e programas oficiais do CoBraLT.</p>
+    </div>
+
+    <div class="programs-feature" data-animate>
+      <div class="programs-feature-head">
+        <div>
+          <span class="section-label">Programas oficiais</span>
+          <h3>Editais e adesões abertas</h3>
+          <p>Documentos de referência para ligas filiadas, com leitura online, tela cheia e download dos PDFs.</p>
+        </div>
+        <a href="pages/educacao.php" class="news-link" style="font-size:0.82rem;">Ver educação →</a>
+      </div>
+
+      <div class="programs-feature-grid">
+        <a href="pages/programa-salvando-vidas-2026.php" class="program-card program-card--salvando" aria-label="Abrir página do Programa Salvando Vidas 2026">
+          <div class="program-card-media">
+            <img src="assets/img/programas/salvando-vidas-2026-cover.png" alt="Capa do edital do Programa Salvando Vidas 2026" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">Edital 2026</span>
+            <h4>Programa Salvando Vidas 2026</h4>
+            <p>Projeto social de prevenção, primeiros socorros e educação em urgência, emergência e trauma.</p>
+            <span class="program-card-link">Ver edital e PDF <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="pages/programa-party-brasil-2026.php" class="program-card program-card--party" aria-label="Abrir página do Programa P.A.R.T.Y. Brasil 2026">
+          <div class="program-card-media">
+            <img src="assets/img/programas/party-brasil-2026-cover.png" alt="Capa do edital do Programa P.A.R.T.Y. Brasil 2026" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">Edital + ficha</span>
+            <h4>Programa P.A.R.T.Y. Brasil 2026</h4>
+            <p>Estratégia de prevenção primária do trauma em jovens, com edital de adesão e ficha de inscrição.</p>
+            <span class="program-card-link">Ver documentos <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+      </div>
     </div>
 
     <div class="events-grid">

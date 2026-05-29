@@ -13,3 +13,6 @@ Thumbs.db
 
 # Logs
 *.log
+*.sqlite
+*.sqlite3
+storage/*-check.png

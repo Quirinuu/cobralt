@@ -4,9 +4,10 @@ require_role('superadmin', 'admin');
 
 $db    = getDB();
 $pages = $db->query(
-    'SELECT p.id, p.title, p.slug, p.status, p.created_at, u.username AS author
-     FROM pages p JOIN admin_users u ON u.id = p.author_id
-     ORDER BY p.created_at DESC'
+    "SELECT p.id, p.title, p.slug, p.status, p.created_at,
+            COALESCE(u.username, 'Usuario removido') AS author
+     FROM pages p LEFT JOIN admin_users u ON u.id = p.author_id
+     ORDER BY p.created_at DESC"
 )->fetchAll();
 ?>
 <!DOCTYPE html>

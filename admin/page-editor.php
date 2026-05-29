@@ -178,6 +178,10 @@ $blocksJson = json_encode(
           <span>Titulo da pagina *</span>
           <input type="text" id="title" placeholder="Ex: Sobre o CoBraLT" value="<?= e($page['title'] ?? '') ?>">
         </label>
+        <label class="field" for="slug" style="margin-top:1rem;">
+          <span>Slug / URL</span>
+          <input type="text" id="slug" placeholder="ex: historia" value="<?= e($page['slug'] ?? '') ?>">
+        </label>
       </div>
       <div class="status-toggle">
         <input type="radio" name="statusRadio" id="statusDraft" value="draft" <?= (!$page || $page['status'] === 'draft') ? 'checked' : '' ?>>

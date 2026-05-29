@@ -18,6 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'creat
 
     if (empty($username) || empty($email) || empty($password)) {
         $error = 'Preencha todos os campos.';
+    } elseif (!preg_match('/^[a-zA-Z0-9._-]{3,60}$/', $username)) {
+        $error = 'Use um usuario com 3 a 60 caracteres, apenas letras, numeros, ponto, hifen ou underline.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Informe um e-mail valido.';
     } elseif (strlen($password) < 10) {
         $error = 'A senha deve ter no mínimo 10 caracteres.';
     } elseif (!preg_match('/[A-Z]/', $password) || !preg_match('/[0-9]/', $password) || !preg_match('/[^a-zA-Z0-9]/', $password)) {
@@ -38,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'creat
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'toggle') {
     csrf_verify();
     $id = (int)($_POST['id'] ?? 0);
+    if ($id <= 0) {
+        $id = $adminId;
+    }
     if ($id !== $adminId) { // não pode desativar a si mesmo
         $db->prepare('UPDATE admin_users SET active = 1 - active WHERE id = ?')->execute([$id]);
     }
@@ -47,12 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'toggl
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
     csrf_verify();
     $id = (int)($_POST['id'] ?? 0);
-    if ($id !== $adminId) {
-        $db->prepare('DELETE FROM admin_users WHERE id = ?')->execute([$id]);
-        $msg = 'Usuário excluído.';
+    if ($id > 0 && $id !== $adminId) {
+        try {
+            $db->prepare('DELETE FROM admin_users WHERE id = ?')->execute([$id]);
+            $msg = 'Usuario excluido.';
+        } catch (\PDOException $e) {
+            $error = 'Nao foi possivel excluir este usuario. Desative-o para preservar o historico de conteudo.';
+        }
     }
 }
-
 $users = $db->query('SELECT id, username, email, role, active, last_login, created_at FROM admin_users ORDER BY created_at DESC')->fetchAll();
 ?>
 <!DOCTYPE html>

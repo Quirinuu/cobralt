@@ -42,6 +42,12 @@ $tipoPage = ($post['tipo'] ?? 'noticias') . '.php';
 $label    = $tipoLabel[$post['tipo']] ?? 'Notícias';
 $dt       = $post['published_at'] ? fmtDate($post['published_at']) : '';
 $dtIso    = $post['published_at'] ? substr($post['published_at'], 0, 10) : '';
+$coverSrc = '';
+if (!empty($post['cover_image'])) {
+    $coverSrc = preg_match('/^(https?:\/\/|\/)/i', $post['cover_image'])
+        ? $post['cover_image']
+        : '../' . ltrim($post['cover_image'], '/');
+}
 
 // 3 posts relacionados do mesmo tipo
 try {
@@ -86,8 +92,8 @@ layout_header($post['tipo'] ?? 'noticias');
 <section class="section" style="padding-top:3rem;">
   <div class="section-inner" style="max-width:780px;">
 
-    <?php if ($post['cover_image']): ?>
-    <img src="../<?= h($post['cover_image']) ?>"
+    <?php if ($coverSrc): ?>
+    <img src="<?= h($coverSrc) ?>"
          alt="<?= h($post['title']) ?>"
          style="width:100%;border-radius:var(--radius-lg);margin-bottom:2rem;object-fit:cover;max-height:420px;">
     <?php endif; ?>

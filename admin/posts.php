@@ -3,14 +3,15 @@ require_once __DIR__ . '/_auth.php';
 $db = getDB();
 
 $statusFilter = $_GET['status'] ?? '';
+$statusFilter = in_array($statusFilter, ['draft', 'published'], true) ? $statusFilter : '';
 $where  = $statusFilter ? 'WHERE p.status = ?' : '';
 $params = $statusFilter ? [$statusFilter] : [];
 
 $posts = $db->prepare(
-    "SELECT p.id, p.title, p.slug, p.status, p.category, p.published_at, p.created_at,
-            u.username AS author
+    "SELECT p.id, p.title, p.slug, p.status, p.tipo, p.category, p.published_at, p.created_at,
+            COALESCE(u.username, 'Usuario removido') AS author
      FROM posts p
-     JOIN admin_users u ON u.id = p.author_id
+     LEFT JOIN admin_users u ON u.id = p.author_id
      {$where}
      ORDER BY p.created_at DESC"
 );
@@ -20,6 +21,12 @@ $posts = $posts->fetchAll();
 $total     = $db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
 $published = $db->query('SELECT COUNT(*) FROM posts WHERE status="published"')->fetchColumn();
 $drafts    = (int)$total - (int)$published;
+$tipoLabels = [
+    'noticias' => 'Noticias',
+    'eventos'  => 'Eventos',
+    'projetos' => 'Projetos',
+    'educacao' => 'Educacao',
+];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -190,6 +197,7 @@ $drafts    = (int)$total - (int)$published;
         <thead>
           <tr>
             <th>Título</th>
+            <th>Tipo</th>
             <th>Categoria</th>
             <th>Status</th>
             <th>Autor</th>
@@ -201,6 +209,7 @@ $drafts    = (int)$total - (int)$published;
           <?php foreach ($posts as $post): ?>
           <tr>
             <td><span class="post-title"><?= e($post['title']) ?></span></td>
+            <td><span class="category-tag"><?= e($tipoLabels[$post['tipo']] ?? $post['tipo'] ?? 'Noticias') ?></span></td>
             <td>
               <?php if ($post['category']): ?>
               <span class="category-tag"><?= e($post['category']) ?></span>

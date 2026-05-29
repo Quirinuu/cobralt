@@ -6,7 +6,7 @@
 cobralT/
 ├── index.php               ← Página inicial (dinâmica, lê do banco)
 ├── config.php              ← Credenciais do banco e constantes globais
-├── database.sql            ← Schema completo + dados iniciais (único arquivo)
+├── database.example.sql    ← Schema completo para MySQL/MariaDB
 ├── .htaccess               ← Segurança, cache, HTTPS e reescritas
 ├── sitemap.xml             ← Sitemap para SEO
 ├── robots.txt
@@ -45,10 +45,9 @@ cobralT/
 │   ├── posts.php           ← CRUD de posts (admin)
 │   ├── pages.php           ← CRUD de páginas (admin)
 │   └── upload.php          ← Upload de imagens (admin)
-│   ← FALTAM CRIAR:
-│   ← inscricao.php         ← Salvar inscrições no COLT (referenciado em forms.js)
-│   ← filiacao.php          ← Salvar solicitações de filiação (referenciado em forms.js)
-│   ← contato.php           ← Formulário de contato (referenciado em forms.js)
+│   ├── inscricao.php       ← Salva inscrições no COLT
+│   ├── filiacao.php        ← Salva solicitações de filiação
+│   └── contato.php         ← Formulário de contato geral
 │
 ├── css/
 │   ├── vars.css            ← Variáveis CSS (cores, fontes, espaçamentos)
@@ -77,7 +76,7 @@ cobralT/
 ### 1. Banco de dados
 1. Acesse o **phpMyAdmin** no painel da Hostinger
 2. Selecione o banco de dados do site
-3. Importe o arquivo `database.sql` (contém schema + dados iniciais)
+3. Importe o arquivo `database.example.sql` (contém o schema completo)
 4. Gere um hash seguro para o admin:
    ```bash
    php -r "echo password_hash('SuaSenhaForte!123', PASSWORD_BCRYPT, ['cost'=>12]);"
@@ -126,9 +125,9 @@ define('SITE_URL', 'https://cobralT.org.br'); // ← sem barra no final
 ---
 
 ## Pendências conhecidas
-- [ ] Criar `api/inscricao.php` — salvar inscrições no COLT no banco
-- [ ] Criar `api/filiacao.php` — salvar solicitações de filiação
-- [ ] Criar `api/contato.php` — formulário de contato geral
+- [x] Criar `api/inscricao.php` — salvar inscrições no COLT
+- [x] Criar `api/filiacao.php` — salvar solicitações de filiação
+- [x] Criar `api/contato.php` — formulário de contato geral
 - [x] Migrar páginas `regiao-*.html` para PHP com `layout.php`
 - [ ] Preencher `SITE_URL` em `config.php` com o domínio real
 - [ ] Atualizar `sitemap.xml` com slugs reais dos posts após publicar conteúdo
