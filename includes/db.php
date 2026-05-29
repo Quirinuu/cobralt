@@ -24,16 +24,20 @@ function db_connect(): PDO {
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 
-    if (defined('DB_DSN') && DB_DSN !== '') {
-        return new PDO(DB_DSN, DB_USER, DB_PASS, $options);
+    $dsn = defined('DB_DSN') ? (string)DB_DSN : '';
+    $driver = db_config_driver();
+
+    if ($dsn !== '') {
+        return new PDO($dsn, DB_USER, DB_PASS, $options);
     }
 
-    if (DB_DRIVER === 'sqlite') {
-        $storageDir = dirname((string)SQLITE_PATH);
+    if ($driver === 'sqlite') {
+        $sqlitePath = defined('SQLITE_PATH') ? (string)SQLITE_PATH : dirname(__DIR__) . '/storage/cobralt.sqlite';
+        $storageDir = dirname($sqlitePath);
         if (!is_dir($storageDir)) {
             mkdir($storageDir, 0755, true);
         }
-        return new PDO('sqlite:' . SQLITE_PATH, null, null, $options);
+        return new PDO('sqlite:' . $sqlitePath, null, null, $options);
     }
 
     return new PDO(
@@ -42,6 +46,16 @@ function db_connect(): PDO {
         DB_PASS,
         $options
     );
+}
+
+function db_config_driver(): string {
+    if (defined('DB_DRIVER')) {
+        return (string)DB_DRIVER;
+    }
+
+    // Compatibilidade com o config.php antigo da Hostinger, que define apenas
+    // DB_HOST/DB_NAME/DB_USER/DB_PASS. Se houver DB_NAME, o site deve usar MySQL.
+    return defined('DB_NAME') && (string)DB_NAME !== '' ? 'mysql' : 'sqlite';
 }
 
 function db_driver(PDO $pdo): string {
@@ -55,12 +69,16 @@ function db_ensure_schema(PDO $pdo): void {
         return;
     }
 
-    if (db_driver($pdo) === 'sqlite') {
-        db_create_sqlite_schema($pdo);
-        db_migrate_sqlite_schema($pdo);
-    } else {
-        db_create_mysql_schema($pdo);
-        db_migrate_mysql_schema($pdo);
+    try {
+        if (db_driver($pdo) === 'sqlite') {
+            db_create_sqlite_schema($pdo);
+            db_migrate_sqlite_schema($pdo);
+        } else {
+            db_create_mysql_schema($pdo);
+            db_migrate_mysql_schema($pdo);
+        }
+    } catch (Throwable $e) {
+        error_log('[CoBraLT] schema check failed: ' . $e->getMessage());
     }
 
     $done[$key] = true;
