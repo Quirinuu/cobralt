@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
 
-$pdfFile = 'Edital Programa Salvando Vidas 2026.pdf';
+$pdfFile = 'programa-salvando-vidas-2026.pdf';
+$pdfDownloadName = 'Edital Programa Salvando Vidas 2026.pdf';
 $pdfUrl = '../assets/pdfs/' . rawurlencode($pdfFile);
 $pdfOpenUrl = $pdfUrl . '#page=2&view=FitH';
 $pdfViewerUrl = $pdfUrl . '#page=2&toolbar=1&navpanes=0&scrollbar=1&view=FitH';
@@ -12,7 +13,7 @@ layout_head(
   'Edital Programa Salvando Vidas 2026',
   'Consulte o edital do Programa Salvando Vidas 2026, com resumo, download e visualização online.'
 );
-layout_header('educacao');
+layout_header('projetos');
 ?>
 
 <main id="main-content">
@@ -20,7 +21,7 @@ layout_header('educacao');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="educacao.php">Educação</a><span>›</span><span>Salvando Vidas 2026</span>
+      <a href="../index.php">Início</a><span>›</span><a href="projetos.php">Projetos</a><span>›</span><span>Salvando Vidas 2026</span>
     </nav>
     <div class="page-hero-label">Edital oficial</div>
     <h1 class="page-hero-title">Programa Salvando Vidas 2026</h1>
@@ -47,7 +48,7 @@ layout_header('educacao');
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
             Abrir em tela cheia
           </a>
-          <a href="<?= htmlspecialchars($pdfUrl) ?>" class="btn btn-navy" download="<?= htmlspecialchars($pdfFile) ?>">
+          <a href="<?= htmlspecialchars($pdfUrl) ?>" class="btn btn-navy" download="<?= htmlspecialchars($pdfDownloadName) ?>">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
             Baixar PDF
           </a>
@@ -80,7 +81,17 @@ layout_header('educacao');
           Nova guia
         </a>
       </div>
-      <iframe class="pdf-frame" src="<?= htmlspecialchars($pdfViewerUrl) ?>" title="Visualizador do Edital Programa Salvando Vidas 2026"></iframe>
+      <object class="pdf-frame" data="<?= htmlspecialchars($pdfViewerUrl) ?>" type="application/pdf" aria-label="Visualizador do Edital Programa Salvando Vidas 2026">
+        <div class="pdf-fallback">
+          <span class="section-label">Visualização indisponível</span>
+          <h3>Não foi possível carregar o PDF nesta área.</h3>
+          <p>Abra o edital em uma nova guia ou baixe o arquivo para leitura completa.</p>
+          <div class="pdf-fallback-actions">
+            <a href="<?= htmlspecialchars($pdfOpenUrl) ?>" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Abrir PDF</a>
+            <a href="<?= htmlspecialchars($pdfUrl) ?>" class="btn btn-navy" download="<?= htmlspecialchars($pdfDownloadName) ?>">Baixar PDF</a>
+          </div>
+        </div>
+      </object>
     </div>
   </div>
 </section>

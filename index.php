@@ -111,6 +111,16 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         </a>
         <a href="#ligas" class="btn btn-secondary">Mostrar Ligas</a>
       </div>
+      <div class="hero-programs-quick" aria-label="Programas oficiais em destaque">
+        <a href="pages/programa-salvando-vidas-2026.php" class="hero-program-quick-item">
+          <span>Salvando Vidas 2026</span>
+          <strong>Maio a dezembro de 2026</strong>
+        </a>
+        <a href="pages/programa-party-brasil-2026.php" class="hero-program-quick-item">
+          <span>P.A.R.T.Y. Brasil 2026</span>
+          <strong>Edital de 10/04/2026</strong>
+        </a>
+      </div>
       <div class="hero-stats" role="list" style="display:flex;gap:1.75rem;margin-top:1.75rem;flex-wrap:wrap;">
         <div role="listitem" style="display:flex;flex-direction:column;align-items:flex-start;">
           <div class="hero-stat-value" style="font-size:2.2rem;font-weight:800;color:#fff;line-height:1;">180<span style="color:var(--sky-light);">+</span></div>
@@ -128,23 +138,30 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         </div>
       </div>
     </div>
-    <div class="hero-visual hide-mobile" aria-hidden="true">
+    <div class="hero-visual hide-mobile" aria-label="Programas oficiais em destaque">
       <div class="hero-card-stack">
         <div class="hero-card-back"></div>
-        <div class="hero-card">
+        <div class="hero-card hero-programs-card">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.1rem;">
             <div style="width:34px;height:34px;background:rgba(14,165,233,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;">
-              <svg width="17" height="17" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <svg width="17" height="17" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
             <div>
-              <div style="color:rgba(255,255,255,0.5);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;">Acervo de eventos</div>
-              <div style="color:#fff;font-weight:700;font-size:0.9rem;">CoLTs realizados</div>
+              <div style="color:rgba(255,255,255,0.5);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;">Programas oficiais</div>
+              <div style="color:#fff;font-weight:700;font-size:0.9rem;">Destaques 2026</div>
             </div>
           </div>
-          <div class="colt-info-card"><div class="colt-label">Histórico</div><div class="colt-value">Congressos das Ligas do Trauma</div></div>
-          <div class="colt-info-card"><div class="colt-label">Mais recente</div><div class="colt-value">XXVIII CoLT + II COTREM</div></div>
-          <div class="colt-info-card" style="margin-bottom:0;"><div class="colt-label">Memória</div><div class="colt-value">Acervo de fotos e edições</div></div>
-          <a href="pages/eventos.php#realizados" class="btn btn-event">Ver eventos realizados</a>
+          <a href="pages/programa-salvando-vidas-2026.php" class="hero-program-row hero-program-row--primary">
+            <span class="hero-program-kicker">Ciclo 2026</span>
+            <strong>Programa Salvando Vidas</strong>
+            <small>Maio a dezembro de 2026</small>
+          </a>
+          <a href="pages/programa-party-brasil-2026.php" class="hero-program-row">
+            <span class="hero-program-kicker">Adesão 2026</span>
+            <strong>Programa P.A.R.T.Y. Brasil</strong>
+            <small>Edital de 10/04/2026</small>
+          </a>
+          <a href="#projetos" class="btn btn-event">Ver projetos</a>
         </div>
       </div>
     </div>
@@ -564,17 +581,17 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   </div>
 </section>
 
-<!-- ═══ EVENTOS ═══════════════════════════════════════════ -->
-<section class="section leagues-section" id="eventos" aria-labelledby="eventos-title">
+<!-- ═══ PROJETOS ══════════════════════════════════════════ -->
+<section class="section" id="projetos" aria-labelledby="projetos-title">
   <div class="section-inner">
     <div class="section-header" data-animate>
       <div class="divider" aria-hidden="true"></div>
-      <span class="section-label">Agenda</span>
-      <h2 class="section-title" id="eventos-title">
-        <a href="pages/eventos.php" class="section-title-link">Eventos e Congressos</a>
-        <a href="pages/eventos.php" class="section-page-link">ver página →</a>
+      <span class="section-label">Iniciativas</span>
+      <h2 class="section-title" id="projetos-title">
+        <a href="pages/projetos.php" class="section-title-link">Projetos</a>
+        <a href="pages/projetos.php" class="section-page-link">ver página →</a>
       </h2>
-      <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos, congressos e programas oficiais do CoBraLT.</p>
+      <p class="section-subtitle">Conheça os programas e projetos oficiais do CoBraLT para ligas filiadas.</p>
     </div>
 
     <div class="programs-feature" data-animate>
@@ -584,7 +601,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <h3>Editais e adesões abertas</h3>
           <p>Documentos de referência para ligas filiadas, com leitura online, tela cheia e download dos PDFs.</p>
         </div>
-        <a href="pages/educacao.php" class="news-link" style="font-size:0.82rem;">Ver educação →</a>
+        <a href="pages/projetos.php" class="news-link" style="font-size:0.82rem;">Ver projetos →</a>
       </div>
 
       <div class="programs-feature-grid">
@@ -593,7 +610,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <img src="assets/img/programas/salvando-vidas-2026-cover.png" alt="Capa do edital do Programa Salvando Vidas 2026" loading="lazy">
           </div>
           <div class="program-card-body">
-            <span class="program-badge">Edital 2026</span>
+            <span class="program-badge">Maio-dez/2026</span>
             <h4>Programa Salvando Vidas 2026</h4>
             <p>Projeto social de prevenção, primeiros socorros e educação em urgência, emergência e trauma.</p>
             <span class="program-card-link">Ver edital e PDF <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
@@ -605,13 +622,28 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <img src="assets/img/programas/party-brasil-2026-cover.png" alt="Capa do edital do Programa P.A.R.T.Y. Brasil 2026" loading="lazy">
           </div>
           <div class="program-card-body">
-            <span class="program-badge">Edital + ficha</span>
+            <span class="program-badge">Edital 10/04/2026</span>
             <h4>Programa P.A.R.T.Y. Brasil 2026</h4>
             <p>Estratégia de prevenção primária do trauma em jovens, com edital de adesão e ficha de inscrição.</p>
             <span class="program-card-link">Ver documentos <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EVENTOS ═══════════════════════════════════════════ -->
+<section class="section leagues-section" id="eventos" aria-labelledby="eventos-title">
+  <div class="section-inner">
+    <div class="section-header" data-animate>
+      <div class="divider" aria-hidden="true"></div>
+      <span class="section-label">Agenda</span>
+      <h2 class="section-title" id="eventos-title">
+        <a href="pages/eventos.php" class="section-title-link">Eventos e Congressos</a>
+        <a href="pages/eventos.php" class="section-page-link">ver página →</a>
+      </h2>
+      <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos e congressos do CoBraLT.</p>
     </div>
 
     <div class="events-grid">

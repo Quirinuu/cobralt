@@ -8,7 +8,8 @@ $documents = [
     'key' => 'edital',
     'label' => 'Edital de adesão',
     'title' => 'Edital de Adesão e Implementação do Programa P.A.R.T.Y. Brasil',
-    'file' => 'EDITAL DE ADESÃO E IMPLEMENTAÇÃO DO PROGRAMA P.pdf',
+    'file' => 'programa-party-brasil-2026-edital.pdf',
+    'download' => 'Programa PARTY Brasil 2026 - Edital.pdf',
     'pages' => '13 páginas',
     'summary' => 'Documento com as diretrizes para adesão, implementação, funcionamento, monitoramento e certificação dos núcleos locais do Programa P.A.R.T.Y. Brasil.',
   ],
@@ -16,7 +17,8 @@ $documents = [
     'key' => 'ficha',
     'label' => 'Ficha de inscrição',
     'title' => 'Ficha de Adesão – Programa P.A.R.T.Y. Brasil',
-    'file' => 'FICHA DE ADESÃO – PROGRAMA P.pdf',
+    'file' => 'programa-party-brasil-2026-ficha.pdf',
+    'download' => 'Programa PARTY Brasil 2026 - Ficha de Adesao.pdf',
     'pages' => '2 páginas',
     'summary' => 'Formulário para envio dos dados institucionais, coordenação, equipe executora, estrutura, parcerias, justificativa e plano de implementação da liga.',
   ],
@@ -33,7 +35,7 @@ layout_head(
   'Programa P.A.R.T.Y. Brasil 2026',
   'Consulte o edital e a ficha de adesão do Programa P.A.R.T.Y. Brasil 2026.'
 );
-layout_header('educacao');
+layout_header('projetos');
 ?>
 
 <main id="main-content">
@@ -41,7 +43,7 @@ layout_header('educacao');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="educacao.php">Educação</a><span>›</span><span>P.A.R.T.Y. Brasil 2026</span>
+      <a href="../index.php">Início</a><span>›</span><a href="projetos.php">Projetos</a><span>›</span><span>P.A.R.T.Y. Brasil 2026</span>
     </nav>
     <div class="page-hero-label">Programa de prevenção</div>
     <h1 class="page-hero-title">Programa P.A.R.T.Y. Brasil 2026</h1>
@@ -89,7 +91,7 @@ layout_header('educacao');
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
             Abrir em tela cheia
           </a>
-          <a href="<?= htmlspecialchars($doc['url']) ?>" class="btn btn-navy" download="<?= htmlspecialchars($doc['file']) ?>">
+          <a href="<?= htmlspecialchars($doc['url']) ?>" class="btn btn-navy" download="<?= htmlspecialchars($doc['download']) ?>">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
             Baixar PDF
           </a>
@@ -122,7 +124,17 @@ layout_header('educacao');
             Nova guia
           </a>
         </div>
-        <iframe class="party-pdf-frame" src="<?= htmlspecialchars($doc['viewer_url']) ?>" title="Visualizador de <?= htmlspecialchars($doc['title']) ?>"></iframe>
+        <object class="party-pdf-frame" data="<?= htmlspecialchars($doc['viewer_url']) ?>" type="application/pdf" aria-label="Visualizador de <?= htmlspecialchars($doc['title']) ?>">
+          <div class="pdf-fallback">
+            <span class="section-label">Visualização indisponível</span>
+            <h3>Não foi possível carregar este PDF nesta área.</h3>
+            <p>Abra o documento em uma nova guia ou baixe o arquivo para leitura completa.</p>
+            <div class="pdf-fallback-actions">
+              <a href="<?= htmlspecialchars($doc['open_url']) ?>" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Abrir PDF</a>
+              <a href="<?= htmlspecialchars($doc['url']) ?>" class="btn btn-navy" download="<?= htmlspecialchars($doc['download']) ?>">Baixar PDF</a>
+            </div>
+          </div>
+        </object>
       </div>
       <?php endforeach; ?>
     </div>
