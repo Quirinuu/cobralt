@@ -19,7 +19,7 @@ if (!empty($_SESSION['admin_id'])) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=6.2">
+  <link rel="stylesheet" href="../css/style.css?v=6.3">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body {

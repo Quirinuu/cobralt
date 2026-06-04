@@ -120,6 +120,10 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <span>P.A.R.T.Y. Brasil 2026</span>
           <strong>Edital de 10/04/2026</strong>
         </a>
+        <a href="pages/programa-junho-laranja-2026.php" class="hero-program-quick-item">
+          <span>Junho Laranja 2026</span>
+          <strong>Trabalho seguro sem queimaduras</strong>
+        </a>
       </div>
       <div class="hero-stats" role="list" style="display:flex;gap:1.75rem;margin-top:1.75rem;flex-wrap:wrap;">
         <div role="listitem" style="display:flex;flex-direction:column;align-items:flex-start;">
@@ -160,6 +164,11 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <span class="hero-program-kicker">Adesão 2026</span>
             <strong>Programa P.A.R.T.Y. Brasil</strong>
             <small>Edital de 10/04/2026</small>
+          </a>
+          <a href="pages/programa-junho-laranja-2026.php" class="hero-program-row hero-program-row--orange">
+            <span class="hero-program-kicker">Junho Laranja</span>
+            <strong>Prevenção e Extensão</strong>
+            <small>Trabalho seguro sem queimaduras</small>
           </a>
           <a href="#projetos" class="btn btn-event">Ver projetos</a>
         </div>
@@ -343,7 +352,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
 }
 .programs-feature-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
 .program-card {
@@ -377,6 +386,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
 }
 .program-card--salvando { --program-accent: #DC2626; --program-accent-dark: #013684; }
 .program-card--party { --program-accent: #22C55E; --program-accent-dark: #0EA5E9; }
+.program-card--laranja { --program-accent: #F97316; --program-accent-dark: #B45309; }
 .program-card-media {
   background: linear-gradient(135deg, #E0F2FE, #F8FAFC);
   overflow: hidden;
@@ -582,6 +592,45 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
 </section>
 
 <!-- ═══ PROJETOS ══════════════════════════════════════════ -->
+<section class="section" id="boletimes" aria-labelledby="boletimes-title">
+  <div class="section-inner">
+    <div class="section-header" data-animate>
+      <div class="divider" aria-hidden="true"></div>
+      <span class="section-label">Boletim CoBraLT</span>
+      <h2 class="section-title" id="boletimes-title">
+        <a href="pages/boletimes.php" class="section-title-link">Trauma BoleTIME</a>
+        <a href="pages/boletimes.php" class="section-page-link">ver edições →</a>
+      </h2>
+      <p class="section-subtitle">Publicação trimestral do CoBraLT com notícias, entrevistas, ações das ligas, agenda científica e atualizações sobre trauma no Brasil.</p>
+    </div>
+
+    <div class="boletime-feature" data-animate>
+      <div class="boletime-feature-head">
+        <div>
+          <span class="section-label">Edições trimestrais</span>
+          <h3>Informativo oficial das Ligas do Trauma</h3>
+          <p>Leia online, abra em tela cheia ou baixe cada edição do boletim institucional do CoBraLT.</p>
+        </div>
+        <a href="pages/boletimes.php" class="news-link" style="font-size:0.82rem;">Ver boletins →</a>
+      </div>
+
+      <div class="boletime-grid">
+        <a href="pages/boletime-maio-2026.php" class="boletime-card" aria-label="Abrir edição Maio 2026 do Trauma BoleTIME">
+          <div class="boletime-card-media">
+            <img src="assets/img/boletimes/trauma-boletime-maio-2026-cover.png" alt="Capa da edição Maio 2026 do Trauma BoleTIME" loading="lazy">
+          </div>
+          <div class="boletime-card-body">
+            <span class="boletime-badge">Edição 1 · 2º trimestre/2026</span>
+            <h4>Trauma BoleTIME - Maio 2026</h4>
+            <p>Edição inaugural com os 23 anos do CoBraLT, entrevista com o Prof. Dr. Gustavo Pereira Fraga, ações das ligas, CoLT/COTREM, ECTES e agenda de eventos.</p>
+            <span class="boletime-card-link">Ver edição <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="projetos" aria-labelledby="projetos-title">
   <div class="section-inner">
     <div class="section-header" data-animate>
@@ -626,6 +675,18 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <h4>Programa P.A.R.T.Y. Brasil 2026</h4>
             <p>Estratégia de prevenção primária do trauma em jovens, com edital de adesão e ficha de inscrição.</p>
             <span class="program-card-link">Ver documentos <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="pages/programa-junho-laranja-2026.php" class="program-card program-card--laranja" aria-label="Abrir página do programa Junho Laranja 2026">
+          <div class="program-card-media">
+            <img src="assets/img/programas/junho-laranja-2026-cover.png" alt="Capa do documento Prevenção e Extensão - Junho Laranja 2026" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">Junho Laranja</span>
+            <h4>Prevenção e Extensão - Junho Laranja 2026</h4>
+            <p>Campanha de prevenção de queimaduras e acidentes ocupacionais com ações educativas e extensionistas.</p>
+            <span class="program-card-link">Ver documento <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
       </div>

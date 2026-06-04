@@ -185,7 +185,7 @@
 
 .hero-programs-quick {
   display: none;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.65rem;
   margin-top: 1rem;
 }
@@ -235,6 +235,10 @@
 
 .hero-program-row--primary {
   border-left: 3px solid var(--sky-light);
+}
+
+.hero-program-row--orange {
+  border-left: 3px solid #FB923C;
 }
 
 .hero-program-kicker {

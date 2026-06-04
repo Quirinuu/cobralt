@@ -32,13 +32,14 @@ function layout_head_only(string $title, string $desc = '', string $base = '../'
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?= $base ?>css/style.css?v=6.2">
+  <link rel="stylesheet" href="<?= $base ?>css/style.css?v=6.3">
 </head>
 <?php }
 
 function layout_header(string $active = '', string $base = '../', string $logo_href = '', string $nav_prefix = ''): void {
   $nav = [
     'noticias'   => ['href' => $nav_prefix . 'noticias.php',   'label' => 'Notícias'],
+    'boletimes'  => ['href' => $nav_prefix . 'boletimes.php',  'label' => 'Trauma BoleTIME'],
     'eventos'    => ['href' => $nav_prefix . 'eventos.php',    'label' => 'Eventos'],
     'projetos'   => ['href' => $nav_prefix . 'projetos.php',   'label' => 'Projetos'],
     'educacao'   => ['href' => $nav_prefix . 'educacao.php',   'label' => 'Educação'],
@@ -115,6 +116,7 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
       <div class="footer-col">
         <h4>Conteúdo</h4>
         <a href="<?= $pageBase ?>noticias.php">Notícias</a>
+        <a href="<?= $pageBase ?>boletimes.php">Trauma BoleTIME</a>
         <a href="<?= $pageBase ?>eventos.php">Eventos</a>
         <a href="<?= $pageBase ?>projetos.php">Projetos</a>
         <a href="<?= $pageBase ?>educacao.php">Educação</a>

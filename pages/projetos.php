@@ -21,7 +21,7 @@ layout_header('projetos');
     <h1 class="page-hero-title">Projetos</h1>
     <p class="page-hero-sub">Programas e projetos oficiais das ligas filiadas ao CoBraLT.</p>
     <div class="region-stats">
-      <div class="region-stat"><div class="region-stat-value">2</div><div class="region-stat-label">programas oficiais</div></div>
+      <div class="region-stat"><div class="region-stat-value">3</div><div class="region-stat-label">programas oficiais</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ciclo vigente</div></div>
       <div class="region-stat"><div class="region-stat-value">180+</div><div class="region-stat-label">ligas na rede</div></div>
     </div>
@@ -61,6 +61,18 @@ layout_header('projetos');
             <h4>Programa P.A.R.T.Y. Brasil 2026</h4>
             <p>Estratégia de prevenção primária do trauma em jovens, com edital de adesão e ficha de inscrição.</p>
             <span class="program-card-link">Ver documentos <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="programa-junho-laranja-2026.php" class="program-card program-card--laranja" aria-label="Abrir página do programa Junho Laranja 2026">
+          <div class="program-card-media">
+            <img src="../assets/img/programas/junho-laranja-2026-cover.png" alt="Capa do documento Prevenção e Extensão - Junho Laranja 2026" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">Junho Laranja</span>
+            <h4>Prevenção e Extensão - Junho Laranja 2026</h4>
+            <p>Campanha de prevenção de queimaduras e acidentes ocupacionais com ações educativas e extensionistas.</p>
+            <span class="program-card-link">Ver documento <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
       </div>
