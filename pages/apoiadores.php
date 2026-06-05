@@ -21,7 +21,7 @@ layout_header('apoiadores');
     <p class="page-hero-sub">Profissionais e instituições que apoiam e orientam as ligas acadêmicas de trauma filiadas ao CoBraLT.</p>
     <div class="region-stats">
       <div class="region-stat">
-        <div class="region-stat-value">28</div>
+        <div class="region-stat-value">39</div>
         <div class="region-stat-label">apoiadores</div>
       </div>
       <div class="region-stat">
@@ -54,6 +54,30 @@ layout_header('apoiadores');
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Amauri Clemente da Rocha em tela cheia">
           <div class="sup-photo-wrap">
             <img src="../assets/img/apoiadores/amauri-clemente.png" alt="Amauri Clemente da Rocha" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AC</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- André Canesso Pierro -->
+            <div class="sup-card" data-animate data-animate-delay="1">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de André Canesso Pierro em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/andre-pierro.png" alt="André Canesso Pierro" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AP</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Andrea de Melo Alexandre Fraga -->
+            <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Andrea de Melo Alexandre Fraga em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/andrea-fraga.png" alt="Andrea de Melo Alexandre Fraga" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AF</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -270,6 +294,18 @@ layout_header('apoiadores');
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de José Aurélio Ramalho em tela cheia">
           <div class="sup-photo-wrap">
             <img src="../assets/img/apoiadores/jose-aurelio.png" alt="José Aurélio Ramalho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JA</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- José Benedito Bortoto -->
+            <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de José Benedito Bortoto em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/jose-benedito-bortoto.png" alt="José Benedito Bortoto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JB</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>

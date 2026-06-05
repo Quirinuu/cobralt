@@ -201,6 +201,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <?php
           $apoiadores = [
             ['nome'=>'Amauri Clemente da Rocha',           'foto'=>'amauri-clemente'],
+            ['nome'=>'André Canesso Pierro',                'foto'=>'andre-pierro'],
+            ['nome'=>'Andrea de Melo Alexandre Fraga',      'foto'=>'andrea-fraga'],
             ['nome'=>'Antonio Toshimitsu Onimaru',          'foto'=>'antonio-toshimitsu'],
             ['nome'=>'Dr. Caio Duarte',                     'foto'=>'caio-duarte'],
             ['nome'=>'Cesar Vanderlei Carmona',             'foto'=>'cesar-vanderlei'],
@@ -219,6 +221,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             ['nome'=>'Jackson Vinícius de Lima Bertuol',    'foto'=>'jackson-vinicius'],
             ['nome'=>'José Alberto Fernandes da Silva Filho','foto'=>'jose-alberto'],
             ['nome'=>'José Aurélio Ramalho',                'foto'=>'jose-aurelio'],
+            ['nome'=>'José Benedito Bortoto',               'foto'=>'jose-benedito-bortoto'],
             ['nome'=>'Larissa Berbert',                     'foto'=>'larissa-berbert'],
             ['nome'=>'Lucas Fileni',                        'foto'=>'lucas-fileni'],
             ['nome'=>'Luis Teodoro da Luz',                 'foto'=>'luis-teodoro'],
