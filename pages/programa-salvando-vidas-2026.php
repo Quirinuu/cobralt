@@ -34,6 +34,46 @@ layout_header('projetos');
   </div>
 </div>
 
+<section class="section" style="padding-top:3rem;padding-bottom:0;">
+  <div class="section-inner" style="max-width:1080px;">
+    <div class="programs-feature" data-animate>
+      <div class="programs-feature-head">
+        <div>
+          <span class="section-label">Publicações do projeto</span>
+          <h2 class="section-title" style="font-size:1.35rem;margin:0.15rem 0 0;">Materiais Salvando Vidas</h2>
+          <p>Conteúdos do ciclo 2026 para leitura online, tela cheia e download.</p>
+        </div>
+      </div>
+
+      <div class="programs-feature-grid">
+        <a href="programa-salvando-vidas-controle-hemorragias.php" class="program-card program-card--salvando" aria-label="Abrir publicação Controle de Hemorragias">
+          <div class="program-card-media">
+            <img src="../assets/img/programas/salvando-vidas-controle-hemorragias-cover.png" alt="Capa do material Controle de Hemorragias" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">34 páginas · PDF</span>
+            <h4>Controle de Hemorragias</h4>
+            <p>Material sobre trauma, xABCDE, pressão direta, torniquetes, hemostáticos, Stop the Bleed e prevenção.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="programa-salvando-vidas-anafilaxia.php" class="program-card program-card--salvando" aria-label="Abrir publicação Reação Alérgica Grave e Anafilaxia">
+          <div class="program-card-media">
+            <img src="../assets/img/programas/salvando-vidas-anafilaxia-cover.png" alt="Capa do material Reação Alérgica Grave e Anafilaxia" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">37 páginas · PDF</span>
+            <h4>Reação Alérgica Grave e Anafilaxia</h4>
+            <p>Material sobre alergias graves, anafilaxia, manifestações clínicas, tratamento, urticária e angioedema.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" style="padding-top:3rem;">
   <div class="section-inner" style="max-width:1080px;">
     <div class="document-layout">

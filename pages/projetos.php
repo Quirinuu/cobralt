@@ -22,8 +22,8 @@ layout_header('projetos');
     <p class="page-hero-sub">Programas e projetos oficiais das ligas filiadas ao CoBraLT.</p>
     <div class="region-stats">
       <div class="region-stat"><div class="region-stat-value">3</div><div class="region-stat-label">programas oficiais</div></div>
+      <div class="region-stat"><div class="region-stat-value">5</div><div class="region-stat-label">documentos publicados</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ciclo vigente</div></div>
-      <div class="region-stat"><div class="region-stat-value">180+</div><div class="region-stat-label">ligas na rede</div></div>
     </div>
   </div>
 </div>
@@ -33,8 +33,8 @@ layout_header('projetos');
     <div class="programs-feature" data-animate>
       <div class="programs-feature-head">
         <div>
-          <span class="section-label">Programas oficiais</span>
-          <h3>Editais e adesões abertas</h3>
+          <span class="section-label">Programas e materiais oficiais</span>
+          <h3>Editais, publicações e adesões</h3>
           <p>Documentos de referência para ligas filiadas, com leitura online, tela cheia e download dos PDFs.</p>
         </div>
       </div>
@@ -48,7 +48,7 @@ layout_header('projetos');
             <span class="program-badge">Maio-dez/2026</span>
             <h4>Programa Salvando Vidas 2026</h4>
             <p>Projeto social de prevenção, primeiros socorros e educação em urgência, emergência e trauma.</p>
-            <span class="program-card-link">Ver edital e PDF <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <span class="program-card-link">Ver edital e materiais <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
 

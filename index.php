@@ -358,6 +358,45 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
+.programs-carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem;
+}
+.programs-carousel-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 2px;
+  padding: 0.2rem 0.1rem 0.75rem;
+  scrollbar-width: thin;
+}
+.programs-carousel-track .program-card {
+  flex: 0 0 min(360px, 84vw);
+  scroll-snap-align: start;
+}
+.programs-carousel-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--slate-200);
+  background: var(--white);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+}
+.programs-carousel-btn:hover {
+  background: var(--navy);
+  color: #fff;
+  transform: scale(1.06);
+}
 .program-card {
   --program-accent: var(--sky);
   --program-accent-dark: var(--navy);
@@ -451,6 +490,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   .programs-feature { padding: 1rem; }
   .programs-feature-head { align-items: flex-start; flex-direction: column; }
   .programs-feature-grid { grid-template-columns: 1fr; }
+  .programs-carousel { grid-template-columns: 1fr; }
+  .programs-carousel-btn { display: none; }
   .program-card { grid-template-columns: 104px minmax(0, 1fr); min-height: 190px; }
   .program-card-body { padding: 1rem; }
 }
@@ -547,6 +588,31 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   /* ── init ── */
   moveTo(0, false);
 })();
+
+(function () {
+  const carousel = document.querySelector('[data-programs-carousel]');
+  if (!carousel) return;
+  const track = carousel.querySelector('[data-programs-track]');
+  const prev = carousel.querySelector('[data-programs-prev]');
+  const next = carousel.querySelector('[data-programs-next]');
+  if (!track || !prev || !next) return;
+
+  function step() {
+    const card = track.querySelector('.program-card');
+    if (!card) return Math.max(280, track.clientWidth * 0.75);
+    const styles = getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap || '16') || 16;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  prev.addEventListener('click', () => {
+    track.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+
+  next.addEventListener('click', () => {
+    track.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+})();
 </script>
 
 <!-- ═══ NOTÍCIAS ═════════════════════════════════════════ -->
@@ -556,7 +622,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Informações</span>
       <h2 class="section-title" id="noticias-title">
-        <a href="pages/noticias.php" class="section-title-link">Notícias Semanais</a>
+        <a href="pages/noticias.php" class="section-title-link">Notícias</a>
         <a href="pages/noticias.php" class="section-page-link" aria-label="Ver todas as notícias">ver página →</a>
       </h2>
       <p class="section-subtitle">Fique atualizado sobre as últimas novidades do CoBraLT e do universo do trauma.</p>
@@ -649,14 +715,18 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
     <div class="programs-feature" data-animate>
       <div class="programs-feature-head">
         <div>
-          <span class="section-label">Programas oficiais</span>
-          <h3>Editais e adesões abertas</h3>
+          <span class="section-label">Programas e materiais oficiais</span>
+          <h3>Editais, publicações e adesões</h3>
           <p>Documentos de referência para ligas filiadas, com leitura online, tela cheia e download dos PDFs.</p>
         </div>
         <a href="pages/projetos.php" class="news-link" style="font-size:0.82rem;">Ver projetos →</a>
       </div>
 
-      <div class="programs-feature-grid">
+      <div class="programs-carousel" data-programs-carousel>
+        <button class="programs-carousel-btn" type="button" data-programs-prev aria-label="Anterior">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="programs-feature-grid programs-carousel-track" data-programs-track>
         <a href="pages/programa-salvando-vidas-2026.php" class="program-card program-card--salvando" aria-label="Abrir página do Programa Salvando Vidas 2026">
           <div class="program-card-media">
             <img src="assets/img/programas/salvando-vidas-2026-cover.png" alt="Capa do edital do Programa Salvando Vidas 2026" loading="lazy">
@@ -665,7 +735,31 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <span class="program-badge">Maio-dez/2026</span>
             <h4>Programa Salvando Vidas 2026</h4>
             <p>Projeto social de prevenção, primeiros socorros e educação em urgência, emergência e trauma.</p>
-            <span class="program-card-link">Ver edital e PDF <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <span class="program-card-link">Ver edital e materiais <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="pages/programa-salvando-vidas-controle-hemorragias.php" class="program-card program-card--salvando" aria-label="Abrir material Controle de Hemorragias do Programa Salvando Vidas">
+          <div class="program-card-media">
+            <img src="assets/img/programas/salvando-vidas-controle-hemorragias-cover.png" alt="Capa do material Controle de Hemorragias" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">34 páginas · PDF</span>
+            <h4>Salvando Vidas - Controle de Hemorragias</h4>
+            <p>Publicação sobre trauma, xABCDE, pressão direta, torniquetes, hemostáticos, Stop the Bleed e prevenção.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="pages/programa-salvando-vidas-anafilaxia.php" class="program-card program-card--salvando" aria-label="Abrir material Reação Alérgica Grave e Anafilaxia do Programa Salvando Vidas">
+          <div class="program-card-media">
+            <img src="assets/img/programas/salvando-vidas-anafilaxia-cover.png" alt="Capa do material Reação Alérgica Grave e Anafilaxia" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">37 páginas · PDF</span>
+            <h4>Salvando Vidas - Anafilaxia</h4>
+            <p>Publicação sobre alergias graves, anafilaxia, sinais de gravidade, tratamento, urticária e angioedema.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
 
@@ -692,6 +786,10 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <span class="program-card-link">Ver documento <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
+        </div>
+        <button class="programs-carousel-btn" type="button" data-programs-next aria-label="Próximo">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
     </div>
   </div>
