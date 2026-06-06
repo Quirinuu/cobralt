@@ -5,6 +5,7 @@
  */
 
 define('INSTAGRAM_URL', 'https://www.instagram.com/cobralt_');
+define('ASSET_VERSION', '20260605.1');
 
 function layout_head(string $title, string $desc = '', string $base = '../', string $body_attrs = ''): void {
   layout_head_only($title, $desc, $base);
@@ -22,8 +23,8 @@ function layout_head_only(string $title, string $desc = '', string $base = '../'
   <meta name="theme-color" content="#013684">
   <title><?= htmlspecialchars($title) ?> — CoBraLT</title>
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="<?= $base ?>assets/img/logo.png">
-  <link rel="apple-touch-icon" href="<?= $base ?>assets/img/logo.png">
+  <link rel="icon" type="image/png" href="<?= $base ?>assets/img/logo.png?v=<?= ASSET_VERSION ?>">
+  <link rel="apple-touch-icon" href="<?= $base ?>assets/img/logo.png?v=<?= ASSET_VERSION ?>">
   <!-- Open Graph -->
   <meta property="og:title" content="<?= htmlspecialchars($title) ?> — CoBraLT">
   <meta property="og:description" content="<?= htmlspecialchars($desc ?: 'CoBraLT — Comitê Brasileiro das Ligas do Trauma.') ?>">
@@ -32,7 +33,7 @@ function layout_head_only(string $title, string $desc = '', string $base = '../'
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?= $base ?>css/style.css?v=6.3">
+  <link rel="stylesheet" href="<?= $base ?>css/style.css?v=<?= ASSET_VERSION ?>">
 </head>
 <?php }
 
@@ -54,7 +55,7 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
 <header class="site-header" role="banner">
   <div class="header-inner">
     <a href="<?= $logo_href ?: $base . 'index.php' ?>" class="logo has-image" aria-label="CoBraLT — Início">
-      <img src="<?= $base ?>assets/img/logo.png?v=6.2" alt="CoBraLT">
+      <img src="<?= $base ?>assets/img/logo.png?v=<?= ASSET_VERSION ?>" alt="CoBraLT">
     </a>
     <nav class="nav-desktop" aria-label="Navegação principal">
       <?php foreach ($nav as $key => $item): ?>
@@ -143,10 +144,10 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
     </div>
   </div>
 </footer>
-<script src="<?= $base ?>js/main.js?v=6.2"></script>
-<script src="<?= $base ?>js/animations.js?v=6.2"></script>
+<script src="<?= $base ?>js/main.js?v=<?= ASSET_VERSION ?>"></script>
+<script src="<?= $base ?>js/animations.js?v=<?= ASSET_VERSION ?>"></script>
 <?php foreach ($extra_scripts as $s): ?>
-<script src="<?= $base ?><?= $s ?>?v=6.2"></script>
+<script src="<?= $base ?><?= $s ?>?v=<?= ASSET_VERSION ?>"></script>
 <?php endforeach; ?>
 </body>
 </html>

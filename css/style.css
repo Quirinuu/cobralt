@@ -3,11 +3,11 @@
    Importa todos os módulos CSS na ordem correta.
    ═══════════════════════════════════════════════════════ */
 
-@import 'vars.css?v=6.1';
-@import 'base.css?v=6.1';
-@import 'animations.css?v=6.1';
-@import 'header.css?v=6.1';
-@import 'hero.css?v=6.2';
-@import 'sections.css?v=6.4';
-@import 'page-builder.css?v=1.0';
-@import 'responsive.css?v=6.1';
+@import 'vars.css?v=20260605.1';
+@import 'base.css?v=20260605.1';
+@import 'animations.css?v=20260605.1';
+@import 'header.css?v=20260605.1';
+@import 'hero.css?v=20260605.1';
+@import 'sections.css?v=20260605.1';
+@import 'page-builder.css?v=20260605.1';
+@import 'responsive.css?v=20260605.1';

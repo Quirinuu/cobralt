@@ -15,11 +15,11 @@ if (!empty($_SESSION['admin_id'])) {
   <meta name="description" content="Área administrativa CoBraLT">
   <meta name="theme-color" content="#013684">
   <title>Admin — CoBraLT</title>
-  <link rel="icon" type="image/png" href="../assets/img/logo.png">
+  <link rel="icon" type="image/png" href="../assets/img/logo.png?v=20260605.1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=6.3">
+  <link rel="stylesheet" href="../css/style.css?v=20260605.1">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -60,7 +60,7 @@ if (!empty($_SESSION['admin_id'])) {
 
 <div class="card">
   <div class="card-logo">
-    <img src="../assets/img/logo.png?v=6.2" alt="CoBraLT">
+    <img src="../assets/img/logo.png?v=20260605.1" alt="CoBraLT">
   </div>
 
   <h1 class="card-title">Área Administrativa</h1>

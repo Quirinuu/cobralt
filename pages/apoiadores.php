@@ -53,7 +53,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Amauri Clemente da Rocha em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/amauri-clemente.png" alt="Amauri Clemente da Rocha" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AC</div>'">
+            <img src="../assets/img/apoiadores/amauri-clemente.png?v=<?= ASSET_VERSION ?>" alt="Amauri Clemente da Rocha" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AC</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -65,7 +65,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de André Canesso Pierro em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/andre-pierro.png" alt="André Canesso Pierro" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AP</div>'">
+            <img src="../assets/img/apoiadores/andre-pierro.png?v=<?= ASSET_VERSION ?>" alt="André Canesso Pierro" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AP</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -77,7 +77,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Andrea de Melo Alexandre Fraga em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/andrea-fraga.png" alt="Andrea de Melo Alexandre Fraga" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AF</div>'">
+            <img src="../assets/img/apoiadores/andrea-fraga.png?v=<?= ASSET_VERSION ?>" alt="Andrea de Melo Alexandre Fraga" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AF</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -89,7 +89,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Antonio Toshimitsu Onimaru em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/antonio-toshimitsu.png" alt="Antonio Toshimitsu Onimaru" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AT</div>'">
+            <img src="../assets/img/apoiadores/antonio-toshimitsu.png?v=<?= ASSET_VERSION ?>" alt="Antonio Toshimitsu Onimaru" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>AT</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -101,7 +101,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Dr. Caio Duarte em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/caio-duarte.png" alt="Dr. Caio Duarte" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CD</div>'">
+            <img src="../assets/img/apoiadores/caio-duarte.png?v=<?= ASSET_VERSION ?>" alt="Dr. Caio Duarte" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CD</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -113,7 +113,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Cesar Vanderlei Carmona em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/cesar-vanderlei.png" alt="Cesar Vanderlei Carmona" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CV</div>'">
+            <img src="../assets/img/apoiadores/cesar-vanderlei.png?v=<?= ASSET_VERSION ?>" alt="Cesar Vanderlei Carmona" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CV</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -125,7 +125,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Cláudio Diunky Okawa em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/claudio-diunky.png" alt="Cláudio Diunky Okawa" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CO</div>'">
+            <img src="../assets/img/apoiadores/claudio-diunky.png?v=<?= ASSET_VERSION ?>" alt="Cláudio Diunky Okawa" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CO</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -137,7 +137,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de cristhian-jaillita Okawa em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/cristhian-jaillita.png" alt="cristhian-jaillita" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CO</div>'">
+            <img src="../assets/img/apoiadores/cristhian-jaillita.png?v=<?= ASSET_VERSION ?>" alt="cristhian-jaillita" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>CO</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -149,7 +149,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Fernando Antonio C. Spencer Netto em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/fernando-antonio.png" alt="Fernando Antonio C. Spencer Netto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FA</div>'">
+            <img src="../assets/img/apoiadores/fernando-antonio.png?v=<?= ASSET_VERSION ?>" alt="Fernando Antonio C. Spencer Netto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FA</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -161,7 +161,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Fernando López Mozos em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/fernando-lopes.png" alt="Fernando López Mozos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FL</div>'">
+            <img src="../assets/img/apoiadores/fernando-lopes.png?v=<?= ASSET_VERSION ?>" alt="Fernando López Mozos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FL</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -173,7 +173,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Filipe Barcelos em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/filipe-barcelos.png" alt="Filipe Barcelos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FE</div>'">
+            <img src="../assets/img/apoiadores/filipe-barcelos.png?v=<?= ASSET_VERSION ?>" alt="Filipe Barcelos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FE</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -185,7 +185,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Francisco Eduardo Silva em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/francisco-eduardo.png" alt="Francisco Eduardo Silva" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FE</div>'">
+            <img src="../assets/img/apoiadores/francisco-eduardo.png?v=<?= ASSET_VERSION ?>" alt="Francisco Eduardo Silva" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FE</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -197,7 +197,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Frederico Michelino em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/frederico-michelino.png" alt="Frederico Michelino" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FM</div>'">
+            <img src="../assets/img/apoiadores/frederico-michelino.png?v=<?= ASSET_VERSION ?>" alt="Frederico Michelino" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>FM</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -209,7 +209,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Guilherme Biazotto em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/guilherme-biazotto.png" alt="Guilherme Biazotto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GB</div>'">
+            <img src="../assets/img/apoiadores/guilherme-biazotto.png?v=<?= ASSET_VERSION ?>" alt="Guilherme Biazotto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GB</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -221,7 +221,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Gustavo de Mendonça Borges em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/gustavo-mendonca.png" alt="Gustavo de Mendonça Borges" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GM</div>'">
+            <img src="../assets/img/apoiadores/gustavo-mendonca.png?v=<?= ASSET_VERSION ?>" alt="Gustavo de Mendonça Borges" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GM</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -233,7 +233,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Gustavo P. Fraga em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/gustavo-fraga.png" alt="Gustavo P. Fraga" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GF</div>'">
+            <img src="../assets/img/apoiadores/gustavo-fraga.png?v=<?= ASSET_VERSION ?>" alt="Gustavo P. Fraga" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>GF</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -245,7 +245,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Henrique José V. Silveira em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/henrique-jose.png" alt="Henrique José V. Silveira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>HJ</div>'">
+            <img src="../assets/img/apoiadores/henrique-jose.png?v=<?= ASSET_VERSION ?>" alt="Henrique José V. Silveira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>HJ</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -257,7 +257,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Henrique Valério de Mesquita em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/henrique-valerio.png" alt="Henrique Valério de Mesquita" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>HV</div>'">
+            <img src="../assets/img/apoiadores/henrique-valerio.png?v=<?= ASSET_VERSION ?>" alt="Henrique Valério de Mesquita" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>HV</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -269,7 +269,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Jackson Vinícius de Lima Bertuol em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/jackson-vinicius.png" alt="Jackson Vinícius de Lima Bertuol" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JV</div>'">
+            <img src="../assets/img/apoiadores/jackson-vinicius.png?v=<?= ASSET_VERSION ?>" alt="Jackson Vinícius de Lima Bertuol" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JV</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -281,7 +281,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de José Alberto Fernandes da Silva Filho em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/jose-alberto.png" alt="José Alberto Fernandes da Silva Filho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JA</div>'">
+            <img src="../assets/img/apoiadores/jose-alberto.png?v=<?= ASSET_VERSION ?>" alt="José Alberto Fernandes da Silva Filho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JA</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -293,7 +293,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de José Aurélio Ramalho em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/jose-aurelio.png" alt="José Aurélio Ramalho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JA</div>'">
+            <img src="../assets/img/apoiadores/jose-aurelio.png?v=<?= ASSET_VERSION ?>" alt="José Aurélio Ramalho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JA</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -305,7 +305,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de José Benedito Bortoto em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/jose-benedito-bortoto.png" alt="José Benedito Bortoto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JB</div>'">
+            <img src="../assets/img/apoiadores/jose-benedito-bortoto.png?v=<?= ASSET_VERSION ?>" alt="José Benedito Bortoto" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>JB</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -317,7 +317,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Larissa Berbert em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/larissa-berbert.png" alt="Larissa Berbert" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LB</div>'">
+            <img src="../assets/img/apoiadores/larissa-berbert.png?v=<?= ASSET_VERSION ?>" alt="Larissa Berbert" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LB</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -329,7 +329,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Lucas Fileni em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/lucas-fileni.png" alt="Lucas Fileni" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LF</div>'">
+            <img src="../assets/img/apoiadores/lucas-fileni.png?v=<?= ASSET_VERSION ?>" alt="Lucas Fileni" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LF</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -341,7 +341,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Luis Teodoro da Luz em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/luis-teodoro.png" alt="Luis Teodoro da Luz" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LT</div>'">
+            <img src="../assets/img/apoiadores/luis-teodoro.png?v=<?= ASSET_VERSION ?>" alt="Luis Teodoro da Luz" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LT</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -353,7 +353,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Nara Gelle de Oliveira em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/nara-gelle.png" alt="Nara Gelle de Oliveira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>NG</div>'">
+            <img src="../assets/img/apoiadores/nara-gelle.png?v=<?= ASSET_VERSION ?>" alt="Nara Gelle de Oliveira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>NG</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -365,7 +365,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Phillipe Abreu em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/phillipe-abreu.png" alt="Phillipe Abreu" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>PA</div>'">
+            <img src="../assets/img/apoiadores/phillipe-abreu.png?v=<?= ASSET_VERSION ?>" alt="Phillipe Abreu" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>PA</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -377,7 +377,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Dr. Renato Diniz Lins em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/renato-diniz.png" alt="Dr. Renato Diniz Lins" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RD</div>'">
+            <img src="../assets/img/apoiadores/renato-diniz.png?v=<?= ASSET_VERSION ?>" alt="Dr. Renato Diniz Lins" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RD</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -389,7 +389,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Rodrigo Barros de Carvalho em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/rodrigo-barros.png" alt="Rodrigo Barros de Carvalho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RB</div>'">
+            <img src="../assets/img/apoiadores/rodrigo-barros.png?v=<?= ASSET_VERSION ?>" alt="Rodrigo Barros de Carvalho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RB</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -401,7 +401,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Rodrigo Caselli Belém em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/rodrigo-caselli.png" alt="Rodrigo Caselli Belém" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RC</div>'">
+            <img src="../assets/img/apoiadores/rodrigo-caselli.png?v=<?= ASSET_VERSION ?>" alt="Rodrigo Caselli Belém" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RC</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -413,7 +413,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Romeo L. Simões em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/romeo-simoes.png" alt="Romeo L. Simões" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RS</div>'">
+            <img src="../assets/img/apoiadores/romeo-simoes.png?v=<?= ASSET_VERSION ?>" alt="Romeo L. Simões" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RS</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -425,7 +425,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Prof. Dr. Santiago Servin em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/santiago-servin.png" alt="Prof. Dr. Santiago Servin" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>SS</div>'">
+            <img src="../assets/img/apoiadores/santiago-servin.png?v=<?= ASSET_VERSION ?>" alt="Prof. Dr. Santiago Servin" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>SS</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -437,7 +437,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Saulo Ferreira em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/saulo-ferreira.png" alt="Saulo Ferreira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>SF</div>'">
+            <img src="../assets/img/apoiadores/saulo-ferreira.png?v=<?= ASSET_VERSION ?>" alt="Saulo Ferreira" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>SF</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -449,7 +449,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Thiago R. Calderan em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/thiago-calderan.png" alt="Thiago R. Calderan" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>TC</div>'">
+            <img src="../assets/img/apoiadores/thiago-calderan.png?v=<?= ASSET_VERSION ?>" alt="Thiago R. Calderan" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>TC</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -461,7 +461,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Tiago Leal Ghezzi em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/tiago-leal.png" alt="Tiago Leal Ghezzi" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>TG</div>'">
+            <img src="../assets/img/apoiadores/tiago-leal.png?v=<?= ASSET_VERSION ?>" alt="Tiago Leal Ghezzi" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>TG</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -473,7 +473,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate>
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Vitor F. Kruger em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/vitor-kruger.png" alt="Vitor F. Kruger" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>VK</div>'">
+            <img src="../assets/img/apoiadores/vitor-kruger.png?v=<?= ASSET_VERSION ?>" alt="Vitor F. Kruger" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>VK</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -485,7 +485,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="1">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Waldemar Prandi Filho em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/waldemar-prandi.png" alt="Waldemar Prandi Filho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WP</div>'">
+            <img src="../assets/img/apoiadores/waldemar-prandi.png?v=<?= ASSET_VERSION ?>" alt="Waldemar Prandi Filho" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WP</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -497,7 +497,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Wellington José dos Santos em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/wellington-santos.png" alt="Wellington José dos Santos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WS</div>'">
+            <img src="../assets/img/apoiadores/wellington-santos.png?v=<?= ASSET_VERSION ?>" alt="Wellington José dos Santos" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WS</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>
@@ -509,7 +509,7 @@ layout_header('apoiadores');
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Willian G. Hashimoto Hilgert de Sousa em tela cheia">
           <div class="sup-photo-wrap">
-            <img src="../assets/img/apoiadores/willian-hashimoto.png" alt="Willian G. Hashimoto Hilgert de Sousa" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WH</div>'">
+            <img src="../assets/img/apoiadores/willian-hashimoto.png?v=<?= ASSET_VERSION ?>" alt="Willian G. Hashimoto Hilgert de Sousa" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WH</div>'">
             <div class="sup-zoom-hint" aria-hidden="true">
               <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
             </div>

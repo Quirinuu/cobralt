@@ -243,7 +243,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           foreach ($apoiadores as $ap): ?>
           <div class="sup-slide">
             <div class="sup-img-wrap">
-              <img src="assets/img/apoiadores/<?= h($ap['foto']) ?>.png" alt="<?= h($ap['nome']) ?>" loading="lazy" onerror="this.style.opacity='0'">
+              <img src="assets/img/apoiadores/<?= h($ap['foto']) ?>.png?v=<?= ASSET_VERSION ?>" alt="<?= h($ap['nome']) ?>" loading="lazy" onerror="this.style.opacity='0'">
             </div>
           </div>
           <?php endforeach; ?>
