@@ -12,14 +12,14 @@ function fmtDate(string $dt): string {
 }
 
 $tipoEmoji = [
-    'noticias' => '📰',
+    'noticias' => '&#128240;',
     'eventos'  => '📅',
     'projetos' => '🔬',
     'educacao' => '🎓',
 ];
 
 $tipoLabel = [
-    'noticias' => 'Notícias',
+    'noticias' => 'Posts',
     'eventos'  => 'Eventos',
     'projetos' => 'Projetos',
     'educacao' => 'Educação',

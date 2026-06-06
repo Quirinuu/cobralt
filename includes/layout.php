@@ -39,7 +39,7 @@ function layout_head_only(string $title, string $desc = '', string $base = '../'
 
 function layout_header(string $active = '', string $base = '../', string $logo_href = '', string $nav_prefix = ''): void {
   $nav = [
-    'noticias'   => ['href' => $nav_prefix . 'noticias.php',   'label' => 'Notícias'],
+    'noticias'   => ['href' => $nav_prefix . 'noticias.php',   'label' => 'Posts'],
     'boletimes'  => ['href' => $nav_prefix . 'boletimes.php',  'label' => 'Trauma BoleTIME'],
     'eventos'    => ['href' => $nav_prefix . 'eventos.php',    'label' => 'Eventos'],
     'projetos'   => ['href' => $nav_prefix . 'projetos.php',   'label' => 'Projetos'],
@@ -116,7 +116,7 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
       </div>
       <div class="footer-col">
         <h4>Conteúdo</h4>
-        <a href="<?= $pageBase ?>noticias.php">Notícias</a>
+        <a href="<?= $pageBase ?>noticias.php">Posts</a>
         <a href="<?= $pageBase ?>boletimes.php">Trauma BoleTIME</a>
         <a href="<?= $pageBase ?>eventos.php">Eventos</a>
         <a href="<?= $pageBase ?>projetos.php">Projetos</a>

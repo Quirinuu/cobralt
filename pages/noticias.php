@@ -14,7 +14,7 @@ try {
     $posts = [];
 }
 
-layout_head('Notícias', 'Fique por dentro das últimas novidades do CoBraLT e do universo do trauma.');
+layout_head('Posts', 'Publicações e atualizações do CoBraLT.');
 layout_header('noticias');
 ?>
 
@@ -23,11 +23,11 @@ layout_header('noticias');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Notícias</span>
+      <a href="../index.php">Início</a><span>›</span><span>Posts</span>
     </nav>
-    <div class="page-hero-label">CoBraLT Informa</div>
-    <h1 class="page-hero-title">Notícias</h1>
-    <p class="page-hero-sub">Fique por dentro das últimas novidades do CoBraLT e do universo do trauma.</p>
+    <div class="page-hero-label">CoBraLT publica</div>
+    <h1 class="page-hero-title">Posts</h1>
+    <p class="page-hero-sub">Publicações, atualizações e conteúdos recentes do CoBraLT.</p>
     <div class="region-stats">
       <div class="region-stat"><div class="region-stat-value"><?= count($posts) ?></div><div class="region-stat-label">publicações</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ano em curso</div></div>

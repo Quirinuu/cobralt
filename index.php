@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/posts_helpers.php';
+require_once __DIR__ . '/includes/instagram_posts.php';
 require_once __DIR__ . '/includes/colt_editions.php';
 require_once __DIR__ . '/includes/page_builder.php';
 
@@ -18,13 +19,13 @@ if (pb_render_managed_page_if_exists('home', '', './')) { exit; }
 try {
     $db = getPublicDB();
 
-    // 3 notícias publicadas mais recentes
+    // Posts publicados mais recentes para fallback da home
     $stmtNoticias = $db->query(
-        "SELECT title, excerpt, category, published_at, slug
+        "SELECT title, excerpt, category, published_at, slug, cover_image
          FROM posts
          WHERE status = 'published'
          ORDER BY published_at DESC
-         LIMIT 3"
+         LIMIT 6"
     );
     $noticias = $stmtNoticias->fetchAll();
 
@@ -38,7 +39,7 @@ try {
            AND titulo NOT LIKE '%COTREM%'
            AND titulo NOT LIKE '%XXVIII CoLT%'
          ORDER BY ordem ASC
-         LIMIT 3"
+         LIMIT 6"
     );
     $eventos = $stmtEventos->fetchAll();
 
@@ -81,6 +82,24 @@ $catEmoji = [
     'Eventos'       => '📅',
     'Institucional' => '🏛️',
 ];
+
+$instagramPosts = get_instagram_posts(6);
+$homePosts = $instagramPosts;
+if (empty($homePosts)) {
+    $homePosts = array_map(static function (array $post): array {
+        $cover = trim((string)($post['cover_image'] ?? ''));
+        return [
+            'title' => (string)($post['title'] ?? ''),
+            'excerpt' => (string)($post['excerpt'] ?? ''),
+            'category' => (string)($post['category'] ?? 'Post'),
+            'published_at' => (string)($post['published_at'] ?? ''),
+            'url' => 'pages/post.php?slug=' . rawurlencode((string)($post['slug'] ?? '')),
+            'image' => $cover !== '' ? (preg_match('/^(https?:\/\/|\/)/i', $cover) ? $cover : ltrim($cover, '/')) : '',
+            'source' => 'site',
+            'external' => false,
+        ];
+    }, $noticias);
+}
 
 $homePastColts = array_slice(colt_editions_newest_first(), 0, 8);
 ?>
@@ -192,12 +211,12 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
     </div>
 
     <!-- Carrossel de apoiadores -->
-    <div class="sup-carousel-outer">
-      <button class="sup-carousel-btn" id="supPrev" aria-label="Anterior">
+    <div class="sup-carousel-outer index-carousel" data-index-carousel data-carousel-step="3" data-carousel-autoplay="2800">
+      <button class="sup-carousel-btn index-carousel-btn" type="button" data-carousel-prev aria-label="Anterior">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <div class="sup-viewport" id="supViewport">
-        <div class="sup-track" id="supTrack">
+      <div class="sup-viewport">
+        <div class="sup-track index-carousel-track" id="supTrack" data-carousel-track>
           <?php
           $apoiadores = [
             ['nome'=>'Amauri Clemente da Rocha',           'foto'=>'amauri-clemente'],
@@ -249,11 +268,11 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <?php endforeach; ?>
         </div>
       </div>
-      <button class="sup-carousel-btn" id="supNext" aria-label="Próximo">
+      <button class="sup-carousel-btn index-carousel-btn" type="button" data-carousel-next aria-label="Próximo">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
+      <div class="sup-dots index-carousel-dots" id="supDots" data-carousel-dots></div>
     </div>
-    <div class="sup-dots" id="supDots"></div>
   </div>
 </section>
 
@@ -323,6 +342,131 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   transition: background 0.2s, transform 0.2s;
 }
 .sup-dot.active { background: var(--navy); transform: scale(1.45); }
+
+/* ── Carrossel padrão do index ───────────────────────────── */
+.index-carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem;
+}
+.index-carousel-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 2px;
+  padding: 0.2rem 0.1rem 0.75rem;
+  scrollbar-width: thin;
+}
+.index-carousel-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--slate-200);
+  background: var(--white);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+}
+.index-carousel-btn:hover {
+  background: var(--navy);
+  color: #fff;
+  transform: scale(1.06);
+}
+.index-carousel-dots {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+}
+.index-carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--slate-300);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, width 0.2s;
+}
+.index-carousel-dot.active {
+  width: 18px;
+  border-radius: 99px;
+  background: var(--navy);
+}
+.post-card {
+  flex: 0 0 min(330px, 84vw);
+  scroll-snap-align: start;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: #BAE6FD;
+}
+.post-card-media {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #E0F2FE, #F8FAFC);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.post-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.post-card-placeholder {
+  color: var(--navy);
+  font-size: 2.1rem;
+}
+.post-card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 210px;
+}
+.post-card h3 {
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1.25;
+  margin: 0 0 0.45rem;
+}
+.post-card p {
+  color: var(--slate-600);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  margin: 0 0 0.8rem;
+}
+.post-source-pill {
+  display: inline-flex;
+  align-self: flex-start;
+  border-radius: var(--radius-full);
+  background: #E0F2FE;
+  color: var(--navy);
+  border: 1px solid #BAE6FD;
+  padding: 3px 9px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
 
 /* ── Programas em destaque ───────────────────────────────── */
 .programs-feature {
@@ -490,6 +634,9 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   .programs-feature { padding: 1rem; }
   .programs-feature-head { align-items: flex-start; flex-direction: column; }
   .programs-feature-grid { grid-template-columns: 1fr; }
+  .index-carousel { grid-template-columns: 1fr; }
+  .index-carousel-track { padding-inline: 0; }
+  .index-carousel-btn { display: none; }
   .programs-carousel { grid-template-columns: 1fr; }
   .programs-carousel-btn { display: none; }
   .program-card { grid-template-columns: 104px minmax(0, 1fr); min-height: 190px; }
@@ -504,162 +651,156 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
 
 <script>
 (function () {
-  const track   = document.getElementById('supTrack');
-  const vp      = document.getElementById('supViewport');
-  const dotsEl  = document.getElementById('supDots');
-  const btnPrev = document.getElementById('supPrev');
-  const btnNext = document.getElementById('supNext');
-  if (!track || !vp) return;
+  document.querySelectorAll('[data-index-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('[data-carousel-track]');
+    const prev = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    const dotsWrap = carousel.querySelector('[data-carousel-dots]');
+    if (!track || !prev || !next || !dotsWrap) return;
 
-  const slides = Array.from(track.querySelectorAll('.sup-slide'));
-  const TOTAL  = slides.length;
-  const GAP    = 14;   // px — deve bater com o gap do CSS (0.85rem ≈ 14px)
-  const STEP   = 3;    // slides por clique/swipe
-  const DELAY  = 2800; // ms entre avanços automáticos
+    const stepCount = Math.max(1, parseInt(carousel.dataset.carouselStep || '1', 10));
+    const autoplay = parseInt(carousel.dataset.carouselAutoplay || '0', 10);
+    let paused = false;
 
-  let current  = 0;
-  let paused   = false; // pausa durante hover
-
-  /* ── dimensões ── */
-  function sw()      { return slides[0].offsetWidth + GAP; }
-  function maxIdx()  { return Math.max(0, TOTAL - Math.round(vp.offsetWidth / sw())); }
-
-  /* ── mover ── */
-  function moveTo(idx, animated) {
-    current = Math.max(0, Math.min(idx, maxIdx()));
-    track.style.transition = animated ? 'transform 0.4s ease' : 'none';
-    track.style.transform  = `translateX(${-(current * sw())}px)`;
-    syncDots();
-  }
-
-  /* ── avançar (loop no fim) ── */
-  function go(delta) {
-    let next = current + delta;
-    if (next > maxIdx()) next = 0;
-    if (next < 0)        next = maxIdx();
-    moveTo(next, true);
-  }
-
-  /* ── dots ── */
-  const N = Math.min(7, TOTAL);
-  const dots = Array.from({ length: N }, (_, i) => {
-    const d = document.createElement('button');
-    d.className = 'sup-dot';
-    d.setAttribute('aria-label', 'Página ' + (i + 1));
-    d.addEventListener('click', () => {
-      moveTo(Math.round(i * maxIdx() / Math.max(1, N - 1)), true);
-    });
-    dotsEl.appendChild(d);
-    return d;
-  });
-
-  function syncDots() {
-    const mx = maxIdx();
-    const active = mx > 0 ? Math.round((current / mx) * (N - 1)) : 0;
-    dots.forEach((d, i) => d.classList.toggle('active', i === active));
-  }
-
-  /* ── setas ── */
-  btnPrev.addEventListener('click', () => go(-STEP));
-  btnNext.addEventListener('click', () => go(STEP));
-
-  /* ── auto-play: ticker independente, não usa go() para não criar loops ── */
-  setInterval(() => {
-    if (!paused) {
-      let next = current + 1;
-      if (next > maxIdx()) next = 0;
-      moveTo(next, true);
+    function items() {
+      return Array.from(track.children).filter(el => el.offsetParent !== null);
     }
-  }, DELAY);
 
-  /* ── pausa no hover (desktop) ── */
-  vp.addEventListener('mouseenter', () => { paused = true; });
-  vp.addEventListener('mouseleave', () => { paused = false; });
+    function cardStep() {
+      const item = items()[0];
+      if (!item) return Math.max(280, track.clientWidth * 0.75);
+      const styles = getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap || '16') || 16;
+      return item.getBoundingClientRect().width + gap;
+    }
 
-  /* ── swipe (mobile) ── */
-  let tx0 = 0;
-  vp.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; paused = true; }, { passive: true });
-  vp.addEventListener('touchend',   e => {
-    const d = tx0 - e.changedTouches[0].clientX;
-    if (Math.abs(d) > 40) go(d > 0 ? STEP : -STEP);
-    paused = false;
-  }, { passive: true });
+    function maxIndex() {
+      return Math.max(0, Math.ceil((track.scrollWidth - track.clientWidth) / cardStep()));
+    }
 
-  /* ── init ── */
-  moveTo(0, false);
-})();
+    function currentIndex() {
+      return Math.max(0, Math.round(track.scrollLeft / cardStep()));
+    }
 
-(function () {
-  const carousel = document.querySelector('[data-programs-carousel]');
-  if (!carousel) return;
-  const track = carousel.querySelector('[data-programs-track]');
-  const prev = carousel.querySelector('[data-programs-prev]');
-  const next = carousel.querySelector('[data-programs-next]');
-  if (!track || !prev || !next) return;
+    function goTo(index) {
+      const bounded = Math.max(0, Math.min(index, maxIndex()));
+      track.scrollTo({ left: bounded * cardStep(), behavior: 'smooth' });
+    }
 
-  function step() {
-    const card = track.querySelector('.program-card');
-    if (!card) return Math.max(280, track.clientWidth * 0.75);
-    const styles = getComputedStyle(track);
-    const gap = parseFloat(styles.columnGap || styles.gap || '16') || 16;
-    return card.getBoundingClientRect().width + gap;
-  }
+    function syncDots() {
+      const max = maxIndex();
+      const total = Math.min(7, max + 1);
+      if (dotsWrap.children.length !== total) {
+        dotsWrap.innerHTML = '';
+        for (let i = 0; i < total; i++) {
+          const dot = document.createElement('button');
+          dot.className = 'index-carousel-dot';
+          dot.type = 'button';
+          dot.setAttribute('aria-label', 'Página ' + (i + 1));
+          dot.addEventListener('click', () => {
+            goTo(Math.round(i * max / Math.max(1, total - 1)));
+          });
+          dotsWrap.appendChild(dot);
+        }
+      }
+      const active = max > 0 ? Math.round((currentIndex() / max) * (total - 1)) : 0;
+      Array.from(dotsWrap.children).forEach((dot, i) => dot.classList.toggle('active', i === active));
+      const isScrollable = track.scrollWidth > track.clientWidth + 2;
+      prev.style.visibility = isScrollable ? 'visible' : 'hidden';
+      next.style.visibility = isScrollable ? 'visible' : 'hidden';
+      dotsWrap.style.display = isScrollable ? 'flex' : 'none';
+    }
 
-  prev.addEventListener('click', () => {
-    track.scrollBy({ left: -step(), behavior: 'smooth' });
-  });
+    prev.addEventListener('click', () => goTo(currentIndex() - stepCount));
+    next.addEventListener('click', () => {
+      const nextIndex = currentIndex() + stepCount;
+      goTo(nextIndex > maxIndex() ? 0 : nextIndex);
+    });
+    track.addEventListener('scroll', () => window.requestAnimationFrame(syncDots), { passive: true });
+    carousel.addEventListener('mouseenter', () => { paused = true; });
+    carousel.addEventListener('mouseleave', () => { paused = false; });
+    window.addEventListener('resize', syncDots, { passive: true });
 
-  next.addEventListener('click', () => {
-    track.scrollBy({ left: step(), behavior: 'smooth' });
+    if (autoplay > 0) {
+      setInterval(() => {
+        if (!paused && track.scrollWidth > track.clientWidth + 2) {
+          const nextIndex = currentIndex() + stepCount;
+          goTo(nextIndex > maxIndex() ? 0 : nextIndex);
+        }
+      }, autoplay);
+    }
+
+    syncDots();
   });
 })();
 </script>
 
-<!-- ═══ NOTÍCIAS ═════════════════════════════════════════ -->
-<section class="section" id="noticias" aria-labelledby="noticias-title">
+<!-- POSTS -->
+<section class="section" id="posts" aria-labelledby="posts-title">
   <div class="section-inner">
     <div class="section-header" data-animate>
       <div class="divider" aria-hidden="true"></div>
-      <span class="section-label">Informações</span>
-      <h2 class="section-title" id="noticias-title">
-        <a href="pages/noticias.php" class="section-title-link">Notícias</a>
-        <a href="pages/noticias.php" class="section-page-link" aria-label="Ver todas as notícias">ver página →</a>
+      <span class="section-label">Instagram e publicações</span>
+      <h2 class="section-title" id="posts-title">
+        <a href="pages/noticias.php" class="section-title-link">Posts</a>
+        <a href="<?= INSTAGRAM_URL ?>" class="section-page-link" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram do CoBraLT">ver Instagram &rarr;</a>
       </h2>
-      <p class="section-subtitle">Fique atualizado sobre as últimas novidades do CoBraLT e do universo do trauma.</p>
+      <p class="section-subtitle">Acompanhe as publicações mais recentes do CoBraLT. Quando o token do Instagram estiver configurado, esta área sincroniza automaticamente com o perfil oficial.</p>
     </div>
 
-    <div class="news-grid">
-      <?php if (empty($noticias)): ?>
-        <p style="color:var(--slate-400);grid-column:1/-1;text-align:center;">Nenhuma notícia publicada ainda.</p>
-      <?php else: foreach ($noticias as $i => $n):
-        $cat   = h($n['category'] ?? 'Geral');
-        $emoji = $catEmoji[$n['category']] ?? '📰';
-        $dt    = $n['published_at'] ? fmtDate($n['published_at']) : '';
-        $dtIso = $n['published_at'] ? substr($n['published_at'], 0, 10) : '';
-      ?>
-      <article class="news-card" data-animate data-animate-delay="<?= $i + 1 ?>">
-        <div class="news-thumb">
-          <span class="news-cat"><?= $cat ?></span>
-          <?= $emoji ?>
-        </div>
-        <div class="news-body">
-          <div class="news-meta">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <time datetime="<?= h($dtIso) ?>"><?= h($dt) ?></time>
+    <?php if (empty($homePosts)): ?>
+      <p style="color:var(--slate-400);text-align:center;">Nenhum post publicado ainda.</p>
+    <?php else: ?>
+    <div class="index-carousel" data-index-carousel data-carousel-step="1">
+      <button class="index-carousel-btn" type="button" data-carousel-prev aria-label="Post anterior">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <div class="index-carousel-track" data-carousel-track>
+        <?php foreach ($homePosts as $i => $post):
+          $cat      = h($post['category'] ?? 'Post');
+          $dtRaw    = (string)($post['published_at'] ?? '');
+          $dt       = $dtRaw !== '' ? fmtDate($dtRaw) : '';
+          $dtIso    = $dtRaw !== '' ? substr($dtRaw, 0, 10) : '';
+          $url      = (string)($post['url'] ?? '#');
+          $external = !empty($post['external']);
+          $target   = $external ? ' target="_blank" rel="noopener noreferrer"' : '';
+          $image    = trim((string)($post['image'] ?? ''));
+          $source   = ($post['source'] ?? '') === 'instagram' ? 'Instagram' : 'Post';
+        ?>
+        <a href="<?= h($url) ?>" class="post-card" data-animate data-animate-delay="<?= ($i % 3) + 1 ?>"<?= $target ?>>
+          <div class="post-card-media">
+            <?php if ($image !== ''): ?>
+              <img src="<?= h($image) ?>" alt="<?= h($post['title'] ?? 'Post do CoBraLT') ?>" loading="lazy">
+            <?php else: ?>
+              <span class="post-card-placeholder" aria-hidden="true">#</span>
+            <?php endif; ?>
           </div>
-          <h3><?= h($n['title']) ?></h3>
-          <p><?= h($n['excerpt'] ?? '') ?></p>
-          <a href="pages/post.php?slug=<?= h($n['slug']) ?>" class="news-link">
-            Ler mais
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-      <?php endforeach; endif; ?>
+          <div class="post-card-body">
+            <span class="post-source-pill"><?= h($source) ?> · <?= $cat ?></span>
+            <div class="news-meta">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <time datetime="<?= h($dtIso) ?>"><?= h($dt) ?></time>
+            </div>
+            <h3><?= h($post['title'] ?? '') ?></h3>
+            <p><?= h($post['excerpt'] ?? '') ?></p>
+            <span class="news-link">
+              <?= $external ? 'Ver no Instagram' : 'Ler post' ?>
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+        <?php endforeach; ?>
+      </div>
+
+      <button class="index-carousel-btn" type="button" data-carousel-next aria-label="Próximo post">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="index-carousel-dots" data-carousel-dots></div>
     </div>
+    <?php endif; ?>
   </div>
 </section>
-
 <!-- ═══ PROJETOS ══════════════════════════════════════════ -->
 <section class="section" id="boletimes" aria-labelledby="boletimes-title">
   <div class="section-inner">
@@ -722,11 +863,11 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <a href="pages/projetos.php" class="news-link" style="font-size:0.82rem;">Ver projetos →</a>
       </div>
 
-      <div class="programs-carousel" data-programs-carousel>
-        <button class="programs-carousel-btn" type="button" data-programs-prev aria-label="Anterior">
+      <div class="programs-carousel index-carousel" data-index-carousel data-carousel-step="1">
+        <button class="programs-carousel-btn index-carousel-btn" type="button" data-carousel-prev aria-label="Anterior">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <div class="programs-feature-grid programs-carousel-track" data-programs-track>
+        <div class="programs-feature-grid programs-carousel-track index-carousel-track" data-carousel-track>
         <a href="pages/programa-salvando-vidas-2026.php" class="program-card program-card--salvando" aria-label="Abrir página do Programa Salvando Vidas 2026">
           <div class="program-card-media">
             <img src="assets/img/programas/salvando-vidas-2026-cover.png" alt="Capa do edital do Programa Salvando Vidas 2026" loading="lazy">
@@ -787,9 +928,10 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
         </a>
         </div>
-        <button class="programs-carousel-btn" type="button" data-programs-next aria-label="Próximo">
+        <button class="programs-carousel-btn index-carousel-btn" type="button" data-carousel-next aria-label="Próximo">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
+        <div class="index-carousel-dots" data-carousel-dots></div>
       </div>
     </div>
   </div>
