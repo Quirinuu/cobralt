@@ -22,7 +22,7 @@ layout_header('projetos');
     <p class="page-hero-sub">Programas e projetos oficiais das ligas filiadas ao CoBraLT.</p>
     <div class="region-stats">
       <div class="region-stat"><div class="region-stat-value">3</div><div class="region-stat-label">programas oficiais</div></div>
-      <div class="region-stat"><div class="region-stat-value">5</div><div class="region-stat-label">documentos publicados</div></div>
+      <div class="region-stat"><div class="region-stat-value">7</div><div class="region-stat-label">documentos publicados</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ciclo vigente</div></div>
     </div>
   </div>

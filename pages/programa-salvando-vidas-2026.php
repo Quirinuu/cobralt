@@ -69,6 +69,30 @@ layout_header('projetos');
             <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
+
+        <a href="programa-salvando-vidas-avc-iam.php" class="program-card program-card--salvando" aria-label="Abrir publicação AVC e IAM">
+          <div class="program-card-media">
+            <img src="../assets/img/programas/salvando-vidas-avc-iam-cover.png" alt="Capa do material AVC e IAM" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">44 páginas · PDF</span>
+            <h4>AVC e IAM</h4>
+            <p>Material sobre reconhecimento precoce, sinais de alerta e orientações iniciais para AVC e infarto agudo do miocárdio.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="programa-salvando-vidas-queimaduras-choques-eletricos.php" class="program-card program-card--salvando" aria-label="Abrir publicação Queimaduras e Choques Elétricos">
+          <div class="program-card-media">
+            <img src="../assets/img/programas/salvando-vidas-queimaduras-choques-eletricos-cover.png" alt="Capa do material Queimaduras e Choques Elétricos" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">48 páginas · PDF</span>
+            <h4>Queimaduras e Choques Elétricos</h4>
+            <p>Material sobre prevenção, classificação, cuidados iniciais e segurança em queimaduras e acidentes elétricos.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
       </div>
     </div>
   </div>

@@ -254,6 +254,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             ['nome'=>'Saulo Ferreira',                      'foto'=>'saulo-ferreira'],
             ['nome'=>'Thiago R. Calderan',                  'foto'=>'thiago-calderan'],
             ['nome'=>'Tiago Leal Ghezzi',                   'foto'=>'tiago-leal'],
+            ['nome'=>'Vinicius Sampaio',                    'foto'=>'vinicius-sampaio'],
             ['nome'=>'Vitor F. Kruger',                     'foto'=>'vitor-kruger'],
             ['nome'=>'Waldemar Prandi Filho',               'foto'=>'waldemar-prandi'],
             ['nome'=>'Wellington José dos Santos',          'foto'=>'wellington-santos'],
@@ -904,6 +905,29 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
         </a>
 
+        <a href="pages/programa-salvando-vidas-avc-iam.php" class="program-card program-card--salvando" aria-label="Abrir material AVC e IAM do Programa Salvando Vidas">
+          <div class="program-card-media">
+            <img src="assets/img/programas/salvando-vidas-avc-iam-cover.png" alt="Capa do material AVC e IAM" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">44 páginas · PDF</span>
+            <h4>Salvando Vidas - AVC e IAM</h4>
+            <p>Publicação sobre reconhecimento precoce, sinais de alerta e orientações iniciais para AVC e infarto agudo do miocárdio.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="pages/programa-salvando-vidas-queimaduras-choques-eletricos.php" class="program-card program-card--salvando" aria-label="Abrir material Queimaduras e Choques Elétricos do Programa Salvando Vidas">
+          <div class="program-card-media">
+            <img src="assets/img/programas/salvando-vidas-queimaduras-choques-eletricos-cover.png" alt="Capa do material Queimaduras e Choques Elétricos" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">48 páginas · PDF</span>
+            <h4>Salvando Vidas - Queimaduras e Choques Elétricos</h4>
+            <p>Publicação sobre prevenção, classificação, cuidados iniciais e segurança em queimaduras e acidentes elétricos.</p>
+            <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
         <a href="pages/programa-party-brasil-2026.php" class="program-card program-card--party" aria-label="Abrir página do Programa P.A.R.T.Y. Brasil 2026">
           <div class="program-card-media">
             <img src="assets/img/programas/party-brasil-2026-cover.png" alt="Capa do edital do Programa P.A.R.T.Y. Brasil 2026" loading="lazy">
