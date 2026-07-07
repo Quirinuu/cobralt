@@ -25,25 +25,48 @@ $tipoLabel = [
     'educacao' => 'Educação',
 ];
 
+function post_default_cover(string $tipo = 'noticias', string $base = '../'): string {
+    $allowed = ['noticias', 'eventos', 'projetos', 'educacao'];
+    $key = in_array($tipo, $allowed, true) ? $tipo : 'noticias';
+    return $base . 'assets/img/posts/post-default-' . $key . '.png?v=' . ASSET_VERSION;
+}
+
+function post_cover_src(array $post, string $base = '../', string $tipo = 'noticias'): string {
+    $cover = trim((string)($post['cover_image'] ?? $post['image'] ?? ''));
+    if ($cover === '') {
+        return post_default_cover($tipo, $base);
+    }
+    if (preg_match('/^https?:\/\//i', $cover)) {
+        return $cover;
+    }
+    $src = preg_match('/^\//', $cover) ? $cover : $base . ltrim($cover, '/');
+    return $src . (strpos($src, '?') !== false ? '&' : '?') . 'v=' . ASSET_VERSION;
+}
+
 /**
  * Renderiza o grid de cards de posts
  */
 function render_posts_grid(array $posts, string $tipo): void {
-    global $tipoEmoji;
     if (empty($posts)): ?>
-      <p style="color:var(--slate-400);grid-column:1/-1;text-align:center;padding:3rem 0;">Nenhuma publicação encontrada.</p>
+      <div class="posts-empty-state" style="grid-column:1/-1;">
+        <img src="<?= h(post_default_cover($tipo, '../')) ?>" alt="Posts do CoBraLT" loading="lazy">
+        <div class="posts-empty-state-body">
+          <strong>Posts em breve</strong>
+          <p>As publicações cadastradas no site aparecerão aqui com imagem, data, categoria e link para leitura completa.</p>
+        </div>
+      </div>
     <?php return; endif;
 
     foreach ($posts as $i => $p):
         $dt    = $p['published_at'] ? fmtDate($p['published_at']) : '';
         $dtIso = $p['published_at'] ? substr($p['published_at'], 0, 10) : '';
-        $emoji = $tipoEmoji[$tipo] ?? '📄';
         $cat   = h($p['category'] ?? '');
+        $cover = post_cover_src($p, '../', $tipo);
     ?>
     <article class="news-card" data-animate data-animate-delay="<?= $i % 3 ?>">
       <div class="news-thumb">
         <span class="news-cat"><?= $cat ?></span>
-        <?= $emoji ?>
+        <img src="<?= h($cover) ?>" alt="<?= h($p['title']) ?>" loading="lazy">
       </div>
       <div class="news-body">
         <div class="news-meta">
@@ -66,7 +89,7 @@ function render_posts_grid(array $posts, string $tipo): void {
  */
 function get_posts_by_tipo(PDO $db, string $tipo): array {
     $stmt = $db->prepare(
-        "SELECT title, slug, excerpt, category, published_at
+        "SELECT title, slug, excerpt, category, cover_image, published_at
          FROM posts WHERE status = 'published' AND tipo = ?
          ORDER BY published_at DESC"
     );

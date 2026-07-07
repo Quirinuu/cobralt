@@ -1,13 +1,13 @@
-/* ═══════════════════════════════════════════════════════
-   STYLE.CSS — Ponto de entrada principal
-   Importa todos os módulos CSS na ordem correta.
-   ═══════════════════════════════════════════════════════ */
+/*
+   STYLE.CSS - Ponto de entrada principal
+   Importa todos os modulos CSS na ordem correta.
+*/
 
-@import 'vars.css?v=20260605.1';
-@import 'base.css?v=20260605.1';
-@import 'animations.css?v=20260605.1';
-@import 'header.css?v=20260605.1';
-@import 'hero.css?v=20260605.1';
-@import 'sections.css?v=20260605.1';
-@import 'page-builder.css?v=20260605.1';
-@import 'responsive.css?v=20260605.1';
+@import 'vars.css?v=20260707.2';
+@import 'base.css?v=20260707.2';
+@import 'animations.css?v=20260707.2';
+@import 'header.css?v=20260707.2';
+@import 'hero.css?v=20260707.2';
+@import 'sections.css?v=20260707.2';
+@import 'page-builder.css?v=20260707.2';
+@import 'responsive.css?v=20260707.2';

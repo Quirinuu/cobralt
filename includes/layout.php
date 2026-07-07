@@ -5,7 +5,7 @@
  */
 
 define('INSTAGRAM_URL', 'https://www.instagram.com/cobralt_');
-define('ASSET_VERSION', '20260707.1');
+define('ASSET_VERSION', '20260707.2');
 
 function layout_head(string $title, string $desc = '', string $base = '../', string $body_attrs = ''): void {
   layout_head_only($title, $desc, $base);

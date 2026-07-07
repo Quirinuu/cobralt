@@ -42,17 +42,12 @@ $tipoPage = ($post['tipo'] ?? 'noticias') . '.php';
 $label    = $tipoLabel[$post['tipo']] ?? 'Notícias';
 $dt       = $post['published_at'] ? fmtDate($post['published_at']) : '';
 $dtIso    = $post['published_at'] ? substr($post['published_at'], 0, 10) : '';
-$coverSrc = '';
-if (!empty($post['cover_image'])) {
-    $coverSrc = preg_match('/^(https?:\/\/|\/)/i', $post['cover_image'])
-        ? $post['cover_image']
-        : '../' . ltrim($post['cover_image'], '/');
-}
+$coverSrc = post_cover_src($post, '../', $post['tipo'] ?? 'noticias');
 
 // 3 posts relacionados do mesmo tipo
 try {
     $rel = $db->prepare(
-        "SELECT title, slug, excerpt, published_at FROM posts
+        "SELECT title, slug, excerpt, cover_image, published_at FROM posts
          WHERE status = 'published' AND tipo = ? AND slug != ?
          ORDER BY published_at DESC LIMIT 3"
     );
@@ -92,11 +87,9 @@ layout_header($post['tipo'] ?? 'noticias');
 <section class="section" style="padding-top:3rem;">
   <div class="section-inner" style="max-width:780px;">
 
-    <?php if ($coverSrc): ?>
     <img src="<?= h($coverSrc) ?>"
          alt="<?= h($post['title']) ?>"
          style="width:100%;border-radius:var(--radius-lg);margin-bottom:2rem;object-fit:cover;max-height:420px;">
-    <?php endif; ?>
 
     <!-- Corpo do post -->
     <div class="post-content" style="
@@ -122,9 +115,13 @@ layout_header($post['tipo'] ?? 'noticias');
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
         <?php foreach ($relacionados as $r):
           $rDt = $r['published_at'] ? fmtDate($r['published_at']) : '';
+          $rCover = post_cover_src($r, '../', $post['tipo'] ?? 'noticias');
         ?>
         <a href="post.php?slug=<?= h($r['slug']) ?>" style="text-decoration:none;">
           <div class="news-card" style="cursor:pointer;">
+            <div class="news-thumb">
+              <img src="<?= h($rCover) ?>" alt="<?= h($r['title']) ?>" loading="lazy">
+            </div>
             <div class="news-body" style="padding:1.25rem;">
               <div class="news-meta" style="margin-bottom:0.5rem;">
                 <time datetime="<?= h(substr($r['published_at'],0,10)) ?>" style="font-size:0.75rem;color:var(--slate-400);"><?= h($rDt) ?></time>

@@ -83,22 +83,20 @@ $catEmoji = [
     'Institucional' => '🏛️',
 ];
 
-$instagramPosts = get_instagram_posts(6);
-$homePosts = $instagramPosts;
+$homePosts = array_map(static function (array $post): array {
+    return [
+        'title' => (string)($post['title'] ?? ''),
+        'excerpt' => (string)($post['excerpt'] ?? ''),
+        'category' => (string)($post['category'] ?? 'Post'),
+        'published_at' => (string)($post['published_at'] ?? ''),
+        'url' => 'pages/post.php?slug=' . rawurlencode((string)($post['slug'] ?? '')),
+        'image' => post_cover_src($post, './', 'noticias'),
+        'source' => 'site',
+        'external' => false,
+    ];
+}, $noticias);
 if (empty($homePosts)) {
-    $homePosts = array_map(static function (array $post): array {
-        $cover = trim((string)($post['cover_image'] ?? ''));
-        return [
-            'title' => (string)($post['title'] ?? ''),
-            'excerpt' => (string)($post['excerpt'] ?? ''),
-            'category' => (string)($post['category'] ?? 'Post'),
-            'published_at' => (string)($post['published_at'] ?? ''),
-            'url' => 'pages/post.php?slug=' . rawurlencode((string)($post['slug'] ?? '')),
-            'image' => $cover !== '' ? (preg_match('/^(https?:\/\/|\/)/i', $cover) ? $cover : ltrim($cover, '/')) : '',
-            'source' => 'site',
-            'external' => false,
-        ];
-    }, $noticias);
+    $homePosts = get_instagram_posts(6);
 }
 
 $homePastColts = array_slice(colt_editions_newest_first(), 0, 8);
@@ -402,7 +400,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   background: var(--navy);
 }
 .post-card {
-  flex: 0 0 min(330px, 84vw);
+  flex: 0 0 min(280px, 78vw);
   scroll-snap-align: start;
   background: var(--white);
   border: 1px solid var(--slate-200);
@@ -419,7 +417,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   border-color: #BAE6FD;
 }
 .post-card-media {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 16 / 9;
   background: linear-gradient(135deg, #E0F2FE, #F8FAFC);
   overflow: hidden;
   display: grid;
@@ -436,23 +434,27 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   font-size: 2.1rem;
 }
 .post-card-body {
-  padding: 1rem;
+  padding: 0.9rem;
   display: flex;
   flex-direction: column;
-  min-height: 210px;
+  min-height: 158px;
 }
 .post-card h3 {
   color: var(--navy);
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.94rem;
   line-height: 1.25;
   margin: 0 0 0.45rem;
 }
 .post-card p {
   color: var(--slate-600);
-  font-size: 0.8rem;
-  line-height: 1.55;
-  margin: 0 0 0.8rem;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  margin: 0 0 0.65rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .post-source-pill {
   display: inline-flex;
@@ -741,16 +743,22 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   <div class="section-inner">
     <div class="section-header" data-animate>
       <div class="divider" aria-hidden="true"></div>
-      <span class="section-label">Instagram e publicações</span>
+      <span class="section-label">Publicações recentes</span>
       <h2 class="section-title" id="posts-title">
         <a href="pages/noticias.php" class="section-title-link">Posts</a>
-        <a href="<?= INSTAGRAM_URL ?>" class="section-page-link" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram do CoBraLT">ver Instagram &rarr;</a>
+        <a href="pages/noticias.php" class="section-page-link" aria-label="Ver todos os posts">ver todos &rarr;</a>
       </h2>
-      <p class="section-subtitle">Acompanhe as publicações mais recentes do CoBraLT. Quando o token do Instagram estiver configurado, esta área sincroniza automaticamente com o perfil oficial.</p>
+      <p class="section-subtitle">Atualizações, comunicados e conteúdos publicados pelo CoBraLT.</p>
     </div>
 
     <?php if (empty($homePosts)): ?>
-      <p style="color:var(--slate-400);text-align:center;">Nenhum post publicado ainda.</p>
+      <div class="posts-empty-state">
+        <img src="<?= h(post_default_cover('noticias', './')) ?>" alt="Posts do CoBraLT" loading="lazy">
+        <div class="posts-empty-state-body">
+          <strong>Posts em breve</strong>
+          <p>As publicações cadastradas no site aparecerão aqui com imagem, data, categoria e link para leitura completa.</p>
+        </div>
+      </div>
     <?php else: ?>
     <div class="index-carousel" data-index-carousel data-carousel-step="1">
       <button class="index-carousel-btn" type="button" data-carousel-prev aria-label="Post anterior">
@@ -766,19 +774,15 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           $url      = (string)($post['url'] ?? '#');
           $external = !empty($post['external']);
           $target   = $external ? ' target="_blank" rel="noopener noreferrer"' : '';
-          $image    = trim((string)($post['image'] ?? ''));
-          $source   = ($post['source'] ?? '') === 'instagram' ? 'Instagram' : 'Post';
+          $image    = trim((string)($post['image'] ?? '')) ?: post_default_cover('noticias', './');
+          $source   = ($post['source'] ?? '') === 'instagram' ? 'Instagram' : $cat;
         ?>
         <a href="<?= h($url) ?>" class="post-card" data-animate data-animate-delay="<?= ($i % 3) + 1 ?>"<?= $target ?>>
           <div class="post-card-media">
-            <?php if ($image !== ''): ?>
-              <img src="<?= h($image) ?>" alt="<?= h($post['title'] ?? 'Post do CoBraLT') ?>" loading="lazy">
-            <?php else: ?>
-              <span class="post-card-placeholder" aria-hidden="true">#</span>
-            <?php endif; ?>
+            <img src="<?= h($image) ?>" alt="<?= h($post['title'] ?? 'Post do CoBraLT') ?>" loading="lazy">
           </div>
           <div class="post-card-body">
-            <span class="post-source-pill"><?= h($source) ?> · <?= $cat ?></span>
+            <span class="post-source-pill"><?= h($source) ?></span>
             <div class="news-meta">
               <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               <time datetime="<?= h($dtIso) ?>"><?= h($dt) ?></time>
