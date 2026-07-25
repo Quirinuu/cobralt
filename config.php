@@ -40,4 +40,4 @@ define_if_missing('UPLOAD_MAX_MB', 5);
 
 // Site
 define_if_missing('SITE_NAME', 'CoBraLT');
-define_if_missing('SITE_URL', getenv('SITE_URL') ?: 'https://cobralT.org.br');
+define_if_missing('SITE_URL', getenv('SITE_URL') ?: 'https://cobralt.com.br');

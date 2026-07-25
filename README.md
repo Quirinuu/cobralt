@@ -79,21 +79,18 @@ O workflow `.github/workflows/deploy.yml` publica todo push feito na branch
 executadas automaticamente uma única vez. O histórico é salvo na tabela
 `schema_migrations`.
 
-No GitHub, configure:
+No GitHub, configure em **Settings → Secrets and variables → Actions → Secrets**:
 
-1. **Settings → Secrets and variables → Actions → Secrets**
-   - `FTP_SERVER`
-   - `FTP_USERNAME`
-   - `FTP_PASSWORD`
-2. **Settings → Secrets and variables → Actions → Variables**
-   - `SITE_URL` com a URL completa, por exemplo `https://cobralt.org.br`
+- `FTP_SERVER`
+- `FTP_USERNAME`
+- `FTP_PASSWORD`
 
 O `config.php` e o `config.local.php` da hospedagem são preservados pelo
 deploy. Nunca versione credenciais do banco.
 
-Depois de cada deploy, o GitHub acessa `SITE_URL` para disparar as migrações
-pendentes. O status pode ser conferido no dashboard administrativo, no bloco
-**Atualizações do banco**.
+Depois de cada deploy, o GitHub acessa `https://cobralt.com.br/` para disparar
+as migrações pendentes. O status pode ser conferido no dashboard administrativo,
+no bloco **Atualizações do banco**.
 
 Para futuras alterações de estrutura ou dados, crie uma nova migração. Nunca
 edite uma migração que já aparece como aplicada.
@@ -118,7 +115,7 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'u123456789_cobralT');
 define('DB_USER', 'u123456789_admin');
 define('DB_PASS', 'SuaSenha');
-define('SITE_URL', 'https://cobralT.org.br'); // ← sem barra no final
+define('SITE_URL', 'https://cobralt.com.br'); // ← sem barra no final
 ```
 
 ### 3. Upload dos arquivos

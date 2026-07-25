@@ -240,7 +240,7 @@ $users = $db->query('SELECT id, username, email, role, active, last_login, creat
             </div>
             <div class="form-group">
               <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" placeholder="joao@cobralT.org.br" required>
+              <input type="email" id="email" name="email" placeholder="joao@cobralt.com.br" required>
             </div>
             <div class="form-group">
               <label for="password">Senha</label>

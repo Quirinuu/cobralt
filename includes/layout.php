@@ -5,7 +5,7 @@
  */
 
 define('INSTAGRAM_URL', 'https://www.instagram.com/cobralt_');
-define('ASSET_VERSION', '20260725.3');
+define('ASSET_VERSION', '20260725.4');
 
 function layout_head(string $title, string $desc = '', string $base = '../', string $body_attrs = ''): void {
   layout_head_only($title, $desc, $base);
@@ -28,7 +28,7 @@ function layout_head_only(string $title, string $desc = '', string $base = '../'
   <!-- Open Graph -->
   <meta property="og:title" content="<?= htmlspecialchars($title) ?> — CoBraLT">
   <meta property="og:description" content="<?= htmlspecialchars($desc ?: 'CoBraLT — Comitê Brasileiro das Ligas do Trauma.') ?>">
-  <meta property="og:image" content="https://cobralT.org.br/assets/img/logo.png">
+  <meta property="og:image" content="https://cobralt.com.br/assets/img/logo.png">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

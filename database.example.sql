@@ -111,4 +111,4 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- php -r "echo password_hash('SuaSenhaForte!123', PASSWORD_BCRYPT, ['cost'=>12]);"
 -- Then run:
 -- INSERT INTO admin_users (username, email, password_hash, role)
--- VALUES ('admin', 'admin@cobralt.org.br', 'HASH_GERADO', 'superadmin');
+-- VALUES ('admin', 'admin@cobralt.com.br', 'HASH_GERADO', 'superadmin');
