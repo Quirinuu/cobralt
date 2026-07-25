@@ -37,6 +37,59 @@ function colt_editions(): array {
     ];
 }
 
+/**
+ * Retorna a primeira foto disponível da edição para uso como capa de card.
+ * Quando o acervo ainda não possui fotos, usa a identidade visual do CoBraLT.
+ *
+ * @return array{src:string, has_photo:bool}
+ */
+function colt_cover(array $edition, string $base = '../'): array {
+    static $cache = [];
+
+    $slug = (string)($edition['slug'] ?? '');
+    if (!array_key_exists($slug, $cache)) {
+        $folders = $edition['folders'] ?? [$edition['folder'] ?? ''];
+        $root = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'Imagens Colts';
+        $found = null;
+
+        foreach ($folders as $folder) {
+            $folder = trim((string)$folder);
+            if ($folder === '') {
+                continue;
+            }
+
+            $directory = $root . DIRECTORY_SEPARATOR . $folder;
+            if (!is_dir($directory)) {
+                continue;
+            }
+
+            $files = array_values(array_filter(scandir($directory) ?: [], static function (string $file) use ($directory): bool {
+                if ($file === '.' || $file === '..' || !is_file($directory . DIRECTORY_SEPARATOR . $file)) {
+                    return false;
+                }
+                return in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp', 'gif'], true);
+            }));
+            natcasesort($files);
+
+            if ($files !== []) {
+                $file = (string)reset($files);
+                $found = [
+                    'path' => 'assets/img/Imagens%20Colts/' . rawurlencode($folder) . '/' . rawurlencode($file),
+                    'has_photo' => true,
+                ];
+                break;
+            }
+        }
+
+        $cache[$slug] = $found ?? ['path' => 'assets/img/logo.png', 'has_photo' => false];
+    }
+
+    $version = defined('ASSET_VERSION') ? '?v=' . ASSET_VERSION : '';
+    return [
+        'src' => rtrim($base, '/') . '/' . $cache[$slug]['path'] . $version,
+        'has_photo' => (bool)$cache[$slug]['has_photo'],
+    ];
+}
 function colt_editions_newest_first(): array {
     return array_reverse(colt_editions());
 }

@@ -1048,15 +1048,20 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <?php foreach ($homePastColts as $colt):
           $title = trim($colt['edition'] . ($colt['year'] ? ' ' . $colt['year'] : ''));
           $placeLine = trim(($colt['place'] ?: 'Brasil') . ($colt['year'] ? ', ' . $colt['year'] : ''));
+          $cover = colt_cover($colt, './');
         ?>
         <a href="pages/<?= h($colt['file']) ?>" class="colt2012-card" style="flex:0 0 220px;">
-          <span style="font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(135deg,var(--navy),var(--sky-dark));color:#fff;padding:2px 8px;border-radius:99px;width:fit-content;"><?= h($colt['badge']) ?></span>
-          <div style="font-size:1.5rem;margin:0.2rem 0;">🏆</div>
-          <div style="font-size:0.68rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.1em;"><?= h($colt['edition']) ?></div>
-          <div style="font-family:var(--font-display);color:var(--navy);font-size:0.92rem;font-weight:800;line-height:1.2;"><?= h($title) ?></div>
-          <div style="color:var(--slate-400);font-size:0.72rem;"><?= h($placeLine) ?></div>
-          <div style="color:var(--slate-600);font-size:0.7rem;margin-top:0.25rem;">Acervo histórico do CoBraLT</div>
-          <span style="font-size:0.75rem;font-weight:600;color:var(--sky-dark);margin-top:0.5rem;">Ver detalhes →</span>
+          <div class="colt-card-media<?= $cover['has_photo'] ? '' : ' is-fallback' ?>">
+            <img src="<?= h($cover['src']) ?>" alt="Capa do <?= h($title) ?>" loading="lazy">
+            <span class="colt-card-badge"><?= h($colt['badge']) ?></span>
+          </div>
+          <div class="colt-card-body">
+            <div style="font-size:0.68rem;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:0.1em;"><?= h($colt['edition']) ?></div>
+            <div style="font-family:var(--font-display);color:var(--navy);font-size:0.92rem;font-weight:800;line-height:1.2;"><?= h($title) ?></div>
+            <div style="color:var(--slate-400);font-size:0.72rem;"><?= h($placeLine) ?></div>
+            <div style="color:var(--slate-600);font-size:0.7rem;margin-top:0.25rem;">Acervo histórico do CoBraLT</div>
+            <span style="font-size:0.75rem;font-weight:600;color:var(--sky-dark);margin-top:auto;padding-top:0.5rem;">Ver detalhes →</span>
+          </div>
         </a>
         <?php endforeach; ?>
       </div>

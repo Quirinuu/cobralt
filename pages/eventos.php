@@ -105,10 +105,14 @@ layout_header('eventos');
         <?php foreach ($pastColts as $colt):
           $title = trim($colt['edition'] . ($colt['year'] ? ' ' . $colt['year'] : ''));
           $placeLine = trim(($colt['place'] ?: 'Brasil') . ($colt['year'] ? ', ' . $colt['year'] : ''));
+          $cover = colt_cover($colt, '../');
         ?>
         <a href="<?= h($colt['file']) ?>" class="past-event-card">
-          <div class="past-event-badge"><?= h($colt['badge']) ?></div>
-          <div class="past-event-icon">🏆</div>
+          <div class="past-event-media<?= $cover['has_photo'] ? '' : ' is-fallback' ?>">
+            <img src="<?= h($cover['src']) ?>" alt="Capa do <?= h($title) ?>" loading="lazy">
+            <div class="past-event-badge"><?= h($colt['badge']) ?></div>
+          </div>
+          <div class="past-event-body">
           <div class="past-event-edition"><?= h($colt['edition']) ?></div>
           <h3 class="past-event-name"><?= h($title) ?></h3>
           <p class="past-event-city">
@@ -121,6 +125,7 @@ layout_header('eventos');
             <span>Registro histórico CoBraLT</span>
           </div>
           <span class="past-event-link">Ver detalhes →</span>
+          </div>
         </a>
         <?php endforeach; ?>
       </div>
@@ -141,12 +146,16 @@ layout_header('eventos');
 .events-carousel-wrapper { position:relative; }
 .events-carousel { display:flex; gap:1.25rem; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:0.15rem 0.15rem 0.8rem; }
 .events-carousel::-webkit-scrollbar { display:none; }
-.past-event-card { background:var(--white); border:1px solid var(--slate-200); border-radius:var(--radius-lg); padding:1.5rem; scroll-snap-align:start; transition:all var(--transition); text-decoration:none; display:flex; flex-direction:column; gap:0.4rem; position:relative; overflow:hidden; color:inherit; box-shadow:var(--shadow-sm); flex:0 0 310px; min-height:255px; }
-.past-event-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; background:linear-gradient(90deg,var(--sky),var(--navy)); transform:scaleX(0); transition:transform var(--transition); }
+.past-event-card { background:var(--white); border:1px solid var(--slate-200); border-radius:var(--radius-lg); scroll-snap-align:start; transition:all var(--transition); text-decoration:none; display:flex; flex-direction:column; position:relative; overflow:hidden; color:inherit; box-shadow:var(--shadow-sm); flex:0 0 310px; min-height:430px; }
+.past-event-card::before { content:''; position:absolute; z-index:3; top:0;left:0;right:0; height:3px; background:linear-gradient(90deg,var(--sky),var(--navy)); transform:scaleX(0); transition:transform var(--transition); }
 .past-event-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
 .past-event-card:hover::before { transform:scaleX(1); }
-.past-event-badge { display:inline-flex; background:linear-gradient(135deg,var(--navy),var(--sky-dark)); color:#fff; font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:2px 10px; border-radius:99px; margin-bottom:0.25rem; width:fit-content; }
-.past-event-icon { font-size:2rem; margin-bottom:0.25rem; }
+.past-event-media { position:relative; aspect-ratio:16/9; overflow:hidden; background:linear-gradient(145deg,#eaf5ff,#d7e9f8); }
+.past-event-media img { width:100%; height:100%; display:block; object-fit:cover; transition:transform 0.45s ease; }
+.past-event-card:hover .past-event-media img { transform:scale(1.04); }
+.past-event-media.is-fallback img { object-fit:contain; padding:1.6rem; }
+.past-event-badge { position:absolute; left:0.85rem; bottom:0.75rem; display:inline-flex; background:linear-gradient(135deg,var(--navy),var(--sky-dark)); color:#fff; font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:3px 10px; border-radius:99px; width:fit-content; box-shadow:0 4px 14px rgba(2,47,102,.25); }
+.past-event-body { padding:1.2rem 1.35rem 1.35rem; display:flex; flex:1; flex-direction:column; gap:0.4rem; }
 .past-event-edition { font-size:0.7rem; font-weight:700; color:var(--sky-dark); text-transform:uppercase; letter-spacing:0.1em; }
 .past-event-name { font-family:var(--font-display); color:var(--navy); font-size:1.05rem; font-weight:800; margin:0.1rem 0 0.15rem; }
 .past-event-city { color:var(--slate-400); font-size:0.75rem; display:flex; align-items:center; gap:4px; margin:0; }
@@ -160,7 +169,7 @@ layout_header('eventos');
 .carousel-dots { display:flex; gap:6px; align-items:center; max-width:min(520px, 58vw); overflow:hidden; }
 .carousel-dot { width:7px; height:7px; border-radius:50%; background:var(--slate-200); transition:all var(--transition); cursor:pointer; border:none; padding:0; flex:0 0 auto; }
 .carousel-dot.active { background:var(--navy); width:18px; border-radius:99px; }
-@media (max-width:700px) { .past-event-card { flex-basis:82vw; } .carousel-dots { max-width:44vw; } }
+@media (max-width:700px) { .past-event-card { flex-basis:82vw; min-height:420px; } .carousel-dots { max-width:44vw; } }
 </style>
 
 <script>
