@@ -72,6 +72,32 @@ cobralT/
 
 ## Deploy na Hostinger — Passo a Passo
 
+### Deploy automático e migrações
+
+O workflow `.github/workflows/deploy.yml` publica todo push feito na branch
+`main` via FTP. As alterações do banco ficam em `database/migrations/` e são
+executadas automaticamente uma única vez. O histórico é salvo na tabela
+`schema_migrations`.
+
+No GitHub, configure:
+
+1. **Settings → Secrets and variables → Actions → Secrets**
+   - `FTP_SERVER`
+   - `FTP_USERNAME`
+   - `FTP_PASSWORD`
+2. **Settings → Secrets and variables → Actions → Variables**
+   - `SITE_URL` com a URL completa, por exemplo `https://cobralt.org.br`
+
+O `config.php` e o `config.local.php` da hospedagem são preservados pelo
+deploy. Nunca versione credenciais do banco.
+
+Depois de cada deploy, o GitHub acessa `SITE_URL` para disparar as migrações
+pendentes. O status pode ser conferido no dashboard administrativo, no bloco
+**Atualizações do banco**.
+
+Para futuras alterações de estrutura ou dados, crie uma nova migração. Nunca
+edite uma migração que já aparece como aplicada.
+
 ### 1. Banco de dados
 1. Acesse o **phpMyAdmin** no painel da Hostinger
 2. Selecione o banco de dados do site

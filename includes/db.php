@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/config.php';
+require_once __DIR__ . '/migrations.php';
 
 function getPublicDB(): PDO {
     static $pdo = null;
@@ -76,6 +77,13 @@ function db_ensure_schema(PDO $pdo): void {
         } else {
             db_create_mysql_schema($pdo);
             db_migrate_mysql_schema($pdo);
+        }
+
+        if (!defined('AUTO_RUN_MIGRATIONS') || AUTO_RUN_MIGRATIONS) {
+            $executed = db_run_pending_migrations($pdo);
+            if ($executed) {
+                error_log('[CoBraLT] Migrações aplicadas: ' . implode(', ', $executed));
+            }
         }
     } catch (Throwable $e) {
         error_log('[CoBraLT] schema check failed: ' . $e->getMessage());

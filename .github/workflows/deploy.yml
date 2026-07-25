@@ -24,5 +24,13 @@ jobs:
             **/.git*
             **/.git*/**
             **/README.md
-            **/database.sql
+            **/*.sql
             config.php
+            config.local.php
+
+      - name: Aplicar migrações pendentes
+        if: ${{ vars.SITE_URL != '' }}
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          curl --fail --silent --show-error --retry 5 --retry-delay 3 "${SITE_URL%/}/"

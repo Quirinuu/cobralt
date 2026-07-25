@@ -4,10 +4,21 @@ require_once __DIR__ . '/_auth.php';
 $db = getDB();
 
 // Estatísticas rápidas
-$totalPosts  = $db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
-$pubPosts    = $db->query('SELECT COUNT(*) FROM posts WHERE status = "published"')->fetchColumn();
+$totalPosts  = $db->query("SELECT COUNT(*) FROM posts WHERE tipo = 'noticias'")->fetchColumn();
+$pubPosts    = $db->query("SELECT COUNT(*) FROM posts WHERE tipo = 'noticias' AND status = 'published'")->fetchColumn();
 $totalPages  = $db->query('SELECT COUNT(*) FROM pages')->fetchColumn();
-$recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts ORDER BY created_at DESC LIMIT 8')->fetchAll();
+$recentPosts = $db->query("SELECT id, title, slug, status, created_at FROM posts WHERE tipo = 'noticias' ORDER BY created_at DESC LIMIT 8")->fetchAll();
+$migrationError = null;
+try {
+    $migrationStatus = db_migration_status($db);
+} catch (Throwable $e) {
+    $migrationStatus = [];
+    $migrationError = $e->getMessage();
+}
+$pendingMigrations = count(array_filter(
+    $migrationStatus,
+    static fn(array $migration): bool => $migration['status'] !== 'applied'
+));
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -261,6 +272,14 @@ $recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts
     .toast{position:fixed;bottom:2rem;right:2rem;padding:1rem 1.5rem;border-radius:10px;font-weight:600;font-size:0.9rem;z-index:9999;display:none;}
     .toast.success{background:#D1FAE5;color:#065F46;}
     .toast.error{background:#FEE2E2;color:#991B1B;}
+    .migration-list{display:flex;flex-direction:column;gap:.65rem;padding:1.25rem 1.5rem;}
+    .migration-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1rem;background:var(--slate-100);border-radius:8px;}
+    .migration-id{font-family:monospace;font-size:.76rem;color:var(--slate-600);}
+    .migration-description{font-size:.84rem;color:var(--slate-800);margin-top:.2rem;}
+    .migration-badge{display:inline-flex;padding:4px 10px;border-radius:999px;font-size:.7rem;font-weight:700;white-space:nowrap;}
+    .migration-badge.applied{background:#D1FAE5;color:#065F46;}
+    .migration-badge.pending{background:#FEF3C7;color:#92400E;}
+    .migration-badge.changed{background:#FEE2E2;color:#991B1B;}
 
     @media(max-width:768px){
       .sidebar{transform:translateX(-100%);transition:transform 0.25s;}
@@ -342,11 +361,11 @@ $recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-value"><?= (int)$totalPosts ?></div>
-        <div class="stat-label">Total de Posts</div>
+        <div class="stat-label">Total de notícias</div>
       </div>
       <div class="stat-card">
         <div class="stat-value"><?= (int)$pubPosts ?></div>
-        <div class="stat-label">Posts publicados</div>
+        <div class="stat-label">Notícias publicadas</div>
       </div>
       <div class="stat-card">
         <div class="stat-value"><?= (int)($totalPosts - $pubPosts) ?></div>
@@ -358,10 +377,47 @@ $recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts
       </div>
     </div>
 
-    <!-- Posts recentes -->
     <div class="card">
       <div class="card-header">
-        <h3>Posts recentes</h3>
+        <h3>Atualizações do banco</h3>
+        <span class="migration-badge <?= $pendingMigrations === 0 && !$migrationError ? 'applied' : 'pending' ?>">
+          <?= $migrationError ? 'Verificar configuração' : ($pendingMigrations === 0 ? 'Banco atualizado' : $pendingMigrations . ' pendente(s)') ?>
+        </span>
+      </div>
+      <?php if ($migrationError): ?>
+        <div class="migration-list">
+          <div class="migration-row">
+            <div>
+              <div class="migration-description"><?= e($migrationError) ?></div>
+            </div>
+            <span class="migration-badge changed">Erro</span>
+          </div>
+        </div>
+      <?php elseif (empty($migrationStatus)): ?>
+        <div class="migration-list">
+          <div class="migration-description">Nenhuma migração versionada encontrada.</div>
+        </div>
+      <?php else: ?>
+        <div class="migration-list">
+          <?php foreach ($migrationStatus as $migration): ?>
+            <div class="migration-row">
+              <div>
+                <div class="migration-id"><?= e($migration['id']) ?></div>
+                <div class="migration-description"><?= e($migration['description']) ?></div>
+              </div>
+              <span class="migration-badge <?= e($migration['status']) ?>">
+                <?= $migration['status'] === 'applied' ? 'Aplicada' : ($migration['status'] === 'changed' ? 'Arquivo alterado' : 'Pendente') ?>
+              </span>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+    </div>
+
+    <!-- Notícias recentes -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Notícias recentes</h3>
         <a href="post-editor.php" class="btn-sm">
           <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Nova notícia
@@ -370,8 +426,8 @@ $recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts
 
       <?php if (empty($recentPosts)): ?>
       <div style="padding:3rem;text-align:center;color:var(--slate-400);">
-        <p>Nenhum post criado ainda.</p>
-        <a href="post-editor.php" class="btn-sm" style="margin-top:1rem;display:inline-flex;">Criar primeiro post</a>
+        <p>Nenhuma notícia criada ainda.</p>
+        <a href="post-editor.php" class="btn-sm" style="margin-top:1rem;display:inline-flex;">Criar primeira notícia</a>
       </div>
       <?php else: ?>
       <table>
@@ -420,7 +476,7 @@ function showToast(msg, type = 'success') {
   t._timer = setTimeout(() => { t.style.display = 'none'; }, 3500);
 }
 async function deletePost(id, btn) {
-  if (!confirm('Excluir este post?')) return;
+  if (!confirm('Excluir esta notícia?')) return;
   btn.disabled = true;
   const fd = new FormData();
   fd.append('action', 'delete');
@@ -431,7 +487,7 @@ async function deletePost(id, btn) {
     const data = await res.json();
     if (!data.success) throw new Error(data.message || 'Erro ao excluir.');
     btn.closest('tr').remove();
-    showToast('Post excluido.');
+    showToast('Notícia excluída.');
   } catch (err) {
     showToast(err.message || 'Erro ao excluir.', 'error');
     btn.disabled = false;

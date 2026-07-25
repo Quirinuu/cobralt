@@ -28,6 +28,10 @@ define_if_missing('DB_USER', getenv('DB_USER') ?: '');
 define_if_missing('DB_PASS', getenv('DB_PASS') ?: '');
 define_if_missing('DB_DRIVER', getenv('DB_DRIVER') ?: (DB_NAME !== '' ? 'mysql' : 'sqlite'));
 define_if_missing('SQLITE_PATH', getenv('SQLITE_PATH') ?: __DIR__ . '/storage/cobralt.sqlite');
+define_if_missing('AUTO_RUN_MIGRATIONS', filter_var(
+    getenv('AUTO_RUN_MIGRATIONS') !== false ? getenv('AUTO_RUN_MIGRATIONS') : '1',
+    FILTER_VALIDATE_BOOL
+));
 
 // Uploads
 define_if_missing('UPLOAD_DIR', __DIR__ . '/assets/img/uploads/');
