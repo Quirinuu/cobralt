@@ -87,7 +87,7 @@ $homePosts = array_map(static function (array $post): array {
     return [
         'title' => (string)($post['title'] ?? ''),
         'excerpt' => (string)($post['excerpt'] ?? ''),
-        'category' => (string)($post['category'] ?? 'Post'),
+        'category' => (string)($post['category'] ?? 'Notícia'),
         'published_at' => (string)($post['published_at'] ?? ''),
         'url' => 'pages/post?slug=' . rawurlencode((string)($post['slug'] ?? '')),
         'image' => post_cover_src($post, './', 'noticias'),
@@ -456,7 +456,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   object-fit: cover;
   display: block;
 }
-.post-card-media img[src*="wellington-patrono-turma-iv"] {
+.post-card-media img[src*="wellington-paraninfo-turma-iv"] {
   object-position: center 28%;
 }
 .post-card-placeholder {
@@ -769,12 +769,12 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
 </script>
 
 <!-- NOTÍCIAS -->
-<section class="section" id="posts" aria-labelledby="posts-title">
+<section class="section" id="noticias" aria-labelledby="noticias-title">
   <div class="section-inner">
     <div class="section-header" data-animate>
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Notícias recentes</span>
-      <h2 class="section-title" id="posts-title">
+      <h2 class="section-title" id="noticias-title">
         <a href="pages/noticias" class="section-title-link">Notícias</a>
         <a href="pages/noticias" class="section-page-link" aria-label="Ver todas as notícias">ver todas &rarr;</a>
       </h2>
@@ -783,7 +783,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
 
     <?php if (empty($homePosts)): ?>
       <div class="posts-empty-state">
-        <img src="<?= h(post_default_cover('noticias', './')) ?>" alt="Posts do CoBraLT" loading="lazy">
+        <img src="<?= h(post_default_cover('noticias', './')) ?>" alt="Notícias do CoBraLT" loading="lazy">
         <div class="posts-empty-state-body">
           <strong>Notícias em breve</strong>
           <p>As notícias cadastradas no painel administrativo aparecerão aqui com imagem, data, categoria e link para leitura completa.</p>
@@ -791,13 +791,13 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       </div>
     <?php else: ?>
     <div class="index-carousel" data-index-carousel data-carousel-step="1">
-      <button class="index-carousel-btn" type="button" data-carousel-prev aria-label="Post anterior">
+      <button class="index-carousel-btn" type="button" data-carousel-prev aria-label="Notícia anterior">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
 
       <div class="index-carousel-track" data-carousel-track>
         <?php foreach ($homePosts as $i => $post):
-          $cat      = h($post['category'] ?? 'Post');
+          $cat      = h($post['category'] ?? 'Notícia');
           $dtRaw    = (string)($post['published_at'] ?? '');
           $dt       = $dtRaw !== '' ? fmtDate($dtRaw) : '';
           $dtIso    = $dtRaw !== '' ? substr($dtRaw, 0, 10) : '';
@@ -809,7 +809,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         ?>
         <a href="<?= h($url) ?>" class="post-card" data-animate data-animate-delay="<?= ($i % 3) + 1 ?>"<?= $target ?>>
           <div class="post-card-media">
-            <img src="<?= h($image) ?>" alt="<?= h($post['title'] ?? 'Post do CoBraLT') ?>" loading="lazy">
+            <img src="<?= h($image) ?>" alt="<?= h($post['title'] ?? 'Notícia do CoBraLT') ?>" loading="lazy">
           </div>
           <div class="post-card-body">
             <span class="post-source-pill"><?= h($source) ?></span>
@@ -828,7 +828,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <?php endforeach; ?>
       </div>
 
-      <button class="index-carousel-btn" type="button" data-carousel-next aria-label="Próximo post">
+      <button class="index-carousel-btn" type="button" data-carousel-next aria-label="Próxima notícia">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
       </button>
       <div class="index-carousel-dots" data-carousel-dots></div>

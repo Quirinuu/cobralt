@@ -15,7 +15,9 @@ try {
     $db   = getPublicDB();
     $stmt = $db->prepare(
         "SELECT title, slug, excerpt, content, category, tipo, cover_image, published_at
-         FROM posts WHERE slug = ? AND status = 'published' LIMIT 1"
+         FROM posts
+         WHERE slug = ? AND status = 'published' AND tipo = 'noticias'
+         LIMIT 1"
     );
     $stmt->execute([$slug]);
     $post = $stmt->fetch();
@@ -32,14 +34,8 @@ if (!$post) {
     exit;
 }
 
-$tipoLabel = [
-    'noticias' => 'Notícias',
-    'eventos'  => 'Eventos',
-    'projetos' => 'Projetos',
-    'educacao' => 'Educação',
-];
-$tipoPage = ($post['tipo'] ?? 'noticias');
-$label    = $tipoLabel[$post['tipo']] ?? 'Notícias';
+$tipoPage = 'noticias';
+$label    = 'Notícias';
 $dt       = $post['published_at'] ? fmtDate($post['published_at']) : '';
 $dtIso    = $post['published_at'] ? substr($post['published_at'], 0, 10) : '';
 $coverSrc = post_cover_src($post, '../', $post['tipo'] ?? 'noticias');
@@ -48,17 +44,17 @@ $coverSrc = post_cover_src($post, '../', $post['tipo'] ?? 'noticias');
 try {
     $rel = $db->prepare(
         "SELECT title, slug, excerpt, cover_image, published_at FROM posts
-         WHERE status = 'published' AND tipo = ? AND slug != ?
+         WHERE status = 'published' AND tipo = 'noticias' AND slug != ?
          ORDER BY published_at DESC LIMIT 3"
     );
-    $rel->execute([$post['tipo'], $slug]);
+    $rel->execute([$slug]);
     $relacionados = $rel->fetchAll();
 } catch (PDOException $e) {
     $relacionados = [];
 }
 
 layout_head(h($post['title']), h($post['excerpt'] ?? ''));
-layout_header($post['tipo'] ?? 'noticias');
+layout_header('noticias');
 ?>
 
 <main id="main-content">
@@ -91,7 +87,7 @@ layout_header($post['tipo'] ?? 'noticias');
       <figure class="post-cover-feature">
         <img src="<?= h($coverSrc) ?>" alt="<?= h($post['title']) ?>">
         <figcaption>
-          <?= $slug === 'dr-wellington-patrono-turma-iv'
+          <?= $slug === 'dr-wellington-paraninfo-turma-iv'
               ? 'Registro da homenagem acadêmica ao Dr. Wellington José dos Santos.'
               : 'Imagem de destaque da publicação.' ?>
         </figcaption>
@@ -103,7 +99,7 @@ layout_header($post['tipo'] ?? 'noticias');
           <span><?= h($post['category'] ?? $label) ?></span>
           <?php if ($dt): ?><time datetime="<?= h($dtIso) ?>"><?= h($dt) ?></time><?php endif; ?>
         </div>
-        <?php if ($slug === 'dr-wellington-patrono-turma-iv'): ?>
+        <?php if ($slug === 'dr-wellington-paraninfo-turma-iv'): ?>
           <div class="post-feature-note">
             <strong>Educação que inspira</strong>
             <p>Uma homenagem que reconhece o valor de quem orienta, ensina e ajuda novas gerações a construir seu caminho.</p>
@@ -132,7 +128,7 @@ layout_header($post['tipo'] ?? 'noticias');
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
         <?php foreach ($relacionados as $r):
           $rDt = $r['published_at'] ? fmtDate($r['published_at']) : '';
-          $rCover = post_cover_src($r, '../', $post['tipo'] ?? 'noticias');
+          $rCover = post_cover_src($r, '../', 'noticias');
         ?>
         <a href="post?slug=<?= h($r['slug']) ?>" style="text-decoration:none;">
           <div class="news-card" style="cursor:pointer;">

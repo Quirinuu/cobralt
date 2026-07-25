@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS admin_users (
 
 CREATE TABLE IF NOT EXISTS posts (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  author_id INT UNSIGNED NULL,
+  author_id INT UNSIGNED NOT NULL,
   title VARCHAR(220) NOT NULL,
   slug VARCHAR(240) NOT NULL UNIQUE,
-  tipo ENUM('noticias','eventos','projetos','educacao') NOT NULL DEFAULT 'noticias',
+  tipo ENUM('noticias') NOT NULL DEFAULT 'noticias',
   excerpt TEXT NULL,
   content MEDIUMTEXT NOT NULL,
   cover_image VARCHAR(500) NULL,
@@ -32,12 +32,12 @@ CREATE TABLE IF NOT EXISTS posts (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_posts_status_tipo (status, tipo),
   INDEX idx_posts_author (author_id),
-  CONSTRAINT fk_posts_author FOREIGN KEY (author_id) REFERENCES admin_users(id) ON DELETE SET NULL
+  CONSTRAINT fk_posts_author FOREIGN KEY (author_id) REFERENCES admin_users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS pages (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  author_id INT UNSIGNED NULL,
+  author_id INT UNSIGNED NOT NULL,
   title VARCHAR(220) NOT NULL,
   slug VARCHAR(240) NOT NULL UNIQUE,
   content MEDIUMTEXT NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS pages (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_pages_status (status),
   INDEX idx_pages_author (author_id),
-  CONSTRAINT fk_pages_author FOREIGN KEY (author_id) REFERENCES admin_users(id) ON DELETE SET NULL
+  CONSTRAINT fk_pages_author FOREIGN KEY (author_id) REFERENCES admin_users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS eventos (

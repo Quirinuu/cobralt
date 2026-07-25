@@ -11,13 +11,12 @@ $db     = getDB();
 $action = $_REQUEST['action'] ?? '';
 
 $allowedStatus = ['draft', 'published'];
-$allowedTipos  = ['noticias', 'eventos', 'projetos', 'educacao'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'list') {
     $status = $_GET['status'] ?? '';
     $status = in_array($status, $allowedStatus, true) ? $status : '';
-    $where  = $status ? 'WHERE p.status = ?' : '';
-    $params = $status ? [$status] : [];
+    $where  = $status ? 'WHERE p.tipo = ? AND p.status = ?' : 'WHERE p.tipo = ?';
+    $params = $status ? ['noticias', $status] : ['noticias'];
 
     $rows = $db->prepare(
         "SELECT p.id, p.title, p.slug, p.status, p.tipo, p.category, p.published_at, p.created_at,
@@ -33,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'list') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'get') {
     $id   = (int)($_GET['id'] ?? 0);
-    $stmt = $db->prepare('SELECT * FROM posts WHERE id = ?');
+    $stmt = $db->prepare("SELECT * FROM posts WHERE id = ? AND tipo = 'noticias'");
     $stmt->execute([$id]);
     $post = $stmt->fetch();
     if (!$post) {
@@ -51,8 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && in_array($action, ['create', 'updat
     $content   = sanitize_editor_html(trim($_POST['content'] ?? ''));
     $excerpt   = trim($_POST['excerpt'] ?? '');
     $cat       = trim($_POST['category'] ?? '');
-    $tipo      = $_POST['tipo'] ?? 'noticias';
-    $tipo      = in_array($tipo, $allowedTipos, true) ? $tipo : 'noticias';
+    $tipo      = 'noticias';
     $status    = $_POST['status'] ?? 'draft';
     $status    = in_array($status, $allowedStatus, true) ? $status : 'draft';
     $cover     = trim($_POST['cover_image'] ?? '');
@@ -89,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && in_array($action, ['create', 'updat
         json_ok(['id' => (int)$db->lastInsertId(), 'slug' => $slug]);
     }
 
-    $owner = $db->prepare('SELECT author_id FROM posts WHERE id = ?');
+    $owner = $db->prepare("SELECT author_id FROM posts WHERE id = ? AND tipo = 'noticias'");
     $owner->execute([$id]);
     $row = $owner->fetch();
     if (!$row) {
@@ -116,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'delete') {
     if ($id <= 0) {
         json_fail('Post invalido.', 422);
     }
-    $stmt = $db->prepare('DELETE FROM posts WHERE id = ?');
+    $stmt = $db->prepare("DELETE FROM posts WHERE id = ? AND tipo = 'noticias'");
     $stmt->execute([$id]);
     json_ok();
 }

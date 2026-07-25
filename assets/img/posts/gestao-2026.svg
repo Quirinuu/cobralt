@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Gestão CoBraLT 2026</title>
+  <desc id="desc">Capa institucional da notícia sobre a posse da Gestão 2026.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#001f38"/>
+      <stop offset=".55" stop-color="#004f88"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#fff" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <path d="M760-30 1240 450V-30Z" fill="#38bdf8" fill-opacity=".12"/>
+  <path d="M940 675 1200 415v260Z" fill="#fff" fill-opacity=".08"/>
+  <g transform="translate(82 92)">
+    <rect width="210" height="58" rx="29" fill="#fff" fill-opacity=".1" stroke="#7dd3fc" stroke-opacity=".55"/>
+    <text x="105" y="38" fill="#bae6fd" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="3">COBRALT</text>
+  </g>
+  <text x="82" y="340" fill="#fff" font-family="Georgia,'Times New Roman',serif" font-size="106" font-weight="700">Gestão 2026</text>
+  <text x="88" y="425" fill="#e0f2fe" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="600">um novo ciclo começa</text>
+  <rect x="88" y="488" width="220" height="10" rx="5" fill="#38bdf8"/>
+  <g transform="translate(850 190)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="18" opacity=".8">
+    <circle cx="80" cy="62" r="44"/>
+    <circle cx="210" cy="62" r="44"/>
+    <circle cx="145" cy="10" r="50"/>
+    <path d="M0 222c8-62 44-94 108-94M290 222c-8-62-44-94-108-94M55 250c8-80 54-122 140-122s132 42 140 122"/>
+  </g>
+</svg>

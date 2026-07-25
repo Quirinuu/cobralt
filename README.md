@@ -20,7 +20,6 @@ cobralT/
 │   ├── noticias.php        ← Lista de notícias (banco)
 │   ├── eventos.php         ← Lista de eventos/posts de eventos (banco)
 │   ├── projetos.php        ← Lista de projetos (banco)
-│   ├── educacao.php        ← Lista de conteúdo educacional (banco)
 │   ├── ligas.php           ← Ligas regionais (banco)
 │   ├── diretoria.php       ← Diretoria (banco)
 │   ├── historia.php        ← História do CoBraLT (estática, usa layout.php)

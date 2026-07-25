@@ -4,8 +4,8 @@ $db = getDB();
 
 $statusFilter = $_GET['status'] ?? '';
 $statusFilter = in_array($statusFilter, ['draft', 'published'], true) ? $statusFilter : '';
-$where  = $statusFilter ? 'WHERE p.status = ?' : '';
-$params = $statusFilter ? [$statusFilter] : [];
+$where  = $statusFilter ? 'WHERE p.tipo = ? AND p.status = ?' : 'WHERE p.tipo = ?';
+$params = $statusFilter ? ['noticias', $statusFilter] : ['noticias'];
 
 $posts = $db->prepare(
     "SELECT p.id, p.title, p.slug, p.status, p.tipo, p.category, p.published_at, p.created_at,
@@ -18,22 +18,16 @@ $posts = $db->prepare(
 $posts->execute($params);
 $posts = $posts->fetchAll();
 
-$total     = $db->query('SELECT COUNT(*) FROM posts')->fetchColumn();
-$published = $db->query('SELECT COUNT(*) FROM posts WHERE status="published"')->fetchColumn();
+$total     = $db->query("SELECT COUNT(*) FROM posts WHERE tipo='noticias'")->fetchColumn();
+$published = $db->query("SELECT COUNT(*) FROM posts WHERE tipo='noticias' AND status='published'")->fetchColumn();
 $drafts    = (int)$total - (int)$published;
-$tipoLabels = [
-    'noticias' => 'Noticias',
-    'eventos'  => 'Eventos',
-    'projetos' => 'Projetos',
-    'educacao' => 'Educacao',
-];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Posts — Admin CoBraLT</title>
+  <title>Notícias — Admin CoBraLT</title>
   <meta name="robots" content="noindex, nofollow">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -119,11 +113,11 @@ $tipoLabels = [
     <div class="nav-label">Conteúdo</div>
     <a href="posts.php" class="active">
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      Posts / Notícias
+      Notícias
     </a>
     <a href="post-editor.php">
       <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      Novo Post
+      Nova notícia
     </a>
     <a href="pages.php">
       <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
@@ -156,10 +150,10 @@ $tipoLabels = [
 
 <div class="main">
   <div class="topbar">
-    <h2>Posts / Notícias</h2>
+    <h2>Notícias</h2>
     <a href="post-editor.php" class="btn-sm">
       <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Novo post
+      Nova notícia
     </a>
   </div>
 
@@ -180,24 +174,23 @@ $tipoLabels = [
       <div class="card-header">
         <h3>
           <?php
-            if ($statusFilter === 'published') echo 'Posts publicados';
+            if ($statusFilter === 'published') echo 'Notícias publicadas';
             elseif ($statusFilter === 'draft') echo 'Rascunhos';
-            else echo 'Todos os posts';
+            else echo 'Todas as notícias';
           ?>
         </h3>
       </div>
 
       <?php if (empty($posts)): ?>
       <div class="empty-state">
-        <p>Nenhum post encontrado.</p>
-        <a href="post-editor.php" class="btn-sm">Criar primeiro post</a>
+        <p>Nenhuma notícia encontrada.</p>
+        <a href="post-editor.php" class="btn-sm">Criar primeira notícia</a>
       </div>
       <?php else: ?>
       <table>
         <thead>
           <tr>
             <th>Título</th>
-            <th>Tipo</th>
             <th>Categoria</th>
             <th>Status</th>
             <th>Autor</th>
@@ -209,7 +202,6 @@ $tipoLabels = [
           <?php foreach ($posts as $post): ?>
           <tr>
             <td><span class="post-title"><?= e($post['title']) ?></span></td>
-            <td><span class="category-tag"><?= e($tipoLabels[$post['tipo']] ?? $post['tipo'] ?? 'Noticias') ?></span></td>
             <td>
               <?php if ($post['category']): ?>
               <span class="category-tag"><?= e($post['category']) ?></span>
@@ -253,7 +245,7 @@ function showToast(msg, type = 'success') {
 }
 
 async function deletePost(id, btn) {
-  if (!confirm('Excluir este post permanentemente?')) return;
+  if (!confirm('Excluir esta notícia permanentemente?')) return;
   btn.disabled = true;
   const fd = new FormData();
   fd.append('action', 'delete');

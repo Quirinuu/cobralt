@@ -293,11 +293,11 @@ $recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts
     <div class="nav-label">Conteúdo</div>
     <a href="posts.php">
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      Posts / Notícias
+      Notícias
     </a>
     <a href="post-editor.php">
       <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      Novo Post
+      Nova notícia
     </a>
     <a href="pages.php">
       <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
@@ -364,7 +364,7 @@ $recentPosts = $db->query('SELECT id, title, slug, status, created_at FROM posts
         <h3>Posts recentes</h3>
         <a href="post-editor.php" class="btn-sm">
           <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Novo post
+          Nova notícia
         </a>
       </div>
 

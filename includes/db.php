@@ -102,10 +102,10 @@ function db_create_mysql_schema(PDO $pdo): void {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS posts (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            author_id INT UNSIGNED NULL,
+            author_id INT UNSIGNED NOT NULL,
             title VARCHAR(220) NOT NULL,
             slug VARCHAR(240) NOT NULL UNIQUE,
-            tipo ENUM('noticias','eventos','projetos','educacao') NOT NULL DEFAULT 'noticias',
+            tipo ENUM('noticias') NOT NULL DEFAULT 'noticias',
             excerpt TEXT NULL,
             content MEDIUMTEXT NOT NULL,
             cover_image VARCHAR(500) NULL,
@@ -116,14 +116,14 @@ function db_create_mysql_schema(PDO $pdo): void {
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             INDEX idx_posts_status_tipo (status, tipo),
             INDEX idx_posts_author (author_id),
-            CONSTRAINT fk_posts_author FOREIGN KEY (author_id) REFERENCES admin_users(id) ON DELETE SET NULL
+            CONSTRAINT fk_posts_author FOREIGN KEY (author_id) REFERENCES admin_users(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ");
 
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS pages (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            author_id INT UNSIGNED NULL,
+            author_id INT UNSIGNED NOT NULL,
             title VARCHAR(220) NOT NULL,
             slug VARCHAR(240) NOT NULL UNIQUE,
             content MEDIUMTEXT NOT NULL,
@@ -132,7 +132,7 @@ function db_create_mysql_schema(PDO $pdo): void {
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             INDEX idx_pages_status (status),
             INDEX idx_pages_author (author_id),
-            CONSTRAINT fk_pages_author FOREIGN KEY (author_id) REFERENCES admin_users(id) ON DELETE SET NULL
+            CONSTRAINT fk_pages_author FOREIGN KEY (author_id) REFERENCES admin_users(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ");
 
@@ -221,10 +221,10 @@ function db_create_sqlite_schema(PDO $pdo): void {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS posts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            author_id INTEGER NULL,
+            author_id INTEGER NOT NULL,
             title TEXT NOT NULL,
             slug TEXT NOT NULL UNIQUE,
-            tipo TEXT NOT NULL DEFAULT 'noticias' CHECK(tipo IN ('noticias','eventos','projetos','educacao')),
+            tipo TEXT NOT NULL DEFAULT 'noticias' CHECK(tipo = 'noticias'),
             excerpt TEXT NULL,
             content TEXT NOT NULL,
             cover_image TEXT NULL,
@@ -233,7 +233,7 @@ function db_create_sqlite_schema(PDO $pdo): void {
             published_at TEXT NULL,
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (author_id) REFERENCES admin_users(id) ON DELETE SET NULL
+            FOREIGN KEY (author_id) REFERENCES admin_users(id)
         )
     ");
     $pdo->exec("CREATE INDEX IF NOT EXISTS idx_posts_status_tipo ON posts(status, tipo)");
@@ -241,14 +241,14 @@ function db_create_sqlite_schema(PDO $pdo): void {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS pages (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            author_id INTEGER NULL,
+            author_id INTEGER NOT NULL,
             title TEXT NOT NULL,
             slug TEXT NOT NULL UNIQUE,
             content TEXT NOT NULL,
             status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published')),
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (author_id) REFERENCES admin_users(id) ON DELETE SET NULL
+            FOREIGN KEY (author_id) REFERENCES admin_users(id)
         )
     ");
     $pdo->exec("CREATE INDEX IF NOT EXISTS idx_pages_status ON pages(status)");

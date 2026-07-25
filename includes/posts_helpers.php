@@ -1,7 +1,7 @@
 <?php
 /**
  * includes/posts_helpers.php
- * Funções compartilhadas para páginas de posts (noticias, eventos, projetos, educacao)
+ * Funções compartilhadas do módulo público de notícias.
  */
 
 function fmtDate(string $dt): string {
@@ -11,24 +11,8 @@ function fmtDate(string $dt): string {
     return (int)$d . ' de ' . $months[(int)$m] . ' de ' . $y;
 }
 
-$tipoEmoji = [
-    'noticias' => '&#128240;',
-    'eventos'  => '📅',
-    'projetos' => '🔬',
-    'educacao' => '🎓',
-];
-
-$tipoLabel = [
-    'noticias' => 'Posts',
-    'eventos'  => 'Eventos',
-    'projetos' => 'Projetos',
-    'educacao' => 'Educação',
-];
-
 function post_default_cover(string $tipo = 'noticias', string $base = '../'): string {
-    $allowed = ['noticias', 'eventos', 'projetos', 'educacao'];
-    $key = in_array($tipo, $allowed, true) ? $tipo : 'noticias';
-    return $base . 'assets/img/posts/post-default-' . $key . '.png?v=' . ASSET_VERSION;
+    return $base . 'assets/img/posts/noticia-padrao.svg?v=' . ASSET_VERSION;
 }
 
 function post_cover_src(array $post, string $base = '../', string $tipo = 'noticias'): string {
@@ -46,15 +30,13 @@ function post_cover_src(array $post, string $base = '../', string $tipo = 'notic
 /**
  * Renderiza o grid de cards de posts
  */
-function render_posts_grid(array $posts, string $tipo): void {
+function render_posts_grid(array $posts, string $tipo = 'noticias'): void {
     if (empty($posts)):
-      $emptyTitle = $tipo === 'noticias' ? 'Novas notícias em breve' : 'Posts em breve';
-      $emptyText = $tipo === 'noticias'
-        ? 'Esta página está pronta para receber as próximas notícias publicadas pela equipe no painel administrativo.'
-        : 'As publicações cadastradas no site aparecerão aqui com imagem, data, categoria e link para leitura completa.';
+      $emptyTitle = 'Novas notícias em breve';
+      $emptyText = 'Esta página está pronta para receber as próximas notícias publicadas pela equipe no painel administrativo.';
     ?>
       <div class="posts-empty-state" style="grid-column:1/-1;">
-        <img src="<?= h(post_default_cover($tipo, '../')) ?>" alt="Posts do CoBraLT" loading="lazy">
+        <img src="<?= h(post_default_cover('noticias', '../')) ?>" alt="Notícias do CoBraLT" loading="lazy">
         <div class="posts-empty-state-body">
           <strong><?= h($emptyTitle) ?></strong>
           <p><?= h($emptyText) ?></p>
@@ -69,22 +51,24 @@ function render_posts_grid(array $posts, string $tipo): void {
         $cover = post_cover_src($p, '../', $tipo);
     ?>
     <article class="news-card" data-animate data-animate-delay="<?= $i % 3 ?>">
-      <div class="news-thumb">
-        <span class="news-cat"><?= $cat ?></span>
-        <img src="<?= h($cover) ?>" alt="<?= h($p['title']) ?>" loading="lazy">
-      </div>
-      <div class="news-body">
-        <div class="news-meta">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <time datetime="<?= h($dtIso) ?>"><?= h($dt) ?></time>
+      <a href="post?slug=<?= rawurlencode((string)$p['slug']) ?>" class="news-card-link" aria-label="Ler notícia: <?= h($p['title']) ?>">
+        <div class="news-thumb">
+          <span class="news-cat"><?= $cat ?></span>
+          <img src="<?= h($cover) ?>" alt="<?= h($p['title']) ?>" loading="lazy">
         </div>
-        <h3><?= h($p['title']) ?></h3>
-        <p><?= h($p['excerpt'] ?? '') ?></p>
-        <a href="post?slug=<?= h($p['slug']) ?>" class="news-link">
-          Ler mais
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+        <div class="news-body">
+          <div class="news-meta">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <time datetime="<?= h($dtIso) ?>"><?= h($dt) ?></time>
+          </div>
+          <h3><?= h($p['title']) ?></h3>
+          <p><?= h($p['excerpt'] ?? '') ?></p>
+          <span class="news-link">
+            Ler notícia
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+      </a>
     </article>
     <?php endforeach;
 }
