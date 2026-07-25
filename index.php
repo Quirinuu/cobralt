@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/posts_helpers.php';
-require_once __DIR__ . '/includes/instagram_posts.php';
 require_once __DIR__ . '/includes/colt_editions.php';
 require_once __DIR__ . '/includes/page_builder.php';
 
@@ -19,11 +18,12 @@ if (pb_render_managed_page_if_exists('home', '', './')) { exit; }
 try {
     $db = getPublicDB();
 
-    // Posts publicados mais recentes para fallback da home
+    // Notícias publicadas pelo painel administrativo
     $stmtNoticias = $db->query(
         "SELECT title, excerpt, category, published_at, slug, cover_image
          FROM posts
          WHERE status = 'published'
+           AND tipo = 'noticias'
          ORDER BY published_at DESC
          LIMIT 6"
     );
@@ -89,15 +89,12 @@ $homePosts = array_map(static function (array $post): array {
         'excerpt' => (string)($post['excerpt'] ?? ''),
         'category' => (string)($post['category'] ?? 'Post'),
         'published_at' => (string)($post['published_at'] ?? ''),
-        'url' => 'pages/post.php?slug=' . rawurlencode((string)($post['slug'] ?? '')),
+        'url' => 'pages/post?slug=' . rawurlencode((string)($post['slug'] ?? '')),
         'image' => post_cover_src($post, './', 'noticias'),
         'source' => 'site',
         'external' => false,
     ];
 }, $noticias);
-if (empty($homePosts)) {
-    $homePosts = get_instagram_posts(6);
-}
 
 $homePastColts = array_slice(colt_editions_newest_first(), 0, 8);
 ?>
@@ -129,15 +126,15 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <a href="#ligas" class="btn btn-secondary">Mostrar Ligas</a>
       </div>
       <div class="hero-programs-quick" aria-label="Programas oficiais em destaque">
-        <a href="pages/programa-salvando-vidas-2026.php" class="hero-program-quick-item">
+        <a href="pages/programa-salvando-vidas-2026" class="hero-program-quick-item">
           <span>Salvando Vidas 2026</span>
           <strong>Maio a dezembro de 2026</strong>
         </a>
-        <a href="pages/programa-party-brasil-2026.php" class="hero-program-quick-item">
+        <a href="pages/programa-party-brasil-2026" class="hero-program-quick-item">
           <span>P.A.R.T.Y. Brasil 2026</span>
           <strong>Edital de 10/04/2026</strong>
         </a>
-        <a href="pages/programa-junho-laranja-2026.php" class="hero-program-quick-item">
+        <a href="pages/programa-junho-laranja-2026" class="hero-program-quick-item">
           <span>Junho Laranja 2026</span>
           <strong>Trabalho seguro sem queimaduras</strong>
         </a>
@@ -172,17 +169,17 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
               <div style="color:#fff;font-weight:700;font-size:0.9rem;">Destaques 2026</div>
             </div>
           </div>
-          <a href="pages/programa-salvando-vidas-2026.php" class="hero-program-row hero-program-row--primary">
+          <a href="pages/programa-salvando-vidas-2026" class="hero-program-row hero-program-row--primary">
             <span class="hero-program-kicker">Ciclo 2026</span>
             <strong>Programa Salvando Vidas</strong>
             <small>Maio a dezembro de 2026</small>
           </a>
-          <a href="pages/programa-party-brasil-2026.php" class="hero-program-row">
+          <a href="pages/programa-party-brasil-2026" class="hero-program-row">
             <span class="hero-program-kicker">Adesão 2026</span>
             <strong>Programa P.A.R.T.Y. Brasil</strong>
             <small>Edital de 10/04/2026</small>
           </a>
-          <a href="pages/programa-junho-laranja-2026.php" class="hero-program-row hero-program-row--orange">
+          <a href="pages/programa-junho-laranja-2026" class="hero-program-row hero-program-row--orange">
             <span class="hero-program-kicker">Junho Laranja</span>
             <strong>Prevenção e Extensão</strong>
             <small>Trabalho seguro sem queimaduras</small>
@@ -190,6 +187,36 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <a href="#projetos" class="btn btn-event">Ver projetos</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DESTAQUE CoLT ═══════════════════════════════════════ -->
+<section class="colt-home-highlight" aria-labelledby="colt-home-title">
+  <div class="colt-home-highlight-inner">
+    <div class="colt-home-highlight-copy" data-animate>
+      <span class="colt-home-eyebrow">Memória CoBraLT</span>
+      <h2 id="colt-home-title">Congressos Brasileiros das Ligas do Trauma</h2>
+      <p>Conheça a história dos congressos que construíram a maior rede acadêmica de trauma do Brasil.</p>
+      <div class="colt-home-meta" aria-label="Resumo histórico dos CoLTs">
+        <span><strong>28</strong> edições</span>
+        <span><strong>1999–2026</strong> trajetória nacional</span>
+      </div>
+      <a href="pages/eventos#realizados" class="btn btn-cta">
+        Explorar todos os CoLTs
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="colt-home-editions" aria-label="Edições recentes dos CoLTs" data-animate>
+      <?php foreach (array_slice($homePastColts, 0, 4) as $colt):
+        $title = trim($colt['edition'] . ($colt['year'] ? ' ' . $colt['year'] : ''));
+      ?>
+      <a href="pages/<?= h($colt['file']) ?>" class="colt-home-edition">
+        <span><?= h($colt['badge']) ?></span>
+        <strong><?= h($title) ?></strong>
+        <small><?= h($colt['place'] ?: 'Brasil') ?> · Ver memória →</small>
+      </a>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -203,7 +230,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <span class="section-label" id="apoiadores-label">Comitê Científico</span>
         <h2 class="section-title" style="margin:0.2rem 0 0;">Nossos Apoiadores</h2>
       </div>
-      <a href="pages/apoiadores.php" class="btn btn-secondary">
+      <a href="pages/apoiadores" class="btn btn-secondary">
         Ver todos →
       </a>
     </div>
@@ -428,6 +455,9 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.post-card-media img[src*="wellington-patrono-turma-iv"] {
+  object-position: center 28%;
 }
 .post-card-placeholder {
   color: var(--navy);
@@ -738,25 +768,25 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
 })();
 </script>
 
-<!-- POSTS -->
+<!-- NOTÍCIAS -->
 <section class="section" id="posts" aria-labelledby="posts-title">
   <div class="section-inner">
     <div class="section-header" data-animate>
       <div class="divider" aria-hidden="true"></div>
-      <span class="section-label">Publicações recentes</span>
+      <span class="section-label">Notícias recentes</span>
       <h2 class="section-title" id="posts-title">
-        <a href="pages/noticias.php" class="section-title-link">Posts</a>
-        <a href="pages/noticias.php" class="section-page-link" aria-label="Ver todos os posts">ver todos &rarr;</a>
+        <a href="pages/noticias" class="section-title-link">Notícias</a>
+        <a href="pages/noticias" class="section-page-link" aria-label="Ver todas as notícias">ver todas &rarr;</a>
       </h2>
-      <p class="section-subtitle">Atualizações, comunicados e conteúdos publicados pelo CoBraLT.</p>
+      <p class="section-subtitle">Homenagens, acontecimentos e atualizações da rede CoBraLT.</p>
     </div>
 
     <?php if (empty($homePosts)): ?>
       <div class="posts-empty-state">
         <img src="<?= h(post_default_cover('noticias', './')) ?>" alt="Posts do CoBraLT" loading="lazy">
         <div class="posts-empty-state-body">
-          <strong>Posts em breve</strong>
-          <p>As publicações cadastradas no site aparecerão aqui com imagem, data, categoria e link para leitura completa.</p>
+          <strong>Notícias em breve</strong>
+          <p>As notícias cadastradas no painel administrativo aparecerão aqui com imagem, data, categoria e link para leitura completa.</p>
         </div>
       </div>
     <?php else: ?>
@@ -790,7 +820,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <h3><?= h($post['title'] ?? '') ?></h3>
             <p><?= h($post['excerpt'] ?? '') ?></p>
             <span class="news-link">
-              <?= $external ? 'Ver no Instagram' : 'Ler post' ?>
+              <?= $external ? 'Ver no Instagram' : 'Ler notícia' ?>
               <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </span>
           </div>
@@ -813,8 +843,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Boletim CoBraLT</span>
       <h2 class="section-title" id="boletimes-title">
-        <a href="pages/boletimes.php" class="section-title-link">Trauma BoleTIME</a>
-        <a href="pages/boletimes.php" class="section-page-link">ver edições →</a>
+        <a href="pages/boletimes" class="section-title-link">Trauma BoleTIME</a>
+        <a href="pages/boletimes" class="section-page-link">ver edições →</a>
       </h2>
       <p class="section-subtitle">Publicação trimestral do CoBraLT com notícias, entrevistas, ações das ligas, agenda científica e atualizações sobre trauma no Brasil.</p>
     </div>
@@ -826,11 +856,11 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <h3>Informativo oficial das Ligas do Trauma</h3>
           <p>Leia online, abra em tela cheia ou baixe cada edição do boletim institucional do CoBraLT.</p>
         </div>
-        <a href="pages/boletimes.php" class="news-link" style="font-size:0.82rem;">Ver boletins →</a>
+        <a href="pages/boletimes" class="news-link" style="font-size:0.82rem;">Ver boletins →</a>
       </div>
 
       <div class="boletime-grid">
-        <a href="pages/boletime-maio-2026.php" class="boletime-card" aria-label="Abrir edição Maio 2026 do Trauma BoleTIME">
+        <a href="pages/boletime-maio-2026" class="boletime-card" aria-label="Abrir edição Maio 2026 do Trauma BoleTIME">
           <div class="boletime-card-media">
             <img src="assets/img/boletimes/trauma-boletime-maio-2026-cover.png" alt="Capa da edição Maio 2026 do Trauma BoleTIME" loading="lazy">
           </div>
@@ -852,8 +882,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Iniciativas</span>
       <h2 class="section-title" id="projetos-title">
-        <a href="pages/projetos.php" class="section-title-link">Projetos</a>
-        <a href="pages/projetos.php" class="section-page-link">ver página →</a>
+        <a href="pages/projetos" class="section-title-link">Projetos</a>
+        <a href="pages/projetos" class="section-page-link">ver página →</a>
       </h2>
       <p class="section-subtitle">Conheça os programas e projetos oficiais do CoBraLT para ligas filiadas.</p>
     </div>
@@ -865,7 +895,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <h3>Editais, publicações e adesões</h3>
           <p>Documentos de referência para ligas filiadas, com leitura online, tela cheia e download dos PDFs.</p>
         </div>
-        <a href="pages/projetos.php" class="news-link" style="font-size:0.82rem;">Ver projetos →</a>
+        <a href="pages/projetos" class="news-link" style="font-size:0.82rem;">Ver projetos →</a>
       </div>
 
       <div class="programs-carousel index-carousel" data-index-carousel data-carousel-step="1">
@@ -873,7 +903,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <div class="programs-feature-grid programs-carousel-track index-carousel-track" data-carousel-track>
-        <a href="pages/programa-salvando-vidas-2026.php" class="program-card program-card--salvando" aria-label="Abrir página do Programa Salvando Vidas 2026">
+        <a href="pages/programa-salvando-vidas-2026" class="program-card program-card--salvando" aria-label="Abrir página do Programa Salvando Vidas 2026">
           <div class="program-card-media">
             <img src="assets/img/programas/salvando-vidas-2026-cover.png" alt="Capa do edital do Programa Salvando Vidas 2026" loading="lazy">
           </div>
@@ -885,7 +915,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
         </a>
 
-        <a href="pages/programa-salvando-vidas-controle-hemorragias.php" class="program-card program-card--salvando" aria-label="Abrir material Controle de Hemorragias do Programa Salvando Vidas">
+        <a href="pages/programa-salvando-vidas-controle-hemorragias" class="program-card program-card--salvando" aria-label="Abrir material Controle de Hemorragias do Programa Salvando Vidas">
           <div class="program-card-media">
             <img src="assets/img/programas/salvando-vidas-controle-hemorragias-cover.png" alt="Capa do material Controle de Hemorragias" loading="lazy">
           </div>
@@ -897,7 +927,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
         </a>
 
-        <a href="pages/programa-salvando-vidas-anafilaxia.php" class="program-card program-card--salvando" aria-label="Abrir material Reação Alérgica Grave e Anafilaxia do Programa Salvando Vidas">
+        <a href="pages/programa-salvando-vidas-anafilaxia" class="program-card program-card--salvando" aria-label="Abrir material Reação Alérgica Grave e Anafilaxia do Programa Salvando Vidas">
           <div class="program-card-media">
             <img src="assets/img/programas/salvando-vidas-anafilaxia-cover.png" alt="Capa do material Reação Alérgica Grave e Anafilaxia" loading="lazy">
           </div>
@@ -909,7 +939,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
         </a>
 
-        <a href="pages/programa-salvando-vidas-avc-iam.php" class="program-card program-card--salvando" aria-label="Abrir material AVC e IAM do Programa Salvando Vidas">
+        <a href="pages/programa-salvando-vidas-avc-iam" class="program-card program-card--salvando" aria-label="Abrir material AVC e IAM do Programa Salvando Vidas">
           <div class="program-card-media">
             <img src="assets/img/programas/salvando-vidas-avc-iam-cover.png" alt="Capa do material AVC e IAM" loading="lazy">
           </div>
@@ -921,7 +951,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
         </a>
 
-        <a href="pages/programa-salvando-vidas-queimaduras-choques-eletricos.php" class="program-card program-card--salvando" aria-label="Abrir material Queimaduras e Choques Elétricos do Programa Salvando Vidas">
+        <a href="pages/programa-salvando-vidas-queimaduras-choques-eletricos" class="program-card program-card--salvando" aria-label="Abrir material Queimaduras e Choques Elétricos do Programa Salvando Vidas">
           <div class="program-card-media">
             <img src="assets/img/programas/salvando-vidas-queimaduras-choques-eletricos-cover.png" alt="Capa do material Queimaduras e Choques Elétricos" loading="lazy">
           </div>
@@ -932,7 +962,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <span class="program-card-link">Ver material <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
-        <a href="pages/programa-party-brasil-2026.php" class="program-card program-card--party" aria-label="Abrir página do Programa P.A.R.T.Y. Brasil 2026">
+        <a href="pages/programa-party-brasil-2026" class="program-card program-card--party" aria-label="Abrir página do Programa P.A.R.T.Y. Brasil 2026">
           <div class="program-card-media">
             <img src="assets/img/programas/party-brasil-2026-cover.png" alt="Capa do edital do Programa P.A.R.T.Y. Brasil 2026" loading="lazy">
           </div>
@@ -944,7 +974,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           </div>
         </a>
 
-        <a href="pages/programa-junho-laranja-2026.php" class="program-card program-card--laranja" aria-label="Abrir página do programa Junho Laranja 2026">
+        <a href="pages/programa-junho-laranja-2026" class="program-card program-card--laranja" aria-label="Abrir página do programa Junho Laranja 2026">
           <div class="program-card-media">
             <img src="assets/img/programas/junho-laranja-2026-cover.png" alt="Capa do documento Prevenção e Extensão - Junho Laranja 2026" loading="lazy">
           </div>
@@ -972,8 +1002,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Agenda</span>
       <h2 class="section-title" id="eventos-title">
-        <a href="pages/eventos.php" class="section-title-link">Eventos e Congressos</a>
-        <a href="pages/eventos.php" class="section-page-link">ver página →</a>
+        <a href="pages/eventos" class="section-title-link">Eventos e Congressos</a>
+        <a href="pages/eventos" class="section-page-link">ver página →</a>
       </h2>
       <p class="section-subtitle">Mantenha-se atualizado com a agenda de eventos e congressos do CoBraLT.</p>
     </div>
@@ -1012,7 +1042,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
           <span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--slate-400);">Memória</span>
           <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1rem;margin:0.15rem 0 0;">Eventos Realizados</h3>
         </div>
-        <a href="pages/eventos.php#realizados" class="news-link" style="font-size:0.82rem;">Ver todos →</a>
+        <a href="pages/eventos#realizados" class="news-link" style="font-size:0.82rem;">Ver todos →</a>
       </div>
       <div style="display:flex;gap:1rem;overflow-x:auto;scrollbar-width:none;padding-bottom:0.25rem;">
         <?php foreach ($homePastColts as $colt):
@@ -1068,7 +1098,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <div><div style="font-weight:600;color:var(--navy);font-size:0.84rem;">Consultoria & Materiais</div><div style="color:var(--slate-600);font-size:0.78rem;line-height:1.5;">Suporte para abertura de ligas, cartilhas revisadas e apoio institucional</div></div>
           </div>
         </div>
-        <a href="pages/ligas.php#beneficios" style="display:inline-flex;align-items:center;gap:5px;margin-top:1rem;font-size:0.78rem;font-weight:600;color:var(--sky-dark);text-decoration:none;">Ver todos os benefícios →</a>
+        <a href="pages/ligas#beneficios" style="display:inline-flex;align-items:center;gap:5px;margin-top:1rem;font-size:0.78rem;font-weight:600;color:var(--sky-dark);text-decoration:none;">Ver todos os benefícios →</a>
       </div>
       <div class="contact-form" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.1rem;" data-animate-right data-animate-delay="1">
         <div style="width:58px;height:58px;background:rgba(0,43,78,0.08);border-radius:50%;display:flex;align-items:center;justify-content:center;">
@@ -1095,8 +1125,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
       <span class="section-label">Rede Nacional</span>
       <h2 class="section-title" id="ligas-title">
-        <a href="pages/ligas.php" class="section-title-link">Ligas Afiliadas</a>
-        <a href="pages/ligas.php" class="section-page-link">ver página →</a>
+        <a href="pages/ligas" class="section-title-link">Ligas Afiliadas</a>
+        <a href="pages/ligas" class="section-page-link">ver página →</a>
       </h2>
       <p class="section-subtitle">180+ instituições organizadas em 6 ligas regionais, cobrindo todo o território nacional.</p>
     </div>
@@ -1123,8 +1153,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="divider" aria-hidden="true"></div>
       <span class="section-label">Trajetória</span>
       <h2 class="section-title" id="historia-title">
-        <a href="pages/historia.php" class="section-title-link">Nossa História</a>
-        <a href="pages/historia.php" class="section-page-link">ver página →</a>
+        <a href="pages/historia" class="section-title-link">Nossa História</a>
+        <a href="pages/historia" class="section-page-link">ver página →</a>
       </h2>
       <p class="section-subtitle">De 2003 ao presente — construindo a maior rede acadêmica de trauma do Brasil.</p>
     </div>
@@ -1138,7 +1168,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       <div class="timeline-item" role="listitem" data-animate data-animate-delay="6"><div class="timeline-dot" aria-hidden="true"></div><div class="timeline-year">Hoje</div><h3>Referência Nacional em Trauma</h3><p>Principal organização de ligas acadêmicas de trauma do Brasil, reunindo centenas de instituições e milhares de estudantes e profissionais comprometidos com a melhoria da assistência ao paciente traumatizado.</p></div>
     </div>
     <div style="margin-top:2.5rem;" data-animate>
-      <a href="pages/historia.php" class="btn btn-secondary">
+      <a href="pages/historia" class="btn btn-secondary">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         Ler a história completa
       </a>
@@ -1152,8 +1182,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
     <div class="section-header">
       <span class="section-label">Quem nos lidera</span>
       <h2 class="section-title">
-        <a href="pages/diretoria.php" class="section-title-link">Diretoria CoBraLT</a>
-        <a href="pages/diretoria.php" class="section-page-link">ver página →</a>
+        <a href="pages/diretoria" class="section-title-link">Diretoria CoBraLT</a>
+        <a href="pages/diretoria" class="section-page-link">ver página →</a>
       </h2>
     </div>
 

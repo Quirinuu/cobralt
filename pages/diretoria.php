@@ -38,7 +38,7 @@ layout_header('diretoria');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Diretoria</span>
+      <a href="../index">Início</a><span>›</span><span>Diretoria</span>
     </nav>
     <div class="page-hero-label">Gestão 2025–2026</div>
     <h1 class="page-hero-title">Diretoria CoBraLT</h1>

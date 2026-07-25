@@ -43,7 +43,7 @@ layout_header('projetos');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="projetos.php">Projetos</a><span>›</span><span>P.A.R.T.Y. Brasil 2026</span>
+      <a href="../index">Início</a><span>›</span><a href="projetos">Projetos</a><span>›</span><span>P.A.R.T.Y. Brasil 2026</span>
     </nav>
     <div class="page-hero-label">Programa de prevenção</div>
     <h1 class="page-hero-title">Programa P.A.R.T.Y. Brasil 2026</h1>

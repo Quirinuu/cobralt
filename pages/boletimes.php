@@ -26,7 +26,7 @@ layout_header('boletimes');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Trauma BoleTIME</span>
+      <a href="../index">Início</a><span>›</span><span>Trauma BoleTIME</span>
     </nav>
     <div class="page-hero-label">Boletim CoBraLT</div>
     <h1 class="page-hero-title">Trauma BoleTIME</h1>

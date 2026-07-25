@@ -3,9 +3,6 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/db.php';
 require_once dirname(__DIR__) . '/includes/layout.php';
 require_once dirname(__DIR__) . '/includes/posts_helpers.php';
-require_once dirname(__DIR__) . '/includes/page_builder.php';
-
-if (pb_render_managed_page_if_exists('noticias', 'noticias')) { exit; }
 
 try {
     $db    = getPublicDB();
@@ -14,7 +11,7 @@ try {
     $posts = [];
 }
 
-layout_head('Posts', 'Publicações e atualizações do CoBraLT.');
+layout_head('Notícias', 'Notícias e atualizações oficiais do CoBraLT.');
 layout_header('noticias');
 ?>
 
@@ -23,11 +20,11 @@ layout_header('noticias');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Posts</span>
+      <a href="../">Início</a><span>›</span><span>Notícias</span>
     </nav>
     <div class="page-hero-label">CoBraLT publica</div>
-    <h1 class="page-hero-title">Posts</h1>
-    <p class="page-hero-sub">Publicações, atualizações e conteúdos recentes do CoBraLT.</p>
+    <h1 class="page-hero-title">Notícias</h1>
+    <p class="page-hero-sub">Notícias e atualizações oficiais publicadas pela equipe do CoBraLT.</p>
     <div class="region-stats">
       <div class="region-stat"><div class="region-stat-value"><?= count($posts) ?></div><div class="region-stat-label">publicações</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ano em curso</div></div>

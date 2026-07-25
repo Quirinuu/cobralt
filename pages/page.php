@@ -34,7 +34,7 @@ if (!$page) {
     http_response_code(404);
     layout_head('Pagina nao encontrada', 'Pagina nao encontrada no CoBraLT.');
     layout_header('', '../', '', '../pages/');
-    echo '<main id="main-content"><section class="section"><div class="section-inner"><h1 class="section-title">Pagina nao encontrada</h1><p class="section-subtitle">A pagina solicitada nao esta publicada ou nao existe.</p><a href="../index.php" class="btn btn-secondary">Voltar ao inicio</a></div></section></main>';
+    echo '<main id="main-content"><section class="section"><div class="section-inner"><h1 class="section-title">Pagina nao encontrada</h1><p class="section-subtitle">A pagina solicitada nao esta publicada ou nao existe.</p><a href="../index" class="btn btn-secondary">Voltar ao inicio</a></div></section></main>';
     layout_footer('../');
     exit;
 }

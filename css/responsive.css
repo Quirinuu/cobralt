@@ -29,6 +29,14 @@
   .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
 }
 
+@media (max-width: 820px) {
+  .colt-home-highlight-inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2.25rem 1.5rem;
+  }
+}
+
 /* ─── Mobile / 600px ───────────────────────────────────── */
 @media (max-width: 600px) {
   html, body { overflow-x: hidden; }
@@ -60,6 +68,18 @@
     font-size: 0.78rem;
     padding: 0.55rem 1rem;
   }
+
+  .colt-home-highlight-inner {
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+  .colt-home-editions { grid-template-columns: 1fr; }
+  .colt-home-highlight-copy .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .colt-memory-counts { gap: 0.5rem; }
+  .colt-memory-count { min-width: 0; flex: 1 1 130px; }
 
   /* Hero visual (mobile: mostra simplificado) */
   .hero-visual { display: block; width: 100%; overflow: hidden; }

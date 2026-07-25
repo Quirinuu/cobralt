@@ -21,7 +21,7 @@ layout_header('boletimes');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="boletimes.php">Trauma BoleTIME</a><span>›</span><span>Maio 2026</span>
+      <a href="../index">Início</a><span>›</span><a href="boletimes">Trauma BoleTIME</a><span>›</span><span>Maio 2026</span>
     </nav>
     <div class="page-hero-label">Edição 1 · 2º trimestre/2026</div>
     <h1 class="page-hero-title">Trauma BoleTIME - Maio 2026</h1>

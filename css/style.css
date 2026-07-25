@@ -3,11 +3,11 @@
    Importa todos os modulos CSS na ordem correta.
 */
 
-@import 'vars.css?v=20260707.2';
-@import 'base.css?v=20260707.2';
-@import 'animations.css?v=20260707.2';
-@import 'header.css?v=20260707.2';
-@import 'hero.css?v=20260707.2';
-@import 'sections.css?v=20260707.2';
-@import 'page-builder.css?v=20260707.2';
-@import 'responsive.css?v=20260707.2';
+@import 'vars.css?v=20260725.2';
+@import 'base.css?v=20260725.2';
+@import 'animations.css?v=20260725.2';
+@import 'header.css?v=20260725.2';
+@import 'hero.css?v=20260725.2';
+@import 'sections.css?v=20260725.2';
+@import 'page-builder.css?v=20260725.2';
+@import 'responsive.css?v=20260725.2';

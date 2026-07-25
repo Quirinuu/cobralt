@@ -6,7 +6,28 @@ Options -Indexes
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # URLs canônicas sem index.php
+    # Ex.: /cobralt/index.php -> /cobralt/
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.php(?:[\s?]) [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # Remove .php dos endereços públicos já acessados com a extensão
+    # Ex.: /pages/eventos.php -> /pages/eventos
+    # Limitado a GET/HEAD para não interferir em POSTs do painel e das APIs.
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.php(?:[\s?]) [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # Rotas especiais do construtor de páginas
     RewriteRule ^pagina/([a-z0-9-]+)/?$ pages/page.php?slug=$1 [L,QSA,NC]
+
+    # Resolve internamente URLs sem extensão para o arquivo PHP correspondente
+    # Ex.: /pages/eventos -> /pages/eventos.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.+?)/?$ $1.php [L,QSA]
 </IfModule>
 
 # Força HTTPS (descomente após ter o SSL ativo na Hostinger)

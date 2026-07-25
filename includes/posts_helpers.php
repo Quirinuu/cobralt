@@ -47,12 +47,17 @@ function post_cover_src(array $post, string $base = '../', string $tipo = 'notic
  * Renderiza o grid de cards de posts
  */
 function render_posts_grid(array $posts, string $tipo): void {
-    if (empty($posts)): ?>
+    if (empty($posts)):
+      $emptyTitle = $tipo === 'noticias' ? 'Novas notícias em breve' : 'Posts em breve';
+      $emptyText = $tipo === 'noticias'
+        ? 'Esta página está pronta para receber as próximas notícias publicadas pela equipe no painel administrativo.'
+        : 'As publicações cadastradas no site aparecerão aqui com imagem, data, categoria e link para leitura completa.';
+    ?>
       <div class="posts-empty-state" style="grid-column:1/-1;">
         <img src="<?= h(post_default_cover($tipo, '../')) ?>" alt="Posts do CoBraLT" loading="lazy">
         <div class="posts-empty-state-body">
-          <strong>Posts em breve</strong>
-          <p>As publicações cadastradas no site aparecerão aqui com imagem, data, categoria e link para leitura completa.</p>
+          <strong><?= h($emptyTitle) ?></strong>
+          <p><?= h($emptyText) ?></p>
         </div>
       </div>
     <?php return; endif;
@@ -75,7 +80,7 @@ function render_posts_grid(array $posts, string $tipo): void {
         </div>
         <h3><?= h($p['title']) ?></h3>
         <p><?= h($p['excerpt'] ?? '') ?></p>
-        <a href="post.php?slug=<?= h($p['slug']) ?>" class="news-link">
+        <a href="post?slug=<?= h($p['slug']) ?>" class="news-link">
           Ler mais
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>

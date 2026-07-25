@@ -27,7 +27,7 @@ layout_header('ligas');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Ligas Filiadas</span>
+      <a href="../index">Início</a><span>›</span><span>Ligas Filiadas</span>
     </nav>
     <div class="page-hero-label">Rede Nacional</div>
     <h1 class="page-hero-title">Ligas Filiadas</h1>
@@ -81,7 +81,7 @@ layout_header('ligas');
       <div class="benefit-card" data-animate data-animate-delay="7"><div class="benefit-icon">👨‍🏫</div><div class="benefit-content"><h4>Acesso a Especialistas</h4><p>Acesso direto aos <strong>orientadores do comitê</strong> para palestras, cursos e escritas científicas.</p></div></div>
     </div>
     <div style="text-align:center;margin-top:2.5rem;" data-animate>
-      <a href="../index.php#filiacao" class="btn btn-affiliate">
+      <a href="../index#filiacao" class="btn btn-affiliate">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Filiar minha liga agora
       </a>

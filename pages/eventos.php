@@ -35,11 +35,12 @@ layout_header('eventos');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Eventos</span>
+      <a href="../">Início</a><span>›</span><span>Eventos</span>
     </nav>
     <div class="page-hero-label">Agenda CoBraLT</div>
     <h1 class="page-hero-title">Eventos e Congressos</h1>
     <p class="page-hero-sub">Mantenha-se atualizado com a agenda de eventos do CoBraLT e da área de trauma.</p>
+    <a href="#realizados" class="btn btn-cta" style="width:fit-content;margin-top:1.25rem;">Explorar a memória dos CoLTs →</a>
     <div class="region-stats">
       <div class="region-stat"><div class="region-stat-value"><?= count($eventos) ?></div><div class="region-stat-label">eventos</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ano em curso</div></div>
@@ -48,7 +49,7 @@ layout_header('eventos');
   </div>
 </div>
 
-<section class="section" style="padding-top:3rem;">
+<section class="section" id="agenda" style="padding-top:3rem;">
   <div class="section-inner">
     <?php if (empty($eventos)): ?>
       <p style="color:var(--slate-400);text-align:center;padding:3rem 0;">Nenhum próximo evento cadastrado no momento.</p>
@@ -85,13 +86,18 @@ layout_header('eventos');
   </div>
 </section>
 
-<section class="section" id="realizados" style="background:linear-gradient(180deg,var(--off-white) 0%,#fff 100%);" aria-labelledby="realizados-title">
+<section class="section colt-memory-section" id="realizados" style="background:linear-gradient(180deg,var(--off-white) 0%,#fff 100%);" aria-labelledby="realizados-title">
   <div class="section-inner" style="max-width:1180px;">
     <div class="section-header centered" data-animate>
       <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
       <span class="section-label">Memória</span>
       <h2 class="section-title" id="realizados-title">Eventos Realizados</h2>
       <p class="section-subtitle">Conheça a história dos congressos que construíram a maior rede acadêmica de trauma do Brasil.</p>
+      <div class="colt-memory-counts" aria-label="Resumo do acervo dos CoLTs">
+        <span class="colt-memory-count"><strong><?= count($pastColts) ?></strong> edições clicáveis</span>
+        <span class="colt-memory-count"><strong>1999–2026</strong> memória nacional</span>
+        <span class="colt-memory-count"><strong>Acervo</strong> histórico e fotográfico</span>
+      </div>
     </div>
 
     <div class="events-carousel-wrapper" data-animate>

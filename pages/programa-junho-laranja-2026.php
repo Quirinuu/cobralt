@@ -21,7 +21,7 @@ layout_header('projetos');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="projetos.php">Projetos</a><span>›</span><span>Junho Laranja 2026</span>
+      <a href="../index">Início</a><span>›</span><a href="projetos">Projetos</a><span>›</span><span>Junho Laranja 2026</span>
     </nav>
     <div class="page-hero-label">Prevenção e extensão</div>
     <h1 class="page-hero-title">Junho Laranja 2026</h1>

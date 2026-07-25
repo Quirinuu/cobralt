@@ -15,7 +15,7 @@ layout_header('historia');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>História</span>
+      <a href="../index">Início</a><span>›</span><span>História</span>
     </nav>
     <div class="page-hero-label">Desde 2003</div>
     <h1 class="page-hero-title">A História do CoBraLT</h1>
@@ -181,7 +181,7 @@ layout_header('historia');
     <span class="section-label" style="color:var(--sky-light);">Faça parte</span>
     <h2 class="section-title" style="color:#fff;margin-bottom:1rem;">Escreva a próxima página dessa história</h2>
     <p style="color:rgba(255,255,255,.6);font-size:.9rem;max-width:480px;margin:0 auto 2rem;">Afilie sua liga ao CoBraLT e contribua para a excelência no atendimento ao trauma no Brasil.</p>
-    <a href="../index.php#filiacao" class="btn btn-affiliate">Filiar minha liga</a>
+    <a href="../index#filiacao" class="btn btn-affiliate">Filiar minha liga</a>
   </div>
 </section>
 

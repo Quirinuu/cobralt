@@ -15,7 +15,7 @@ layout_header('projetos');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Projetos</span>
+      <a href="../index">Início</a><span>›</span><span>Projetos</span>
     </nav>
     <div class="page-hero-label">Iniciativas CoBraLT</div>
     <h1 class="page-hero-title">Projetos</h1>
@@ -40,7 +40,7 @@ layout_header('projetos');
       </div>
 
       <div class="programs-feature-grid">
-        <a href="programa-salvando-vidas-2026.php" class="program-card program-card--salvando" aria-label="Abrir página do Programa Salvando Vidas 2026">
+        <a href="programa-salvando-vidas-2026" class="program-card program-card--salvando" aria-label="Abrir página do Programa Salvando Vidas 2026">
           <div class="program-card-media">
             <img src="../assets/img/programas/salvando-vidas-2026-cover.png" alt="Capa do edital do Programa Salvando Vidas 2026" loading="lazy">
           </div>
@@ -52,7 +52,7 @@ layout_header('projetos');
           </div>
         </a>
 
-        <a href="programa-party-brasil-2026.php" class="program-card program-card--party" aria-label="Abrir página do Programa P.A.R.T.Y. Brasil 2026">
+        <a href="programa-party-brasil-2026" class="program-card program-card--party" aria-label="Abrir página do Programa P.A.R.T.Y. Brasil 2026">
           <div class="program-card-media">
             <img src="../assets/img/programas/party-brasil-2026-cover.png" alt="Capa do edital do Programa P.A.R.T.Y. Brasil 2026" loading="lazy">
           </div>
@@ -64,7 +64,7 @@ layout_header('projetos');
           </div>
         </a>
 
-        <a href="programa-junho-laranja-2026.php" class="program-card program-card--laranja" aria-label="Abrir página do programa Junho Laranja 2026">
+        <a href="programa-junho-laranja-2026" class="program-card program-card--laranja" aria-label="Abrir página do programa Junho Laranja 2026">
           <div class="program-card-media">
             <img src="../assets/img/programas/junho-laranja-2026-cover.png" alt="Capa do documento Prevenção e Extensão - Junho Laranja 2026" loading="lazy">
           </div>

@@ -5,7 +5,7 @@
  */
 
 define('INSTAGRAM_URL', 'https://www.instagram.com/cobralt_');
-define('ASSET_VERSION', '20260707.2');
+define('ASSET_VERSION', '20260725.2');
 
 function layout_head(string $title, string $desc = '', string $base = '../', string $body_attrs = ''): void {
   layout_head_only($title, $desc, $base);
@@ -39,27 +39,82 @@ function layout_head_only(string $title, string $desc = '', string $base = '../'
 
 function layout_header(string $active = '', string $base = '../', string $logo_href = '', string $nav_prefix = ''): void {
   $nav = [
-    'noticias'   => ['href' => $nav_prefix . 'noticias.php',   'label' => 'Posts'],
-    'boletimes'  => ['href' => $nav_prefix . 'boletimes.php',  'label' => 'Trauma BoleTIME'],
-    'eventos'    => ['href' => $nav_prefix . 'eventos.php',    'label' => 'Eventos'],
-    'projetos'   => ['href' => $nav_prefix . 'projetos.php',   'label' => 'Projetos'],
-    'educacao'   => ['href' => $nav_prefix . 'educacao.php',   'label' => 'Educação'],
-    'ligas'      => ['href' => $nav_prefix . 'ligas.php',      'label' => 'Ligas filiadas'],
-    'apoiadores' => ['href' => $nav_prefix . 'apoiadores.php', 'label' => 'Apoiadores'],
-    'historia'   => ['href' => $nav_prefix . 'historia.php',   'label' => 'História'],
-    'diretoria'  => ['href' => $nav_prefix . 'diretoria.php',  'label' => 'Diretoria'],
+    'boletimes'  => [
+      'href' => $nav_prefix . 'boletimes',
+      'label' => 'Trauma BoleTIME',
+      'children' => [
+        ['href' => $nav_prefix . 'boletime-maio-2026', 'label' => 'Edição Maio 2026', 'description' => 'Edição inaugural do boletim'],
+      ],
+    ],
+    'eventos'    => [
+      'href' => $nav_prefix . 'eventos',
+      'label' => 'Eventos',
+      'children' => [
+        ['href' => $nav_prefix . 'eventos#agenda', 'label' => 'Agenda de eventos', 'description' => 'Próximos encontros e congressos'],
+        ['href' => $nav_prefix . 'eventos#realizados', 'label' => 'Eventos realizados', 'description' => 'Memória dos congressos CoLT'],
+      ],
+    ],
+    'projetos'   => [
+      'href' => $nav_prefix . 'projetos',
+      'label' => 'Projetos',
+      'children' => [
+        ['href' => $nav_prefix . 'programa-salvando-vidas-2026', 'label' => 'Salvando Vidas 2026', 'description' => 'Prevenção e primeiros socorros'],
+        ['href' => $nav_prefix . 'programa-party-brasil-2026', 'label' => 'P.A.R.T.Y. Brasil 2026', 'description' => 'Prevenção do trauma em jovens'],
+        ['href' => $nav_prefix . 'programa-junho-laranja-2026', 'label' => 'Junho Laranja 2026', 'description' => 'Prevenção de queimaduras'],
+      ],
+    ],
+    'ligas'      => [
+      'href' => $nav_prefix . 'ligas',
+      'label' => 'Ligas filiadas',
+      'children' => [
+        ['href' => $nav_prefix . 'regiao-norte', 'label' => 'Região Norte'],
+        ['href' => $nav_prefix . 'regiao-nordeste', 'label' => 'Região Nordeste'],
+        ['href' => $nav_prefix . 'regiao-centro-oeste', 'label' => 'Região Centro-Oeste'],
+        ['href' => $nav_prefix . 'regiao-sudeste-mg', 'label' => 'Sudeste — Minas Gerais'],
+        ['href' => $nav_prefix . 'regiao-sudeste-sp', 'label' => 'Sudeste — São Paulo'],
+        ['href' => $nav_prefix . 'regiao-sudeste-rjes', 'label' => 'Sudeste — Rio de Janeiro/Espírito Santo'],
+        ['href' => $nav_prefix . 'regiao-sul', 'label' => 'Região Sul'],
+      ],
+    ],
+    'apoiadores' => ['href' => $nav_prefix . 'apoiadores', 'label' => 'Apoiadores'],
+    'historia'   => ['href' => $nav_prefix . 'historia',   'label' => 'História'],
+    'diretoria'  => ['href' => $nav_prefix . 'diretoria',  'label' => 'Diretoria'],
+    'colts'      => ['href' => $nav_prefix . 'eventos#realizados', 'label' => 'CoLTs', 'featured' => true],
   ];
   $ig = INSTAGRAM_URL;
-  $adminHref = $base . 'admin/login.php';
+  $adminHref = $base . 'admin/login';
 ?>
 <header class="site-header" role="banner">
   <div class="header-inner">
-    <a href="<?= $logo_href ?: $base . 'index.php' ?>" class="logo has-image" aria-label="CoBraLT — Início">
+    <a href="<?= $logo_href ?: $base ?>" class="logo has-image" aria-label="CoBraLT — Início">
       <img src="<?= $base ?>assets/img/logo.png?v=<?= ASSET_VERSION ?>" alt="CoBraLT">
     </a>
     <nav class="nav-desktop" aria-label="Navegação principal">
       <?php foreach ($nav as $key => $item): ?>
-      <a href="<?= $item['href'] ?>"<?= $active === $key ? ' class="active"' : '' ?>><?= $item['label'] ?></a>
+      <?php
+        $itemClasses = [];
+        if ($active === $key) $itemClasses[] = 'active';
+        if (!empty($item['featured'])) $itemClasses[] = 'nav-colts';
+        $itemClass = $itemClasses ? ' class="' . implode(' ', $itemClasses) . '"' : '';
+      ?>
+      <?php if (!empty($item['children'])): ?>
+      <div class="nav-menu-item">
+        <a href="<?= $item['href'] ?>"<?= $itemClass ?>>
+          <?= $item['label'] ?>
+          <svg class="nav-menu-chevron" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+        <div class="nav-submenu" aria-label="Subpáginas de <?= htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8') ?>">
+          <?php foreach ($item['children'] as $child): ?>
+          <a href="<?= $child['href'] ?>">
+            <span><?= $child['label'] ?></span>
+            <?php if (!empty($child['description'])): ?><small><?= $child['description'] ?></small><?php endif; ?>
+          </a>
+          <?php endforeach; ?>
+        </div>
+      </div>
+      <?php else: ?>
+      <a href="<?= $item['href'] ?>"<?= $itemClass ?>><?= $item['label'] ?></a>
+      <?php endif; ?>
       <?php endforeach; ?>
       <a href="<?= $ig ?>" target="_blank" rel="noopener noreferrer" class="nav-instagram" aria-label="Instagram do CoBraLT">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -81,7 +136,22 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
   </div>
   <nav class="drawer-nav">
     <?php foreach ($nav as $key => $item): ?>
-    <a href="<?= $item['href'] ?>"<?= $active === $key ? ' class="active"' : '' ?>><?= $item['label'] ?></a>
+    <?php
+      $itemClasses = [];
+      if ($active === $key) $itemClasses[] = 'active';
+      if (!empty($item['featured'])) $itemClasses[] = 'nav-colts';
+      $itemClass = $itemClasses ? ' class="' . implode(' ', $itemClasses) . '"' : '';
+    ?>
+    <div class="drawer-nav-group<?= !empty($item['children']) ? ' has-children' : '' ?>">
+      <a href="<?= $item['href'] ?>"<?= $itemClass ?>><?= $item['label'] ?></a>
+      <?php if (!empty($item['children'])): ?>
+      <div class="drawer-subnav">
+        <?php foreach ($item['children'] as $child): ?>
+        <a href="<?= $child['href'] ?>"><?= $child['label'] ?></a>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+    </div>
     <?php endforeach; ?>
     <a href="<?= $ig ?>" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -116,30 +186,30 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
       </div>
       <div class="footer-col">
         <h4>Conteúdo</h4>
-        <a href="<?= $pageBase ?>noticias.php">Posts</a>
-        <a href="<?= $pageBase ?>boletimes.php">Trauma BoleTIME</a>
-        <a href="<?= $pageBase ?>eventos.php">Eventos</a>
-        <a href="<?= $pageBase ?>projetos.php">Projetos</a>
-        <a href="<?= $pageBase ?>educacao.php">Educação</a>
+        <a href="<?= $pageBase ?>noticias">Notícias</a>
+        <a href="<?= $pageBase ?>boletimes">Trauma BoleTIME</a>
+        <a href="<?= $pageBase ?>eventos">Eventos</a>
+        <a href="<?= $pageBase ?>eventos#realizados">Memória dos CoLTs</a>
+        <a href="<?= $pageBase ?>projetos">Projetos</a>
       </div>
       <div class="footer-col">
         <h4>CoBraLT</h4>
-        <a href="<?= $pageBase ?>ligas.php">Ligas filiadas</a>
-        <a href="<?= $pageBase ?>diretoria.php">Diretoria</a>
-        <a href="<?= $pageBase ?>historia.php">História</a>
-        <a href="<?= $base ?>index.php#filiacao">Filiar minha liga</a>
+        <a href="<?= $pageBase ?>ligas">Ligas filiadas</a>
+        <a href="<?= $pageBase ?>diretoria">Diretoria</a>
+        <a href="<?= $pageBase ?>historia">História</a>
+        <a href="<?= $base ?>#filiacao">Filiar minha liga</a>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
-        <a href="<?= $pageBase ?>privacidade.php">Política de Privacidade</a>
-        <a href="<?= $pageBase ?>termos.php">Termos de Uso</a>
+        <a href="<?= $pageBase ?>privacidade">Política de Privacidade</a>
+        <a href="<?= $pageBase ?>termos">Termos de Uso</a>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Comitê Brasileiro das Ligas do Trauma — CoBraLT. Todos os direitos reservados. <span style="opacity:.4;font-size:.78em;">Dev Gabriel Quirino</span></p>
       <div style="display:flex;gap:1.5rem;">
-        <a href="<?= $pageBase ?>privacidade.php">Privacidade</a>
-        <a href="<?= $pageBase ?>termos.php">Termos de Uso</a>
+        <a href="<?= $pageBase ?>privacidade">Privacidade</a>
+        <a href="<?= $pageBase ?>termos">Termos de Uso</a>
       </div>
     </div>
   </div>

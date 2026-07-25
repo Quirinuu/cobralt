@@ -10,13 +10,13 @@ layout_header('ligas');
 ?>
 <nav class="regions-nav" aria-label="Regiões">
   <div class="regions-nav-inner">
-    <a href="regiao-norte.php">Norte</a>
-    <a href="regiao-nordeste.php">Nordeste</a>
-    <a href="regiao-centro-oeste.php">Centro-Oeste</a>
-    <a href="regiao-sudeste-mg.php" class="active">Sudeste – MG</a>
-    <a href="regiao-sudeste-sp.php">Sudeste – SP</a>
-    <a href="regiao-sudeste-rjes.php">Sudeste – RJ/ES</a>
-    <a href="regiao-sul.php">Sul</a>
+    <a href="regiao-norte">Norte</a>
+    <a href="regiao-nordeste">Nordeste</a>
+    <a href="regiao-centro-oeste">Centro-Oeste</a>
+    <a href="regiao-sudeste-mg" class="active">Sudeste – MG</a>
+    <a href="regiao-sudeste-sp">Sudeste – SP</a>
+    <a href="regiao-sudeste-rjes">Sudeste – RJ/ES</a>
+    <a href="regiao-sul">Sul</a>
   </div>
 </nav>
 
@@ -25,8 +25,8 @@ layout_header('ligas');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span>
-      <a href="ligas.php">Ligas filiadas</a><span>›</span>
+      <a href="../index">Início</a><span>›</span>
+      <a href="ligas">Ligas filiadas</a><span>›</span>
       <span>Sudeste — Minas Gerais</span>
     </nav>
     <div class="page-hero-label">Ligas filiadas · CoBraLT</div>

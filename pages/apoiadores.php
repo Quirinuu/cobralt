@@ -14,7 +14,7 @@ layout_header('apoiadores');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Apoiadores</span>
+      <a href="../index">Início</a><span>›</span><span>Apoiadores</span>
     </nav>
     <div class="page-hero-label">Comitê Científico</div>
     <h1 class="page-hero-title">Nossos Apoiadores</h1>

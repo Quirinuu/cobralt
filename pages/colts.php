@@ -24,7 +24,7 @@ layout_header('eventos');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="eventos.php">Eventos</a><span>›</span><span>Memórias dos CoLTs</span>
+      <a href="../index">Início</a><span>›</span><a href="eventos">Eventos</a><span>›</span><span>Memórias dos CoLTs</span>
     </nav>
     <div class="page-hero-label">Acervo CoBraLT</div>
     <h1 class="page-hero-title">Memórias dos CoLTs</h1>

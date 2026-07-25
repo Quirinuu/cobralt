@@ -23,7 +23,7 @@ layout_header('educacao');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Educação</span>
+      <a href="../index">Início</a><span>›</span><span>Educação</span>
     </nav>
     <div class="page-hero-label">CoBraLT Educa</div>
     <h1 class="page-hero-title">Educação</h1>

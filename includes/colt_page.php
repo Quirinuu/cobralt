@@ -13,7 +13,7 @@ if (!$edition) {
     header('HTTP/1.0 404 Not Found');
     layout_head('CoLT não encontrado', 'Edição do CoLT não encontrada.');
     layout_header('eventos');
-    echo '<main id="main-content"><div style="text-align:center;padding:6rem 1rem;"><h1 style="font-family:var(--font-display);color:var(--navy);">CoLT não encontrado</h1><p style="color:var(--slate-500);margin:1rem 0 2rem;">A edição solicitada não existe no acervo.</p><a href="eventos.php#realizados" class="btn btn-secondary">← Voltar para eventos</a></div></main>';
+    echo '<main id="main-content"><div style="text-align:center;padding:6rem 1rem;"><h1 style="font-family:var(--font-display);color:var(--navy);">CoLT não encontrado</h1><p style="color:var(--slate-500);margin:1rem 0 2rem;">A edição solicitada não existe no acervo.</p><a href="eventos#realizados" class="btn btn-secondary">← Voltar para eventos</a></div></main>';
     layout_footer('../');
     exit;
 }
@@ -36,8 +36,8 @@ layout_header('eventos');
 <div class="page-hero" style="background:linear-gradient(135deg,var(--navy-dark) 0%,#002a55 50%,var(--navy-light) 100%);">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span>
-      <a href="eventos.php">Eventos e Congressos</a><span>›</span>
+      <a href="../index">Início</a><span>›</span>
+      <a href="eventos">Eventos e Congressos</a><span>›</span>
       <span><?= h($title) ?></span>
     </nav>
     <div class="page-hero-label" style="display:flex;align-items:center;gap:6px;">
@@ -83,8 +83,8 @@ layout_header('eventos');
       <h2><?= h($title) ?></h2>
       <p>Esta página preserva o acervo fotográfico do <?= h($edition['edition']) ?> dentro da história do CoBraLT, reunindo registros visuais que ajudam a contar a trajetória das Ligas do Trauma no Brasil.</p>
       <div class="colt-memory-actions">
-        <a href="eventos.php#realizados" class="btn btn-secondary">← Voltar aos eventos</a>
-        <a href="colts.php" class="btn btn-primary">Ver acervo completo</a>
+        <a href="eventos#realizados" class="btn btn-secondary">← Voltar aos eventos</a>
+        <a href="colts" class="btn btn-primary">Ver acervo completo</a>
       </div>
     </div>
   </div>

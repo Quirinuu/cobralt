@@ -14,7 +14,7 @@ layout_header('');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><span>Termos de Uso</span>
+      <a href="../index">Início</a><span>›</span><span>Termos de Uso</span>
     </nav>
     <div class="page-hero-label">Legal</div>
     <h1 class="page-hero-title">Termos de Uso</h1>
@@ -76,10 +76,10 @@ layout_header('');
     </div>
 
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--slate-200);display:flex;gap:1rem;flex-wrap:wrap;">
-      <a href="privacidade.php" class="btn btn-secondary">
+      <a href="privacidade" class="btn btn-secondary">
         Política de Privacidade
       </a>
-      <a href="../index.php" class="btn btn-secondary">
+      <a href="../index" class="btn btn-secondary">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         Voltar ao início
       </a>

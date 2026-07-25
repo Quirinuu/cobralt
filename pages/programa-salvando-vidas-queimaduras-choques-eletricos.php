@@ -21,7 +21,7 @@ layout_header('projetos');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="projetos.php">Projetos</a><span>›</span><a href="programa-salvando-vidas-2026.php">Salvando Vidas 2026</a><span>›</span><span>Queimaduras e Choques Elétricos</span>
+      <a href="../index">Início</a><span>›</span><a href="projetos">Projetos</a><span>›</span><a href="programa-salvando-vidas-2026">Salvando Vidas 2026</a><span>›</span><span>Queimaduras e Choques Elétricos</span>
     </nav>
     <div class="page-hero-label">Material educativo</div>
     <h1 class="page-hero-title">Queimaduras e Choques Elétricos</h1>

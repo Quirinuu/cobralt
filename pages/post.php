@@ -7,7 +7,7 @@ require_once dirname(__DIR__) . '/includes/posts_helpers.php';
 $slug = trim($_GET['slug'] ?? '');
 
 if (empty($slug)) {
-    header('Location: noticias.php');
+    header('Location: noticias');
     exit;
 }
 
@@ -27,7 +27,7 @@ if (!$post) {
     header('HTTP/1.0 404 Not Found');
     layout_head('Publicação não encontrada');
     layout_header();
-    echo '<main id="main-content"><div style="text-align:center;padding:6rem 1rem;"><h1 style="font-family:var(--font-display);color:var(--navy);">Publicação não encontrada</h1><p style="color:var(--slate-500);margin:1rem 0 2rem;">O conteúdo que você procura não existe ou foi removido.</p><a href="noticias.php" class="btn btn-secondary">← Voltar</a></div></main>';
+    echo '<main id="main-content"><div style="text-align:center;padding:6rem 1rem;"><h1 style="font-family:var(--font-display);color:var(--navy);">Publicação não encontrada</h1><p style="color:var(--slate-500);margin:1rem 0 2rem;">O conteúdo que você procura não existe ou foi removido.</p><a href="noticias" class="btn btn-secondary">← Voltar</a></div></main>';
     layout_footer('../');
     exit;
 }
@@ -38,7 +38,7 @@ $tipoLabel = [
     'projetos' => 'Projetos',
     'educacao' => 'Educação',
 ];
-$tipoPage = ($post['tipo'] ?? 'noticias') . '.php';
+$tipoPage = ($post['tipo'] ?? 'noticias');
 $label    = $tipoLabel[$post['tipo']] ?? 'Notícias';
 $dt       = $post['published_at'] ? fmtDate($post['published_at']) : '';
 $dtIso    = $post['published_at'] ? substr($post['published_at'], 0, 10) : '';
@@ -67,7 +67,7 @@ layout_header($post['tipo'] ?? 'noticias');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a>
+      <a href="../index">Início</a>
       <span>›</span>
       <a href="<?= h($tipoPage) ?>"><?= h($label) ?></a>
       <span>›</span>
@@ -84,21 +84,38 @@ layout_header($post['tipo'] ?? 'noticias');
 </div>
 
 <!-- CONTEÚDO -->
-<section class="section" style="padding-top:3rem;">
-  <div class="section-inner" style="max-width:780px;">
+<section class="section post-article-section">
+  <div class="section-inner post-article-shell">
 
-    <img src="<?= h($coverSrc) ?>"
-         alt="<?= h($post['title']) ?>"
-         style="width:100%;border-radius:var(--radius-lg);margin-bottom:2rem;object-fit:cover;max-height:420px;">
+    <div class="post-feature-layout">
+      <figure class="post-cover-feature">
+        <img src="<?= h($coverSrc) ?>" alt="<?= h($post['title']) ?>">
+        <figcaption>
+          <?= $slug === 'dr-wellington-patrono-turma-iv'
+              ? 'Registro da homenagem acadêmica ao Dr. Wellington José dos Santos.'
+              : 'Imagem de destaque da publicação.' ?>
+        </figcaption>
+      </figure>
+      <aside class="post-feature-summary" aria-label="Resumo da notícia">
+        <span class="section-label">Em destaque</span>
+        <p class="post-feature-lead"><?= h($post['excerpt'] ?? '') ?></p>
+        <div class="post-feature-meta">
+          <span><?= h($post['category'] ?? $label) ?></span>
+          <?php if ($dt): ?><time datetime="<?= h($dtIso) ?>"><?= h($dt) ?></time><?php endif; ?>
+        </div>
+        <?php if ($slug === 'dr-wellington-patrono-turma-iv'): ?>
+          <div class="post-feature-note">
+            <strong>Educação que inspira</strong>
+            <p>Uma homenagem que reconhece o valor de quem orienta, ensina e ajuda novas gerações a construir seu caminho.</p>
+          </div>
+        <?php endif; ?>
+      </aside>
+    </div>
 
     <!-- Corpo do post -->
-    <div class="post-content" style="
-      font-size:1.02rem;
-      line-height:1.85;
-      color:var(--slate-700, #374151);
-    ">
+    <article class="post-content">
       <?= $post['content'] /* HTML salvo pelo editor — já sanitizado no admin */ ?>
-    </div>
+    </article>
 
     <!-- Voltar -->
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--slate-200);">
@@ -117,7 +134,7 @@ layout_header($post['tipo'] ?? 'noticias');
           $rDt = $r['published_at'] ? fmtDate($r['published_at']) : '';
           $rCover = post_cover_src($r, '../', $post['tipo'] ?? 'noticias');
         ?>
-        <a href="post.php?slug=<?= h($r['slug']) ?>" style="text-decoration:none;">
+        <a href="post?slug=<?= h($r['slug']) ?>" style="text-decoration:none;">
           <div class="news-card" style="cursor:pointer;">
             <div class="news-thumb">
               <img src="<?= h($rCover) ?>" alt="<?= h($r['title']) ?>" loading="lazy">

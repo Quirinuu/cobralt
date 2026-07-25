@@ -117,8 +117,8 @@ layout_header('', '../');
 <div class="page-hero" style="background:linear-gradient(135deg,var(--navy-dark) 0%,#002a55 50%,var(--navy-light) 100%);">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span>
-      <a href="eventos.php">Eventos e Congressos</a><span>›</span>
+      <a href="../index">Início</a><span>›</span>
+      <a href="eventos">Eventos e Congressos</a><span>›</span>
       <span>XIV CoLT 2012</span>
     </nav>
     <div class="page-hero-label" style="display:flex;align-items:center;gap:6px;">
@@ -341,11 +341,11 @@ layout_header('', '../');
 <section class="section" style="padding-top:2rem;padding-bottom:2.5rem;">
   <div class="section-inner" style="max-width:960px;">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;" data-animate>
-      <a href="eventos.php#realizados" class="btn btn-secondary">
+      <a href="eventos#realizados" class="btn btn-secondary">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
         Todos os eventos realizados
       </a>
-      <a href="eventos.php" class="btn btn-secondary">
+      <a href="eventos" class="btn btn-secondary">
         Próximos eventos
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </a>

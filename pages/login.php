@@ -85,7 +85,7 @@ if (!empty($_SESSION['admin_id'])) {
     <div class="spinner" id="spinner"></div>
   </button>
 
-  <a href="../index.php" class="back-link">← Voltar ao site</a>
+  <a href="../index" class="back-link">← Voltar ao site</a>
 </div>
 
 <script>

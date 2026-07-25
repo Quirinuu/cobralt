@@ -21,7 +21,7 @@ layout_header('projetos');
 <div class="page-hero">
   <div class="page-hero-inner">
     <nav class="breadcrumb">
-      <a href="../index.php">Início</a><span>›</span><a href="projetos.php">Projetos</a><span>›</span><span>Salvando Vidas 2026</span>
+      <a href="../index">Início</a><span>›</span><a href="projetos">Projetos</a><span>›</span><span>Salvando Vidas 2026</span>
     </nav>
     <div class="page-hero-label">Edital oficial</div>
     <h1 class="page-hero-title">Programa Salvando Vidas 2026</h1>
@@ -46,7 +46,7 @@ layout_header('projetos');
       </div>
 
       <div class="programs-feature-grid">
-        <a href="programa-salvando-vidas-controle-hemorragias.php" class="program-card program-card--salvando" aria-label="Abrir publicação Controle de Hemorragias">
+        <a href="programa-salvando-vidas-controle-hemorragias" class="program-card program-card--salvando" aria-label="Abrir publicação Controle de Hemorragias">
           <div class="program-card-media">
             <img src="../assets/img/programas/salvando-vidas-controle-hemorragias-cover.png" alt="Capa do material Controle de Hemorragias" loading="lazy">
           </div>
@@ -58,7 +58,7 @@ layout_header('projetos');
           </div>
         </a>
 
-        <a href="programa-salvando-vidas-anafilaxia.php" class="program-card program-card--salvando" aria-label="Abrir publicação Reação Alérgica Grave e Anafilaxia">
+        <a href="programa-salvando-vidas-anafilaxia" class="program-card program-card--salvando" aria-label="Abrir publicação Reação Alérgica Grave e Anafilaxia">
           <div class="program-card-media">
             <img src="../assets/img/programas/salvando-vidas-anafilaxia-cover.png" alt="Capa do material Reação Alérgica Grave e Anafilaxia" loading="lazy">
           </div>
@@ -70,7 +70,7 @@ layout_header('projetos');
           </div>
         </a>
 
-        <a href="programa-salvando-vidas-avc-iam.php" class="program-card program-card--salvando" aria-label="Abrir publicação AVC e IAM">
+        <a href="programa-salvando-vidas-avc-iam" class="program-card program-card--salvando" aria-label="Abrir publicação AVC e IAM">
           <div class="program-card-media">
             <img src="../assets/img/programas/salvando-vidas-avc-iam-cover.png" alt="Capa do material AVC e IAM" loading="lazy">
           </div>
@@ -82,7 +82,7 @@ layout_header('projetos');
           </div>
         </a>
 
-        <a href="programa-salvando-vidas-queimaduras-choques-eletricos.php" class="program-card program-card--salvando" aria-label="Abrir publicação Queimaduras e Choques Elétricos">
+        <a href="programa-salvando-vidas-queimaduras-choques-eletricos" class="program-card program-card--salvando" aria-label="Abrir publicação Queimaduras e Choques Elétricos">
           <div class="program-card-media">
             <img src="../assets/img/programas/salvando-vidas-queimaduras-choques-eletricos-cover.png" alt="Capa do material Queimaduras e Choques Elétricos" loading="lazy">
           </div>
