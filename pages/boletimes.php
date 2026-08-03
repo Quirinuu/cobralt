@@ -69,6 +69,48 @@ layout_header('boletimes');
   </div>
 </section>
 
+<section class="section sponsors-section" aria-labelledby="sponsors-title">
+  <div class="section-inner" style="max-width:1120px;">
+    <div class="section-header centered" data-animate>
+      <div class="divider" style="margin:0 auto 1rem;" aria-hidden="true"></div>
+      <span class="section-label">Parcerias que fortalecem o projeto</span>
+      <h2 class="section-title" id="sponsors-title">Patrocinadores</h2>
+      <p class="section-subtitle">Instituições parceiras que apoiam a produção e a continuidade do Trauma BoleTIME.</p>
+    </div>
+
+    <div class="sponsors-grid">
+      <a href="https://www.grupomedcof.com.br/?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=google-cpc-residencia-medica-r-um-ongoing-vendas-residencia-medica&amp;gad_source=1&amp;gad_campaignid=12083919115&amp;gbraid=0AAAAACaXGt1D689RYS1tcRXYz4qOctdNm&amp;gclid=EAIaIQobChMItsiEmdzrlQMV5FZIAB3bsBwWEAAYASAAEgLKJfD_BwE" class="sponsor-card sponsor-card--medcof" target="_blank" rel="noopener noreferrer sponsored" data-animate data-animate-delay="1" aria-label="Visitar o site do Grupo MedCof">
+        <div class="sponsor-logo-wrap">
+          <img src="../assets/img/patrocinadores/grupo-medcof.png?v=<?= ASSET_VERSION ?>" alt="Logo do Grupo MedCof" loading="lazy">
+        </div>
+        <div class="sponsor-card-info">
+          <h3>Grupo MedCof</h3>
+          <span>Conhecer o patrocinador <span aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+
+      <a href="https://www.csanmek.com.br/" class="sponsor-card sponsor-card--csanmek" target="_blank" rel="noopener noreferrer sponsored" data-animate data-animate-delay="2" aria-label="Visitar o site da CSANMEK Technology">
+        <div class="sponsor-logo-wrap">
+          <img src="../assets/img/patrocinadores/csanmek-technology.png?v=<?= ASSET_VERSION ?>" alt="Logo da CSANMEK Technology" loading="lazy">
+        </div>
+        <div class="sponsor-card-info">
+          <h3>CSANMEK Technology</h3>
+          <span>Conhecer o patrocinador <span aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+
+      <a href="https://www.idomed.com.br/" class="sponsor-card sponsor-card--idomed" target="_blank" rel="noopener noreferrer sponsored" data-animate data-animate-delay="3" aria-label="Visitar o site do IDOMED">
+        <div class="sponsor-logo-wrap">
+          <img src="../assets/img/patrocinadores/idomed.png?v=<?= ASSET_VERSION ?>" alt="Logo do IDOMED — Instituto de Educação Médica" loading="lazy">
+        </div>
+        <div class="sponsor-card-info">
+          <h3>IDOMED</h3>
+          <span>Instituto de Educação Médica <span aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 </main>
 
 <?php layout_footer('../'); ?>
