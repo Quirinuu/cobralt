@@ -21,7 +21,7 @@ layout_header('apoiadores');
     <p class="page-hero-sub">Profissionais e instituições que apoiam e orientam as ligas acadêmicas de trauma filiadas ao CoBraLT.</p>
     <div class="region-stats">
       <div class="region-stat">
-        <div class="region-stat-value">40</div>
+        <div class="region-stat-value">43</div>
         <div class="region-stat-label">apoiadores</div>
       </div>
       <div class="region-stat">
@@ -337,6 +337,17 @@ layout_header('apoiadores');
         </button>
       </div>
 
+      <!-- Lucas Xavier -->
+      <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Lucas Xavier em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/lucas-xavier.jpeg?v=<?= ASSET_VERSION ?>" alt="Lucas Xavier" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>LX</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
       <!-- Luis Teodoro da Luz -->
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Luis Teodoro da Luz em tela cheia">
@@ -385,6 +396,17 @@ layout_header('apoiadores');
         </button>
       </div>
 
+      <!-- Renato Nunes Justino -->
+      <div class="sup-card" data-animate data-animate-delay="2">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Renato Nunes Justino em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/renato-nunes-justino.jpeg?v=<?= ASSET_VERSION ?>" alt="Renato Nunes Justino" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>RN</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
       <!-- Rodrigo Barros de Carvalho -->
             <div class="sup-card" data-animate data-animate-delay="2">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Rodrigo Barros de Carvalho em tela cheia">
@@ -517,6 +539,17 @@ layout_header('apoiadores');
         </button>
       </div>
 
+      <!-- Wesley Costa -->
+      <div class="sup-card" data-animate data-animate-delay="3">
+        <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Wesley Costa em tela cheia">
+          <div class="sup-photo-wrap">
+            <img src="../assets/img/apoiadores/wesley-costa.jpeg?v=<?= ASSET_VERSION ?>" alt="Wesley Costa" loading="lazy" onerror="this.closest('.sup-photo-wrap').innerHTML='<div class=sup-avatar>WC</div>'">
+            <div class="sup-zoom-hint" aria-hidden="true">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </button>
+      </div>
       <!-- Willian G. Hashimoto Hilgert de Sousa -->
             <div class="sup-card" data-animate data-animate-delay="3">
         <button class="sup-card-btn" onclick="openLightbox(this)" aria-label="Ver card de Willian G. Hashimoto Hilgert de Sousa em tela cheia">

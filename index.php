@@ -268,10 +268,12 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             ['nome'=>'José Benedito Bortoto',               'foto'=>'jose-benedito-bortoto'],
             ['nome'=>'Larissa Berbert',                     'foto'=>'larissa-berbert'],
             ['nome'=>'Lucas Fileni',                        'foto'=>'lucas-fileni'],
+            ['nome'=>'Lucas Xavier',                        'foto'=>'lucas-xavier', 'ext'=>'jpeg'],
             ['nome'=>'Luis Teodoro da Luz',                 'foto'=>'luis-teodoro'],
             ['nome'=>'Nara Gelle de Oliveira',              'foto'=>'nara-gelle'],
             ['nome'=>'Phillipe Abreu',                      'foto'=>'phillipe-abreu'],
             ['nome'=>'Dr. Renato Diniz Lins',               'foto'=>'renato-diniz'],
+            ['nome'=>'Renato Nunes Justino',                'foto'=>'renato-nunes-justino', 'ext'=>'jpeg'],
             ['nome'=>'Rodrigo Barros de Carvalho',          'foto'=>'rodrigo-barros'],
             ['nome'=>'Rodrigo Caselli Belém',               'foto'=>'rodrigo-caselli'],
             ['nome'=>'Romeo L. Simões',                     'foto'=>'romeo-simoes'],
@@ -283,12 +285,13 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             ['nome'=>'Vitor F. Kruger',                     'foto'=>'vitor-kruger'],
             ['nome'=>'Waldemar Prandi Filho',               'foto'=>'waldemar-prandi'],
             ['nome'=>'Wellington José dos Santos',          'foto'=>'wellington-santos'],
+            ['nome'=>'Wesley Costa',                        'foto'=>'wesley-costa', 'ext'=>'jpeg'],
             ['nome'=>'Willian G. Hashimoto H. de Sousa',   'foto'=>'willian-hashimoto'],
           ];
           foreach ($apoiadores as $ap): ?>
           <div class="sup-slide">
             <div class="sup-img-wrap">
-              <img src="assets/img/apoiadores/<?= h($ap['foto']) ?>.png?v=<?= ASSET_VERSION ?>" alt="<?= h($ap['nome']) ?>" loading="lazy" onerror="this.style.opacity='0'">
+              <img src="assets/img/apoiadores/<?= h($ap['foto']) ?>.<?= h($ap['ext'] ?? 'png') ?>?v=<?= ASSET_VERSION ?>" alt="<?= h($ap['nome']) ?>" loading="lazy" onerror="this.style.opacity='0'">
             </div>
           </div>
           <?php endforeach; ?>
