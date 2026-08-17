@@ -207,6 +207,20 @@ function db_create_mysql_schema(PDO $pdo): void {
             INDEX idx_form_submissions_type_created (type, created_at)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS apoiadores (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(180) NOT NULL,
+            instituicao VARCHAR(255) NULL,
+            imagem VARCHAR(500) NOT NULL,
+            ativo TINYINT(1) NOT NULL DEFAULT 1,
+            ordem INT NOT NULL DEFAULT 0,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            INDEX idx_apoiadores_ativo_ordem (ativo, ordem, nome)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
 }
 
 function db_create_sqlite_schema(PDO $pdo): void {
@@ -324,6 +338,20 @@ function db_create_sqlite_schema(PDO $pdo): void {
         )
     ");
     $pdo->exec("CREATE INDEX IF NOT EXISTS idx_form_submissions_type_created ON form_submissions(type, created_at)");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS apoiadores (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            instituicao TEXT NULL,
+            imagem TEXT NOT NULL,
+            ativo INTEGER NOT NULL DEFAULT 1,
+            ordem INTEGER NOT NULL DEFAULT 0,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+    ");
+    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_apoiadores_ativo_ordem ON apoiadores(ativo, ordem, nome)");
 }
 
 function db_migrate_mysql_schema(PDO $pdo): void {

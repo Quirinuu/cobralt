@@ -30,7 +30,10 @@ function admin_auth_fail(string $reason, int $code = 401): never {
         echo json_encode(['success' => false, 'message' => $reason], JSON_UNESCAPED_UNICODE);
         exit;
     }
-    header('Location: /admin/login.php?expired=1');
+    $script = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '/admin/');
+    $adminPos = strpos($script, '/admin/');
+    $basePath = $adminPos === false ? '' : substr($script, 0, $adminPos);
+    header('Location: ' . $basePath . '/admin/login.php?expired=1');
     exit;
 }
 

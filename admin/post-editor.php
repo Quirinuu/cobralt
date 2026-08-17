@@ -130,6 +130,10 @@ if ($coverPreviewSrc !== '' && !preg_match('/^(?:https?:)?\/\//i', $coverPreview
       <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
       Páginas
     </a>
+    <a href="apoiadores.php">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+      Apoiadores
+    </a>
     <div class="nav-label">Sistema</div>
     <a href="usuarios.php">
       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>

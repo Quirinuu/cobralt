@@ -9,6 +9,7 @@ require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/posts_helpers.php';
 require_once __DIR__ . '/includes/colt_editions.php';
 require_once __DIR__ . '/includes/page_builder.php';
+require_once __DIR__ . '/includes/supporters.php';
 
 require_once __DIR__ . '/includes/layout.php';
 
@@ -97,6 +98,7 @@ $homePosts = array_map(static function (array $post): array {
 }, $noticias);
 
 $homePastColts = array_slice(colt_editions_newest_first(), 0, 8);
+$apoiadores = supporters_get_active();
 ?>
 <?php
 // Head padronizado — index usa base './'
@@ -251,56 +253,10 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       </button>
       <div class="sup-viewport">
         <div class="sup-track index-carousel-track" id="supTrack" data-carousel-track>
-          <?php
-          $apoiadores = [
-            ['nome'=>'Amauri Clemente da Rocha',           'foto'=>'amauri-clemente'],
-            ['nome'=>'André Canesso Pierro',                'foto'=>'andre-pierro'],
-            ['nome'=>'Andrea de Melo Alexandre Fraga',      'foto'=>'andrea-fraga'],
-            ['nome'=>'Antonio Toshimitsu Onimaru',          'foto'=>'antonio-toshimitsu'],
-            ['nome'=>'Dr. Caio Duarte',                     'foto'=>'caio-duarte'],
-            ['nome'=>'Cesar Vanderlei Carmona',             'foto'=>'cesar-vanderlei'],
-            ['nome'=>'Cláudio Diunky Okawa',                'foto'=>'claudio-diunky'],
-            ['nome'=>'Cristhian Jaillita Meneses',          'foto'=>'cristhian-jaillita'],
-            ['nome'=>'Fernando Antonio C. Spencer Netto',   'foto'=>'fernando-antonio'],
-            ['nome'=>'Fernando López Mozos',                'foto'=>'fernando-lopes'],
-            ['nome'=>'Filipe Barcelos',                      'foto'=>'filipe-barcelos'],
-            ['nome'=>'Francisco Eduardo Silva',             'foto'=>'francisco-eduardo'],
-            ['nome'=>'Frederico Michelino',                 'foto'=>'frederico-michelino'],
-            ['nome'=>'Guilherme Biazotto',                  'foto'=>'guilherme-biazotto'],
-            ['nome'=>'Gustavo de Mendonça Borges',          'foto'=>'gustavo-mendonca'],
-            ['nome'=>'Gustavo P. Fraga',                    'foto'=>'gustavo-fraga'],
-            ['nome'=>'Henrique José V. Silveira',           'foto'=>'henrique-jose'],
-            ['nome'=>'Henrique Valério de Mesquita',        'foto'=>'henrique-valerio'],
-            ['nome'=>'Jackson Vinícius de Lima Bertuol',    'foto'=>'jackson-vinicius'],
-            ['nome'=>'José Alberto Fernandes da Silva Filho','foto'=>'jose-alberto'],
-            ['nome'=>'José Aurélio Ramalho',                'foto'=>'jose-aurelio'],
-            ['nome'=>'José Benedito Bortoto',               'foto'=>'jose-benedito-bortoto'],
-            ['nome'=>'Larissa Berbert',                     'foto'=>'larissa-berbert'],
-            ['nome'=>'Lucas Fileni',                        'foto'=>'lucas-fileni'],
-            ['nome'=>'Lucas Xavier',                        'foto'=>'lucas-xavier', 'ext'=>'jpeg'],
-            ['nome'=>'Luis Teodoro da Luz',                 'foto'=>'luis-teodoro'],
-            ['nome'=>'Nara Gelle de Oliveira',              'foto'=>'nara-gelle'],
-            ['nome'=>'Phillipe Abreu',                      'foto'=>'phillipe-abreu'],
-            ['nome'=>'Dr. Renato Diniz Lins',               'foto'=>'renato-diniz'],
-            ['nome'=>'Renato Nunes Justino',                'foto'=>'renato-nunes-justino', 'ext'=>'jpeg'],
-            ['nome'=>'Rodrigo Barros de Carvalho',          'foto'=>'rodrigo-barros'],
-            ['nome'=>'Rodrigo Caselli Belém',               'foto'=>'rodrigo-caselli'],
-            ['nome'=>'Romeo L. Simões',                     'foto'=>'romeo-simoes'],
-            ['nome'=>'Prof. Dr. Santiago Servin',           'foto'=>'santiago-servin'],
-            ['nome'=>'Saulo Ferreira',                      'foto'=>'saulo-ferreira'],
-            ['nome'=>'Thiago R. Calderan',                  'foto'=>'thiago-calderan'],
-            ['nome'=>'Tiago Leal Ghezzi',                   'foto'=>'tiago-leal'],
-            ['nome'=>'Vinicius Sampaio',                    'foto'=>'vinicius-sampaio'],
-            ['nome'=>'Vitor F. Kruger',                     'foto'=>'vitor-kruger'],
-            ['nome'=>'Waldemar Prandi Filho',               'foto'=>'waldemar-prandi'],
-            ['nome'=>'Wellington José dos Santos',          'foto'=>'wellington-santos'],
-            ['nome'=>'Wesley Costa',                        'foto'=>'wesley-costa', 'ext'=>'jpeg'],
-            ['nome'=>'Willian G. Hashimoto H. de Sousa',   'foto'=>'willian-hashimoto'],
-          ];
-          foreach ($apoiadores as $ap): ?>
+          <?php foreach ($apoiadores as $ap): ?>
           <div class="sup-slide">
             <div class="sup-img-wrap">
-              <img src="assets/img/apoiadores/<?= h($ap['foto']) ?>.<?= h($ap['ext'] ?? 'png') ?>?v=<?= ASSET_VERSION ?>" alt="<?= h($ap['nome']) ?>" loading="lazy" onerror="this.style.opacity='0'">
+              <img src="<?= h(supporter_image_src((string)$ap['imagem'])) ?>?v=<?= ASSET_VERSION ?>" alt="<?= h((string)$ap['nome']) ?>" loading="lazy" onerror="this.style.opacity='0'">
             </div>
           </div>
           <?php endforeach; ?>

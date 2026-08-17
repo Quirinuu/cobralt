@@ -14,7 +14,8 @@ cobralT/
 ├── includes/
 │   ├── db.php              ← Conexão PDO + função h() de escape
 │   ├── layout.php          ← Header, footer e head compartilhados (layout_head/header/footer)
-│   └── posts_helpers.php   ← fmtDate(), get_posts_by_tipo(), render_posts_grid()
+│   ├── posts_helpers.php   ← fmtDate(), get_posts_by_tipo(), render_posts_grid()
+│   └── supporters.php      ← Dados e carregamento dos apoiadores
 │
 ├── pages/
 │   ├── noticias.php        ← Lista de notícias (banco)
@@ -36,6 +37,7 @@ cobralT/
 │   ├── post-editor.php     ← Criar/editar posts
 │   ├── pages.php           ← Listagem de páginas
 │   ├── page-editor.php     ← Criar/editar páginas
+│   ├── apoiadores.php      ← CRUD visual de apoiadores
 │   └── usuarios.php        ← Gerenciar usuários admin
 │
 ├── api/
@@ -43,6 +45,7 @@ cobralT/
 │   ├── logout.php          ← Encerra sessão
 │   ├── posts.php           ← CRUD de posts (admin)
 │   ├── pages.php           ← CRUD de páginas (admin)
+│   ├── supporters.php      ← CRUD de apoiadores (admin)
 │   └── upload.php          ← Upload de imagens (admin)
 │   ├── inscricao.php       ← Salva inscrições no COLT
 │   ├── filiacao.php        ← Salva solicitações de filiação
