@@ -5,7 +5,7 @@
  */
 
 define('INSTAGRAM_URL', 'https://www.instagram.com/cobralt_');
-define('ASSET_VERSION', '20260802.2');
+define('ASSET_VERSION', '20260817.1');
 
 function layout_head(string $title, string $desc = '', string $base = '../', string $body_attrs = ''): void {
   layout_head_only($title, $desc, $base);
@@ -47,6 +47,7 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
       'href' => $nav_prefix . 'boletimes',
       'label' => 'Trauma BoleTIME',
       'children' => [
+        ['href' => $nav_prefix . 'boletime-agosto-2026', 'label' => 'Edição Agosto 2026', 'description' => '2ª edição · 3º trimestre'],
         ['href' => $nav_prefix . 'boletime-maio-2026', 'label' => 'Edição Maio 2026', 'description' => 'Edição inaugural do boletim'],
       ],
     ],

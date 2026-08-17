@@ -8,10 +8,18 @@ if (pb_render_managed_page_if_exists('boletimes', 'boletimes')) { exit; }
 
 $editions = [
   [
+    'title' => 'Trauma BoleTIME - Agosto 2026',
+    'period' => '3º trimestre/2026',
+    'badge' => 'Edição 2',
+    'href' => 'boletime-agosto-2026',
+    'cover' => '../assets/img/boletimes/trauma-boletime-agosto-2026-cover.png',
+    'summary' => 'CoLT e COTREM reúnem mais de 600 participantes, entrevista com o Dr. Wellington Santos, 5ª Onda Amarela, Congresso Brasileiro de Queimaduras e a conquista do CNPJ próprio.',
+  ],
+  [
     'title' => 'Trauma BoleTIME - Maio 2026',
     'period' => '2º trimestre/2026',
     'badge' => 'Edição 1',
-    'href' => 'boletime-maio-2026.php',
+    'href' => 'boletime-maio-2026',
     'cover' => '../assets/img/boletimes/trauma-boletime-maio-2026-cover.png',
     'summary' => 'Edição inaugural com os 23 anos do CoBraLT, entrevista com o Prof. Dr. Gustavo Pereira Fraga, ações das ligas, CoLT/COTREM, ECTES e agenda de eventos.',
   ],
@@ -32,7 +40,7 @@ layout_header('boletimes');
     <h1 class="page-hero-title">Trauma BoleTIME</h1>
     <p class="page-hero-sub">Publicação trimestral do CoBraLT com notícias das ligas, entrevistas, agenda científica, campanhas, projetos e registros da atuação nacional em trauma e emergência.</p>
     <div class="region-stats">
-      <div class="region-stat"><div class="region-stat-value"><?= count($editions) ?></div><div class="region-stat-label">edição disponível</div></div>
+      <div class="region-stat"><div class="region-stat-value"><?= count($editions) ?></div><div class="region-stat-label">edições disponíveis</div></div>
       <div class="region-stat"><div class="region-stat-value">3</div><div class="region-stat-label">meses por ciclo</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ano de publicação</div></div>
     </div>

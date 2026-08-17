@@ -125,7 +125,11 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         </a>
         <a href="#ligas" class="btn btn-secondary">Mostrar Ligas</a>
       </div>
-      <div class="hero-programs-quick" aria-label="Programas oficiais em destaque">
+      <div class="hero-programs-quick" aria-label="Destaques do CoBraLT">
+        <a href="pages/boletime-agosto-2026" class="hero-program-quick-item">
+          <span>Novo BoleTIME</span>
+          <strong>Edição de agosto já disponível</strong>
+        </a>
         <a href="pages/programa-salvando-vidas-2026" class="hero-program-quick-item">
           <span>Salvando Vidas 2026</span>
           <strong>Maio a dezembro de 2026</strong>
@@ -156,7 +160,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         </div>
       </div>
     </div>
-    <div class="hero-visual hide-mobile" aria-label="Programas oficiais em destaque">
+    <div class="hero-visual hide-mobile" aria-label="Destaques do CoBraLT">
       <div class="hero-card-stack">
         <div class="hero-card-back"></div>
         <div class="hero-card hero-programs-card">
@@ -165,11 +169,16 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
               <svg width="17" height="17" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
             <div>
-              <div style="color:rgba(255,255,255,0.5);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;">Programas oficiais</div>
-              <div style="color:#fff;font-weight:700;font-size:0.9rem;">Destaques 2026</div>
+              <div style="color:rgba(255,255,255,0.5);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;">Novidade CoBraLT</div>
+              <div style="color:#fff;font-weight:700;font-size:0.9rem;">BoleTIME de agosto no ar</div>
             </div>
           </div>
-          <a href="pages/programa-salvando-vidas-2026" class="hero-program-row hero-program-row--primary">
+          <a href="pages/boletime-agosto-2026" class="hero-program-row hero-program-row--primary">
+            <span class="hero-program-kicker">Edição 2 · 3º trimestre</span>
+            <strong>Trauma BoleTIME - Agosto 2026</strong>
+            <small>Notícias, entrevista, congressos e agenda científica</small>
+          </a>
+          <a href="pages/programa-salvando-vidas-2026" class="hero-program-row">
             <span class="hero-program-kicker">Ciclo 2026</span>
             <strong>Programa Salvando Vidas</strong>
             <small>Maio a dezembro de 2026</small>
@@ -184,7 +193,7 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <strong>Prevenção e Extensão</strong>
             <small>Trabalho seguro sem queimaduras</small>
           </a>
-          <a href="#projetos" class="btn btn-event">Ver projetos</a>
+          <a href="pages/boletime-agosto-2026" class="btn btn-event">Acessar nova edição</a>
         </div>
       </div>
     </div>
@@ -863,6 +872,17 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
       </div>
 
       <div class="boletime-grid">
+        <a href="pages/boletime-agosto-2026" class="boletime-card" aria-label="Abrir edição Agosto 2026 do Trauma BoleTIME">
+          <div class="boletime-card-media">
+            <img src="assets/img/boletimes/trauma-boletime-agosto-2026-cover.png" alt="Capa da edição Agosto 2026 do Trauma BoleTIME" loading="lazy">
+          </div>
+          <div class="boletime-card-body">
+            <span class="boletime-badge">Edição 2 · 3º trimestre/2026</span>
+            <h4>Trauma BoleTIME - Agosto 2026</h4>
+            <p>CoLT e COTREM reúnem mais de 600 participantes, entrevista com o Dr. Wellington Santos, 5ª Onda Amarela, Congresso Brasileiro de Queimaduras e a conquista do CNPJ próprio.</p>
+            <span class="boletime-card-link">Ver edição <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
         <a href="pages/boletime-maio-2026" class="boletime-card" aria-label="Abrir edição Maio 2026 do Trauma BoleTIME">
           <div class="boletime-card-media">
             <img src="assets/img/boletimes/trauma-boletime-maio-2026-cover.png" alt="Capa da edição Maio 2026 do Trauma BoleTIME" loading="lazy">
