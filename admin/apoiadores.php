@@ -5,6 +5,7 @@ require_once __DIR__ . '/_auth.php';
 require_once dirname(__DIR__) . '/includes/supporters.php';
 
 $db = getDB();
+supporters_seed_if_empty($db);
 $supporters = $db->query(
     'SELECT id, nome, instituicao, imagem, ativo, ordem
      FROM apoiadores ORDER BY ordem ASC, nome ASC'

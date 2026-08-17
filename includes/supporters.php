@@ -68,13 +68,35 @@ function supporters_default_data(): array {
     );
 }
 
+/**
+ * Preenche o cadastro inicial quando a tabela existe, mas ainda está vazia.
+ * Isso também cobre hospedagens em que a tabela é criada antes da primeira
+ * execução das migrações.
+ */
+function supporters_seed_if_empty(PDO $db): bool {
+    if ((int)$db->query('SELECT COUNT(*) FROM apoiadores')->fetchColumn() > 0) {
+        return false;
+    }
+
+    $insert = $db->prepare(
+        'INSERT INTO apoiadores (nome, instituicao, imagem, ativo, ordem)
+         VALUES (:nome, :instituicao, :imagem, :ativo, :ordem)'
+    );
+    foreach (supporters_default_data() as $supporter) {
+        $insert->execute($supporter);
+    }
+    return true;
+}
+
 /** @return array<int,array<string,mixed>> */
 function supporters_get_active(): array {
     try {
         if (!function_exists('getPublicDB')) {
             require_once __DIR__ . '/db.php';
         }
-        $rows = getPublicDB()->query(
+        $db = getPublicDB();
+        supporters_seed_if_empty($db);
+        $rows = $db->query(
             'SELECT id, nome, instituicao, imagem, ativo, ordem
              FROM apoiadores
              WHERE ativo = 1

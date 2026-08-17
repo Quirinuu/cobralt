@@ -4,8 +4,10 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/admin/_auth.php';
+require_once dirname(__DIR__) . '/includes/supporters.php';
 
 $db = getDB();
+supporters_seed_if_empty($db);
 $action = (string)($_REQUEST['action'] ?? '');
 
 function supporter_admin_image_path(string $value): string {
