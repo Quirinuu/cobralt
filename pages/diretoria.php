@@ -3,11 +3,13 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/db.php';
 require_once dirname(__DIR__) . '/includes/layout.php';
 require_once dirname(__DIR__) . '/includes/page_builder.php';
+require_once dirname(__DIR__) . '/includes/directors.php';
 
 if (pb_render_managed_page_if_exists('diretoria', 'diretoria')) { exit; }
 
 try {
     $db = getPublicDB();
+    directors_seed_if_empty($db);
     $rows = $db->query(
         "SELECT nome, cargo, especialidade, foto, grupo, bio
          FROM diretoria WHERE ativo = 1 ORDER BY grupo, ordem ASC"

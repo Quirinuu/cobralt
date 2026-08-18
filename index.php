@@ -10,6 +10,7 @@ require_once __DIR__ . '/includes/posts_helpers.php';
 require_once __DIR__ . '/includes/colt_editions.php';
 require_once __DIR__ . '/includes/page_builder.php';
 require_once __DIR__ . '/includes/supporters.php';
+require_once __DIR__ . '/includes/directors.php';
 
 require_once __DIR__ . '/includes/layout.php';
 
@@ -18,6 +19,7 @@ if (pb_render_managed_page_if_exists('home', '', './')) { exit; }
 // ─── Busca os dados do banco ───────────────────────────────
 try {
     $db = getPublicDB();
+    directors_seed_if_empty($db);
 
     // Notícias publicadas pelo painel administrativo
     $stmtNoticias = $db->query(
