@@ -12,6 +12,7 @@ require_once __DIR__ . '/includes/page_builder.php';
 require_once __DIR__ . '/includes/supporters.php';
 require_once __DIR__ . '/includes/directors.php';
 require_once __DIR__ . '/includes/leagues.php';
+require_once __DIR__ . '/includes/content_updates.php';
 
 require_once __DIR__ . '/includes/layout.php';
 
@@ -22,6 +23,7 @@ try {
     $db = getPublicDB();
     directors_seed_if_empty($db);
     leagues_seed_if_empty($db);
+    apply_content_update_20260901($db);
 
     // Notícias publicadas pelo painel administrativo
     $stmtNoticias = $db->query(

@@ -98,6 +98,8 @@ function supporters_get_active(): array {
         }
         $db = getPublicDB();
         supporters_seed_if_empty($db);
+        require_once __DIR__ . '/content_updates.php';
+        apply_content_update_20260901($db);
         $rows = $db->query(
             'SELECT id, nome, instituicao, imagem, ativo, ordem
              FROM apoiadores

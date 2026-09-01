@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/_auth.php';
 require_once dirname(__DIR__) . '/includes/supporters.php';
+require_once dirname(__DIR__) . '/includes/content_updates.php';
 
 $db = getDB();
 supporters_seed_if_empty($db);
+apply_content_update_20260901($db);
 $supporters = $db->query(
     'SELECT id, nome, instituicao, imagem, ativo, ordem
      FROM apoiadores ORDER BY ordem ASC, nome ASC'
