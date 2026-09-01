@@ -11,6 +11,7 @@ require_once __DIR__ . '/includes/colt_editions.php';
 require_once __DIR__ . '/includes/page_builder.php';
 require_once __DIR__ . '/includes/supporters.php';
 require_once __DIR__ . '/includes/directors.php';
+require_once __DIR__ . '/includes/leagues.php';
 
 require_once __DIR__ . '/includes/layout.php';
 
@@ -20,6 +21,7 @@ if (pb_render_managed_page_if_exists('home', '', './')) { exit; }
 try {
     $db = getPublicDB();
     directors_seed_if_empty($db);
+    leagues_seed_if_empty($db);
 
     // Notícias publicadas pelo painel administrativo
     $stmtNoticias = $db->query(
@@ -1124,8 +1126,8 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
         <div class="league-icon" aria-hidden="true"><?= h($liga['emoji']) ?></div>
         <h3><?= h($liga['nome']) ?></h3>
         <p><?= h($liga['descricao']) ?></p>
-        <span class="league-count"><?= h($liga['contagem']) ?></span>
-        <a href="<?= h($liga['link']) ?>" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+        <span class="league-count"><?= h(league_count_label($liga['contagem'])) ?></span>
+        <a href="<?= h(league_clean_link((string)$liga['link'])) ?>" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <?php endforeach; endif; ?>
     </div>

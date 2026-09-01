@@ -3,11 +3,13 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/db.php';
 require_once dirname(__DIR__) . '/includes/layout.php';
 require_once dirname(__DIR__) . '/includes/page_builder.php';
+require_once dirname(__DIR__) . '/includes/leagues.php';
 
 if (pb_render_managed_page_if_exists('ligas', 'ligas')) { exit; }
 
 try {
     $db = getPublicDB();
+    leagues_seed_if_empty($db);
     $ligas = $db->query(
         "SELECT emoji, nome, descricao, contagem, link
          FROM ligas_regioes WHERE ativo = 1 ORDER BY ordem ASC"
@@ -51,8 +53,8 @@ layout_header('ligas');
         <div class="league-icon"><?= h($liga['emoji']) ?></div>
         <h3><?= h($liga['nome']) ?></h3>
         <p><?= h($liga['descricao']) ?></p>
-        <span class="league-count"><?= h($liga['contagem']) ?></span>
-        <a href="<?= h(str_replace('pages/', '', $liga['link'])) ?>" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
+        <span class="league-count"><?= h(league_count_label($liga['contagem'])) ?></span>
+        <a href="<?= h(str_replace('pages/', '', league_clean_link((string)$liga['link']))) ?>" class="news-link" style="margin-top:.75rem;display:inline-flex;">Ver ligas →</a>
       </div>
       <?php endforeach; endif; ?>
     </div>
