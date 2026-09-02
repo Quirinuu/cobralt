@@ -104,7 +104,7 @@ function supporters_get_active(): array {
             'SELECT id, nome, instituicao, imagem, ativo, ordem
              FROM apoiadores
              WHERE ativo = 1
-             ORDER BY ordem ASC, nome ASC'
+             ORDER BY nome ASC'
         )->fetchAll();
         return is_array($rows) ? $rows : [];
     } catch (Throwable $e) {
