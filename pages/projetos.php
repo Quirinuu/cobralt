@@ -21,8 +21,8 @@ layout_header('projetos');
     <h1 class="page-hero-title">Projetos</h1>
     <p class="page-hero-sub">Programas e projetos oficiais das ligas filiadas ao CoBraLT.</p>
     <div class="region-stats">
-      <div class="region-stat"><div class="region-stat-value">3</div><div class="region-stat-label">programas oficiais</div></div>
-      <div class="region-stat"><div class="region-stat-value">7</div><div class="region-stat-label">documentos publicados</div></div>
+      <div class="region-stat"><div class="region-stat-value">4</div><div class="region-stat-label">programas oficiais</div></div>
+      <div class="region-stat"><div class="region-stat-value">9</div><div class="region-stat-label">documentos publicados</div></div>
       <div class="region-stat"><div class="region-stat-value">2026</div><div class="region-stat-label">ciclo vigente</div></div>
     </div>
   </div>
@@ -73,6 +73,19 @@ layout_header('projetos');
             <h4>Prevenção e Extensão - Junho Laranja 2026</h4>
             <p>Campanha de prevenção de queimaduras e acidentes ocupacionais com ações educativas e extensionistas.</p>
             <span class="program-card-link">Ver documento <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+
+        <a href="prevencao-trauma" class="program-card program-card--prevencao" aria-label="Abrir projeto Prevenção de Trauma">
+          <div class="program-card-media program-card-media--duo">
+            <img src="../assets/img/programas/prevencao-trauma-idoso-2026-cover.webp" alt="Capa Prevenção de Trauma no Idoso" loading="lazy">
+            <img src="../assets/img/programas/prevencao-trauma-pediatrico-2026-cover.webp" alt="Capa Prevenção de Trauma Pediátrico" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">2 publicações · 99 páginas</span>
+            <h4>Prevenção de Trauma</h4>
+            <p>Materiais educativos sobre prevenção de trauma na pessoa idosa e na população pediátrica.</p>
+            <span class="program-card-link">Ver materiais <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
       </div>

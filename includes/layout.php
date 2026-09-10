@@ -5,7 +5,7 @@
  */
 
 define('INSTAGRAM_URL', 'https://www.instagram.com/cobralt_');
-define('ASSET_VERSION', '20260817.2');
+define('ASSET_VERSION', '20260910.1');
 
 function layout_head(string $title, string $desc = '', string $base = '../', string $body_attrs = ''): void {
   layout_head_only($title, $desc, $base);
@@ -66,6 +66,7 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
         ['href' => $nav_prefix . 'programa-salvando-vidas-2026', 'label' => 'Salvando Vidas 2026', 'description' => 'Prevenção e primeiros socorros'],
         ['href' => $nav_prefix . 'programa-party-brasil-2026', 'label' => 'P.A.R.T.Y. Brasil 2026', 'description' => 'Prevenção do trauma em jovens'],
         ['href' => $nav_prefix . 'programa-junho-laranja-2026', 'label' => 'Junho Laranja 2026', 'description' => 'Prevenção de queimaduras'],
+        ['href' => $nav_prefix . 'prevencao-trauma', 'label' => 'Prevenção de Trauma', 'description' => 'Idosos, crianças e adolescentes'],
       ],
     ],
     'ligas'      => [

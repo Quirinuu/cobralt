@@ -1886,6 +1886,7 @@
 .program-card--salvando { --program-accent: #DC2626; --program-accent-dark: #013684; }
 .program-card--party { --program-accent: #22C55E; --program-accent-dark: #0EA5E9; }
 .program-card--laranja { --program-accent: #F97316; --program-accent-dark: #B45309; }
+.program-card--prevencao { --program-accent: #B91C1C; --program-accent-dark: #013684; }
 
 .program-card-media {
   background: linear-gradient(135deg, #E0F2FE, #F8FAFC);
@@ -1898,6 +1899,17 @@
   object-fit: cover;
   object-position: top center;
   display: block;
+}
+
+.program-card-media--duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  background: #fff;
+}
+
+.program-card-media--duo img {
+  min-width: 0;
 }
 
 .program-card-body {

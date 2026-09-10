@@ -970,6 +970,18 @@ layout_head_only('CoBraLT — Comitê Brasileiro das Ligas do Trauma', 'CoBraLT 
             <span class="program-card-link">Ver documento <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </a>
+        <a href="pages/prevencao-trauma" class="program-card program-card--prevencao" aria-label="Abrir projeto Prevenção de Trauma">
+          <div class="program-card-media program-card-media--duo">
+            <img src="assets/img/programas/prevencao-trauma-idoso-2026-cover.webp" alt="Capa Prevenção de Trauma no Idoso" loading="lazy">
+            <img src="assets/img/programas/prevencao-trauma-pediatrico-2026-cover.webp" alt="Capa Prevenção de Trauma Pediátrico" loading="lazy">
+          </div>
+          <div class="program-card-body">
+            <span class="program-badge">2 publicações · 99 páginas</span>
+            <h4>Prevenção de Trauma</h4>
+            <p>Materiais educativos sobre prevenção de trauma na pessoa idosa e na população pediátrica.</p>
+            <span class="program-card-link">Ver materiais <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
         </div>
         <button class="programs-carousel-btn index-carousel-btn" type="button" data-carousel-next aria-label="Próximo">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
