@@ -5,6 +5,27 @@
 
 declare(strict_types=1);
 
+/** Ordena pelo nome, desconsiderando títulos, acentos e maiúsculas. */
+function supporters_sort_alphabetically(array $supporters): array {
+    $key = static function (string $name): string {
+        $name = mb_strtolower(trim($name), 'UTF-8');
+        $name = preg_replace('/^(?:(?:prof(?:essor|essora)?|dra?|doutor(?:a)?)\.?\s+)+/u', '', $name) ?? $name;
+        $name = strtr($name, [
+            'á'=>'a', 'à'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a',
+            'é'=>'e', 'è'=>'e', 'ê'=>'e', 'ë'=>'e',
+            'í'=>'i', 'ì'=>'i', 'î'=>'i', 'ï'=>'i',
+            'ó'=>'o', 'ò'=>'o', 'ô'=>'o', 'õ'=>'o', 'ö'=>'o',
+            'ú'=>'u', 'ù'=>'u', 'û'=>'u', 'ü'=>'u', 'ç'=>'c', 'ñ'=>'n',
+        ]);
+        return preg_replace('/\s+/u', ' ', $name) ?? $name;
+    };
+    usort($supporters, static function (array $a, array $b) use ($key): int {
+        return strcmp($key((string)$a['nome']), $key((string)$b['nome']))
+            ?: strcmp((string)$a['nome'], (string)$b['nome']);
+    });
+    return $supporters;
+}
+
 /** @return array<int,array{nome:string,instituicao:string,imagem:string,ativo:int,ordem:int}> */
 function supporters_default_data(): array {
     $items = [
@@ -57,7 +78,7 @@ function supporters_default_data(): array {
         ['Willian G. Hashimoto H. de Sousa', '', 'willian-hashimoto.png'],
     ];
 
-    return array_map(
+    return supporters_sort_alphabetically(array_map(
         static fn(array $item, int $index): array => [
             'nome' => $item[0],
             'instituicao' => $item[1],
@@ -67,7 +88,7 @@ function supporters_default_data(): array {
         ],
         $items,
         array_keys($items)
-    );
+    ));
 }
 
 /**
@@ -106,7 +127,7 @@ function supporters_get_active(): array {
              WHERE ativo = 1
              ORDER BY nome ASC'
         )->fetchAll();
-        return is_array($rows) ? $rows : [];
+        return supporters_sort_alphabetically(is_array($rows) ? $rows : []);
     } catch (Throwable $e) {
         error_log('[CoBraLT] Falha ao carregar apoiadores: ' . $e->getMessage());
         return supporters_default_data();

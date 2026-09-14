@@ -12,6 +12,7 @@ $supporters = $db->query(
     'SELECT id, nome, instituicao, imagem, ativo, ordem
      FROM apoiadores ORDER BY ordem ASC, nome ASC'
 )->fetchAll();
+$supporters = supporters_sort_alphabetically($supporters);
 $activeCount = count(array_filter($supporters, static fn(array $item): bool => (int)$item['ativo'] === 1));
 $canDelete = in_array($adminRole, ['superadmin', 'admin'], true);
 ?>
@@ -65,14 +66,15 @@ $canDelete = in_array($adminRole, ['superadmin', 'admin'], true);
           <div class="form-group"><label for="nome">Nome *</label><input type="text" id="nome" maxlength="180" placeholder="Nome completo"></div>
           <div class="form-group"><label for="instituicao">Instituição ou liga</label><input type="text" id="instituicao" maxlength="255" placeholder="Opcional"></div>
           <div class="form-group"><label>Card do apoiador *</label><div class="preview" id="preview"><div class="preview-placeholder">Envie a arte vertical do apoiador</div></div><label class="upload-label" for="imageFile">Selecionar JPG, PNG ou WebP</label><input type="file" id="imageFile" accept="image/jpeg,image/png,image/webp"><input type="hidden" id="imagem"></div>
-          <div class="form-group"><label for="ordem">Ordem de exibição</label><input type="number" id="ordem" min="0" max="999999" step="10" value="0"><small style="color:var(--slate-400);font-size:.7rem">Use 0 para adicionar ao final.</small></div>
+          <input type="hidden" id="ordem" value="0">
+          <p style="color:var(--slate-400);font-size:.75rem;margin-bottom:1rem">A exibição no site é automaticamente ordenada pelo nome, sem considerar títulos como Dr. e Prof.</p>
           <label class="check-row"><input type="checkbox" id="ativo" checked>Exibir no site</label>
           <div class="actions"><button type="button" class="btn btn-primary" id="saveButton">Salvar apoiador</button><button type="button" class="btn btn-outline" id="cancelButton" hidden>Cancelar</button></div>
         </div>
       </section>
 
       <section class="card" aria-labelledby="listTitle">
-        <div class="card-header"><h3 id="listTitle">Apoiadores cadastrados</h3><span style="font-size:.72rem;color:var(--slate-400)">Edite a ordem para reorganizar o carrossel</span></div>
+        <div class="card-header"><h3 id="listTitle">Apoiadores cadastrados</h3><span style="font-size:.72rem;color:var(--slate-400)">Ordem alfabética automática</span></div>
         <?php if (!$supporters): ?><div class="empty">Nenhum apoiador cadastrado.</div><?php else: ?>
         <div class="table-wrap"><table><thead><tr><th>Card</th><th>Apoiador</th><th>Ordem</th><th>Status</th><th>Ações</th></tr></thead><tbody>
         <?php foreach ($supporters as $supporter): ?>
