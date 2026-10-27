@@ -30,10 +30,13 @@ Options -Indexes
     RewriteRule ^(.+?)/?$ $1.php [L,QSA]
 </IfModule>
 
-# Força HTTPS (descomente após ter o SSL ativo na Hostinger)
-# RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Força HTTPS (SSL já ativo; o deploy chama https://cobralt.com.br/)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
 
 AddType text/css .css
 AddType application/javascript .js
@@ -49,6 +52,7 @@ AddCharset UTF-8 .css .js .html
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>
 
 # PDFs precisam renderizar no visualizador do navegador dentro das páginas.

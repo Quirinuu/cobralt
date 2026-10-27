@@ -8,6 +8,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/sanitize.php';
+
 const PB_VERSION = 1;
 
 function pb_h(?string $value): string {
@@ -57,19 +59,7 @@ function pb_url($value): string {
 }
 
 function pb_html($html): string {
-    $html = trim((string)$html);
-    $allowed = '<p><br><strong><b><em><i><u><s><strike><blockquote><ol><ul><li><a><h2><h3><h4>';
-    $html = strip_tags($html, $allowed);
-    $html = preg_replace('/\s+on[a-z]+\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
-    $html = preg_replace('/\s+style\s*=\s*(".*?"|\'.*?\'|[^\s>]+)/i', '', $html) ?? $html;
-    $html = preg_replace_callback('/\s+href\s*=\s*("[^"]*"|\'[^\']*\'|[^\s>]+)/i', static function (array $match): string {
-        $raw = trim($match[1], " \t\n\r\0\x0B\"'");
-        if (preg_match('/^(https?:\/\/|mailto:|tel:|\/|#|\.\.?\/)/i', $raw)) {
-            return ' href="' . htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"';
-        }
-        return ' href="#"';
-    }, $html) ?? $html;
-    return trim($html);
+    return sanitize_rich_html((string)$html);
 }
 
 function pb_clean_items($items, string $kind): array {

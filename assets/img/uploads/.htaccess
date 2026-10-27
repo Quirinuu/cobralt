@@ -1,0 +1,8 @@
+# Uploads: nunca executar scripts, somente imagens.
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+RemoveHandler .php .phtml .php5 .php7 .phar
+<FilesMatch "\.(php|phtml|phar|php[0-9])$">
+    Require all denied
+</FilesMatch>

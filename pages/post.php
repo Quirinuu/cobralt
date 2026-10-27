@@ -53,7 +53,7 @@ try {
     $relacionados = [];
 }
 
-layout_head(h($post['title']), h($post['excerpt'] ?? ''));
+layout_head($post['title'], $post['excerpt'] ?? '');
 layout_header('noticias');
 ?>
 

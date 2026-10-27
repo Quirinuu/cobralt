@@ -24,23 +24,7 @@ session_start([
     'use_strict_mode' => true,
 ]);
 
-$ip      = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$rateKey = 'rate_' . md5($ip);
-
-if (!isset($_SESSION[$rateKey])) {
-    $_SESSION[$rateKey] = ['count' => 0, 'first' => time()];
-}
-
-$rate = &$_SESSION[$rateKey];
-
-if (time() - $rate['first'] > 900) {
-    $rate = ['count' => 0, 'first' => time()];
-}
-
-if ($rate['count'] >= 5) {
-    $wait = max(1, 900 - (time() - $rate['first']));
-    json_fail('Muitas tentativas. Aguarde ' . ceil($wait / 60) . ' minuto(s).', 429);
-}
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 
 $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
@@ -50,7 +34,6 @@ if ($username === '' || $password === '') {
 }
 
 if (strlen($username) > 60 || strlen($password) > 128) {
-    $rate['count']++;
     json_fail('Credenciais invalidas.');
 }
 
@@ -59,6 +42,19 @@ try {
 } catch (Throwable $e) {
     error_log('[CoBraLT] DB connection failed: ' . $e->getMessage());
     json_fail('Erro interno. Tente novamente.', 500);
+}
+
+// Rate limit no banco (a sessao pode ser descartada pelo atacante). 5 falhas/15 min por IP, 10 por usuario.
+$pdo->exec('CREATE TABLE IF NOT EXISTS login_attempts (k VARCHAR(190) NOT NULL, attempted_at INT NOT NULL)');
+$pdo->prepare('DELETE FROM login_attempts WHERE attempted_at < ?')->execute([time() - 900]);
+$keys = ['ip:' . $ip, 'user:' . strtolower($username)];
+$limits = [5, 10];
+foreach ($keys as $i => $key) {
+    $cnt = $pdo->prepare('SELECT COUNT(*) FROM login_attempts WHERE k = ?');
+    $cnt->execute([$key]);
+    if ((int)$cnt->fetchColumn() >= $limits[$i]) {
+        json_fail('Muitas tentativas. Aguarde alguns minutos.', 429);
+    }
 }
 
 $stmt = $pdo->prepare(
@@ -71,12 +67,13 @@ $dummyHash = '$2y$12$G2x7p2oylqfHd9p2P1A62ewbGv7GWPxEWbq15xw9tNAQz9Zgr7BNq';
 $hash = $user ? $user['password_hash'] : $dummyHash;
 
 if (!$user || !password_verify($password, $hash)) {
-    $rate['count']++;
-    error_log("[CoBraLT] Failed login: {$username} from {$ip}");
+    $ins = $pdo->prepare('INSERT INTO login_attempts (k, attempted_at) VALUES (?, ?)');
+    foreach ($keys as $key) { $ins->execute([$key, time()]); }
+    error_log('[CoBraLT] Failed login: ' . preg_replace('/[^\w.@-]/', '?', $username) . " from {$ip}");
     json_fail('Usuario ou senha incorretos.', 401);
 }
 
-$rate['count'] = 0;
+$pdo->prepare('DELETE FROM login_attempts WHERE k = ?')->execute(['ip:' . $ip]);
 session_regenerate_id(true);
 
 $_SESSION['admin_id']   = (int)$user['id'];

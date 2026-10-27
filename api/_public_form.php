@@ -18,6 +18,10 @@ function handle_public_form(string $type): never {
         public_form_response(['success' => true]);
     }
 
+    if (public_form_rate_limited($_SERVER['REMOTE_ADDR'] ?? '')) {
+        public_form_response(['success' => false, 'message' => 'Muitas solicitacoes. Tente novamente em alguns minutos.'], 429);
+    }
+
     $fields = [];
     foreach ($_POST as $key => $value) {
         if (is_array($value)) {
@@ -28,6 +32,9 @@ function handle_public_form(string $type): never {
             continue;
         }
         $fields[$key] = mb_substr(trim((string)$value), 0, 2000, 'UTF-8');
+        if (count($fields) >= 40) {
+            break;
+        }
     }
 
     if (!$fields) {
@@ -76,6 +83,18 @@ function store_public_form_in_database(array $entry): bool {
         ]);
     } catch (Throwable $e) {
         error_log('[CoBraLT] public form DB storage failed: ' . $e->getMessage());
+        return false;
+    }
+}
+
+/** Maximo de 10 envios por IP em 10 minutos (conta na tabela form_submissions). */
+function public_form_rate_limited(string $ip): bool {
+    try {
+        require_once dirname(__DIR__) . '/includes/db.php';
+        $stmt = getPublicDB()->prepare('SELECT COUNT(*) FROM form_submissions WHERE ip = ? AND created_at > ?');
+        $stmt->execute([$ip, date('Y-m-d H:i:s', time() - 600)]);
+        return (int)$stmt->fetchColumn() >= 10;
+    } catch (Throwable $e) {
         return false;
     }
 }

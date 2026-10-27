@@ -328,6 +328,11 @@ $pendingMigrations = count(array_filter(
       Apoiadores
     </a>
 
+    <a href="formularios.php">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><polyline points="4 8 12 13 20 8"/></svg>
+      Formulários
+    </a>
+
     <div class="nav-label">Sistema</div>
     <a href="usuarios.php">
       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
