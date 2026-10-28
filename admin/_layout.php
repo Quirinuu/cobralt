@@ -123,3 +123,26 @@ function admin_alerts(string $msg = '', array $errors = []): void {
     if ($msg !== '') echo '<div class="alert ok">' . e($msg) . '</div>';
     foreach ($errors as $er) echo '<div class="alert err">' . e((string)$er) . '</div>';
 }
+
+/**
+ * Erro inesperado no painel: mostra o motivo ao admin logado (em vez de uma tela 500 em branco) e registra no log.
+ * Só é registrado depois de a autenticação passar, então visitantes nunca veem estas mensagens.
+ */
+set_exception_handler(static function (Throwable $err): void {
+    error_log('[CoBraLT admin] ' . get_class($err) . ': ' . $err->getMessage() . ' @ ' . $err->getFile() . ':' . $err->getLine());
+    if (!headers_sent()) {
+        http_response_code(500);
+    }
+    $detail = get_class($err) . ': ' . $err->getMessage() . ' (' . basename($err->getFile()) . ':' . $err->getLine() . ')';
+    if (admin_auth_is_api_request()) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => false, 'message' => $detail], JSON_UNESCAPED_UNICODE);
+        return;
+    }
+    echo '<!DOCTYPE html><html lang="pt-BR"><meta charset="UTF-8"><title>Erro — Admin CoBraLT</title>'
+        . '<body style="font-family:Segoe UI,sans-serif;max-width:720px;margin:3rem auto;padding:0 1rem;color:#1E293B">'
+        . '<h1 style="color:#B91C1C;font-size:1.3rem">Ocorreu um erro nesta página</h1>'
+        . '<p>Detalhe técnico (envie ao desenvolvedor):</p>'
+        . '<pre style="white-space:pre-wrap;background:#F1F5F9;border:1px solid #E2E8F0;border-radius:8px;padding:1rem">' . e($detail) . '</pre>'
+        . '<p><a href="dashboard.php">← Voltar ao painel</a></p></body></html>';
+});
