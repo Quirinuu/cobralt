@@ -183,7 +183,7 @@ function cert_upgrade_tables_v2(PDO $db): void {
     ){$tail}");
     foreach (['template_id INT NULL', 'pdf_file VARCHAR(80) NULL', 'pdf_sha256 VARCHAR(64) NULL', 'source VARCHAR(20) NULL'] as $col) {
         // idempotente: se uma execução anterior parou no meio, a seguinte completa o que falta
-        db_add_column_if_missing($db, 'certificates', explode(' ', $col)[0], 'ALTER TABLE certificates ADD COLUMN ' . $col);
+        cert_add_column_if_missing($db, 'certificates', explode(' ', $col)[0], 'ALTER TABLE certificates ADD COLUMN ' . $col);
     }
 }
 
@@ -206,4 +206,25 @@ function cert_ensure_schema(PDO $db): void {
         cert_upgrade_tables_v2($db);
     }
     $done = true;
+}
+
+/**
+ * ADD COLUMN só se a coluna não existir. Não usa db_column_exists(): o "SHOW COLUMNS ... LIKE ?" dele
+ * é recusado pelo MariaDB (placeholder em SHOW) e quebraria a criação das tabelas na hospedagem.
+ */
+function cert_add_column_if_missing(PDO $db, string $table, string $column, string $sql): void {
+    if (db_driver($db) === 'sqlite') {
+        foreach ($db->query('PRAGMA table_info(' . $table . ')')->fetchAll() as $row) {
+            if (($row['name'] ?? '') === $column) {
+                return;
+            }
+        }
+    } else {
+        $stmt = $db->prepare('SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?');
+        $stmt->execute([$table, $column]);
+        if ((int)$stmt->fetchColumn() > 0) {
+            return;
+        }
+    }
+    $db->exec($sql);
 }
