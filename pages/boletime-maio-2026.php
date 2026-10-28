@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+if (pb_render_managed_page_if_exists('boletime-maio-2026', 'boletimes')) { exit; }
+
 require_once dirname(__DIR__) . '/includes/layout.php';
 
 $pdfFile = 'trauma-boletime-maio-2026.pdf';

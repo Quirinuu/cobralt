@@ -14,8 +14,18 @@ if ($pageId) {
     if (!$page) { header('Location: pages.php'); exit; }
 }
 
+// ?slug=x: abre a versão personalizada de uma página do site (ou prepara uma nova com esse slug).
+$presetSlug = '';
+if (!$page && isset($_GET['slug'])) {
+    $presetSlug = preg_replace('/[^a-z0-9\-]/i', '', (string)$_GET['slug']) ?? '';
+    $st = $db->prepare('SELECT * FROM pages WHERE slug = ?');
+    $st->execute([$presetSlug]);
+    $page = $st->fetch() ?: null;
+    if ($page) { header('Location: page-editor.php?id=' . (int)$page['id']); exit; }
+}
+
 $pageTitle = $page ? 'Editar Pagina' : 'Nova Pagina';
-$builder   = pb_decode_content($page['content'] ?? '', $page['title'] ?? '');
+$builder   = pb_decode_content($page['content'] ?? '', $page['title'] ?? ucfirst(str_replace('-', ' ', $presetSlug)));
 $blocksJson = json_encode(
     $builder['blocks'],
     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
@@ -177,11 +187,11 @@ $blocksJson = json_encode(
       <div class="panel settings-panel">
         <label class="field" for="title">
           <span>Titulo da pagina *</span>
-          <input type="text" id="title" placeholder="Ex: Sobre o CoBraLT" value="<?= e($page['title'] ?? '') ?>">
+          <input type="text" id="title" placeholder="Ex: Sobre o CoBraLT" value="<?= e($page['title'] ?? ucfirst(str_replace('-', ' ', $presetSlug))) ?>">
         </label>
         <label class="field" for="slug" style="margin-top:1rem;">
           <span>Slug / URL</span>
-          <input type="text" id="slug" placeholder="ex: historia" value="<?= e($page['slug'] ?? '') ?>">
+          <input type="text" id="slug" placeholder="ex: historia" value="<?= e($page['slug'] ?? $presetSlug) ?>">
         </label>
       </div>
       <div class="status-toggle">

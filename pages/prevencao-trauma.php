@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+if (pb_render_managed_page_if_exists('prevencao-trauma', 'projetos')) { exit; }
+
 require_once dirname(__DIR__) . '/includes/layout.php';
 
 layout_head('Prevenção de Trauma', 'Materiais do CoBraLT para prevenção de trauma em pessoas idosas, crianças e adolescentes.');

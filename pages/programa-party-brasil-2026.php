@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . '/includes/page_builder.php';
+if (pb_render_managed_page_if_exists('programa-party-brasil-2026', 'projetos')) { exit; }
+
 require_once dirname(__DIR__) . '/includes/layout.php';
 
 $documents = [

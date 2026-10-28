@@ -7,6 +7,10 @@ require_once __DIR__ . '/layout.php';
 
 /** @param array<string,mixed> $document */
 function render_prevention_document(array $document): void {
+    require_once __DIR__ . '/page_builder.php';
+    if (pb_render_managed_page_if_exists(basename((string)($_SERVER['SCRIPT_FILENAME'] ?? ''), '.php'), 'projetos')) {
+        return;
+    }
     $escape = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     $pdfUrl = '../assets/pdfs/' . rawurlencode((string)$document['pdf']);
     $pdfOpenUrl = $pdfUrl . '#page=1&view=FitH';

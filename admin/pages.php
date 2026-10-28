@@ -9,6 +9,16 @@ $pages = $db->query(
      FROM pages p LEFT JOIN admin_users u ON u.id = p.author_id
      ORDER BY p.created_at DESC"
 )->fetchAll();
+
+// Páginas originais do site: cada arquivo em pages/ + a home. Uma página criada aqui com o mesmo slug substitui a original.
+$bySlug = [];
+foreach ($pages as $p) { $bySlug[$p['slug']] = $p; }
+$siteSlugs = ['home'];
+foreach (glob(dirname(__DIR__) . '/pages/*.php') ?: [] as $f) {
+    $slug = basename($f, '.php');
+    if (!in_array($slug, ['page', 'post', 'login'], true)) { $siteSlugs[] = $slug; }
+}
+sort($siteSlugs, SORT_NATURAL);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -133,6 +143,27 @@ $pages = $db->query(
   <div class="content">
     <div class="info-box">
       Páginas criadas aqui usam blocos editáveis e ficam disponíveis em <code>/pagina/seu-slug</code>. O editor permite ligar ou desligar títulos, textos, imagens, cores, botões, cards, galerias e seções.
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h3>Páginas do site (<?= count($siteSlugs) ?>)</h3></div>
+      <div class="info-box" style="margin:1rem;">
+        Clique em <b>Personalizar</b> para criar uma versão editável de qualquer página do site. Enquanto estiver como rascunho (ou sem versão), a página original continua no ar; ao publicar, a sua versão a substitui. Excluir a versão personalizada restaura a original.
+      </div>
+      <table>
+        <thead><tr><th>Página</th><th>Situação</th><th>Ações</th></tr></thead>
+        <tbody>
+          <?php foreach ($siteSlugs as $slug): $custom = $bySlug[$slug] ?? null; $url = $slug === 'home' ? '../index.php' : '../pages/' . $slug . '.php'; ?>
+          <tr>
+            <td><a class="page-slug" href="<?= e($url) ?>" target="_blank"><?= e($slug) ?></a></td>
+            <td><?= !$custom ? 'Original' : ($custom['status'] === 'published' ? 'Personalizada (publicada)' : 'Rascunho (original em uso)') ?></td>
+            <td><div class="actions">
+              <a href="page-editor.php?<?= $custom ? 'id=' . (int)$custom['id'] : 'slug=' . e($slug) ?>" class="btn-sm outline"><?= $custom ? 'Editar' : 'Personalizar' ?></a>
+            </div></td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
     </div>
 
     <div class="card">
