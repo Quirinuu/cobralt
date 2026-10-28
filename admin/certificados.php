@@ -88,6 +88,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if ($action === 'regen') {
+        $st = $db->prepare('SELECT * FROM certificates WHERE id = ?');
+        $st->execute([(int)($_POST['id'] ?? 0)]);
+        $c = $st->fetch();
+        if (!$c) {
+            $errors[] = 'Certificado não encontrado.';
+        } elseif (($c['source'] ?? '') === 'pdf') {
+            $errors[] = 'Este certificado veio de um PDF enviado: para refazer, assine o PDF original de novo em "Assinar PDF pronto".';
+        } else {
+            cert_store_pdf($db, $c, cert_render_for($db, $c), (string)($c['source'] ?: 'padrao'));
+            $msg = 'PDF refeito com o endereço atual do site. Baixe-o de novo e substitua o arquivo antigo.';
+        }
+    }
+
     if ($action === 'revoke' || $action === 'reactivate') {
         cert_set_status($db, (int)($_POST['id'] ?? 0), $action === 'revoke', trim((string)($_POST['reason'] ?? '')));
         $msg = $action === 'revoke' ? 'Certificado revogado.' : 'Certificado reativado.';
@@ -174,6 +188,9 @@ admin_alerts($msg, $errors);
           <div class="actions">
             <a class="btn-sm outline" href="?pdf=<?= (int)$r['id'] ?>">PDF</a>
             <a class="btn-sm outline" href="<?= e(cert_verify_url($r['code'])) ?>" target="_blank" rel="noopener">Link</a>
+            <?php if (($r['source'] ?? '') !== 'pdf'): ?>
+            <form method="post" style="display:inline"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><input type="hidden" name="action" value="regen"><input type="hidden" name="id" value="<?= (int)$r['id'] ?>"><button class="btn-sm outline" title="Gera o PDF de novo com o endereço atual do site">Refazer PDF</button></form>
+            <?php endif; ?>
             <form method="post" class="inline-form" style="flex-wrap:nowrap">
               <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
               <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">

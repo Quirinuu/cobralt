@@ -79,8 +79,18 @@ function cert_normalize_code(string $input): string {
     return cert_format_code($s);
 }
 
+/** Endereço do site: o da requisição atual (evita depender de um SITE_URL mal configurado na hospedagem); SITE_URL na linha de comando. */
+function cert_base_url(): string {
+    $host = (string)($_SERVER['HTTP_HOST'] ?? '');
+    if ($host !== '' && preg_match('/^[a-z0-9.-]+(:\d{1,5})?$/i', $host)) {
+        $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
+        return ($https ? 'https' : 'http') . '://' . $host;
+    }
+    return rtrim((string)SITE_URL, '/');
+}
+
 function cert_verify_url(string $code): string {
-    return rtrim((string)SITE_URL, '/') . '/verificar?c=' . rawurlencode($code);
+    return cert_base_url() . '/verificar?c=' . rawurlencode($code);
 }
 
 /** Valida e normaliza os dados de um certificado. @return array{0:?array,1:?string} [dados, erro] */
