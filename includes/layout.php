@@ -85,6 +85,7 @@ function layout_header(string $active = '', string $base = '../', string $logo_h
     'apoiadores' => ['href' => $nav_prefix . 'apoiadores', 'label' => 'Apoiadores'],
     'historia'   => ['href' => $nav_prefix . 'historia',   'label' => 'História'],
     'diretoria'  => ['href' => $nav_prefix . 'diretoria',  'label' => 'Diretoria'],
+    'verificar'  => ['href' => $nav_prefix . 'verificar',  'label' => 'Autenticar certificados'],
     'colts'      => ['href' => $nav_prefix . 'eventos#realizados', 'label' => 'CoLTs', 'featured' => true],
   ];
   $ig = INSTAGRAM_URL;
@@ -204,7 +205,7 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
         <a href="<?= $pageBase ?>diretoria">Diretoria</a>
         <a href="<?= $pageBase ?>historia">História</a>
         <a href="<?= $base ?>#filiacao">Filiar minha liga</a>
-        <a href="<?= $pageBase ?>verificar">Verificar certificado</a>
+        <a href="<?= $pageBase ?>verificar">Autenticar certificados</a>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>

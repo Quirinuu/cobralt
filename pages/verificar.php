@@ -42,16 +42,16 @@ if ($input !== '' || $isPdf) {
     }
 }
 
-layout_head('Verificar certificado', 'Confirme a autenticidade de um certificado emitido pelo CoBraLT.');
-layout_header('', '../', '', '../pages/');
+layout_head('Autenticar certificados', 'Confirme a autenticidade de um certificado emitido pelo CoBraLT.');
+layout_header('verificar', '../', '', '../pages/');
 ?>
 
 <main id="main-content">
 <div class="page-hero">
   <div class="page-hero-inner">
-    <nav class="breadcrumb"><a href="../">Início</a><span>›</span><span>Verificar certificado</span></nav>
+    <nav class="breadcrumb"><a href="../">Início</a><span>›</span><span>Autenticar certificados</span></nav>
     <div class="page-hero-label">Autenticidade</div>
-    <h1 class="page-hero-title">Verificar certificado</h1>
+    <h1 class="page-hero-title">Autenticar certificados</h1>
     <p class="page-hero-sub">Digite o código impresso no certificado (ou leia o QR code) para confirmar que ele foi emitido pelo CoBraLT.</p>
   </div>
 </div>
