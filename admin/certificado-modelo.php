@@ -10,6 +10,7 @@ require_once dirname(__DIR__) . '/includes/certificate_issue.php';
 require_role('superadmin', 'admin');
 
 $db  = getDB();
+cert_ensure_schema($db);
 $tpl = cert_load_template($db, (int)($_GET['id'] ?? 0));
 if (!$tpl) { header('Location: certificado-modelos.php'); exit; }
 

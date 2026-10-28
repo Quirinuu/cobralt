@@ -10,6 +10,7 @@ require_once dirname(__DIR__) . '/includes/certificate_verify.php';
 require_role('superadmin', 'admin');
 
 $db = getDB();
+cert_ensure_schema($db);
 $input = trim((string)($_GET['c'] ?? ''));
 $result = null;     // null | 'notfound' | 'nocode' | 'badpdf' | array
 $identical = null;

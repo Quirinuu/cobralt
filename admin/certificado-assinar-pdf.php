@@ -11,6 +11,7 @@ require_once dirname(__DIR__) . '/includes/certificate_issue.php';
 require_role('superadmin', 'admin');
 
 $db = getDB();
+cert_ensure_schema($db);
 $signers = $db->query('SELECT * FROM certificate_signers ORDER BY name')->fetchAll();
 $errors = [];
 $done = null;

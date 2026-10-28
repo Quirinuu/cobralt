@@ -186,3 +186,24 @@ function cert_upgrade_tables_v2(PDO $db): void {
         db_add_column_if_missing($db, 'certificates', explode(' ', $col)[0], 'ALTER TABLE certificates ADD COLUMN ' . $col);
     }
 }
+
+/**
+ * Garante as tabelas dos certificados mesmo que o executor de migrações não tenha rodado na hospedagem.
+ * Tudo é idempotente; custa uma consulta por requisição.
+ */
+function cert_ensure_schema(PDO $db): void {
+    static $done = false;
+    if ($done) {
+        return;
+    }
+    try {
+        $db->query('SELECT pdf_sha256 FROM certificates LIMIT 1');
+        $db->query('SELECT 1 FROM certificate_checks LIMIT 1');
+        $db->query('SELECT 1 FROM certificate_templates LIMIT 1');
+        $db->query('SELECT 1 FROM certificate_signers LIMIT 1');
+    } catch (PDOException $e) {
+        cert_create_tables($db);
+        cert_upgrade_tables_v2($db);
+    }
+    $done = true;
+}

@@ -9,6 +9,7 @@ require_once dirname(__DIR__) . '/includes/certificate_issue.php';
 require_role('superadmin', 'admin');
 
 $db = getDB();
+cert_ensure_schema($db);
 
 // ─── Download do PDF ──────────────────────────────────────
 if (isset($_GET['pdf'])) {

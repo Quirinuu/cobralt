@@ -21,6 +21,7 @@ if ($input !== '' || $isPdf) {
     $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
     try {
         $db = getPublicDB();
+        cert_ensure_schema($db);
         if (cert_check_rate_limited($db, $ip)) {
             $result = 'limited';
         } elseif ($isPdf) {
