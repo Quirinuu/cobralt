@@ -172,7 +172,7 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
   $ig = INSTAGRAM_URL;
   $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
   $pageBase = $base === './' ? 'pages/' : '';
-  if ($base === '../' && strpos($requestPath, '/pagina/') === 0) {
+  if ($base === '../' && (strpos($requestPath, '/pagina/') === 0 || rtrim($requestPath, '/') === '/verificar')) {
       $pageBase = '../pages/';
   }
 ?>
@@ -204,6 +204,7 @@ function layout_footer(string $base = '../', array $extra_scripts = []): void {
         <a href="<?= $pageBase ?>diretoria">Diretoria</a>
         <a href="<?= $pageBase ?>historia">História</a>
         <a href="<?= $base ?>#filiacao">Filiar minha liga</a>
+        <a href="<?= $pageBase ?>verificar">Verificar certificado</a>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>

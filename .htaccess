@@ -22,6 +22,7 @@ Options -Indexes
 
     # Rotas especiais do construtor de páginas
     RewriteRule ^pagina/([a-z0-9-]+)/?$ pages/page.php?slug=$1 [L,QSA,NC]
+    RewriteRule ^verificar/?$ pages/verificar.php [L,QSA,NC]
 
     # Resolve internamente URLs sem extensão para o arquivo PHP correspondente
     # Ex.: /pages/eventos -> /pages/eventos.php
