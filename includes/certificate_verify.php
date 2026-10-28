@@ -43,7 +43,9 @@ function cert_verify_pdf(PDO $db, string $bytes): array {
     }
     $out['state'] = 'found';
     $out['cert'] = $cert;
-    $out['identical'] = hash_equals(hash('sha256', cert_pdf($cert)), hash('sha256', $bytes));
+    // PDFs emitidos guardam o SHA-256; registros antigos sem hash são comparados com o layout padrão regenerado.
+    $expected = !empty($cert['pdf_sha256']) ? (string)$cert['pdf_sha256'] : hash('sha256', cert_pdf($cert));
+    $out['identical'] = hash_equals($expected, hash('sha256', $bytes));
     return $out;
 }
 

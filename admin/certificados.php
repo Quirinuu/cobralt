@@ -5,7 +5,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/_auth.php';
-require_once dirname(__DIR__) . '/includes/certificates.php';
+require_once dirname(__DIR__) . '/includes/certificate_issue.php';
 require_role('superadmin', 'admin');
 
 $db = getDB();
@@ -16,8 +16,7 @@ if (isset($_GET['pdf'])) {
     $stmt->execute([(int)$_GET['pdf']]);
     $row = $stmt->fetch();
     if (!$row) { http_response_code(404); exit('Certificado nao encontrado.'); }
-    require_once dirname(__DIR__) . '/includes/certificate_pdf.php';
-    $pdf = cert_pdf($row);
+    $pdf = cert_get_pdf($db, $row);
     header('Content-Type: application/pdf');
     header('Content-Disposition: attachment; filename="certificado-' . $row['code'] . '.pdf"');
     header('Content-Length: ' . strlen($pdf));
@@ -27,6 +26,9 @@ if (isset($_GET['pdf'])) {
 
 $msg = '';
 $errors = [];
+$templates = $db->query('SELECT id, name FROM certificate_templates ORDER BY name')->fetchAll();
+$templateId = (int)($_POST['template_id'] ?? 0);
+if ($templateId && !cert_load_template($db, $templateId)) { $templateId = 0; }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -37,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($err) {
             $errors[] = $err;
         } else {
-            $row = cert_insert($db, $data, $adminId);
+            $row = cert_issue_stored($db, $data, $adminId, $templateId);
             $msg = 'Certificado emitido: ' . $row['code'];
         }
     }
@@ -71,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$errors && $valid) {
                 $db->beginTransaction();
                 try {
-                    foreach ($valid as $d) { cert_insert($db, $d, $adminId); }
+                    foreach ($valid as $d) { cert_issue_stored($db, $d, $adminId, $templateId); }
                     $db->commit();
                     $msg = count($valid) . ' certificados emitidos.';
                 } catch (Throwable $e) {
@@ -126,7 +128,7 @@ $rows = $stmt->fetchAll();
   </style>
 </head>
 <body>
-  <p><a href="dashboard.php">← Painel</a> · <a href="autenticar.php">Autenticar certificado</a></p>
+  <p><a href="dashboard.php">← Painel</a> · <a href="autenticar.php">Autenticar certificado</a> · <a href="certificado-modelos.php">Modelos e assinaturas</a> · <a href="certificado-assinar-pdf.php">Assinar PDF pronto</a></p>
   <h1>Certificados</h1>
 
   <?php if ($msg): ?><div class="ok"><?= e($msg) ?></div><?php endif; ?>
@@ -138,6 +140,7 @@ $rows = $stmt->fetchAll();
       <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
       <input type="hidden" name="action" value="issue">
       <div class="grid">
+        <div><label>Modelo<select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select></label></div>
         <div><label>Nome *<input name="nome" required maxlength="180"></label></div>
         <div><label>Evento *<input name="evento" required maxlength="220"></label></div>
         <div><label>Tipo<select name="tipo"><?php foreach (cert_types() as $k => $v): ?><option value="<?= e($k) ?>"><?= e($v) ?></option><?php endforeach; ?></select></label></div>
@@ -155,6 +158,7 @@ $rows = $stmt->fetchAll();
     <form method="post" enctype="multipart/form-data" class="inline">
       <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
       <input type="hidden" name="action" value="import">
+      <select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select>
       <input type="file" name="csv" accept=".csv,text/csv" required>
       <button type="submit" class="alt">Importar</button>
     </form>

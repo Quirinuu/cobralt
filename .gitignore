@@ -16,3 +16,11 @@ Thumbs.db
 *.sqlite
 *.sqlite3
 storage/*-check.png
+
+# Credenciais de teste locais
+*.local.txt
+storage/certificados/
+storage/certificados-arquivos/
+
+# Arquivos de exemplo para testes locais
+exemplos-teste/

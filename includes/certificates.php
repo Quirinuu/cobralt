@@ -151,3 +151,31 @@ function cert_log_check(PDO $db, string $codeTried, bool $found, string $ip): vo
     $db->prepare('INSERT INTO certificate_checks (code_tried, found, ip, created_at) VALUES (?, ?, ?, ?)')
        ->execute([mb_substr($codeTried, 0, 40, 'UTF-8'), $found ? 1 : 0, $ip, date('Y-m-d H:i:s')]);
 }
+
+/** v2: modelos, assinantes e arquivo/hash do PDF emitido. Roda uma única vez (migração 2026102802). */
+function cert_upgrade_tables_v2(PDO $db): void {
+    $sqlite = db_driver($db) === 'sqlite';
+    $id   = $sqlite ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT UNSIGNED AUTO_INCREMENT PRIMARY KEY';
+    $tail = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
+    $db->exec("CREATE TABLE IF NOT EXISTS certificate_signers (
+        id {$id},
+        name VARCHAR(160) NOT NULL,
+        role VARCHAR(160) NULL,
+        image_file VARCHAR(80) NULL,
+        created_at VARCHAR(19) NOT NULL
+    ){$tail}");
+    $db->exec("CREATE TABLE IF NOT EXISTS certificate_templates (
+        id {$id},
+        name VARCHAR(160) NOT NULL,
+        background_file VARCHAR(80) NULL,
+        orientation VARCHAR(1) NOT NULL DEFAULT 'L',
+        body_text TEXT NULL,
+        layout_json TEXT NULL,
+        signer1_id INT NULL,
+        signer2_id INT NULL,
+        created_at VARCHAR(19) NOT NULL
+    ){$tail}");
+    foreach (['template_id INT NULL', 'pdf_file VARCHAR(80) NULL', 'pdf_sha256 VARCHAR(64) NULL', 'source VARCHAR(20) NULL'] as $col) {
+        $db->exec('ALTER TABLE certificates ADD COLUMN ' . $col);
+    }
+}

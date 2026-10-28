@@ -48,4 +48,19 @@ check($r['state'] === 'found' && !$r['identical'], 'PDF alterado e detectado');
 check(cert_verify_pdf($db, 'not a pdf')['state'] === 'invalid', 'rejeita arquivo que nao e PDF');
 check(cert_verify_pdf($db, '%PDF-1.4 sem codigo')['state'] === 'no_code', 'PDF sem codigo');
 check(cert_verify_pdf($db, '%PDF-1.4 /Subject (CBL-AAAA-BBBB-CCCC)')['state'] === 'notfound', 'codigo inexistente');
+
+// --- modelos, carimbo em PDF pronto e verificação por hash guardado ---
+require_once dirname(__DIR__) . '/includes/certificate_issue.php';
+cert_upgrade_tables_v2($db);
+$tpl = ['orientation' => 'L', 'background_file' => null, 'body_text' => '{nome} - {evento} - {data}', 'layout_json' => null];
+$tplPdf = cert_render_template($row, $tpl, ['sig1' => ['name' => 'Fulano de Tal', 'role' => 'Presidente', 'image_file' => null], 'sig2' => null]);
+check(str_starts_with($tplPdf, '%PDF') && cert_extract_code_from_pdf($tplPdf) === $row['code'], 'PDF de modelo traz o codigo');
+
+[$stamped, $serr] = cert_stamp_pdf(dirname(__DIR__) . '/assets/pdfs/programa-party-brasil-2026-ficha.pdf', $row, ['name' => 'Fulano', 'role' => 'Dir', 'image_file' => null], 'br', 'first');
+check($stamped !== null && cert_extract_code_from_pdf($stamped) === $row['code'], 'carimba PDF pronto e grava o codigo');
+check(cert_stamp_pdf(__FILE__, $row, null)[0] === null, 'recusa arquivo que nao e PDF no carimbo');
+
+$db->prepare('UPDATE certificates SET pdf_sha256 = ? WHERE id = ?')->execute([hash('sha256', $stamped), $row['id']]);
+check(cert_verify_pdf($db, $stamped)['identical'] === true, 'verifica por hash guardado');
+check(cert_verify_pdf($db, $stamped . ' ')['identical'] === false, 'detecta alteracao em 1 byte');
 exit(empty($GLOBALS['failed']) ? 0 : 1);
