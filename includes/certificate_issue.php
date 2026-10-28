@@ -182,11 +182,16 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
 class CertFpdi extends \setasign\Fpdi\Fpdi {}
 
 /**
- * Carimba um PDF pronto com QR, código, link e assinatura.
- * @param string $corner br|bl|tr|tl   @param string $pages first|last|all
+ * Carimba um PDF pronto com QR, código, link e assinatura na posição escolhida.
+ * $pos: page (0 = todas as páginas), x/y = canto superior esquerdo do selo e w = largura, todos em % da página.
  * @return array{0:?string,1:?string} [bytes, erro]
  */
-function cert_stamp_pdf(string $srcPath, array $c, ?array $signer, string $corner = 'br', string $pages = 'first'): array {
+function cert_stamp_pdf(string $srcPath, array $c, ?array $signer, array $pos): array {
+    $page = max(0, (int)($pos['page'] ?? 1));
+    $w = max(14.0, min(60.0, (float)($pos['w'] ?? 22)));
+    $x = max(0.0, min(100.0, (float)($pos['x'] ?? 70)));
+    $y = max(0.0, min(100.0, (float)($pos['y'] ?? 85)));
+
     $pdf = new CertFpdi();
     $pdf->SetCompression(true);
     $pdf->SetTitle('Certificado ' . $c['code']);
@@ -195,13 +200,21 @@ function cert_stamp_pdf(string $srcPath, array $c, ?array $signer, string $corne
     $pdf->SetAutoPageBreak(false);
     try {
         $count = $pdf->setSourceFile($srcPath);
+        if ($page > $count) {
+            return [null, "O PDF tem apenas {$count} página(s)."];
+        }
         for ($i = 1; $i <= $count; $i++) {
             $tplId = $pdf->importPage($i);
             $size = $pdf->getTemplateSize($tplId);
             $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
             $pdf->useTemplate($tplId);
-            if ($pages === 'all' || ($pages === 'first' && $i === 1) || ($pages === 'last' && $i === $count)) {
-                cert_draw_stamp($pdf, $c, $signer, (float)$size['width'], (float)$size['height'], $corner);
+            if ($page === 0 || $page === $i) {
+                $W = (float)$size['width'];
+                $H = (float)$size['height'];
+                $bw = $W * $w / 100;
+                $px = max(0.0, min($W - $bw, $W * $x / 100));
+                $py = max(0.0, min($H - $bw * 0.3, $H * $y / 100));
+                cert_draw_stamp($pdf, $c, $signer, $px, $py, $bw);
             }
         }
         return [$pdf->Output('S'), null];
@@ -211,17 +224,14 @@ function cert_stamp_pdf(string $srcPath, array $c, ?array $signer, string $corne
     }
 }
 
-function cert_draw_stamp(FPDF $pdf, array $c, ?array $signer, float $W, float $H, string $corner): void {
-    $scale = min(1.0, $W / 150);
-    $bw = 100 * $scale;
+/** Selo de verificação de $bw mm de largura (proporção 100:30) com canto superior esquerdo em ($x,$y). */
+function cert_draw_stamp(FPDF $pdf, array $c, ?array $signer, float $x, float $y, float $bw): void {
+    $scale = $bw / 100;
     $bh = 30 * $scale;
-    $m = 6 * $scale;
-    $x = str_ends_with($corner, 'l') ? $m : $W - $bw - $m;
-    $y = str_starts_with($corner, 't') ? $m : $H - $bh - $m;
 
     $pdf->SetFillColor(255, 255, 255);
     $pdf->SetDrawColor(0, 43, 78);
-    $pdf->SetLineWidth(0.3);
+    $pdf->SetLineWidth(0.25);
     $pdf->Rect($x, $y, $bw, $bh, 'DF');
 
     $qrBox = $bh - 4 * $scale;
@@ -235,21 +245,21 @@ function cert_draw_stamp(FPDF $pdf, array $c, ?array $signer, float $W, float $H
             try { $pdf->Image($img, $tx, $y + 1.5 * $scale, 0, 9 * $scale); } catch (Throwable $e) { /* segue sem imagem */ }
         }
         $pdf->SetTextColor(30, 30, 30);
-        $pdf->SetFont('Helvetica', 'B', 7.5 * $scale);
+        $pdf->SetFont('Helvetica', 'B', max(4.5, 7.5 * $scale * 1.15));
         $pdf->SetXY($tx, $y + 11 * $scale);
         $pdf->Cell($tw, 3.5 * $scale, cert_pdf_text((string)$signer['name']), 0, 2, 'L');
         if (!empty($signer['role'])) {
-            $pdf->SetFont('Helvetica', '', 6.5 * $scale);
+            $pdf->SetFont('Helvetica', '', max(4, 6.5 * $scale * 1.15));
             $pdf->Cell($tw, 3 * $scale, cert_pdf_text((string)$signer['role']), 0, 2, 'L');
         }
     }
     $pdf->SetTextColor(0, 43, 78);
-    $pdf->SetFont('Helvetica', 'B', 7 * $scale);
+    $pdf->SetFont('Helvetica', 'B', max(4.5, 7 * $scale * 1.15));
     $pdf->SetXY($tx, $y + $bh - 11 * $scale);
     $pdf->Cell($tw, 3.5 * $scale, cert_pdf_text('Código: ' . $c['code']), 0, 2, 'L');
-    $pdf->SetFont('Helvetica', '', 5.8 * $scale);
+    $pdf->SetFont('Helvetica', '', max(3.8, 5.8 * $scale * 1.15));
     $pdf->SetTextColor(60, 60, 60);
-    $pdf->MultiCell($tw, 2.8 * $scale, cert_pdf_text('Verifique a autenticidade em ' . preg_replace('#^https?://#', '', cert_verify_url((string)$c['code']))), 0, 'L');
+    $pdf->MultiCell($tw, 2.8 * $scale, cert_pdf_text('Verifique em ' . preg_replace('#^https?://#', '', cert_verify_url((string)$c['code']))), 0, 'L');
 }
 
 function cert_load_template(PDO $db, int $id): ?array {

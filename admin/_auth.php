@@ -126,3 +126,5 @@ function require_role(string ...$roles): void {
 $adminUser = $_SESSION['admin_user'] ?? 'Admin';
 $adminRole = $_SESSION['admin_role'] ?? 'editor';
 $adminId   = (int)($_SESSION['admin_id'] ?? 0);
+
+require_once __DIR__ . '/_layout.php';

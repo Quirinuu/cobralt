@@ -82,80 +82,76 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $signers   = $db->query('SELECT * FROM certificate_signers ORDER BY name')->fetchAll();
 $templates = $db->query('SELECT * FROM certificate_templates ORDER BY name')->fetchAll();
+admin_page_start('Modelos e assinaturas', 'modelos', 'A arte dos certificados e quem assina');
+admin_alerts($msg, $errors);
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Modelos de certificado — Admin CoBraLT</title>
-  <style>
-    body{font-family:'Segoe UI',sans-serif;background:#F1F5F9;color:#1E293B;margin:0;padding:2rem;}
-    h1{color:#002B4E;font-size:1.3rem;} h2{color:#002B4E;font-size:1rem;margin:0 0 .75rem;} a{color:#0284C7;}
-    .card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;max-width:860px;}
-    input,select{box-sizing:border-box;padding:.55rem .7rem;border:1.5px solid #E2E8F0;border-radius:8px;font:inherit;}
-    button{padding:.55rem 1rem;border:0;border-radius:8px;background:#002B4E;color:#fff;font:inherit;font-weight:600;cursor:pointer;} button.danger{background:#EF4444;}
-    form.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
-    .ok{background:#D1FAE5;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;max-width:860px;} .err{background:#FEE2E2;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;max-width:860px;}
-    table{width:100%;border-collapse:collapse;font-size:.9rem;} th,td{text-align:left;padding:.5rem;border-bottom:1px solid #E2E8F0;vertical-align:middle;}
-    .sig{height:36px;background:#f8fafc;border:1px solid #E2E8F0;border-radius:4px;}
-  </style>
-</head>
-<body>
-  <p><a href="dashboard.php">← Painel</a> · <a href="certificados.php">Certificados</a></p>
-  <h1>Modelos e assinaturas</h1>
-  <?php if ($msg): ?><div class="ok"><?= e($msg) ?></div><?php endif; ?>
-  <?php foreach ($errors as $er): ?><div class="err"><?= e($er) ?></div><?php endforeach; ?>
+<div class="grid-2">
+  <section class="card">
+    <div class="card-header"><h3>Assinantes</h3></div>
+    <div class="card-body">
+      <p class="hint" style="margin-bottom:1rem">Quem assina os certificados. Envie a assinatura como imagem PNG com fundo transparente (JPG também funciona). Nome e cargo aparecem sob a linha de assinatura.</p>
+      <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+        <input type="hidden" name="action" value="add_signer">
+        <div class="grid-form">
+          <div class="field"><label>Nome *</label><input name="name" required maxlength="160"></div>
+          <div class="field"><label>Cargo</label><input name="role" maxlength="160" placeholder="Ex.: Presidente"></div>
+          <div class="field"><label>Imagem da assinatura</label><input type="file" name="image" accept="image/png,image/jpeg"></div>
+        </div>
+        <div class="btn-row"><button type="submit" class="btn">Adicionar assinante</button></div>
+      </form>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+        <?php foreach ($signers as $sg): ?>
+          <tr>
+            <td style="width:110px"><?php if ($sg['image_file']): ?><img class="thumb" src="?asset=<?= e($sg['image_file']) ?>" alt=""><?php endif; ?></td>
+            <td><strong><?= e($sg['name']) ?></strong><br><small class="hint"><?= e((string)$sg['role']) ?></small></td>
+            <td style="text-align:right"><form method="post" onsubmit="return confirm('Remover este assinante?')">
+              <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+              <input type="hidden" name="action" value="delete_signer"><input type="hidden" name="id" value="<?= (int)$sg['id'] ?>">
+              <button class="btn-sm danger">Remover</button></form></td>
+          </tr>
+        <?php endforeach; ?>
+        <?php if (!$signers): ?><tr><td class="empty">Nenhum assinante ainda.</td></tr><?php endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-  <div class="card">
-    <h2>Assinantes</h2>
-    <p style="margin-top:0">Quem assina os certificados. Envie a assinatura como imagem PNG com fundo transparente (JPG também funciona). Nome e cargo aparecem sob a linha de assinatura.</p>
-    <form method="post" enctype="multipart/form-data" class="row">
-      <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-      <input type="hidden" name="action" value="add_signer">
-      <input name="name" placeholder="Nome do assinante" required maxlength="160">
-      <input name="role" placeholder="Cargo (ex.: Presidente)" maxlength="160">
-      <input type="file" name="image" accept="image/png,image/jpeg">
-      <button type="submit">Adicionar</button>
-    </form>
-    <table style="margin-top:1rem">
-      <?php foreach ($signers as $sg): ?>
-        <tr>
-          <td><?php if ($sg['image_file']): ?><img class="sig" src="?asset=<?= e($sg['image_file']) ?>" alt=""><?php endif; ?></td>
-          <td><strong><?= e($sg['name']) ?></strong><br><small><?= e((string)$sg['role']) ?></small></td>
-          <td><form method="post" onsubmit="return confirm('Remover este assinante?')">
-            <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-            <input type="hidden" name="action" value="delete_signer"><input type="hidden" name="id" value="<?= (int)$sg['id'] ?>">
-            <button class="danger">Remover</button></form></td>
-        </tr>
-      <?php endforeach; ?>
-      <?php if (!$signers): ?><tr><td>Nenhum assinante ainda.</td></tr><?php endif; ?>
-    </table>
-  </div>
-
-  <div class="card">
-    <h2>Modelos</h2>
-    <p style="margin-top:0">Um modelo é a arte do certificado (imagem feita no Canva, por exemplo) com o nome, o texto, as assinaturas e o QR posicionados por você.</p>
-    <form method="post" class="row">
-      <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-      <input type="hidden" name="action" value="new_template">
-      <input name="name" placeholder="Nome do modelo (ex.: CoLT 2026 — participante)" required maxlength="160" style="min-width:300px">
-      <button type="submit">Criar modelo</button>
-    </form>
-    <table style="margin-top:1rem">
-      <?php foreach ($templates as $t): ?>
-        <tr>
-          <td><strong><?= e($t['name']) ?></strong></td>
-          <td><a href="certificado-modelo.php?id=<?= (int)$t['id'] ?>">Editar</a> · <a href="certificado-modelo.php?id=<?= (int)$t['id'] ?>&amp;preview=1" target="_blank">Prévia PDF</a></td>
-          <td><form method="post" onsubmit="return confirm('Excluir este modelo?')">
-            <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-            <input type="hidden" name="action" value="delete_template"><input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
-            <button class="danger">Excluir</button></form></td>
-        </tr>
-      <?php endforeach; ?>
-      <?php if (!$templates): ?><tr><td>Nenhum modelo ainda. Sem modelo, os certificados usam o layout padrão.</td></tr><?php endif; ?>
-    </table>
-  </div>
-</body>
-</html>
+  <section class="card">
+    <div class="card-header"><h3>Modelos de certificado</h3></div>
+    <div class="card-body">
+      <p class="hint" style="margin-bottom:1rem">Um modelo é a arte do certificado (imagem feita no Canva, por exemplo) com o nome, o texto, as assinaturas e o QR posicionados por você. Sem modelo, os certificados usam o layout padrão.</p>
+      <form method="post" class="inline-form">
+        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+        <input type="hidden" name="action" value="new_template">
+        <input type="text" name="name" placeholder="Nome do modelo (ex.: CoLT 2026 — participante)" required maxlength="160">
+        <button type="submit" class="btn">Criar modelo</button>
+      </form>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+        <?php foreach ($templates as $t): ?>
+          <tr>
+            <td><strong><?= e($t['name']) ?></strong></td>
+            <td><div class="actions" style="justify-content:flex-end">
+              <a class="btn-sm" href="certificado-modelo.php?id=<?= (int)$t['id'] ?>">Editar</a>
+              <a class="btn-sm outline" href="certificado-modelo.php?id=<?= (int)$t['id'] ?>&amp;preview=1" target="_blank">Prévia PDF</a>
+              <form method="post" onsubmit="return confirm('Excluir este modelo?')">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                <input type="hidden" name="action" value="delete_template"><input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
+                <button class="btn-sm danger">Excluir</button></form>
+            </div></td>
+          </tr>
+        <?php endforeach; ?>
+        <?php if (!$templates): ?><tr><td class="empty">Nenhum modelo ainda.</td></tr><?php endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<?php
+admin_page_end();

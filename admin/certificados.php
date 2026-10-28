@@ -104,105 +104,110 @@ if ($q !== '') {
 $stmt = $db->prepare('SELECT * FROM certificates' . $where . ' ORDER BY id DESC LIMIT 200');
 $stmt->execute($params);
 $rows = $stmt->fetchAll();
+admin_page_start('Certificados', 'certificados', 'Emitir, importar em lote, baixar e revogar');
+admin_alerts($msg, $errors);
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Certificados — Admin CoBraLT</title>
-  <style>
-    body{font-family:'Segoe UI',sans-serif;background:#F1F5F9;color:#1E293B;margin:0;padding:2rem;}
-    h1{color:#002B4E;font-size:1.3rem;} h2{color:#002B4E;font-size:1rem;margin:0 0 .75rem;} a{color:#0284C7;}
-    .card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;}
-    label{display:block;font-size:.75rem;font-weight:600;color:#475569;text-transform:uppercase;}
-    input,select{width:100%;box-sizing:border-box;padding:.55rem .7rem;border:1.5px solid #E2E8F0;border-radius:8px;font:inherit;}
-    button{padding:.55rem 1rem;border:0;border-radius:8px;background:#002B4E;color:#fff;font:inherit;font-weight:600;cursor:pointer;}
-    button.danger{background:#EF4444;} button.alt{background:#0284C7;}
-    .ok{background:#D1FAE5;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;} .err{background:#FEE2E2;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;}
-    table{width:100%;border-collapse:collapse;font-size:.85rem;} th,td{text-align:left;padding:.5rem;border-bottom:1px solid #E2E8F0;vertical-align:top;}
-    .badge{padding:.1rem .5rem;border-radius:99px;font-size:.75rem;} .valido{background:#D1FAE5;} .revogado{background:#FEE2E2;}
-    form.inline{display:flex;gap:.4rem;} .wrap{overflow-x:auto;}
-  </style>
-</head>
-<body>
-  <p><a href="dashboard.php">← Painel</a> · <a href="autenticar.php">Autenticar certificado</a> · <a href="certificado-modelos.php">Modelos e assinaturas</a> · <a href="certificado-assinar-pdf.php">Assinar PDF pronto</a></p>
-  <h1>Certificados</h1>
+<div class="grid-2">
+  <section class="card">
+    <div class="card-header"><h3>Emitir um certificado</h3></div>
+    <div class="card-body">
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+        <input type="hidden" name="action" value="issue">
+        <div class="grid-form">
+          <div class="field"><label>Modelo</label>
+            <select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select></div>
+          <div class="field"><label>Tipo</label>
+            <select name="tipo"><?php foreach (cert_types() as $k => $v): ?><option value="<?= e($k) ?>"><?= e($v) ?></option><?php endforeach; ?></select></div>
+          <div class="field"><label>Nome da pessoa *</label><input name="nome" required maxlength="180"></div>
+          <div class="field"><label>Evento *</label><input name="evento" required maxlength="220"></div>
+          <div class="field"><label>Carga horária</label><input name="horas" type="number" min="1" max="9999" placeholder="horas"></div>
+          <div class="field"><label>Data</label><input name="data" type="date" value="<?= date('Y-m-d') ?>"></div>
+          <div class="field"><label>E-mail (opcional)</label><input name="email" type="email" maxlength="190"></div>
+        </div>
+        <div class="btn-row"><button type="submit" class="btn">Emitir certificado</button></div>
+      </form>
+    </div>
+  </section>
 
-  <?php if ($msg): ?><div class="ok"><?= e($msg) ?></div><?php endif; ?>
-  <?php foreach ($errors as $er): ?><div class="err"><?= e($er) ?></div><?php endforeach; ?>
+  <section class="card">
+    <div class="card-header"><h3>Importar vários (CSV)</h3><a class="btn-sm outline" href="../assets/admin/exemplo-certificados.csv" download>Baixar CSV de exemplo</a></div>
+    <div class="card-body">
+      <p class="hint" style="margin-bottom:1rem">Uma linha por pessoa. Obrigatórias: <strong>nome</strong> e <strong>evento</strong>. Opcionais: tipo, horas, data, email. Máx. 500 linhas — se uma linha tiver erro, nada é emitido.</p>
+      <button type="button" class="csv-example" id="csvExample" aria-label="Ampliar exemplo de planilha">
+        <img src="../assets/admin/exemplo-csv-certificados.png" alt="Exemplo de planilha com as colunas nome, evento, tipo, horas, data e email">
+        <span>🔍 Clique para ampliar</span>
+      </button>
+      <form method="post" enctype="multipart/form-data" style="margin-top:1rem">
+        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+        <input type="hidden" name="action" value="import">
+        <div class="grid-form">
+          <div class="field"><label>Modelo</label>
+            <select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select></div>
+          <div class="field"><label>Arquivo CSV</label><input type="file" name="csv" accept=".csv,text/csv" required></div>
+        </div>
+        <div class="btn-row"><button type="submit" class="btn">Importar e emitir</button></div>
+      </form>
+    </div>
+  </section>
+</div>
 
-  <div class="card">
-    <h2>Emitir certificado</h2>
-    <form method="post">
-      <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-      <input type="hidden" name="action" value="issue">
-      <div class="grid">
-        <div><label>Modelo<select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select></label></div>
-        <div><label>Nome *<input name="nome" required maxlength="180"></label></div>
-        <div><label>Evento *<input name="evento" required maxlength="220"></label></div>
-        <div><label>Tipo<select name="tipo"><?php foreach (cert_types() as $k => $v): ?><option value="<?= e($k) ?>"><?= e($v) ?></option><?php endforeach; ?></select></label></div>
-        <div><label>Horas<input name="horas" type="number" min="1" max="9999"></label></div>
-        <div><label>Data<input name="data" type="date" value="<?= date('Y-m-d') ?>"></label></div>
-        <div><label>E-mail (opcional)<input name="email" type="email" maxlength="190"></label></div>
-      </div>
-      <p><button type="submit">Emitir</button></p>
-    </form>
+<section class="card">
+  <div class="card-header">
+    <h3>Emitidos (últimos 200)</h3>
+    <form method="get" class="inline-form"><input type="search" name="q" value="<?= e($q) ?>" placeholder="Buscar por nome, código ou evento"><button class="btn-sm" type="submit">Buscar</button></form>
   </div>
-
-  <div class="card">
-    <h2>Importar CSV</h2>
-    <p>Colunas: <code>nome</code>, <code>evento</code> (obrigatórias); <code>tipo</code>, <code>horas</code>, <code>data</code>, <code>email</code> (opcionais). Separador vírgula ou ponto e vírgula. Máx. 500 linhas. Se qualquer linha tiver erro, nada é emitido.</p>
-    <form method="post" enctype="multipart/form-data" class="inline">
-      <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-      <input type="hidden" name="action" value="import">
-      <select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select>
-      <input type="file" name="csv" accept=".csv,text/csv" required>
-      <button type="submit" class="alt">Importar</button>
-    </form>
-  </div>
-
-  <div class="card">
-    <h2>Emitidos (últimos 200)</h2>
-    <form method="get" class="inline" style="margin-bottom:1rem;">
-      <input name="q" value="<?= e($q) ?>" placeholder="Buscar por nome, código ou evento">
-      <button type="submit">Buscar</button>
-    </form>
-    <div class="wrap">
-    <table>
-      <thead><tr><th>Código</th><th>Nome</th><th>Evento</th><th>Tipo</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
-      <tbody>
-      <?php foreach ($rows as $r): ?>
-        <tr>
-          <td><a href="<?= e(cert_verify_url($r['code'])) ?>" target="_blank" rel="noopener"><?= e($r['code']) ?></a></td>
-          <td><?= e($r['holder_name']) ?></td>
-          <td><?= e($r['event_name']) ?></td>
-          <td><?= e(cert_types()[$r['cert_type']] ?? $r['cert_type']) ?></td>
-          <td><?= e($r['issued_at']) ?></td>
-          <td><span class="badge <?= e($r['status']) ?>"><?= e($r['status']) ?></span><?= $r['revoked_reason'] ? '<br><small>' . e($r['revoked_reason']) . '</small>' : '' ?></td>
-          <td>
-            <a href="?pdf=<?= (int)$r['id'] ?>">PDF</a>
-            <form method="post" class="inline" style="margin-top:.4rem;">
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Código</th><th>Nome</th><th>Evento</th><th>Tipo</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+    <tbody>
+    <?php foreach ($rows as $r): ?>
+      <tr>
+        <td class="mono"><a href="autenticar.php?c=<?= e(rawurlencode($r['code'])) ?>"><?= e($r['code']) ?></a></td>
+        <td><strong><?= e($r['holder_name']) ?></strong></td>
+        <td><?= e($r['event_name']) ?></td>
+        <td><?= e(cert_types()[$r['cert_type']] ?? $r['cert_type']) ?></td>
+        <td><?= e(date('d/m/Y', (int)strtotime((string)$r['issued_at']))) ?></td>
+        <td><span class="badge <?= e($r['status']) ?>"><?= e($r['status']) ?></span><?= $r['revoked_reason'] ? '<br><small class="hint">' . e($r['revoked_reason']) . '</small>' : '' ?></td>
+        <td>
+          <div class="actions">
+            <a class="btn-sm outline" href="?pdf=<?= (int)$r['id'] ?>">PDF</a>
+            <a class="btn-sm outline" href="<?= e(cert_verify_url($r['code'])) ?>" target="_blank" rel="noopener">Link</a>
+            <form method="post" class="inline-form" style="flex-wrap:nowrap">
               <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
               <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
               <?php if ($r['status'] === 'valido'): ?>
                 <input type="hidden" name="action" value="revoke">
-                <input name="reason" placeholder="Motivo" maxlength="255" required>
-                <button class="danger" onclick="return confirm('Revogar este certificado?')">Revogar</button>
+                <input type="text" name="reason" placeholder="Motivo" maxlength="255" required style="min-width:110px">
+                <button class="btn-sm danger" onclick="return confirm('Revogar este certificado?')">Revogar</button>
               <?php else: ?>
                 <input type="hidden" name="action" value="reactivate">
-                <button class="alt">Reativar</button>
+                <button class="btn-sm">Reativar</button>
               <?php endif; ?>
             </form>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-      <?php if (!$rows): ?><tr><td colspan="7">Nenhum certificado.</td></tr><?php endif; ?>
-      </tbody>
-    </table>
-    </div>
+          </div>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+    <?php if (!$rows): ?><tr><td colspan="7" class="empty">Nenhum certificado emitido ainda.</td></tr><?php endif; ?>
+    </tbody>
+  </table>
   </div>
-</body>
-</html>
+</section>
+
+<div class="lightbox" id="lightbox" hidden><img src="../assets/admin/exemplo-csv-certificados.png" alt="Exemplo ampliado da planilha"><button type="button" class="btn" id="lightboxClose">Fechar</button></div>
+<style>
+  .csv-example{display:block;width:100%;padding:0;border:1.5px solid var(--slate-200);border-radius:10px;background:#fff;cursor:zoom-in;position:relative;overflow:hidden;}
+  .csv-example img{display:block;width:100%;height:auto;}
+  .csv-example span{position:absolute;right:8px;bottom:8px;background:rgba(0,43,78,.88);color:#fff;font-size:.75rem;font-weight:600;padding:.3rem .6rem;border-radius:6px;}
+  .csv-example:hover{border-color:var(--sky);}
+  .lightbox{position:fixed;inset:0;background:rgba(15,23,42,.8);z-index:500;display:flex;flex-direction:column;gap:1rem;align-items:center;justify-content:center;padding:2rem;}
+  .lightbox[hidden]{display:none;} .lightbox img{max-width:min(1100px,100%);max-height:80vh;background:#fff;border-radius:10px;}
+</style>
+<?php
+admin_page_end('<script>
+(function(){var lb=document.getElementById("lightbox");
+document.getElementById("csvExample").onclick=function(){lb.hidden=false;};
+lb.onclick=function(e){if(e.target===lb||e.target.id==="lightboxClose")lb.hidden=true;};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")lb.hidden=true;});})();
+</script>');

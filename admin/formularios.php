@@ -30,44 +30,25 @@ if (($_GET['export'] ?? '') === 'csv') {
     }
     exit;
 }
+admin_page_start('Formulários', 'formularios', 'Contato, filiação e inscrições recebidos pelo site',
+    '<a class="btn-sm outline" href="?export=csv' . ($tipo !== '' ? '&amp;tipo=' . e($tipo) : '') . '">Exportar CSV</a>');
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Formulários — Admin CoBraLT</title>
-  <style>
-    body{font-family:'Segoe UI',sans-serif;background:#F1F5F9;color:#1E293B;margin:0;padding:2rem;}
-    h1{color:#002B4E;font-size:1.3rem;} a{color:#0284C7;}
-    .card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:1rem 1.25rem;margin:0 0 1rem;}
-    .meta{font-size:.8rem;color:#64748B;margin-bottom:.5rem;}
-    dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:.2rem 1rem;}
-    dt{font-weight:600;color:#475569;} dd{margin:0;word-break:break-word;}
-  </style>
-</head>
-<body>
-  <p><a href="dashboard.php">← Painel</a></p>
-  <h1>Formulários recebidos</h1>
-  <p>
-    Filtrar:
-    <a href="formularios.php">todos</a>
-    <?php foreach ($types as $t): ?> · <a href="?tipo=<?= e((string)$t) ?>"><?= e((string)$t) ?></a><?php endforeach; ?>
-    · <a href="?export=csv<?= $tipo !== '' ? '&amp;tipo=' . e($tipo) : '' ?>">Exportar CSV</a>
-  </p>
-  <?php if (!$rows): ?><p>Nenhum envio ainda.</p><?php endif; ?>
-  <?php foreach ($rows as $r):
-    $data = json_decode((string)$r['payload_json'], true);
-    $data = is_array($data) ? $data : []; ?>
-    <div class="card">
-      <div class="meta">#<?= (int)$r['id'] ?> · <?= e((string)$r['type']) ?> · <?= e((string)$r['created_at']) ?> · <?= e((string)$r['ip']) ?></div>
-      <dl>
-        <?php foreach ($data as $k => $v): ?>
-          <dt><?= e((string)$k) ?></dt><dd><?= e((string)$v) ?></dd>
-        <?php endforeach; ?>
+<div class="btn-row" style="margin:0 0 1.25rem">
+  <a class="btn-sm <?= $tipo === '' ? '' : 'outline' ?>" href="formularios.php">Todos</a>
+  <?php foreach ($types as $t): ?><a class="btn-sm <?= $tipo === $t ? '' : 'outline' ?>" href="?tipo=<?= e(rawurlencode((string)$t)) ?>"><?= e((string)$t) ?></a><?php endforeach; ?>
+</div>
+<?php if (!$rows): ?><div class="card"><p class="empty">Nenhum envio ainda.</p></div><?php endif; ?>
+<?php foreach ($rows as $r):
+  $data = json_decode((string)$r['payload_json'], true);
+  $data = is_array($data) ? $data : []; ?>
+  <section class="card">
+    <div class="card-header"><h3><?= e((string)$r['type']) ?> <span class="hint">#<?= (int)$r['id'] ?></span></h3><span class="hint"><?= e((string)$r['created_at']) ?> · <?= e((string)$r['ip']) ?></span></div>
+    <div class="card-body">
+      <dl style="display:grid;grid-template-columns:max-content 1fr;gap:.35rem 1.25rem;margin:0">
+        <?php foreach ($data as $k => $v): ?><dt style="font-weight:700;color:var(--slate-600)"><?= e((string)$k) ?></dt><dd style="margin:0;word-break:break-word"><?= e((string)$v) ?></dd><?php endforeach; ?>
       </dl>
     </div>
-  <?php endforeach; ?>
-</body>
-</html>
+  </section>
+<?php endforeach; ?>
+<?php
+admin_page_end();

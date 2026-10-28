@@ -86,78 +86,63 @@ $layout = array_replace_recursive(cert_default_layout(), json_decode((string)$tp
 $page = $tpl['orientation'] === 'P' ? ['w' => 210, 'h' => 297] : ['w' => 297, 'h' => 210];
 $sigMap = [];
 foreach ($signers as $sg) { $sigMap[$sg['id']] = ['name' => $sg['name'], 'role' => $sg['role'], 'image' => $sg['image_file']]; }
+admin_page_start('Modelo: ' . $tpl['name'], 'modelos', 'Arraste os elementos sobre a arte e salve', '<a class="btn-sm outline" href="certificado-modelos.php">← Modelos</a>');
+admin_alerts($msg, $errors);
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Editar modelo — Admin CoBraLT</title>
-  <style>
-    body{font-family:'Segoe UI',sans-serif;background:#F1F5F9;color:#1E293B;margin:0;padding:1.5rem;}
-    h1{color:#002B4E;font-size:1.3rem;} h2{color:#002B4E;font-size:1rem;margin:0 0 .5rem;} a{color:#0284C7;}
-    .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:1.25rem;align-items:start;} @media(max-width:1000px){.layout{grid-template-columns:1fr;}}
-    .card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:1rem;margin-bottom:1rem;}
-    label{display:block;font-size:.75rem;font-weight:600;color:#475569;text-transform:uppercase;margin-top:.6rem;}
-    input,select,textarea{width:100%;box-sizing:border-box;padding:.5rem .6rem;border:1.5px solid #E2E8F0;border-radius:8px;font:inherit;}
-    input[type=color]{padding:0;height:34px;} input[type=file]{padding:.3rem;}
-    button,.btn{padding:.55rem 1rem;border:0;border-radius:8px;background:#002B4E;color:#fff;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;}
-    .ok{background:#D1FAE5;border-radius:8px;padding:.6rem 1rem;margin-bottom:1rem;} .err{background:#FEE2E2;border-radius:8px;padding:.6rem 1rem;margin-bottom:1rem;}
-    #stage{position:relative;width:100%;background:#fff center/100% 100% no-repeat;border:1px solid #CBD5E1;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;touch-action:none;}
-    .el{position:absolute;border:1.5px dashed #0EA5E9;background:rgba(14,165,233,.08);cursor:move;overflow:hidden;box-sizing:border-box;user-select:none;line-height:1.2;}
-    .el.sel{border-style:solid;background:rgba(14,165,233,.2);} .el small{position:absolute;top:0;left:0;background:#0EA5E9;color:#fff;font-size:10px;padding:0 3px;}
-    .el img{width:60%;margin:0 20%;display:block;} .hint{font-size:.78rem;color:#64748B;}
-    .row2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
-  </style>
-</head>
-<body>
-  <p><a href="certificado-modelos.php">← Modelos</a> · <a href="certificados.php">Certificados</a></p>
-  <h1>Modelo: <?= e($tpl['name']) ?></h1>
-  <?php if ($msg): ?><div class="ok"><?= e($msg) ?></div><?php endif; ?>
-  <?php foreach ($errors as $er): ?><div class="err"><?= e($er) ?></div><?php endforeach; ?>
-
-  <form method="post" enctype="multipart/form-data" id="f">
-    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-    <input type="hidden" name="layout_json" id="layout_json">
-    <input type="hidden" name="orientation" value="<?= e($tpl['orientation']) ?>">
-    <div class="layout">
-      <div>
-        <div class="card">
-          <p class="hint" style="margin-top:0">Arraste cada caixa para o lugar certo sobre a arte. Clique numa caixa para ajustar tamanho, cor e largura no painel ao lado. Depois use "Salvar" e "Prévia PDF".</p>
-          <div id="stage" style="aspect-ratio:<?= $page['w'] ?>/<?= $page['h'] ?>;<?= ($bg = cert_asset_path($tpl['background_file'])) ? "background-image:url('certificado-modelos.php?asset=" . e($tpl['background_file']) . "')" : '' ?>"></div>
-          <?php if (!$bg): ?><p class="hint">Sem arte de fundo ainda: envie uma imagem no painel ao lado.</p><?php endif; ?>
-        </div>
+<style>
+  .editor{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:1.5rem;align-items:start;} @media(max-width:1100px){.editor{grid-template-columns:1fr;}}
+  #stage{position:relative;width:100%;background:#fff center/100% 100% no-repeat;border:1px solid #CBD5E1;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden;touch-action:none;}
+  .el{position:absolute;border:1.5px dashed #0EA5E9;background:rgba(14,165,233,.08);cursor:move;overflow:hidden;box-sizing:border-box;user-select:none;line-height:1.2;}
+  .el.sel{border-style:solid;background:rgba(14,165,233,.2);} .el small{position:absolute;top:0;left:0;background:#0EA5E9;color:#fff;font-size:10px;padding:0 3px;}
+  .el img{width:60%;margin:0 20%;display:block;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;} .field+.field,.row2+.field{margin-top:.8rem;}
+</style>
+<form method="post" enctype="multipart/form-data" id="f">
+  <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+  <input type="hidden" name="layout_json" id="layout_json">
+  <input type="hidden" name="orientation" value="<?= e($tpl['orientation']) ?>">
+  <div class="editor">
+    <section class="card">
+      <div class="card-header"><h3>Posicionar elementos</h3></div>
+      <div class="card-body">
+        <p class="hint" style="margin-bottom:1rem">Arraste cada caixa para o lugar certo sobre a arte. Clique numa caixa para ajustar largura, fonte e cor no painel ao lado. Depois use "Salvar" e "Prévia PDF".</p>
+        <div id="stage" style="aspect-ratio:<?= $page['w'] ?>/<?= $page['h'] ?>;<?= ($bg = cert_asset_path($tpl['background_file'])) ? "background-image:url('certificado-modelos.php?asset=" . e($tpl['background_file']) . "')" : '' ?>"></div>
+        <?php if (!$bg): ?><p class="hint" style="margin-top:.75rem">Sem arte de fundo ainda: envie uma imagem no painel ao lado.</p><?php endif; ?>
       </div>
-      <div>
-        <div class="card">
-          <h2>Modelo</h2>
-          <label>Nome<input name="name" value="<?= e($tpl['name']) ?>" required maxlength="160"></label>
-          <label>Arte de fundo (JPG/PNG, até 8 MB)<input type="file" name="background" accept="image/png,image/jpeg"></label>
+    </section>
+    <div>
+      <section class="card">
+        <div class="card-header"><h3>Modelo</h3></div>
+        <div class="card-body">
+          <div class="field"><label>Nome</label><input name="name" value="<?= e($tpl['name']) ?>" required maxlength="160"></div>
+          <div class="field"><label>Arte de fundo (JPG/PNG, até 8 MB)</label><input type="file" name="background" accept="image/png,image/jpeg"></div>
           <p class="hint">A página (A4) acompanha o formato da imagem: horizontal ou vertical.</p>
-          <label>Texto do certificado
-            <textarea name="body_text" rows="3" maxlength="600"><?= e((string)($tpl['body_text'] ?: cert_default_body())) ?></textarea></label>
+          <div class="field"><label>Texto do certificado</label>
+            <textarea name="body_text" rows="3" maxlength="600"><?= e((string)($tpl['body_text'] ?: cert_default_body())) ?></textarea></div>
           <p class="hint">Campos: {nome} {evento} {tipo} {tipo_frase} {horas} {horas_frase} {data}</p>
           <div class="row2">
-            <label>Assinante 1<select name="signer1_id"><option value="0">—</option><?php foreach ($signers as $sg): ?><option value="<?= (int)$sg['id'] ?>" <?= (int)$tpl['signer1_id'] === (int)$sg['id'] ? 'selected' : '' ?>><?= e($sg['name']) ?></option><?php endforeach; ?></select></label>
-            <label>Assinante 2<select name="signer2_id"><option value="0">—</option><?php foreach ($signers as $sg): ?><option value="<?= (int)$sg['id'] ?>" <?= (int)$tpl['signer2_id'] === (int)$sg['id'] ? 'selected' : '' ?>><?= e($sg['name']) ?></option><?php endforeach; ?></select></label>
+            <div class="field"><label>Assinante 1</label><select name="signer1_id"><option value="0">—</option><?php foreach ($signers as $sg): ?><option value="<?= (int)$sg['id'] ?>" <?= (int)$tpl['signer1_id'] === (int)$sg['id'] ? 'selected' : '' ?>><?= e($sg['name']) ?></option><?php endforeach; ?></select></div>
+            <div class="field"><label>Assinante 2</label><select name="signer2_id"><option value="0">—</option><?php foreach ($signers as $sg): ?><option value="<?= (int)$sg['id'] ?>" <?= (int)$tpl['signer2_id'] === (int)$sg['id'] ? 'selected' : '' ?>><?= e($sg['name']) ?></option><?php endforeach; ?></select></div>
           </div>
         </div>
-        <div class="card" id="props" hidden>
-          <h2 id="pname"></h2>
-          <div class="row2">
-            <label>Largura (%)<input type="number" id="p_w" min="2" max="100" step="0.5"></label>
-            <label id="l_size">Fonte (pt)<input type="number" id="p_size" min="6" max="80" step="1"></label>
-            <label id="l_color">Cor<input type="color" id="p_color"></label>
-            <label id="l_align">Alinhamento<select id="p_align"><option value="L">Esquerda</option><option value="C">Centro</option><option value="R">Direita</option></select></label>
-          </div>
-        </div>
-        <button type="submit">Salvar</button>
-        <a class="btn" style="background:#0284C7" href="?id=<?= (int)$tpl['id'] ?>&amp;preview=1" target="_blank">Prévia PDF</a>
-        <p class="hint">A prévia usa o último modelo salvo.</p>
+      </section>
+      <section class="card" id="props" hidden>
+        <div class="card-header"><h3 id="pname"></h3></div>
+        <div class="card-body"><div class="row2">
+          <div class="field"><label>Largura (%)</label><input type="number" id="p_w" min="2" max="100" step="0.5"></div>
+          <div class="field" id="l_size"><label>Fonte (pt)</label><input type="number" id="p_size" min="6" max="80" step="1"></div>
+          <div class="field" id="l_color"><label>Cor</label><input type="color" id="p_color" style="padding:0;height:38px"></div>
+          <div class="field" id="l_align"><label>Alinhamento</label><select id="p_align"><option value="L">Esquerda</option><option value="C">Centro</option><option value="R">Direita</option></select></div>
+        </div></div>
+      </section>
+      <div class="btn-row" style="margin-top:0">
+        <button type="submit" class="btn">Salvar modelo</button>
+        <a class="btn outline" href="?id=<?= (int)$tpl['id'] ?>&amp;preview=1" target="_blank">Prévia PDF</a>
       </div>
+      <p class="hint" style="margin-top:.5rem">A prévia usa o último modelo salvo.</p>
     </div>
-  </form>
+  </div>
+</form>
 
 <script>
 (function(){
@@ -233,5 +218,4 @@ foreach ($signers as $sg) { $sigMap[$sg['id']] = ['name' => $sg['name'], 'role' 
   build();
 })();
 </script>
-</body>
-</html>
+<?php admin_page_end(); ?>

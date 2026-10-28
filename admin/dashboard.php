@@ -30,6 +30,7 @@ $pendingMigrations = count(array_filter(
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <?php admin_shared_css(); ?>
   <style>
     :root {
       --navy:#002B4E; --sky:#0EA5E9; --sky-dark:#0284C7;
@@ -42,109 +43,6 @@ $pendingMigrations = count(array_filter(
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:var(--font-body);background:var(--slate-100);color:var(--slate-800);display:flex;min-height:100vh;}
-
-    /* ─── SIDEBAR ─────────────────────────────────────── */
-    .sidebar {
-      width:var(--sidebar-w);
-      background:var(--navy);
-      color:#fff;
-      display:flex;
-      flex-direction:column;
-      position:fixed;
-      top:0;bottom:0;left:0;
-      z-index:100;
-      overflow-y:auto;
-    }
-
-    .sidebar-header {
-      padding:1.5rem 1.25rem 1rem;
-      border-bottom:1px solid rgba(255,255,255,0.08);
-      display:flex;align-items:center;gap:10px;
-    }
-
-    .sidebar-logo-mark {
-      width:36px;height:36px;
-      background:rgba(14,165,233,0.25);
-      border-radius:8px;
-      display:flex;align-items:center;justify-content:center;
-      flex-shrink:0;
-    }
-
-    .sidebar-logo-mark svg{width:18px;height:18px;fill:none;stroke:#38BDF8;stroke-width:2;stroke-linecap:round;}
-
-    .sidebar-brand h1{font-family:var(--font-display);font-size:1rem;font-weight:800;color:#fff;line-height:1;}
-    .sidebar-brand p{font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:2px;}
-
-    .sidebar-nav {
-      flex:1;
-      padding:1rem 0.75rem;
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
-
-    .nav-label {
-      font-size:0.65rem;font-weight:700;
-      color:rgba(255,255,255,0.3);
-      text-transform:uppercase;letter-spacing:0.1em;
-      padding:0.75rem 0.75rem 0.25rem;
-      margin-top:0.5rem;
-    }
-
-    .sidebar-nav a {
-      display:flex;align-items:center;gap:10px;
-      padding:0.6rem 0.875rem;
-      border-radius:8px;
-      color:rgba(255,255,255,0.6);
-      text-decoration:none;
-      font-size:0.9rem;
-      font-weight:500;
-      transition:all 0.15s;
-    }
-
-    .sidebar-nav a svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;flex-shrink:0;}
-    .sidebar-nav a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-    .sidebar-nav a.active{background:rgba(14,165,233,0.2);color:#38BDF8;}
-
-    .sidebar-footer {
-      padding:1rem 0.75rem;
-      border-top:1px solid rgba(255,255,255,0.08);
-    }
-
-    .user-info {
-      display:flex;align-items:center;gap:10px;
-      padding:0.75rem;
-      border-radius:8px;
-      background:rgba(255,255,255,0.05);
-      margin-bottom:0.75rem;
-    }
-
-    .user-avatar {
-      width:32px;height:32px;
-      background:rgba(14,165,233,0.3);
-      border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      font-size:0.8rem;font-weight:700;color:#38BDF8;
-      flex-shrink:0;
-    }
-
-    .user-name{font-size:0.85rem;font-weight:600;color:#fff;line-height:1;}
-    .user-role{font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:2px;text-transform:capitalize;}
-
-    .btn-logout {
-      display:flex;align-items:center;justify-content:center;gap:8px;
-      width:100%;padding:0.6rem;
-      background:rgba(239,68,68,0.1);
-      color:rgba(239,68,68,0.8);
-      border:1px solid rgba(239,68,68,0.2);
-      border-radius:8px;
-      font-size:0.85rem;font-weight:600;
-      text-decoration:none;cursor:pointer;
-      transition:all 0.15s;font-family:var(--font-body);
-    }
-
-    .btn-logout:hover{background:rgba(239,68,68,0.2);color:#EF4444;}
-    .btn-logout svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;}
 
     /* ─── MAIN ────────────────────────────────────────── */
     .main {
@@ -283,8 +181,6 @@ $pendingMigrations = count(array_filter(
     .migration-badge.changed{background:#FEE2E2;color:#991B1B;}
 
     @media(max-width:768px){
-      .sidebar{transform:translateX(-100%);transition:transform 0.25s;}
-      .sidebar.open{transform:translateX(0);}
       .main{margin-left:0;}
     }
   </style>
@@ -292,80 +188,7 @@ $pendingMigrations = count(array_filter(
 <body>
 
 <!-- ─── SIDEBAR ─────────────────────────────────────────── -->
-<aside class="sidebar">
-  <div class="sidebar-header">
-    <div class="sidebar-logo-mark">
-      <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-    </div>
-    <div class="sidebar-brand">
-      <h1>CoBraLT</h1>
-      <p>Painel Admin</p>
-    </div>
-  </div>
-
-  <nav class="sidebar-nav" aria-label="Menu admin">
-    <div class="nav-label">Geral</div>
-    <a href="dashboard.php" class="active">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Dashboard
-    </a>
-
-    <div class="nav-label">Conteúdo</div>
-    <a href="posts.php">
-      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      Notícias
-    </a>
-    <a href="post-editor.php">
-      <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      Nova notícia
-    </a>
-    <a href="pages.php">
-      <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-      Páginas
-    </a>
-    <a href="apoiadores.php">
-      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
-      Apoiadores
-    </a>
-
-    <a href="certificados.php">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></svg>
-      Certificados
-    </a>
-    <a href="autenticar.php">
-      <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
-      Autenticar certificado
-    </a>
-    <a href="formularios.php">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><polyline points="4 8 12 13 20 8"/></svg>
-      Formulários
-    </a>
-
-    <div class="nav-label">Sistema</div>
-    <a href="usuarios.php">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      Usuários
-    </a>
-    <a href="../index.php" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      Ver site
-    </a>
-  </nav>
-
-  <div class="sidebar-footer">
-    <div class="user-info">
-      <div class="user-avatar"><?= strtoupper(substr(e($adminUser), 0, 1)) ?></div>
-      <div>
-        <div class="user-name"><?= e($adminUser) ?></div>
-        <div class="user-role"><?= e($adminRole) ?></div>
-      </div>
-    </div>
-    <a href="../api/logout.php" class="btn-logout">
-      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      Sair
-    </a>
-  </div>
-</aside>
+<?php admin_sidebar('dashboard'); ?>
 
 <!-- ─── MAIN ──────────────────────────────────────────────── -->
 <div class="main">

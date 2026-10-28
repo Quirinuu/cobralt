@@ -56,9 +56,10 @@ $tpl = ['orientation' => 'L', 'background_file' => null, 'body_text' => '{nome} 
 $tplPdf = cert_render_template($row, $tpl, ['sig1' => ['name' => 'Fulano de Tal', 'role' => 'Presidente', 'image_file' => null], 'sig2' => null]);
 check(str_starts_with($tplPdf, '%PDF') && cert_extract_code_from_pdf($tplPdf) === $row['code'], 'PDF de modelo traz o codigo');
 
-[$stamped, $serr] = cert_stamp_pdf(dirname(__DIR__) . '/assets/pdfs/programa-party-brasil-2026-ficha.pdf', $row, ['name' => 'Fulano', 'role' => 'Dir', 'image_file' => null], 'br', 'first');
+[$stamped, $serr] = cert_stamp_pdf(dirname(__DIR__) . '/assets/pdfs/programa-party-brasil-2026-ficha.pdf', $row, ['name' => 'Fulano', 'role' => 'Dir', 'image_file' => null], ['page' => 1, 'x' => 70, 'y' => 85, 'w' => 22]);
 check($stamped !== null && cert_extract_code_from_pdf($stamped) === $row['code'], 'carimba PDF pronto e grava o codigo');
-check(cert_stamp_pdf(__FILE__, $row, null)[0] === null, 'recusa arquivo que nao e PDF no carimbo');
+check(cert_stamp_pdf(dirname(__DIR__) . '/assets/pdfs/programa-party-brasil-2026-ficha.pdf', $row, null, ['page' => 99])[0] === null, 'recusa pagina inexistente');
+check(cert_stamp_pdf(__FILE__, $row, null, ['page' => 1])[0] === null, 'recusa arquivo que nao e PDF no carimbo');
 
 $db->prepare('UPDATE certificates SET pdf_sha256 = ? WHERE id = ?')->execute([hash('sha256', $stamped), $row['id']]);
 check(cert_verify_pdf($db, $stamped)['identical'] === true, 'verifica por hash guardado');

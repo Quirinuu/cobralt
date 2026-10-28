@@ -39,28 +39,12 @@ $blocksJson = json_encode(
   <title><?= e($pageTitle) ?> — Admin CoBraLT</title>
   <meta name="robots" content="noindex, nofollow">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <?php admin_shared_css(); ?>
   <style>
     :root{--navy:#002B4E;--sky:#0EA5E9;--sky-dark:#0284C7;--success:#10B981;--danger:#EF4444;--slate-50:#F8FAFC;--slate-100:#F1F5F9;--slate-200:#E2E8F0;--slate-300:#CBD5E1;--slate-400:#94A3B8;--slate-500:#64748B;--slate-600:#475569;--slate-800:#1E293B;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans','Segoe UI',sans-serif;--sidebar-w:240px;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:var(--font-body);background:var(--slate-100);color:var(--slate-800);display:flex;min-height:100vh;}
-    .sidebar{width:var(--sidebar-w);background:var(--navy);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:100;overflow-y:auto;}
-    .sidebar-header{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px;}
-    .sidebar-logo-mark{width:36px;height:36px;background:rgba(14,165,233,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
     .sidebar-logo-mark svg,.sidebar-nav a svg,.btn svg,.btn-logout svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;}
-    .sidebar-brand h1{font-family:var(--font-display);font-size:1rem;font-weight:800;color:#fff;line-height:1;}
-    .sidebar-brand p{font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:2px;}
-    .sidebar-nav{flex:1;padding:1rem 0.75rem;display:flex;flex-direction:column;gap:2px;}
-    .nav-label{font-size:0.65rem;font-weight:800;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;padding:0.75rem 0.75rem 0.25rem;margin-top:0.5rem;}
-    .sidebar-nav a{display:flex;align-items:center;gap:10px;padding:0.6rem 0.875rem;border-radius:8px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.9rem;font-weight:600;transition:all 0.15s;}
-    .sidebar-nav a svg{width:16px;height:16px;flex-shrink:0;}
-    .sidebar-nav a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-    .sidebar-nav a.active{background:rgba(14,165,233,0.2);color:#38BDF8;}
-    .sidebar-footer{padding:1rem 0.75rem;border-top:1px solid rgba(255,255,255,0.08);}
-    .user-info{display:flex;align-items:center;gap:10px;padding:0.75rem;border-radius:8px;background:rgba(255,255,255,0.05);margin-bottom:0.75rem;}
-    .user-avatar{width:32px;height:32px;background:rgba(14,165,233,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:800;color:#38BDF8;flex-shrink:0;}
-    .user-name{font-size:0.85rem;font-weight:700;color:#fff;line-height:1;}
-    .user-role{font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:2px;text-transform:capitalize;}
-    .btn-logout{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:0.6rem;background:rgba(239,68,68,0.1);color:rgba(239,68,68,0.85);border:1px solid rgba(239,68,68,0.2);border-radius:8px;font-size:0.85rem;font-weight:700;text-decoration:none;}
     .main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;}
     .topbar{height:64px;background:#fff;border-bottom:1px solid var(--slate-200);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
     .topbar h2{font-family:var(--font-display);font-size:1.18rem;font-weight:800;color:var(--navy);}
@@ -131,36 +115,12 @@ $blocksJson = json_encode(
     .toast.success{background:#D1FAE5;color:#065F46;}
     .toast.error{background:#FEE2E2;color:#991B1B;}
     @media(max-width:1100px){.builder-shell{grid-template-columns:1fr}.blocks-panel{position:relative;top:auto}.blocks-list{max-height:none}.field-grid.two{grid-template-columns:1fr 1fr}.page-settings{grid-template-columns:1fr}.status-toggle{justify-content:flex-start}}
-    @media(max-width:760px){body{display:block}.sidebar{position:relative;width:100%;height:auto}.main{margin-left:0}.topbar{height:auto;padding:1rem;align-items:flex-start;gap:1rem;flex-direction:column}.content{padding:1rem}.field-grid,.field-grid.two,.block-types,.item-two,.item-row{grid-template-columns:1fr}.topbar-actions{width:100%}.btn{flex:1}.saving-indicator{text-align:left}}
+    @media(max-width:760px){body{display:block}.main{margin-left:0}.topbar{height:auto;padding:1rem;align-items:flex-start;gap:1rem;flex-direction:column}.content{padding:1rem}.field-grid,.field-grid.two,.block-types,.item-two,.item-row{grid-template-columns:1fr}.topbar-actions{width:100%}.btn{flex:1}.saving-indicator{text-align:left}}
   </style>
 </head>
 <body>
 
-<aside class="sidebar">
-  <div class="sidebar-header">
-    <div class="sidebar-logo-mark"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-    <div class="sidebar-brand"><h1>CoBraLT</h1><p>Painel Admin</p></div>
-  </div>
-  <nav class="sidebar-nav">
-    <div class="nav-label">Geral</div>
-    <a href="dashboard.php"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
-    <div class="nav-label">Conteudo</div>
-    <a href="posts.php"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Notícias</a>
-    <a href="post-editor.php"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Nova notícia</a>
-    <a href="pages.php" class="active"><svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>Paginas</a>
-    <a href="apoiadores.php"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>Apoiadores</a>
-    <div class="nav-label">Sistema</div>
-    <a href="usuarios.php"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Usuarios</a>
-    <a href="../index.php" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ver site</a>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="user-info">
-      <div class="user-avatar"><?= strtoupper(substr(e($adminUser), 0, 1)) ?></div>
-      <div><div class="user-name"><?= e($adminUser) ?></div><div class="user-role"><?= e($adminRole) ?></div></div>
-    </div>
-    <a href="../api/logout.php" class="btn-logout"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sair</a>
-  </div>
-</aside>
+<?php admin_sidebar('pages'); ?>
 
 <div class="main">
   <div class="topbar">
