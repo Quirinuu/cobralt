@@ -44,8 +44,14 @@ function cert_create_tables(PDO $db): void {
         ip VARCHAR(64) NULL,
         created_at VARCHAR(19) NOT NULL
     ){$tail}");
-    // MySQL não aceita IF NOT EXISTS em índice; a migração roda uma única vez.
-    $db->exec('CREATE INDEX idx_cert_checks_ip ON certificate_checks (ip, created_at)');
+    // MySQL não aceita IF NOT EXISTS em índice: tolera "já existe" para a migração poder ser reexecutada.
+    try {
+        $db->exec('CREATE INDEX idx_cert_checks_ip ON certificate_checks (ip, created_at)');
+    } catch (PDOException $e) {
+        if (stripos($e->getMessage(), 'already exists') === false && stripos($e->getMessage(), 'duplicate key name') === false) {
+            throw $e;
+        }
+    }
 }
 
 /** Gera 12 símbolos aleatórios (60 bits). */
@@ -152,7 +158,7 @@ function cert_log_check(PDO $db, string $codeTried, bool $found, string $ip): vo
        ->execute([mb_substr($codeTried, 0, 40, 'UTF-8'), $found ? 1 : 0, $ip, date('Y-m-d H:i:s')]);
 }
 
-/** v2: modelos, assinantes e arquivo/hash do PDF emitido. Roda uma única vez (migração 2026102802). */
+/** v2: modelos, assinantes e arquivo/hash do PDF emitido (migração 2026102802). */
 function cert_upgrade_tables_v2(PDO $db): void {
     $sqlite = db_driver($db) === 'sqlite';
     $id   = $sqlite ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT UNSIGNED AUTO_INCREMENT PRIMARY KEY';
@@ -176,6 +182,7 @@ function cert_upgrade_tables_v2(PDO $db): void {
         created_at VARCHAR(19) NOT NULL
     ){$tail}");
     foreach (['template_id INT NULL', 'pdf_file VARCHAR(80) NULL', 'pdf_sha256 VARCHAR(64) NULL', 'source VARCHAR(20) NULL'] as $col) {
-        $db->exec('ALTER TABLE certificates ADD COLUMN ' . $col);
+        // idempotente: se uma execução anterior parou no meio, a seguinte completa o que falta
+        db_add_column_if_missing($db, 'certificates', explode(' ', $col)[0], 'ALTER TABLE certificates ADD COLUMN ' . $col);
     }
 }
