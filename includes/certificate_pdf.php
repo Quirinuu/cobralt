@@ -16,9 +16,29 @@ function cert_pdf_text(string $s): string {
     return $out === false ? $s : $out;
 }
 
+/** FPDF com data de criação fixa (a da emissão): o mesmo certificado gera sempre o mesmo arquivo. */
+class CertPdf extends FPDF {
+    public function __construct(string $issuedAt) {
+        parent::__construct('L', 'mm', 'A4');
+        $this->CreationDate = strtotime($issuedAt . ' 12:00:00 UTC') ?: 0;
+    }
+
+    protected function _putinfo()
+    {
+        $this->metadata['CreationDate'] = 'D:' . gmdate('YmdHis', $this->CreationDate) . "Z";
+        foreach ($this->metadata as $key => $value) {
+            $this->_put('/' . $key . ' ' . $this->_textstring($value));
+        }
+    }
+}
+
 function cert_pdf(array $c): string {
     $navy = [0, 43, 78];
-    $pdf = new FPDF('L', 'mm', 'A4');
+    $pdf = new CertPdf((string)$c['issued_at']);
+    $pdf->SetCompression(false); // saída 100% determinística, independente da versão do zlib
+    $pdf->SetTitle('Certificado ' . $c['code']);
+    $pdf->SetSubject((string)$c['code']);   // lido pelo verificador de PDF
+    $pdf->SetCreator('CoBraLT');
     $pdf->SetAutoPageBreak(false);
     $pdf->AddPage();
 

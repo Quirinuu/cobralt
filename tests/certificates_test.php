@@ -36,4 +36,16 @@ for ($i = 0; $i < 30; $i++) { cert_log_check($db, 'X', false, '1.2.3.4'); }
 check(cert_check_rate_limited($db, '1.2.3.4') && !cert_check_rate_limited($db, '9.9.9.9'), 'rate limit por IP');
 
 check(str_starts_with(cert_pdf($row), '%PDF'), 'gera PDF');
+
+require_once dirname(__DIR__) . '/includes/certificate_verify.php';
+$pdf = cert_pdf($row);
+check($pdf === cert_pdf($row), 'PDF deterministico');
+check(cert_extract_code_from_pdf($pdf) === $row['code'], 'extrai codigo do PDF');
+$r = cert_verify_pdf($db, $pdf);
+check($r['state'] === 'found' && $r['identical'], 'PDF original e identico');
+$r = cert_verify_pdf($db, str_replace('MARIA', 'MARTA', $pdf));
+check($r['state'] === 'found' && !$r['identical'], 'PDF alterado e detectado');
+check(cert_verify_pdf($db, 'not a pdf')['state'] === 'invalid', 'rejeita arquivo que nao e PDF');
+check(cert_verify_pdf($db, '%PDF-1.4 sem codigo')['state'] === 'no_code', 'PDF sem codigo');
+check(cert_verify_pdf($db, '%PDF-1.4 /Subject (CBL-AAAA-BBBB-CCCC)')['state'] === 'notfound', 'codigo inexistente');
 exit(empty($GLOBALS['failed']) ? 0 : 1);

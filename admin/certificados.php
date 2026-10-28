@@ -126,7 +126,7 @@ $rows = $stmt->fetchAll();
   </style>
 </head>
 <body>
-  <p><a href="dashboard.php">← Painel</a></p>
+  <p><a href="dashboard.php">← Painel</a> · <a href="autenticar.php">Autenticar certificado</a></p>
   <h1>Certificados</h1>
 
   <?php if ($msg): ?><div class="ok"><?= e($msg) ?></div><?php endif; ?>

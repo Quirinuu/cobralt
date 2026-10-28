@@ -332,6 +332,10 @@ $pendingMigrations = count(array_filter(
       <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></svg>
       Certificados
     </a>
+    <a href="autenticar.php">
+      <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
+      Autenticar certificado
+    </a>
     <a href="formularios.php">
       <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><polyline points="4 8 12 13 20 8"/></svg>
       Formulários
