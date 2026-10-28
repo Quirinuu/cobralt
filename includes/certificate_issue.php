@@ -313,7 +313,13 @@ function cert_issue_stored(PDO $db, array $data, ?int $issuedBy, int $templateId
 function cert_get_pdf(PDO $db, array $cert): string {
     $path = !empty($cert['pdf_file']) ? cert_storage_dir() . '/' . basename((string)$cert['pdf_file']) : '';
     if ($path && is_file($path)) {
-        return (string)file_get_contents($path);
+        $bytes = (string)file_get_contents($path);
+        // PDFs gerados por nós com outro endereço do site (ex.: SITE_URL errado) são refeitos ao baixar.
+        // PDFs assinados a partir de um arquivo enviado ('pdf') não podem ser regenerados.
+        $host = (string)parse_url(cert_base_url(), PHP_URL_HOST);
+        if (($cert['source'] ?? '') === 'pdf' || $host === '' || str_contains($bytes, $host)) {
+            return $bytes;
+        }
     }
     $bytes = cert_render_for($db, $cert);
     cert_store_pdf($db, $cert, $bytes, (string)($cert['source'] ?: 'padrao'));
