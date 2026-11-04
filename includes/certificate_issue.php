@@ -33,6 +33,11 @@ function cert_save_image_upload(array $file, string $prefix, int $maxBytes = 5 *
     return [$name, null];
 }
 
+/** Nome da imagem de prévia (JPG) de um fundo em PDF; o navegador do admin a gera uma vez e o servidor guarda. */
+function cert_preview_name(string $bgFile): string {
+    return preg_replace('/\.pdf$/', '', $bgFile) . '_prev.jpg';
+}
+
 function cert_asset_path(?string $file): ?string {
     if (!$file || !preg_match('/^[a-z0-9_]+\.(jpg|png|pdf)$/', $file)) return null;
     $p = cert_storage_dir('certificados-arquivos') . '/' . $file;

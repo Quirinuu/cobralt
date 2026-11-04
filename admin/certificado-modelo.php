@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($err) { $errors[] = $err; }
         else {
             if ($old = cert_asset_path($bgFile)) @unlink($old);
+            if ($bgFile && ($oldPrev = cert_asset_path(cert_preview_name($bgFile)))) @unlink($oldPrev);
             $bgFile = $new;
             $orientation = $newOrientation; // acompanha o formato do fundo
         }
@@ -117,6 +118,7 @@ admin_alerts($msg, $errors);
       <div class="card-header"><h3>Posicionar elementos</h3><button type="button" class="btn-sm" id="addExtra">＋ Caixa de texto</button></div>
       <div class="card-body">
         <p class="hint" style="margin-bottom:1rem">Arraste cada caixa para o lugar certo sobre a arte. Clique numa caixa para ajustar largura, fonte e cor no painel ao lado. Use "＋ Caixa de texto" para colocar qualquer outro texto (por exemplo "Data: {data}" ou "Carga horária: {horas} h") onde quiser. Depois use "Salvar" e "Prévia PDF".</p>
+        <p class="hint" id="bgStatus" style="margin:0 0 .5rem" hidden></p>
         <div id="stage" style="aspect-ratio:<?= $page['w'] ?>/<?= $page['h'] ?>;<?= (($bg = cert_asset_path($tpl['background_file'])) && !str_ends_with($bg, '.pdf')) ? "background-image:url('certificado-modelos.php?asset=" . e($tpl['background_file']) . "')" : '' ?>"></div>
         <?php if (!$bg): ?><p class="hint" style="margin-top:.75rem">Sem arte de fundo ainda: envie uma imagem no painel ao lado.</p><?php endif; ?>
       </div>
@@ -172,16 +174,34 @@ admin_alerts($msg, $errors);
   Object.keys(layout).forEach(function (k) { if (isExtra(k)) { labels[k] = 'Texto livre'; hasText[k] = 1; } });
   var stage = document.getElementById('stage'), els = {}, sel = null;
   var bgPdf = <?= json_encode(($bg && str_ends_with($bg, '.pdf')) ? 'certificado-modelos.php?asset=' . $tpl['background_file'] : null) ?>;
-  if (bgPdf && window.pdfjsLib) {   // fundo em PDF: desenha a 1ª página como imagem de fundo do palco
+  var bgName = <?= json_encode(($bg && str_ends_with($bg, '.pdf')) ? $tpl['background_file'] : null) ?>;
+  var previewUrl = <?= json_encode(($bg && str_ends_with($bg, '.pdf') && cert_asset_path(cert_preview_name($tpl['background_file']))) ? 'certificado-modelos.php?asset=' . cert_preview_name($tpl['background_file']) : null) ?>;
+  var CSRF = <?= json_encode(csrf_token()) ?>;
+  var bgStatus = document.getElementById('bgStatus');
+  function say(t) { bgStatus.textContent = t; bgStatus.hidden = !t; }
+
+  // Fundo em PDF: usa a prévia guardada; se ainda não existe, desenha a 1ª página aqui (pdf.js) e guarda para a próxima vez.
+  function renderPdfPreview() {
+    if (!window.pdfjsLib) { say('Não foi possível carregar o leitor de PDF (pdf.js). O PDF final sai correto; recarregue a página para tentar de novo.'); return; }
+    say('Carregando a prévia do seu PDF… (só demora na primeira vez)');
     pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/vendor/pdfjs/pdf.worker.min.js';
     pdfjsLib.getDocument(bgPdf).promise.then(function (d) { return d.getPage(1); }).then(function (pg) {
       var v0 = pg.getViewport({ scale: 1 }), vp = pg.getViewport({ scale: 1600 / v0.width });
       var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
       return pg.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise.then(function () {
-        stage.style.backgroundImage = 'url(' + c.toDataURL('image/jpeg', 0.88) + ')';
+        var url = c.toDataURL('image/jpeg', 0.88);
+        stage.style.backgroundImage = 'url(' + url + ')';
+        say('');
+        var fd = new FormData();
+        fd.append('action', 'save_preview'); fd.append('csrf_token', CSRF); fd.append('background', bgName); fd.append('image', url);
+        fetch('certificado-modelos.php', { method: 'POST', body: fd, credentials: 'same-origin' }).catch(function () {});
       });
+    }).catch(function (e) {
+      say('Não consegui desenhar o PDF de fundo aqui (' + (e && e.message ? e.message : e) + '). Você ainda pode posicionar as caixas; o PDF final sai com o fundo correto — use "Prévia PDF" para conferir.');
     });
   }
+  if (previewUrl) { stage.style.backgroundImage = "url('" + previewUrl + "')"; }
+  else if (bgPdf) { renderPdfPreview(); }
 
   function px() { return stage.clientWidth / PAGE_W; }           // px por mm
   function render(key) {
@@ -198,6 +218,8 @@ admin_alerts($msg, $errors);
   }
   function build() { Object.keys(labels).forEach(buildOne); }
   function buildOne(key) {
+    // sem assinante escolhido não há o que posicionar (as assinaturas que já estão no PDF/imagem de fundo aparecem sozinhas)
+    if ((key === 'sig1' || key === 'sig2') && !signers[chosen[key]]) return;
     {
       var e = document.createElement('div'); e.className = 'el'; e.dataset.key = key;
       var tag = '<small>' + labels[key] + '</small>';
@@ -215,6 +237,15 @@ admin_alerts($msg, $errors);
       e.addEventListener('pointerdown', function (ev) { select(key); drag(ev, key); });
     }
   }
+  ['sig1', 'sig2'].forEach(function (k, i) {
+    var sel = document.querySelector('select[name="signer' + (i + 1) + '_id"]');
+    if (!sel) return;
+    sel.addEventListener('change', function () {
+      chosen[k] = parseInt(sel.value, 10) || 0;
+      if (els[k]) { els[k].remove(); delete els[k]; }
+      buildOne(k);
+    });
+  });
   document.getElementById('addExtra').addEventListener('click', function () {
     var n = 1; while (layout['extra' + n]) n++;
     if (n > 12) return;

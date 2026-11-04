@@ -22,6 +22,26 @@ if (isset($_GET['asset'])) {
     exit;
 }
 
+// O navegador do admin desenha a 1ª página do PDF de fundo e envia a prévia (JPG) para ficar guardada: abre instantâneo nas próximas vezes.
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_preview') {
+    csrf_verify();
+    $bg = (string)($_POST['background'] ?? '');
+    $own = $db->prepare('SELECT COUNT(*) FROM certificate_templates WHERE background_file = ?');
+    $own->execute([$bg]);
+    $raw = (string)($_POST['image'] ?? '');
+    if (!str_ends_with($bg, '.pdf') || !cert_asset_path($bg) || (int)$own->fetchColumn() === 0
+        || !preg_match('#^data:image/jpeg;base64,([A-Za-z0-9+/=]+)$#', $raw, $m) || strlen($raw) > 3 * 1024 * 1024) {
+        json_fail('Prévia inválida.', 422);
+    }
+    $img = base64_decode($m[1], true);
+    $info = $img !== false ? @getimagesizefromstring($img) : false;
+    if (!$info || $info['mime'] !== 'image/jpeg' || $info[0] > 3000 || $info[1] > 3000) {
+        json_fail('Prévia inválida.', 422);
+    }
+    file_put_contents(cert_storage_dir('certificados-arquivos') . '/' . cert_preview_name($bg), $img);
+    json_ok();
+}
+
 $msg = '';
 $errors = [];
 
@@ -87,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($old = cert_asset_path($src['background_file'])) {
                 $bgCopy = 'bg_' . bin2hex(random_bytes(10)) . '.' . pathinfo($old, PATHINFO_EXTENSION);
                 if (!copy($old, cert_storage_dir('certificados-arquivos') . '/' . $bgCopy)) { $bgCopy = null; }
+                elseif ($prev = cert_asset_path(cert_preview_name($src['background_file']))) { @copy($prev, cert_storage_dir('certificados-arquivos') . '/' . cert_preview_name($bgCopy)); }
             }
             $db->prepare('INSERT INTO certificate_templates (name, background_file, orientation, body_text, layout_json, signer1_id, signer2_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
                ->execute([mb_substr('Cópia de ' . $src['name'], 0, 160, 'UTF-8'), $bgCopy, $src['orientation'], $src['body_text'], $src['layout_json'], $src['signer1_id'], $src['signer2_id'], date('Y-m-d H:i:s')]);
@@ -100,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tpl = cert_load_template($db, (int)($_POST['id'] ?? 0));
         if ($tpl) {
             if ($p = cert_asset_path($tpl['background_file'])) @unlink($p);
+            if ($tpl['background_file'] && ($p = cert_asset_path(cert_preview_name($tpl['background_file'])))) @unlink($p);
             $db->prepare('DELETE FROM certificate_templates WHERE id = ?')->execute([$tpl['id']]);
             $msg = 'Modelo excluído (os certificados já emitidos continuam válidos).';
         }
