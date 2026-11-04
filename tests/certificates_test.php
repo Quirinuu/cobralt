@@ -117,5 +117,10 @@ check(cert_undo_action($db, $act) === 3 && $cnt() === $before + 1, 'desfazer apa
 check(cert_undo_action($db, $act) === null, 'desfazer duas vezes nao faz nada');
 check(cert_undo_action($db, 99999) === null, 'acao inexistente');
 check(cert_undo_action($db, $act2) === 1 && $cnt() === $before, 'desfazer acao avulsa');
-check(cert_undo_legacy($db) === $before && $cnt() === 0, 'apagar anteriores ao historico remove so os sem acao');
+check(cert_undo_legacy($db, 1) === $before && $cnt() === 0, 'apagar anteriores ao historico remove so os sem acao');
+check(cert_has_backup($act) && cert_restore_action($db, $act) === 3 && $cnt() === 3, 'restaurar traz de volta os certificados da acao desfeita pelo backup');
+check(!cert_has_backup($act) && cert_restore_action($db, $act) === null, 'backup consumido: nao restaura duas vezes');
+$legacyAct = (int)$db->query("SELECT id FROM certificate_actions WHERE kind = 'legado'")->fetchColumn();
+check($legacyAct > 0 && cert_restore_action($db, $legacyAct) === $before, 'restaurar os anteriores ao historico');
+foreach (glob(cert_storage_dir('certificados-backup') . '/acao-*') ?: [] as $d) { foreach (glob($d . '/*') ?: [] as $f) { @unlink($f); } @rmdir($d); }
 exit(empty($GLOBALS['failed']) ? 0 : 1);

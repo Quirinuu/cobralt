@@ -424,19 +424,45 @@ function cert_get_pdf(PDO $db, array $cert): string {
     return $bytes;
 }
 
-/** Apaga os certificados que casam com $where (linhas e PDFs guardados). Devolve quantos. */
-function cert_delete_where(PDO $db, string $where, array $params): int {
-    $st = $db->prepare("SELECT pdf_file FROM certificates WHERE $where");
-    $st->execute($params);
-    $files = $st->fetchAll(PDO::FETCH_COLUMN);
-    $db->prepare("DELETE FROM certificates WHERE $where")->execute($params);
-    foreach ($files as $f) {
-        if ($f) { @unlink(cert_storage_dir() . '/' . basename((string)$f)); }
-    }
-    return count($files);
+/** Pasta do backup de uma ação desfeita: JSON com os certificados + os PDFs. */
+function cert_backup_path(int $actionId): string {
+    return cert_storage_dir('certificados-backup') . '/acao-' . $actionId;
 }
 
-/** Desfaz uma ação: apaga os certificados que ela criou. null = ação inexistente ou já desfeita. */
+function cert_has_backup(int $actionId): bool {
+    return is_file(cert_backup_path($actionId) . '/certificados.json');
+}
+
+/**
+ * Apaga os certificados que casam com $where. Com $backupId, antes grava o backup (linhas em JSON e PDFs movidos
+ * para a pasta de backup); se o backup falhar nada é apagado. Devolve quantos.
+ */
+function cert_delete_where(PDO $db, string $where, array $params, ?int $backupId = null): int {
+    $st = $db->prepare("SELECT * FROM certificates WHERE $where");
+    $st->execute($params);
+    $rows = $st->fetchAll();
+    $dir = null;
+    if ($backupId !== null && $rows) {
+        $dir = cert_backup_path($backupId);
+        if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
+            throw new RuntimeException('Não foi possível criar a pasta de backup. Nada foi apagado.');
+        }
+        $saved = array_map(static fn($r) => ['action_id' => $backupId] + $r, $rows);
+        if (file_put_contents($dir . '/certificados.json', json_encode($saved, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), LOCK_EX) === false) {
+            throw new RuntimeException('Não foi possível gravar o backup. Nada foi apagado.');
+        }
+    }
+    $db->prepare("DELETE FROM certificates WHERE $where")->execute($params);
+    foreach ($rows as $r) {
+        $src = $r['pdf_file'] ? cert_storage_dir() . '/' . basename((string)$r['pdf_file']) : null;
+        if ($src && is_file($src)) {
+            if ($dir) { @rename($src, $dir . '/' . basename($src)); } else { @unlink($src); }
+        }
+    }
+    return count($rows);
+}
+
+/** Desfaz uma ação: guarda backup e apaga os certificados que ela criou. null = ação inexistente ou já desfeita. */
 function cert_undo_action(PDO $db, int $actionId): ?int {
     $st = $db->prepare('SELECT undone_at FROM certificate_actions WHERE id = ?');
     $st->execute([$actionId]);
@@ -444,13 +470,50 @@ function cert_undo_action(PDO $db, int $actionId): ?int {
     if (!$row || $row['undone_at']) {
         return null;
     }
-    $n = cert_delete_where($db, 'action_id = ?', [$actionId]);
+    $n = cert_delete_where($db, 'action_id = ?', [$actionId], $actionId);
     $db->prepare('UPDATE certificate_actions SET undone_at = ?, undone_count = ? WHERE id = ?')
        ->execute([date('Y-m-d H:i:s'), $n, $actionId]);
     return $n;
 }
 
-/** Certificados emitidos antes do histórico existir (sem ação ligada). */
-function cert_undo_legacy(PDO $db): int {
-    return cert_delete_where($db, 'action_id IS NULL', []);
+/** Apaga os certificados emitidos antes do histórico (com backup, registrado como uma ação "legado"). */
+function cert_undo_legacy(PDO $db, ?int $by = null): int {
+    $count = (int)$db->query('SELECT COUNT(*) FROM certificates WHERE action_id IS NULL')->fetchColumn();
+    if ($count === 0) {
+        return 0;
+    }
+    $aid = cert_log_action($db, 'legado', 'Certificados anteriores ao histórico (' . $count . ')', [], $by);
+    $n = cert_delete_where($db, 'action_id IS NULL', [], $aid);
+    $db->prepare('UPDATE certificate_actions SET undone_at = ?, undone_count = ? WHERE id = ?')
+       ->execute([date('Y-m-d H:i:s'), $n, $aid]);
+    return $n;
+}
+
+/** Restaura os certificados de uma ação desfeita a partir do backup. null = sem backup ou ação não desfeita. */
+function cert_restore_action(PDO $db, int $actionId): ?int {
+    $st = $db->prepare('SELECT undone_at FROM certificate_actions WHERE id = ?');
+    $st->execute([$actionId]);
+    $row = $st->fetch();
+    $dir = cert_backup_path($actionId);
+    $rows = cert_has_backup($actionId) ? json_decode((string)file_get_contents($dir . '/certificados.json'), true) : null;
+    if (!$row || !$row['undone_at'] || !is_array($rows)) {
+        return null;
+    }
+    $cols = ['code', 'holder_name', 'holder_email', 'event_name', 'cert_type', 'hours', 'issued_at', 'status', 'revoked_at',
+             'revoked_reason', 'issued_by', 'created_at', 'template_id', 'pdf_file', 'pdf_sha256', 'source', 'action_id'];
+    $ins = $db->prepare('INSERT INTO certificates (' . implode(',', $cols) . ') VALUES (' . implode(',', array_fill(0, count($cols), '?')) . ')');
+    $n = 0;
+    foreach ($rows as $r) {
+        if (cert_find($db, (string)$r['code'])) {
+            continue;   // o código já existe de novo: não duplica
+        }
+        $ins->execute(array_map(static fn($c) => $r[$c] ?? null, $cols));
+        $n++;
+        $pdf = !empty($r['pdf_file']) ? basename((string)$r['pdf_file']) : '';
+        if ($pdf && is_file($dir . '/' . $pdf)) { @rename($dir . '/' . $pdf, cert_storage_dir() . '/' . $pdf); }
+    }
+    $db->prepare('UPDATE certificate_actions SET undone_at = NULL, undone_count = NULL WHERE id = ?')->execute([$actionId]);
+    @unlink($dir . '/certificados.json');
+    @rmdir($dir);
+    return $n;
 }

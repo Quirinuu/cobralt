@@ -20,9 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'undo') {
         $n = cert_undo_action($db, (int)($_POST['id'] ?? 0));
         if ($n === null) { $errors[] = 'Esta ação não existe ou já foi desfeita.'; }
-        else { $msg = $n . ' certificado(s) apagado(s) — ação desfeita.'; }
+        else { $msg = $n . ' certificado(s) apagado(s) — ação desfeita. O backup ficou guardado: use Restaurar se foi engano.'; }
     } elseif ($action === 'undo_legacy') {
-        $msg = cert_undo_legacy($db) . ' certificado(s) anteriores ao histórico apagado(s).';
+        $msg = cert_undo_legacy($db, $adminId) . ' certificado(s) anteriores ao histórico apagado(s). O backup ficou guardado: dá para restaurar abaixo.';
+    } elseif ($action === 'restore') {
+        $n = cert_restore_action($db, (int)($_POST['id'] ?? 0));
+        if ($n === null) { $errors[] = 'Não há backup para restaurar esta ação.'; }
+        else { $msg = $n . ' certificado(s) restaurado(s).'; }
     }
 }
 
@@ -33,7 +37,7 @@ $rows = $db->query(
      FROM certificate_actions a LEFT JOIN admin_users u ON u.id = a.created_by
      ORDER BY a.id DESC LIMIT 200'
 )->fetchAll();
-$kinds = ['emissao' => 'Avulso', 'lote' => 'Planilha', 'pdf' => 'PDF assinado'];
+$kinds = ['emissao' => 'Avulso', 'lote' => 'Planilha', 'pdf' => 'PDF assinado', 'legado' => 'Antigos'];
 
 admin_page_start('Histórico', 'historico', 'Veja o que foi emitido e desfaça uma ação inteira');
 admin_alerts($msg, $errors);
@@ -42,8 +46,8 @@ admin_alerts($msg, $errors);
 <section class="card">
   <div class="card-header"><h3>Certificados anteriores ao histórico</h3></div>
   <div class="card-body">
-    <p class="hint" style="margin-bottom:1rem">Há <strong><?= $legacy ?></strong> certificado(s) emitidos antes de existir o histórico. Você pode apagar todos de uma vez (os PDFs guardados também).</p>
-    <form method="post" onsubmit="return confirm('Apagar os <?= $legacy ?> certificados anteriores ao histórico? Não dá para desfazer.')">
+    <p class="hint" style="margin-bottom:1rem">Há <strong><?= $legacy ?></strong> certificado(s) emitidos antes de existir o histórico. Você pode apagar todos de uma vez; fica um <strong>backup</strong> para restaurar depois.</p>
+    <form method="post" onsubmit="return confirm('Apagar os <?= $legacy ?> certificados anteriores ao histórico? Fica um backup para restaurar.')">
       <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
       <input type="hidden" name="action" value="undo_legacy">
       <button type="submit" class="btn danger">Apagar esses <?= $legacy ?> certificados</button>
@@ -66,8 +70,15 @@ admin_alerts($msg, $errors);
           <td><?= $undone ? '<s>' . (int)$r['undone_count'] . '</s>' : (int)$r['alive'] ?></td>
           <td><?= $undone ? '<span class="badge err">Desfeita em ' . e(date('d/m H:i', (int)strtotime((string)$r['undone_at']))) . '</span>' : '<span class="badge ok">Ativa</span>' ?></td>
           <td>
+            <?php if ($undone && cert_has_backup((int)$r['id'])): ?>
+            <form method="post" onsubmit="return confirm('Restaurar os certificados desta ação a partir do backup?')">
+              <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+              <input type="hidden" name="action" value="restore"><input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
+              <button type="submit" class="btn-sm">Restaurar</button>
+            </form>
+            <?php endif; ?>
             <?php if (!$undone): ?>
-            <form method="post" onsubmit="return confirm('Desfazer esta ação? Os <?= (int)$r['alive'] ?> certificado(s) criados por ela serão APAGADOS.')">
+            <form method="post" onsubmit="return confirm('Desfazer esta ação? Os <?= (int)$r['alive'] ?> certificado(s) criados por ela serão apagados (fica um backup para restaurar).')">
               <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
               <input type="hidden" name="action" value="undo"><input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
               <button type="submit" class="btn-sm danger">Desfazer</button>
