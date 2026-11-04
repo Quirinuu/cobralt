@@ -59,19 +59,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 elseif ($prop === 'size' && is_numeric($v)) $layout[$key][$prop] = max(6, min(80, (float)$v));
                 elseif ($prop === 'color' && preg_match('/^#[0-9a-f]{6}$/i', (string)$v)) $layout[$key][$prop] = (string)$v;
                 elseif ($prop === 'align' && in_array($v, ['L', 'C', 'R'], true)) $layout[$key][$prop] = $v;
+                elseif ($prop === 'font' && in_array($v, ['Helvetica', 'Times', 'Courier'], true)) $layout[$key][$prop] = $v;
+                elseif ($prop === 'style' && in_array($v, ['', 'B', 'I', 'BI'], true)) $layout[$key][$prop] = $v;
             }
         }
     }
 
     $bgFile = $tpl['background_file'];
     if (!$errors && !empty($_FILES['background']['name'])) {
-        [$new, $err] = cert_save_image_upload($_FILES['background'], 'bg', 8 * 1024 * 1024);
+        [$new, $newOrientation, $err] = cert_save_background($_FILES['background']);
         if ($err) { $errors[] = $err; }
         else {
             if ($old = cert_asset_path($bgFile)) @unlink($old);
             $bgFile = $new;
-            $size = getimagesize((string)cert_asset_path($new));
-            $orientation = ($size && $size[1] > $size[0]) ? 'P' : 'L'; // acompanha o formato da arte
+            $orientation = $newOrientation; // acompanha o formato do fundo
         }
     }
 
@@ -107,7 +108,7 @@ admin_alerts($msg, $errors);
       <div class="card-header"><h3>Posicionar elementos</h3></div>
       <div class="card-body">
         <p class="hint" style="margin-bottom:1rem">Arraste cada caixa para o lugar certo sobre a arte. Clique numa caixa para ajustar largura, fonte e cor no painel ao lado. Depois use "Salvar" e "Prévia PDF".</p>
-        <div id="stage" style="aspect-ratio:<?= $page['w'] ?>/<?= $page['h'] ?>;<?= ($bg = cert_asset_path($tpl['background_file'])) ? "background-image:url('certificado-modelos.php?asset=" . e($tpl['background_file']) . "')" : '' ?>"></div>
+        <div id="stage" style="aspect-ratio:<?= $page['w'] ?>/<?= $page['h'] ?>;<?= (($bg = cert_asset_path($tpl['background_file'])) && !str_ends_with($bg, '.pdf')) ? "background-image:url('certificado-modelos.php?asset=" . e($tpl['background_file']) . "')" : '' ?>"></div>
         <?php if (!$bg): ?><p class="hint" style="margin-top:.75rem">Sem arte de fundo ainda: envie uma imagem no painel ao lado.</p><?php endif; ?>
       </div>
     </section>
@@ -116,7 +117,7 @@ admin_alerts($msg, $errors);
         <div class="card-header"><h3>Modelo</h3></div>
         <div class="card-body">
           <div class="field"><label>Nome</label><input name="name" value="<?= e($tpl['name']) ?>" required maxlength="160"></div>
-          <div class="field"><label>Arte de fundo (JPG/PNG, até 8 MB)</label><input type="file" name="background" accept="image/png,image/jpeg"></div>
+          <div class="field"><label>Certificado pronto (PDF, JPG ou PNG, até 8 MB)</label><input type="file" name="background" accept="application/pdf,image/png,image/jpeg,.pdf"></div>
           <p class="hint">A página (A4) acompanha o formato da imagem: horizontal ou vertical.</p>
           <div class="field"><label>Texto do certificado</label>
             <textarea name="body_text" rows="3" maxlength="600"><?= e((string)($tpl['body_text'] ?: cert_default_body())) ?></textarea></div>
@@ -133,6 +134,8 @@ admin_alerts($msg, $errors);
           <div class="field"><label>Largura (%)</label><input type="number" id="p_w" min="2" max="100" step="0.5"></div>
           <div class="field" id="l_size"><label>Fonte (pt)</label><input type="number" id="p_size" min="6" max="80" step="1"></div>
           <div class="field" id="l_color"><label>Cor</label><input type="color" id="p_color" style="padding:0;height:38px"></div>
+          <div class="field" id="l_font"><label>Fonte</label><select id="p_font"><option value="Helvetica">Sem serifa (Helvetica)</option><option value="Times">Clássica (Times)</option><option value="Courier">Máquina (Courier)</option></select></div>
+          <div class="field" id="l_style"><label>Estilo</label><select id="p_style"><option value="">Normal</option><option value="B">Negrito</option><option value="I">Itálico</option><option value="BI">Negrito itálico</option></select></div>
           <div class="field" id="l_align"><label>Alinhamento</label><select id="p_align"><option value="L">Esquerda</option><option value="C">Centro</option><option value="R">Direita</option></select></div>
         </div></div>
       </section>
@@ -145,6 +148,7 @@ admin_alerts($msg, $errors);
   </div>
 </form>
 
+<script src="../js/vendor/pdfjs/pdf.min.js"></script>
 <script>
 (function(){
   var PAGE_W = <?= $page['w'] ?>, PAGE_H = <?= $page['h'] ?>;
@@ -154,6 +158,17 @@ admin_alerts($msg, $errors);
   var labels = {name:'Nome', body:'Texto', sig1:'Assinatura 1', sig2:'Assinatura 2', qr:'QR code', code:'Código e link'};
   var hasText = {name:1, body:1, code:1};
   var stage = document.getElementById('stage'), els = {}, sel = null;
+  var bgPdf = <?= json_encode(($bg && str_ends_with($bg, '.pdf')) ? 'certificado-modelos.php?asset=' . $tpl['background_file'] : null) ?>;
+  if (bgPdf && window.pdfjsLib) {   // fundo em PDF: desenha a 1ª página como imagem de fundo do palco
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/vendor/pdfjs/pdf.worker.min.js';
+    pdfjsLib.getDocument(bgPdf).promise.then(function (d) { return d.getPage(1); }).then(function (pg) {
+      var v0 = pg.getViewport({ scale: 1 }), vp = pg.getViewport({ scale: 1600 / v0.width });
+      var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
+      return pg.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise.then(function () {
+        stage.style.backgroundImage = 'url(' + c.toDataURL('image/jpeg', 0.88) + ')';
+      });
+    });
+  }
 
   function px() { return stage.clientWidth / PAGE_W; }           // px por mm
   function render(key) {
@@ -162,6 +177,9 @@ admin_alerts($msg, $errors);
     if (hasText[key]) {
       e.style.fontSize = (d.size * 0.3528 * k) + 'px'; e.style.color = d.color;
       e.style.textAlign = {L:'left', C:'center', R:'right'}[d.align];
+      e.style.fontFamily = {Helvetica:'Arial, sans-serif', Times:'"Times New Roman", serif', Courier:'"Courier New", monospace'}[d.font] || 'Arial, sans-serif';
+      e.style.fontWeight = (d.style || '').indexOf('B') >= 0 ? '700' : '400';
+      e.style.fontStyle = (d.style || '').indexOf('I') >= 0 ? 'italic' : 'normal';
     }
     if (key === 'qr') e.style.height = (PAGE_W * d.w / 100 * k) + 'px';
   }
@@ -200,15 +218,15 @@ admin_alerts($msg, $errors);
     var d = layout[key], p = document.getElementById('props'); p.hidden = false;
     document.getElementById('pname').textContent = labels[key];
     document.getElementById('p_w').value = d.w;
-    ['size', 'color', 'align'].forEach(function (f) {
+    ['size', 'color', 'align', 'font', 'style'].forEach(function (f) {
       document.getElementById('l_' + f).style.display = hasText[key] ? '' : 'none';
       if (hasText[key]) document.getElementById('p_' + f).value = d[f];
     });
   }
-  ['w', 'size', 'color', 'align'].forEach(function (f) {
+  ['w', 'size', 'color', 'align', 'font', 'style'].forEach(function (f) {
     document.getElementById('p_' + f).addEventListener('input', function (ev) {
       if (!sel) return;
-      var v = ev.target.value; layout[sel][f] = (f === 'color' || f === 'align') ? v : parseFloat(v) || layout[sel][f];
+      var v = ev.target.value; layout[sel][f] = (f === 'color' || f === 'align' || f === 'font' || f === 'style') ? v : parseFloat(v) || layout[sel][f];
       render(sel);
     });
   });

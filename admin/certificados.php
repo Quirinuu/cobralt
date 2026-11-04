@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/_auth.php';
 require_once dirname(__DIR__) . '/includes/certificate_issue.php';
+require_once dirname(__DIR__) . '/includes/certificate_import.php';
 require_role('superadmin', 'admin');
 
 $db = getDB();
@@ -25,8 +26,34 @@ if (isset($_GET['pdf'])) {
     exit;
 }
 
+// ─── ZIP com os PDFs de vários certificados ───────────────
+if (isset($_GET['zip'])) {
+    $ids = array_slice(array_values(array_filter(array_map('intval', explode(',', (string)$_GET['zip'])))), 0, CERT_IMPORT_MAX_ROWS);
+    if (!$ids || !class_exists('ZipArchive')) { http_response_code(400); exit('Nada para baixar.'); }
+    $in = implode(',', array_fill(0, count($ids), '?'));
+    $st = $db->prepare("SELECT * FROM certificates WHERE id IN ($in) ORDER BY holder_name");
+    $st->execute($ids);
+    $tmp = tempnam(sys_get_temp_dir(), 'certzip');
+    $zip = new ZipArchive();
+    $zip->open($tmp, ZipArchive::OVERWRITE);
+    $used = [];
+    foreach ($st->fetchAll() as $c) {
+        $base = preg_replace('/[^A-Za-z0-9._ -]+/', '', (string)iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', (string)$c['holder_name'])) ?: 'certificado';
+        $name = trim($base) . ' - ' . $c['code'] . '.pdf';
+        $zip->addFromString($name, cert_get_pdf($db, $c));
+    }
+    $zip->close();
+    header('Content-Type: application/zip');
+    header('Content-Disposition: attachment; filename="certificados.zip"');
+    header('Content-Length: ' . filesize($tmp));
+    readfile($tmp);
+    @unlink($tmp);
+    exit;
+}
+
 $msg = '';
 $errors = [];
+$importedIds = [];
 $templates = $db->query('SELECT id, name FROM certificate_templates ORDER BY name')->fetchAll();
 $templateId = (int)($_POST['template_id'] ?? 0);
 if ($templateId && !cert_load_template($db, $templateId)) { $templateId = 0; }
@@ -46,44 +73,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($action === 'import') {
-        $file = $_FILES['csv'] ?? null;
-        if (!$file || $file['error'] !== UPLOAD_ERR_OK || $file['size'] > 1024 * 1024) {
-            $errors[] = 'Envie um CSV de até 1 MB.';
+        [$rows, $err] = cert_table_from_upload($_FILES['csv'] ?? []);
+        $valid = [];
+        if ($err) {
+            $errors[] = $err;
         } else {
-            $fh = fopen($file['tmp_name'], 'r');
-            $first = (string)fgets($fh);
-            rewind($fh);
-            $sep = substr_count($first, ';') > substr_count($first, ',') ? ';' : ',';
-            $header = array_map(static fn($h) => strtolower(trim(preg_replace('/^\xEF\xBB\xBF/', '', (string)$h))), fgetcsv($fh, 0, $sep, '"', '') ?: []);
-            $valid = [];
-            $line = 1;
-            if (!in_array('nome', $header, true) || !in_array('evento', $header, true)) {
-                $errors[] = 'O CSV precisa ter ao menos as colunas: nome, evento (opcionais: tipo, horas, data, email).';
-            }
-            while (!$errors && ($cols = fgetcsv($fh, 0, $sep, '"', '')) !== false) {
-                $line++;
-                if ($cols === [null] || !array_filter($cols, static fn($v) => trim((string)$v) !== '')) continue;
-                if (count($valid) >= 500) { $errors[] = 'Limite de 500 linhas por importação.'; break; }
-                $assoc = array_combine($header, array_pad(array_slice($cols, 0, count($header)), count($header), ''));
-                [$data, $err] = cert_validate($assoc);
-                if ($err) { $errors[] = "Linha {$line}: {$err}"; if (count($errors) >= 10) break; }
+            foreach ($rows as $r) {
+                [$data, $verr] = cert_validate(cert_normalize_row($r));
+                if ($verr) { $errors[] = 'Linha ' . $r['_linha'] . ': ' . $verr; if (count($errors) >= 10) break; }
                 else { $valid[] = $data; }
             }
-            fclose($fh);
-            // Tudo ou nada: se houver qualquer erro, nada é emitido.
-            if (!$errors && $valid) {
-                $db->beginTransaction();
-                try {
-                    foreach ($valid as $d) { cert_issue_stored($db, $d, $adminId, $templateId); }
-                    $db->commit();
-                    $msg = count($valid) . ' certificados emitidos.';
-                } catch (Throwable $e) {
-                    $db->rollBack();
-                    error_log('[CoBraLT] import certificados: ' . $e->getMessage());
-                    $errors[] = 'Erro ao importar. Nada foi emitido.';
-                }
-            } elseif (!$errors) {
-                $errors[] = 'Nenhuma linha encontrada no CSV.';
+        }
+        // Tudo ou nada: se houver qualquer erro, nada é emitido.
+        if (!$errors && $valid) {
+            $db->beginTransaction();
+            try {
+                foreach ($valid as $d) { $made = cert_issue_stored($db, $d, $adminId, $templateId); $importedIds[] = (int)$made['id']; }
+                $db->commit();
+                $msg = count($valid) . ' certificados emitidos.';
+            } catch (Throwable $e) {
+                if ($db->inTransaction()) $db->rollBack();
+                $importedIds = [];
+                error_log('[CoBraLT] import certificados: ' . $e->getMessage());
+                $errors[] = 'Erro ao importar. Nada foi emitido.';
             }
         }
     }
@@ -113,14 +125,17 @@ $params = [];
 $where = '';
 if ($q !== '') {
     $like = '%' . $q . '%';
-    $where = ' WHERE holder_name LIKE ? OR code LIKE ? OR event_name LIKE ?';
-    $params = [$like, $like, $like];
+    $where = ' WHERE holder_name LIKE ? OR holder_email LIKE ? OR code LIKE ? OR event_name LIKE ?';
+    $params = [$like, $like, $like, $like];
 }
 $stmt = $db->prepare('SELECT * FROM certificates' . $where . ' ORDER BY id DESC LIMIT 200');
 $stmt->execute($params);
 $rows = $stmt->fetchAll();
 admin_page_start('Certificados', 'certificados', 'Emitir, importar em lote, baixar e revogar');
 admin_alerts($msg, $errors);
+if ($importedIds && class_exists('ZipArchive')): ?>
+<div class="alert ok"><a class="btn-sm" href="?zip=<?= e(implode(',', $importedIds)) ?>">Baixar todos os PDFs (ZIP)</a> &nbsp; ou use o botão PDF de cada um na lista abaixo.</div>
+<?php endif;
 ?>
 <div class="grid-2">
   <section class="card">
@@ -146,9 +161,9 @@ admin_alerts($msg, $errors);
   </section>
 
   <section class="card">
-    <div class="card-header"><h3>Importar vários (CSV)</h3><a class="btn-sm outline" href="../assets/admin/exemplo-certificados.csv" download>Baixar CSV de exemplo</a></div>
+    <div class="card-header"><h3>Importar vários (planilha)</h3><a class="btn-sm outline" href="../assets/admin/exemplo-certificados.csv" download>Baixar planilha de exemplo</a></div>
     <div class="card-body">
-      <p class="hint" style="margin-bottom:1rem">Uma linha por pessoa. Obrigatórias: <strong>nome</strong> e <strong>evento</strong>. Opcionais: tipo, horas, data, email. Máx. 500 linhas — se uma linha tiver erro, nada é emitido.</p>
+      <p class="hint" style="margin-bottom:1rem">Planilha <strong>Excel (.xlsx)</strong> ou <strong>CSV</strong>, uma linha por pessoa. Obrigatórias: <strong>nome</strong> e <strong>evento</strong>. Opcionais: tipo, horas, data, email. O texto do certificado vem do <strong>modelo</strong> escolhido (use {nome}, {evento}, {horas}… lá). Máx. 500 linhas — se uma linha tiver erro, nada é emitido.</p>
       <button type="button" class="csv-example" id="csvExample" aria-label="Ampliar exemplo de planilha">
         <img src="../assets/admin/exemplo-csv-certificados.png" alt="Exemplo de planilha com as colunas nome, evento, tipo, horas, data e email">
         <span>🔍 Clique para ampliar</span>
@@ -159,7 +174,7 @@ admin_alerts($msg, $errors);
         <div class="grid-form">
           <div class="field"><label>Modelo</label>
             <select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select></div>
-          <div class="field"><label>Arquivo CSV</label><input type="file" name="csv" accept=".csv,text/csv" required></div>
+          <div class="field"><label>Planilha (.xlsx ou .csv)</label><input type="file" name="csv" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required></div>
         </div>
         <div class="btn-row"><button type="submit" class="btn">Importar e emitir</button></div>
       </form>
@@ -170,7 +185,7 @@ admin_alerts($msg, $errors);
 <section class="card">
   <div class="card-header">
     <h3>Emitidos (últimos 200)</h3>
-    <form method="get" class="inline-form"><input type="search" name="q" value="<?= e($q) ?>" placeholder="Buscar por nome, código ou evento"><button class="btn-sm" type="submit">Buscar</button></form>
+    <form method="get" class="inline-form"><input type="search" name="q" value="<?= e($q) ?>" placeholder="Buscar por nome, e-mail, código ou evento"><button class="btn-sm" type="submit">Buscar</button></form>
   </div>
   <div class="table-wrap">
   <table>
@@ -179,7 +194,7 @@ admin_alerts($msg, $errors);
     <?php foreach ($rows as $r): ?>
       <tr>
         <td class="mono"><a href="autenticar.php?c=<?= e(rawurlencode($r['code'])) ?>"><?= e($r['code']) ?></a></td>
-        <td><strong><?= e($r['holder_name']) ?></strong></td>
+        <td><strong><?= e($r['holder_name']) ?></strong><?= $r['holder_email'] ? '<br><small class="hint">' . e($r['holder_email']) . '</small>' : '' ?></td>
         <td><?= e($r['event_name']) ?></td>
         <td><?= e(cert_types()[$r['cert_type']] ?? $r['cert_type']) ?></td>
         <td><?= e(date('d/m/Y', (int)strtotime((string)$r['issued_at']))) ?></td>

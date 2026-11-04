@@ -34,21 +34,58 @@ function cert_save_image_upload(array $file, string $prefix, int $maxBytes = 5 *
 }
 
 function cert_asset_path(?string $file): ?string {
-    if (!$file || !preg_match('/^[a-z0-9_]+\.(jpg|png)$/', $file)) return null;
+    if (!$file || !preg_match('/^[a-z0-9_]+\.(jpg|png|pdf)$/', $file)) return null;
     $p = cert_storage_dir('certificados-arquivos') . '/' . $file;
     return is_file($p) ? $p : null;
 }
 
+/**
+ * Fundo de modelo: imagem JPG/PNG ou PDF (1ª página, em vetor). Devolve [arquivo, orientação L|P, erro].
+ * PDFs protegidos ou em formato raro não são aceitos: o aviso sugere exportar de novo ou usar imagem.
+ */
+function cert_save_background(array $file): array {
+    if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) return [null, null, 'Não foi possível receber o arquivo.'];
+    if ($file['size'] > 8 * 1024 * 1024) return [null, null, 'O arquivo excede 8 MB.'];
+    $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+    if ($mime === 'application/pdf') {
+        try {
+            $probe = new CertFpdi();
+            $probe->setSourceFile($file['tmp_name']);
+            $size = $probe->getTemplateSize($probe->importPage(1));
+        } catch (Throwable $e) {
+            error_log('[CoBraLT] fundo PDF: ' . $e->getMessage());
+            return [null, null, 'Não foi possível ler este PDF (protegido ou em formato não suportado). Exporte de novo como PDF comum ou envie uma imagem JPG/PNG.'];
+        }
+        $name = 'bg_' . bin2hex(random_bytes(10)) . '.pdf';
+        if (!move_uploaded_file($file['tmp_name'], cert_storage_dir('certificados-arquivos') . '/' . $name)) {
+            return [null, null, 'Erro ao salvar o arquivo.'];
+        }
+        return [$name, $size['width'] >= $size['height'] ? 'L' : 'P', null];
+    }
+    [$name, $err] = cert_save_image_upload($file, 'bg', 8 * 1024 * 1024);
+    if ($err) return [null, null, 'Use um PDF, JPG ou PNG.'];
+    $dim = getimagesize((string)cert_asset_path($name));
+    return [$name, ($dim && $dim[1] > $dim[0]) ? 'P' : 'L', null];
+}
+
 /** Layout padrão de um modelo (posições em % da página; x/w sobre a largura, y sobre a altura). */
 function cert_default_layout(): array {
+    // Pensado para certificados com "Certificamos que:" e uma linha para o nome (cerca de 51% da altura).
     return [
-        'name' => ['x' => 10, 'y' => 40, 'w' => 80, 'size' => 30, 'color' => '#002B4E', 'align' => 'C'],
-        'body' => ['x' => 15, 'y' => 54, 'w' => 70, 'size' => 14, 'color' => '#3C3C3C', 'align' => 'C'],
+        'name' => ['x' => 10, 'y' => 43.5, 'w' => 80, 'size' => 30, 'color' => '#002B4E', 'align' => 'C', 'font' => 'Times', 'style' => 'B'],
+        'body' => ['x' => 15, 'y' => 55.5, 'w' => 70, 'size' => 15, 'color' => '#3C3C3C', 'align' => 'C', 'font' => 'Times', 'style' => ''],
         'sig1' => ['x' => 14, 'y' => 70, 'w' => 28],
         'sig2' => ['x' => 58, 'y' => 70, 'w' => 28],
-        'qr'   => ['x' => 84, 'y' => 78, 'w' => 11],
-        'code' => ['x' => 6, 'y' => 90, 'w' => 70, 'size' => 9, 'color' => '#3C3C3C', 'align' => 'L'],
+        'qr'   => ['x' => 45, 'y' => 65.5, 'w' => 10],
+        'code' => ['x' => 56.5, 'y' => 69, 'w' => 30, 'size' => 7.5, 'color' => '#3C3C3C', 'align' => 'L', 'font' => 'Helvetica', 'style' => ''],
     ];
+}
+
+/** Fonte/estilo do elemento (só as fontes embutidas do PDF). */
+function cert_set_font(FPDF $pdf, array $el, float $size): void {
+    $font = in_array($el['font'] ?? '', ['Helvetica', 'Times', 'Courier'], true) ? $el['font'] : 'Helvetica';
+    $style = in_array($el['style'] ?? '', ['', 'B', 'I', 'BI'], true) ? $el['style'] : '';
+    $pdf->SetFont($font, $style, $size);
 }
 
 function cert_default_body(): string {
@@ -124,16 +161,20 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
     [$W, $H] = $landscape ? [297.0, 210.0] : [210.0, 297.0];
     $layout = array_replace_recursive(cert_default_layout(), json_decode((string)($tpl['layout_json'] ?? ''), true) ?: []);
 
-    $pdf = new CertPdf((string)$c['issued_at']);
-    $pdf->SetCompression(false);
+    $bg = cert_asset_path($tpl['background_file'] ?? null);
+    $pdfBg = $bg !== null && str_ends_with($bg, '.pdf');
+    $pdf = $pdfBg ? new CertFpdi() : new CertPdf((string)$c['issued_at']);
+    $pdf->SetCompression(!$pdfBg);
     $pdf->SetTitle('Certificado ' . $c['code']);
     $pdf->SetSubject((string)$c['code']);
     $pdf->SetCreator('CoBraLT');
     $pdf->SetAutoPageBreak(false);
     $pdf->AddPage($landscape ? 'L' : 'P', 'A4');
 
-    $bg = cert_asset_path($tpl['background_file'] ?? null);
-    if ($bg) {
+    if ($pdfBg) {
+        $pdf->setSourceFile($bg);
+        $pdf->useTemplate($pdf->importPage(1), 0, 0, $W, $H);
+    } elseif ($bg) {
         $pdf->Image($bg, 0, 0, $W, $H);
     }
 
@@ -142,10 +183,10 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
     $nameW = $W * $n['w'] / 100;
     $size = (float)$n['size'];
     $name = cert_pdf_text(mb_strtoupper((string)$c['holder_name'], 'UTF-8'));
-    $pdf->SetFont('Helvetica', 'B', $size);
+    cert_set_font($pdf, $n, $size);
     while ($size > 10 && $pdf->GetStringWidth($name) > $nameW) {
         $size--;
-        $pdf->SetFont('Helvetica', 'B', $size);
+        cert_set_font($pdf, $n, $size);
     }
     $pdf->SetTextColor(...cert_hex_rgb((string)$n['color']));
     $pdf->SetXY($W * $n['x'] / 100, $H * $n['y'] / 100);
@@ -153,7 +194,7 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
 
     // Texto do corpo
     $b = $layout['body'];
-    $pdf->SetFont('Helvetica', '', (float)$b['size']);
+    cert_set_font($pdf, $b, (float)$b['size']);
     $pdf->SetTextColor(...cert_hex_rgb((string)$b['color']));
     $pdf->SetXY($W * $b['x'] / 100, $H * $b['y'] / 100);
     $pdf->MultiCell($W * $b['w'] / 100, (float)$b['size'] * 0.5, cert_pdf_text(cert_body_text($c, (string)($tpl['body_text'] ?: cert_default_body()))), 0, $b['align']);
@@ -169,7 +210,7 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
     $box = $W * $q['w'] / 100;
     cert_draw_qr($pdf, $url, $W * $q['x'] / 100, $H * $q['y'] / 100, $box);
     $cd = $layout['code'];
-    $pdf->SetFont('Helvetica', '', (float)$cd['size']);
+    cert_set_font($pdf, $cd, (float)$cd['size']);
     $pdf->SetTextColor(...cert_hex_rgb((string)$cd['color']));
     $pdf->SetXY($W * $cd['x'] / 100, $H * $cd['y'] / 100);
     $pdf->MultiCell($W * $cd['w'] / 100, (float)$cd['size'] * 0.45,

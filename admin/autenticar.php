@@ -12,6 +12,8 @@ require_role('superadmin', 'admin');
 $db = getDB();
 cert_ensure_schema($db);
 $input = trim((string)($_GET['c'] ?? ''));
+$q = trim((string)($_GET['q'] ?? ''));
+$matches = $q !== '' ? cert_search($db, $q, true, 50) : null;
 $result = null;     // null | 'notfound' | 'nocode' | 'badpdf' | array
 $identical = null;
 $history = [];
@@ -36,6 +38,15 @@ admin_page_start('Autenticar certificado', 'autenticar', 'Confira um certificado
 ?>
 <div class="grid-2">
   <div>
+    <section class="card">
+      <div class="card-header"><h3>Pesquisar por nome ou e-mail</h3></div>
+      <div class="card-body">
+        <form method="get" class="inline-form">
+          <input type="search" name="q" value="<?= e($q) ?>" placeholder="Parte do nome ou do e-mail" maxlength="120" required autocomplete="off">
+          <button type="submit" class="btn">Pesquisar</button>
+        </form>
+      </div>
+    </section>
     <section class="card">
       <div class="card-header"><h3>1. Pelo código</h3></div>
       <div class="card-body">
@@ -75,6 +86,27 @@ admin_page_start('Autenticar certificado', 'autenticar', 'Confira um certificado
   </div>
 
   <div>
+  <?php if ($matches !== null): ?>
+    <section class="card">
+      <div class="card-header"><h3>Resultado da pesquisa (<?= count($matches) ?>)</h3></div>
+      <div class="table-wrap">
+      <?php if (!$matches): ?><p class="empty">Nenhum certificado encontrado.</p><?php else: ?>
+        <table><thead><tr><th>Pessoa</th><th>Evento</th><th>Status</th><th>Ações</th></tr></thead><tbody>
+        <?php foreach ($matches as $m): ?>
+          <tr>
+            <td><strong><?= e($m['holder_name']) ?></strong><?= $m['holder_email'] ? '<br><small class="hint">' . e($m['holder_email']) . '</small>' : '' ?></td>
+            <td><?= e($m['event_name']) ?><br><small class="hint mono"><?= e($m['code']) ?></small></td>
+            <td><span class="badge <?= e($m['status']) ?>"><?= e($m['status']) ?></span></td>
+            <td><div class="actions">
+              <a class="btn-sm" href="certificados.php?pdf=<?= (int)$m['id'] ?>">Baixar PDF</a>
+              <a class="btn-sm outline" href="autenticar.php?c=<?= e(rawurlencode($m['code'])) ?>">Autenticar</a>
+            </div></td>
+          </tr>
+        <?php endforeach; ?></tbody></table>
+      <?php endif; ?>
+      </div>
+    </section>
+  <?php endif; ?>
   <?php if (is_array($result)): cert_render_card($result, $identical, true); ?>
     <section class="card" style="margin-top:1.5rem">
       <div class="card-header"><h3>Consultas públicas deste código</h3></div>
@@ -94,7 +126,7 @@ admin_page_start('Autenticar certificado', 'autenticar', 'Confira um certificado
     <div class="alert warn"><strong>Sem código.</strong> Este PDF não traz um código de certificado do CoBraLT (pode ter sido impresso, convertido ou não ser nosso).</div>
   <?php elseif ($result === 'badpdf'): ?>
     <div class="alert warn"><strong>Arquivo ilegível.</strong> Envie um PDF de até 2 MB.</div>
-  <?php else: ?>
+  <?php elseif ($matches === null): ?>
     <div class="card"><p class="empty">O resultado da conferência aparece aqui.</p></div>
   <?php endif; ?>
   </div>

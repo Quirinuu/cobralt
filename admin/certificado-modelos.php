@@ -15,7 +15,7 @@ cert_ensure_schema($db);
 if (isset($_GET['asset'])) {
     $path = cert_asset_path((string)$_GET['asset']);
     if (!$path) { http_response_code(404); exit; }
-    header('Content-Type: ' . (str_ends_with($path, '.png') ? 'image/png' : 'image/jpeg'));
+    header('Content-Type: ' . (str_ends_with($path, '.png') ? 'image/png' : (str_ends_with($path, '.pdf') ? 'application/pdf' : 'image/jpeg')));
     header('Cache-Control: private, max-age=300');
     readfile($path);
     exit;
@@ -64,10 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mb_strlen($name, 'UTF-8') < 3 || mb_strlen($name, 'UTF-8') > 160) {
             $errors[] = 'Informe o nome do modelo (3 a 160 caracteres).';
         } else {
-            $db->prepare('INSERT INTO certificate_templates (name, orientation, body_text, layout_json, created_at) VALUES (?, ?, ?, ?, ?)')
-               ->execute([$name, 'L', cert_default_body(), json_encode(cert_default_layout()), date('Y-m-d H:i:s')]);
-            header('Location: certificado-modelo.php?id=' . (int)$db->lastInsertId());
-            exit;
+            $bgFile = null;
+            $orientation = 'L';
+            if (!empty($_FILES['background']['name'])) {
+                [$bgFile, $orientation, $err] = cert_save_background($_FILES['background']);
+                if ($err) { $errors[] = $err; }
+            }
+            if (!$errors) {
+                $db->prepare('INSERT INTO certificate_templates (name, background_file, orientation, body_text, layout_json, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+                   ->execute([$name, $bgFile, $orientation, cert_default_body(), json_encode(cert_default_layout()), date('Y-m-d H:i:s')]);
+                header('Location: certificado-modelo.php?id=' . (int)$db->lastInsertId());
+                exit;
+            }
         }
     }
 
@@ -124,12 +132,15 @@ admin_alerts($msg, $errors);
   <section class="card">
     <div class="card-header"><h3>Modelos de certificado</h3></div>
     <div class="card-body">
-      <p class="hint" style="margin-bottom:1rem">Um modelo é a arte do certificado (imagem feita no Canva, por exemplo) com o nome, o texto, as assinaturas e o QR posicionados por você. Sem modelo, os certificados usam o layout padrão.</p>
-      <form method="post" class="inline-form">
+      <p class="hint" style="margin-bottom:1rem">Um modelo é o certificado já pronto (PDF ou imagem, feito no Canva por exemplo) com o <strong>nome</strong>, o <strong>texto</strong> e o <strong>QR</strong> posicionados por você. As assinaturas e o desenho que já estão no PDF/imagem são mantidos como estão. Sem modelo, os certificados usam o layout padrão.</p>
+      <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
         <input type="hidden" name="action" value="new_template">
-        <input type="text" name="name" placeholder="Nome do modelo (ex.: CoLT 2026 — participante)" required maxlength="160">
-        <button type="submit" class="btn">Criar modelo</button>
+        <div class="grid-form">
+          <div class="field"><label>Nome do modelo *</label><input type="text" name="name" placeholder="Ex.: LAEFT — participante" required maxlength="160"></div>
+          <div class="field"><label>Certificado pronto (PDF, JPG ou PNG)</label><input type="file" name="background" accept="application/pdf,image/png,image/jpeg,.pdf"></div>
+        </div>
+        <div class="btn-row"><button type="submit" class="btn">Criar modelo</button></div>
       </form>
     </div>
     <div class="table-wrap">

@@ -64,4 +64,12 @@ check(cert_stamp_pdf(__FILE__, $row, null, ['page' => 1])[0] === null, 'recusa a
 $db->prepare('UPDATE certificates SET pdf_sha256 = ? WHERE id = ?')->execute([hash('sha256', $stamped), $row['id']]);
 check(cert_verify_pdf($db, $stamped)['identical'] === true, 'verifica por hash guardado');
 check(cert_verify_pdf($db, $stamped . ' ')['identical'] === false, 'detecta alteracao em 1 byte');
+
+// --- busca por nome/e-mail ---
+$db->prepare('UPDATE certificates SET holder_email = ? WHERE id = ?')->execute(['maria@exemplo.com', $row['id']]);
+check(count(cert_search($db, 'Maria Silva')) === 1, 'busca publica por nome');
+check(count(cert_search($db, 'maria@exemplo.com')) === 1 && count(cert_search($db, 'MARIA@EXEMPLO.COM')) === 1, 'busca publica por e-mail completo (sem diferenciar maiusculas)');
+check(cert_search($db, 'maria@exemplo') === [], 'busca publica NAO aceita e-mail parcial');
+check(count(cert_search($db, 'exemplo.com', true)) === 1, 'busca admin aceita parte do e-mail');
+check(!cert_public_query_ok('%%%%%%') && !cert_public_query_ok('Silva') && cert_public_query_ok('Maria Silva') && cert_public_query_ok('a@b.co'), 'regras minimas da busca publica');
 exit(empty($GLOBALS['failed']) ? 0 : 1);

@@ -238,3 +238,39 @@ function cert_add_column_if_missing(PDO $db, string $table, string $column, stri
     }
     $db->exec($sql);
 }
+
+/**
+ * Busca certificados pelo nome ou e-mail de quem recebeu.
+ * Público: e-mail só com o endereço COMPLETO (não dá para listar e-mails alheios); nome com parte do nome.
+ * Admin: parte do nome ou do e-mail.
+ */
+function cert_search(PDO $db, string $q, bool $admin = false, int $limit = 20): array {
+    $q = trim(preg_replace('/\s+/u', ' ', $q) ?? '');
+    if ($q === '') {
+        return [];
+    }
+    $like = '%' . str_replace(['%', '_', '\\'], '', $q) . '%';
+    if ($admin) {
+        // Admin: parte do nome OU parte do e-mail.
+        $where = '(holder_name LIKE ? OR holder_email LIKE ?)';
+        $params = [$like, $like];
+    } elseif (str_contains($q, '@')) {
+        $where = 'LOWER(holder_email) = ?';   // público: só e-mail completo
+        $params = [strtolower($q)];
+    } else {
+        $where = 'holder_name LIKE ?';
+        $params = [$like];
+    }
+    $stmt = $db->prepare('SELECT * FROM certificates WHERE ' . $where . ' ORDER BY id DESC LIMIT ' . max(1, min(100, $limit)));
+    $stmt->execute($params);
+    return $stmt->fetchAll();
+}
+
+/** A busca pública exige e-mail completo ou pelo menos 6 letras do nome (curingas como % e _ não contam). */
+function cert_public_query_ok(string $q): bool {
+    $q = trim($q);
+    if (str_contains($q, '@')) {
+        return (bool)filter_var($q, FILTER_VALIDATE_EMAIL);
+    }
+    return preg_match_all('/\p{L}/u', $q) >= 6;
+}
