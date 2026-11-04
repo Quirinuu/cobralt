@@ -72,4 +72,11 @@ check(count(cert_search($db, 'maria@exemplo.com')) === 1 && count(cert_search($d
 check(cert_search($db, 'maria@exemplo') === [], 'busca publica NAO aceita e-mail parcial');
 check(count(cert_search($db, 'exemplo.com', true)) === 1, 'busca admin aceita parte do e-mail');
 check(!cert_public_query_ok('%%%%%%') && !cert_public_query_ok('Silva') && cert_public_query_ok('Maria Silva') && cert_public_query_ok('a@b.co'), 'regras minimas da busca publica');
+
+// --- caixas de texto livres e campos novos ---
+$box = cert_clean_text_box(['text' => str_repeat('x', 500), 'x' => 999, 'y' => -5, 'w' => 'abc', 'size' => 9999, 'color' => 'red', 'align' => 'X', 'font' => 'Comic', 'style' => 'Z']);
+check(mb_strlen($box['text']) === 300 && $box['x'] == 100 && $box['y'] == 0 && $box['size'] == 80 && $box['color'] === '#3C3C3C' && $box['align'] === 'L' && $box['font'] === 'Times' && $box['style'] === '', 'caixa livre: valores invalidos sao saneados');
+$tplX = ['orientation' => 'L', 'background_file' => null, 'body_text' => null, 'layout_json' => json_encode(['extra1' => ['text' => 'Data: {data} | Horas: {horas} | {codigo}', 'x' => 10, 'y' => 60, 'w' => 40, 'size' => 12]])];
+$pdfX = cert_render_template($row, $tplX, ['sig1' => null, 'sig2' => null]);
+check(str_contains($pdfX, 'Data: 15/10/2026') && str_contains($pdfX, 'Horas: 8') && str_contains($pdfX, $row['code']), 'caixa livre renderiza {data}, {horas} e {codigo}');
 exit(empty($GLOBALS['failed']) ? 0 : 1);

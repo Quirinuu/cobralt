@@ -11,6 +11,7 @@ require_role('superadmin', 'admin');
 
 $db = getDB();
 cert_ensure_schema($db);
+cert_seed_default_templates($db);
 
 // ─── Download do PDF ──────────────────────────────────────
 if (isset($_GET['pdf'])) {
@@ -146,7 +147,7 @@ if ($importedIds && class_exists('ZipArchive')): ?>
         <input type="hidden" name="action" value="issue">
         <div class="grid-form">
           <div class="field"><label>Modelo</label>
-            <select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select></div>
+            <select name="template_id"><?php foreach ($templates as $i => $t): ?><option value="<?= (int)$t['id'] ?>"<?= $i === 0 ? ' selected' : '' ?>><?= e($t['name']) ?></option><?php endforeach; ?><option value="0">Layout simples (sem modelo)</option></select></div>
           <div class="field"><label>Tipo</label>
             <select name="tipo"><?php foreach (cert_types() as $k => $v): ?><option value="<?= e($k) ?>"><?= e($v) ?></option><?php endforeach; ?></select></div>
           <div class="field"><label>Nome da pessoa *</label><input name="nome" required maxlength="180"></div>
@@ -173,7 +174,7 @@ if ($importedIds && class_exists('ZipArchive')): ?>
         <input type="hidden" name="action" value="import">
         <div class="grid-form">
           <div class="field"><label>Modelo</label>
-            <select name="template_id"><option value="0">Layout padrão</option><?php foreach ($templates as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?></select></div>
+            <select name="template_id"><?php foreach ($templates as $i => $t): ?><option value="<?= (int)$t['id'] ?>"<?= $i === 0 ? ' selected' : '' ?>><?= e($t['name']) ?></option><?php endforeach; ?><option value="0">Layout simples (sem modelo)</option></select></div>
           <div class="field"><label>Planilha (.xlsx ou .csv)</label><input type="file" name="csv" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required></div>
         </div>
         <div class="btn-row"><button type="submit" class="btn">Importar e emitir</button></div>

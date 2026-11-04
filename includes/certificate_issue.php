@@ -81,6 +81,22 @@ function cert_default_layout(): array {
     ];
 }
 
+/** Caixa de texto livre do modelo (até 12 por modelo): valida e normaliza o que veio do editor. */
+function cert_clean_text_box(array $el): array {
+    $num = static fn($v, $min, $max, $def) => is_numeric($v) ? max($min, min($max, round((float)$v, 2))) : $def;
+    return [
+        'text'  => mb_substr(trim((string)($el['text'] ?? '')), 0, 300, 'UTF-8'),
+        'x'     => $num($el['x'] ?? null, 0, 100, 10),
+        'y'     => $num($el['y'] ?? null, 0, 100, 60),
+        'w'     => $num($el['w'] ?? null, 2, 100, 30),
+        'size'  => $num($el['size'] ?? null, 6, 80, 12),
+        'color' => preg_match('/^#[0-9a-f]{6}$/i', (string)($el['color'] ?? '')) ? (string)$el['color'] : '#3C3C3C',
+        'align' => in_array($el['align'] ?? '', ['L', 'C', 'R'], true) ? $el['align'] : 'L',
+        'font'  => in_array($el['font'] ?? '', ['Helvetica', 'Times', 'Courier'], true) ? $el['font'] : 'Times',
+        'style' => in_array($el['style'] ?? '', ['', 'B', 'I', 'BI'], true) ? $el['style'] : '',
+    ];
+}
+
 /** Fonte/estilo do elemento (só as fontes embutidas do PDF). */
 function cert_set_font(FPDF $pdf, array $el, float $size): void {
     $font = in_array($el['font'] ?? '', ['Helvetica', 'Times', 'Courier'], true) ? $el['font'] : 'Helvetica';
@@ -114,6 +130,8 @@ function cert_body_text(array $c, string $tpl): string {
         '{horas}' => $h ? (string)$h : '',
         '{horas_frase}' => $h ? ', com carga horária de ' . $h . ' hora' . ($h > 1 ? 's' : '') : '',
         '{data}' => $date ? $date->format('d/m/Y') : (string)$c['issued_at'],
+        '{codigo}' => (string)$c['code'],
+        '{link}' => cert_verify_url((string)$c['code']),
     ]);
 }
 
@@ -164,7 +182,7 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
     $bg = cert_asset_path($tpl['background_file'] ?? null);
     $pdfBg = $bg !== null && str_ends_with($bg, '.pdf');
     $pdf = $pdfBg ? new CertFpdi() : new CertPdf((string)$c['issued_at']);
-    $pdf->SetCompression(!$pdfBg);
+    $pdf->SetCompression(false);
     $pdf->SetTitle('Certificado ' . $c['code']);
     $pdf->SetSubject((string)$c['code']);
     $pdf->SetCreator('CoBraLT');
@@ -215,6 +233,15 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
     $pdf->SetXY($W * $cd['x'] / 100, $H * $cd['y'] / 100);
     $pdf->MultiCell($W * $cd['w'] / 100, (float)$cd['size'] * 0.45,
         cert_pdf_text("Código: {$c['code']}\nVerifique a autenticidade em {$url}"), 0, $cd['align']);
+
+    // Caixas de texto livres (extra1, extra2…): mesmo mecanismo de campos {nome}, {data}, {horas}…
+    foreach ($layout as $key => $box) {
+        if (!preg_match('/^extra\d{1,2}$/', (string)$key) || trim((string)($box['text'] ?? '')) === '') continue;
+        cert_set_font($pdf, $box, (float)$box['size']);
+        $pdf->SetTextColor(...cert_hex_rgb((string)$box['color']));
+        $pdf->SetXY($W * $box['x'] / 100, $H * $box['y'] / 100);
+        $pdf->MultiCell($W * $box['w'] / 100, (float)$box['size'] * 0.5, cert_pdf_text(cert_body_text($c, (string)$box['text'])), 0, $box['align']);
+    }
 
     return $pdf->Output('S');
 }
@@ -301,6 +328,28 @@ function cert_draw_stamp(FPDF $pdf, array $c, ?array $signer, float $x, float $y
     $pdf->SetFont('Helvetica', '', max(3.8, 5.8 * $scale * 1.15));
     $pdf->SetTextColor(60, 60, 60);
     $pdf->MultiCell($tw, 2.8 * $scale, cert_pdf_text('Verifique em ' . preg_replace('#^https?://#', '', cert_verify_url((string)$c['code']))), 0, 'L');
+}
+
+/**
+ * Cria o modelo inicial "Certificado LAEFT" (PDF em database/modelos/, bloqueado para acesso web) na primeira
+ * vez que a área de modelos é aberta. Depois disso é um modelo comum: edite, duplique ou exclua à vontade.
+ */
+function cert_seed_default_templates(PDO $db): void {
+    static $done = false;
+    if ($done) return;
+    $done = true;
+    $marker = cert_storage_dir('certificados-arquivos') . '/.modelo-inicial';
+    $src = dirname(__DIR__) . '/database/modelos/certificado-laeft.pdf';
+    if (is_file($marker) || !is_file($src)) return;
+    $exists = $db->prepare('SELECT COUNT(*) FROM certificate_templates WHERE name = ?');
+    $exists->execute(['Certificado LAEFT']);
+    if ((int)$exists->fetchColumn() === 0) {
+        $bg = 'bg_' . bin2hex(random_bytes(10)) . '.pdf';
+        if (!copy($src, cert_storage_dir('certificados-arquivos') . '/' . $bg)) return;
+        $db->prepare('INSERT INTO certificate_templates (name, background_file, orientation, body_text, layout_json, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+           ->execute(['Certificado LAEFT', $bg, 'L', '{tipo_frase} {evento}, realizado em {data}{horas_frase}.', json_encode(cert_default_layout()), date('Y-m-d H:i:s')]);
+    }
+    @file_put_contents($marker, '1');
 }
 
 function cert_load_template(PDO $db, int $id): ?array {

@@ -10,6 +10,7 @@ require_role('superadmin', 'admin');
 
 $db = getDB();
 cert_ensure_schema($db);
+cert_seed_default_templates($db);
 
 // Serve imagens (fundo/assinatura) só para o admin logado.
 if (isset($_GET['asset'])) {
@@ -77,6 +78,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             }
         }
+    }
+
+    if ($action === 'duplicate_template') {
+        $src = cert_load_template($db, (int)($_POST['id'] ?? 0));
+        if ($src) {
+            $bgCopy = null;
+            if ($old = cert_asset_path($src['background_file'])) {
+                $bgCopy = 'bg_' . bin2hex(random_bytes(10)) . '.' . pathinfo($old, PATHINFO_EXTENSION);
+                if (!copy($old, cert_storage_dir('certificados-arquivos') . '/' . $bgCopy)) { $bgCopy = null; }
+            }
+            $db->prepare('INSERT INTO certificate_templates (name, background_file, orientation, body_text, layout_json, signer1_id, signer2_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
+               ->execute([mb_substr('Cópia de ' . $src['name'], 0, 160, 'UTF-8'), $bgCopy, $src['orientation'], $src['body_text'], $src['layout_json'], $src['signer1_id'], $src['signer2_id'], date('Y-m-d H:i:s')]);
+            header('Location: certificado-modelo.php?id=' . (int)$db->lastInsertId());
+            exit;
+        }
+        $errors[] = 'Modelo não encontrado.';
     }
 
     if ($action === 'delete_template') {
@@ -152,6 +169,10 @@ admin_alerts($msg, $errors);
             <td><div class="actions" style="justify-content:flex-end">
               <a class="btn-sm" href="certificado-modelo.php?id=<?= (int)$t['id'] ?>">Editar</a>
               <a class="btn-sm outline" href="certificado-modelo.php?id=<?= (int)$t['id'] ?>&amp;preview=1" target="_blank">Prévia PDF</a>
+              <form method="post">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                <input type="hidden" name="action" value="duplicate_template"><input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
+                <button class="btn-sm outline" title="Cria uma cópia para o próximo evento (mesmo fundo, texto e posições)">Duplicar</button></form>
               <form method="post" onsubmit="return confirm('Excluir este modelo?')">
                 <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
                 <input type="hidden" name="action" value="delete_template"><input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
@@ -159,7 +180,7 @@ admin_alerts($msg, $errors);
             </div></td>
           </tr>
         <?php endforeach; ?>
-        <?php if (!$templates): ?><tr><td class="empty">Nenhum modelo ainda.</td></tr><?php endif; ?>
+        <?php if (!$templates): ?><tr><td class="empty">Nenhum modelo ainda. Crie o primeiro enviando o seu certificado pronto (PDF).</td></tr><?php endif; ?>
         </tbody>
       </table>
     </div>
