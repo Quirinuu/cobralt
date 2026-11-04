@@ -101,6 +101,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if ($action === 'wipe_all') {
+        // Apaga TODOS os certificados emitidos (e seus PDFs e o histórico de consultas). Modelos e assinantes ficam.
+        if (trim((string)($_POST['confirm'] ?? '')) !== 'APAGAR') {
+            $errors[] = 'Nada foi apagado: digite APAGAR (em maiúsculas) para confirmar.';
+        } else {
+            $total = (int)$db->query('SELECT COUNT(*) FROM certificates')->fetchColumn();
+            $db->exec('DELETE FROM certificates');
+            $db->exec('DELETE FROM certificate_checks');
+            foreach (glob(cert_storage_dir() . '/*.pdf') ?: [] as $f) { @unlink($f); }
+            $msg = $total . ' certificado(s) apagado(s), com os PDFs e o histórico de consultas. Os modelos e assinantes foram mantidos.';
+        }
+    }
+
     if ($action === 'regen') {
         $st = $db->prepare('SELECT * FROM certificates WHERE id = ?');
         $st->execute([(int)($_POST['id'] ?? 0)]);
@@ -226,6 +239,20 @@ if ($importedIds && class_exists('ZipArchive')): ?>
     <?php if (!$rows): ?><tr><td colspan="7" class="empty">Nenhum certificado emitido ainda.</td></tr><?php endif; ?>
     </tbody>
   </table>
+  </div>
+</section>
+
+
+<section class="card" style="border-color:#FECACA">
+  <div class="card-header"><h3 style="color:#B91C1C">Apagar todos os certificados</h3></div>
+  <div class="card-body">
+    <p class="hint" style="margin-bottom:1rem">Use depois de testes. Apaga <strong>todos</strong> os certificados emitidos, os PDFs guardados e o histórico de consultas — <strong>não dá para desfazer</strong>. Os modelos e os assinantes não são apagados.</p>
+    <form method="post" class="inline-form" onsubmit="return confirm('Apagar TODOS os certificados? Esta ação não pode ser desfeita.')">
+      <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+      <input type="hidden" name="action" value="wipe_all">
+      <input type="text" name="confirm" placeholder="Digite APAGAR para confirmar" autocomplete="off" style="max-width:280px">
+      <button type="submit" class="btn danger">Apagar tudo</button>
+    </form>
   </div>
 </section>
 
