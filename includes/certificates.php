@@ -211,9 +211,12 @@ function cert_ensure_schema(PDO $db): void {
         $db->query('SELECT 1 FROM certificate_checks LIMIT 1');
         $db->query('SELECT 1 FROM certificate_templates LIMIT 1');
         $db->query('SELECT 1 FROM certificate_signers LIMIT 1');
+        $db->query('SELECT action_id FROM certificates LIMIT 1');
+        $db->query('SELECT 1 FROM certificate_actions LIMIT 1');
     } catch (PDOException $e) {
         cert_create_tables($db);
         cert_upgrade_tables_v2($db);
+        cert_upgrade_tables_v3($db);
     }
     $done = true;
 }
@@ -273,4 +276,34 @@ function cert_public_query_ok(string $q): bool {
         return (bool)filter_var($q, FILTER_VALIDATE_EMAIL);
     }
     return preg_match_all('/\p{L}/u', $q) >= 6;
+}
+
+/** v3: histórico de ações (emissões) para poder desfazer — cada certificado aponta para a ação que o criou. */
+function cert_upgrade_tables_v3(PDO $db): void {
+    $sqlite = db_driver($db) === 'sqlite';
+    $id   = $sqlite ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT UNSIGNED AUTO_INCREMENT PRIMARY KEY';
+    $tail = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
+    $db->exec("CREATE TABLE IF NOT EXISTS certificate_actions (
+        id {$id},
+        kind VARCHAR(20) NOT NULL,
+        summary VARCHAR(255) NOT NULL,
+        created_by INT NULL,
+        created_at VARCHAR(19) NOT NULL,
+        undone_at VARCHAR(19) NULL,
+        undone_count INT NULL
+    ){$tail}");
+    cert_add_column_if_missing($db, 'certificates', 'action_id', 'ALTER TABLE certificates ADD COLUMN action_id INT NULL');
+}
+
+/** Registra uma ação de emissão e liga a ela os certificados criados. */
+function cert_log_action(PDO $db, string $kind, string $summary, array $certIds, ?int $by): int {
+    $db->prepare('INSERT INTO certificate_actions (kind, summary, created_by, created_at) VALUES (?, ?, ?, ?)')
+       ->execute([$kind, mb_substr($summary, 0, 255, 'UTF-8'), $by, date('Y-m-d H:i:s')]);
+    $actionId = (int)$db->lastInsertId();
+    $ids = array_values(array_filter(array_map('intval', $certIds)));
+    if ($ids) {
+        $in = implode(',', array_fill(0, count($ids), '?'));
+        $db->prepare("UPDATE certificates SET action_id = ? WHERE id IN ($in)")->execute(array_merge([$actionId], $ids));
+    }
+    return $actionId;
 }

@@ -98,7 +98,7 @@ function cert_clean_text_box(array $el): array {
         'color' => preg_match('/^#[0-9a-f]{6}$/i', (string)($el['color'] ?? '')) ? (string)$el['color'] : '#3C3C3C',
         'align' => in_array($el['align'] ?? '', ['L', 'C', 'R'], true) ? $el['align'] : 'L',
         'font'  => in_array($el['font'] ?? '', ['Helvetica', 'Times', 'Courier'], true) ? $el['font'] : 'Times',
-        'style' => in_array($el['style'] ?? '', ['', 'B', 'I', 'BI'], true) ? $el['style'] : '',
+        'style' => in_array($el['style'] ?? '', ['', 'B', 'I', 'BI'], true) ? ($el['style'] ?? '') : '',
     ];
 }
 
@@ -244,6 +244,7 @@ function cert_render_template(array $c, array $tpl, array $signers): string {
     // Caixas de texto livres (extra1, extra2…): mesmo mecanismo de campos {nome}, {data}, {horas}…
     foreach ($layout as $key => $box) {
         if (!preg_match('/^extra\d{1,2}$/', (string)$key) || trim((string)($box['text'] ?? '')) === '') continue;
+        $box = cert_clean_text_box($box);   // completa o que faltar com os padrões
         cert_set_font($pdf, $box, (float)$box['size']);
         $pdf->SetTextColor(...cert_hex_rgb((string)$box['color']));
         $pdf->SetXY($W * $box['x'] / 100, $H * $box['y'] / 100);
@@ -421,4 +422,35 @@ function cert_get_pdf(PDO $db, array $cert): string {
     $bytes = cert_render_for($db, $cert);
     cert_store_pdf($db, $cert, $bytes, (string)($cert['source'] ?: 'padrao'));
     return $bytes;
+}
+
+/** Apaga os certificados que casam com $where (linhas e PDFs guardados). Devolve quantos. */
+function cert_delete_where(PDO $db, string $where, array $params): int {
+    $st = $db->prepare("SELECT pdf_file FROM certificates WHERE $where");
+    $st->execute($params);
+    $files = $st->fetchAll(PDO::FETCH_COLUMN);
+    $db->prepare("DELETE FROM certificates WHERE $where")->execute($params);
+    foreach ($files as $f) {
+        if ($f) { @unlink(cert_storage_dir() . '/' . basename((string)$f)); }
+    }
+    return count($files);
+}
+
+/** Desfaz uma ação: apaga os certificados que ela criou. null = ação inexistente ou já desfeita. */
+function cert_undo_action(PDO $db, int $actionId): ?int {
+    $st = $db->prepare('SELECT undone_at FROM certificate_actions WHERE id = ?');
+    $st->execute([$actionId]);
+    $row = $st->fetch();
+    if (!$row || $row['undone_at']) {
+        return null;
+    }
+    $n = cert_delete_where($db, 'action_id = ?', [$actionId]);
+    $db->prepare('UPDATE certificate_actions SET undone_at = ?, undone_count = ? WHERE id = ?')
+       ->execute([date('Y-m-d H:i:s'), $n, $actionId]);
+    return $n;
+}
+
+/** Certificados emitidos antes do histórico existir (sem ação ligada). */
+function cert_undo_legacy(PDO $db): int {
+    return cert_delete_where($db, 'action_id IS NULL', []);
 }

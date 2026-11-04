@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = $err;
         } else {
             $row = cert_issue_stored($db, $data, $adminId, $templateId);
+            cert_log_action($db, 'emissao', 'Certificado avulso: ' . $data['holder_name'] . ' — ' . $data['event_name'], [(int)$row['id']], $adminId);
             $msg = 'Certificado emitido: ' . $row['code'];
         }
     }
@@ -91,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 foreach ($valid as $d) { $made = cert_issue_stored($db, $d, $adminId, $templateId); $importedIds[] = (int)$made['id']; }
                 $db->commit();
-                $msg = count($valid) . ' certificados emitidos.';
+                cert_log_action($db, 'lote', 'Importação de planilha: ' . count($valid) . ' certificados (' . mb_substr((string)($_FILES['csv']['name'] ?? ''), 0, 80, 'UTF-8') . ')', $importedIds, $adminId);
+                $msg = count($valid) . ' certificados emitidos. Se algo ficou errado, desfaça em Histórico.';
             } catch (Throwable $e) {
                 if ($db->inTransaction()) $db->rollBack();
                 $importedIds = [];

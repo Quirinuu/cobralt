@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $done = cert_store_pdf($db, $cert, $bytes, 'pdf');
                 $db->commit();
+                cert_log_action($db, 'pdf', 'PDF assinado: ' . $data['holder_name'] . ' — ' . $data['event_name'], [(int)$done['id']], $adminId);
             }
         } catch (Throwable $e) {
             if ($db->inTransaction()) $db->rollBack();

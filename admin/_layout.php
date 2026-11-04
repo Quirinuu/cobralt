@@ -26,6 +26,7 @@ function admin_menu(): array {
         'shield' => '<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><polyline points="9 12 11 14 15 10"/>',
         'layout' => '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
         'user'   => '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+        'clock'  => '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
         'ext'    => '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>',
     ];
     $adm = ['superadmin', 'admin'];
@@ -45,6 +46,7 @@ function admin_menu(): array {
             ['assinar-pdf', 'Assinar PDF pronto', 'certificado-assinar-pdf.php', $adm, $icons['pen']],
             ['autenticar', 'Autenticar', 'autenticar.php', $adm, $icons['shield']],
             ['modelos', 'Modelos e assinaturas', 'certificado-modelos.php', $adm, $icons['layout']],
+            ['historico', 'Histórico (desfazer)', 'certificado-historico.php', $adm, $icons['clock']],
         ],
         'Sistema' => [
             ['usuarios', 'Usuários', 'usuarios.php', ['superadmin'], $icons['user']],

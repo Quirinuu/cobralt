@@ -102,4 +102,20 @@ check(cert_validate(cert_normalize_row(['nome' => 'Ana Souza', 'evento' => 'Curs
 // --- texto sempre começa com maiúscula ---
 check(str_starts_with(cert_body_text($row, '{tipo_frase} {evento}'), 'Participou do evento') || str_starts_with(cert_body_text($row, '{tipo_frase} {evento}'), 'Atuou'), 'texto comeca com letra maiuscula');
 check(cert_body_text($row, 'ótimo {nome}') === 'Ótimo Maria Silva', 'maiuscula tambem com acento');
+
+// --- historico de acoes e desfazer ---
+cert_upgrade_tables_v3($db);
+$cnt = static fn() => (int)$db->query('SELECT COUNT(*) FROM certificates')->fetchColumn();
+$before = $cnt();
+$a = [];
+for ($i = 0; $i < 3; $i++) { $a[] = (int)cert_insert($db, ['holder_name' => "Lote $i Teste", 'holder_email' => null, 'event_name' => 'Evento', 'cert_type' => 'participante', 'hours' => null, 'issued_at' => '2026-10-15'], 1)['id']; }
+$act = cert_log_action($db, 'lote', 'Importação de teste', $a, 1);
+$single = (int)cert_insert($db, ['holder_name' => 'Avulso Teste', 'holder_email' => null, 'event_name' => 'Evento', 'cert_type' => 'participante', 'hours' => null, 'issued_at' => '2026-10-15'], 1)['id'];
+$act2 = cert_log_action($db, 'emissao', 'Avulso', [$single], 1);
+check($cnt() === $before + 4, 'acoes criam certificados ligados ao historico');
+check(cert_undo_action($db, $act) === 3 && $cnt() === $before + 1, 'desfazer apaga so os certificados daquela acao');
+check(cert_undo_action($db, $act) === null, 'desfazer duas vezes nao faz nada');
+check(cert_undo_action($db, 99999) === null, 'acao inexistente');
+check(cert_undo_action($db, $act2) === 1 && $cnt() === $before, 'desfazer acao avulsa');
+check(cert_undo_legacy($db) === $before && $cnt() === 0, 'apagar anteriores ao historico remove so os sem acao');
 exit(empty($GLOBALS['failed']) ? 0 : 1);
