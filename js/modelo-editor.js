@@ -57,8 +57,10 @@
   function toEditHtml(t) {
     return esc(t).replace(/\{([a-z_]+)\}/g, function (m, k) { return SAMPLE[k] !== undefined ? chipHtml(k) : m; }).replace(/\n/g, '<br>');
   }
-  function toViewHtml(t) {
-    return esc(t).replace(/\{([a-z_]+)\}/g, function (m, k) { return SAMPLE[k] !== undefined ? esc(SAMPLE[k]) : m; }).replace(/\n/g, '<br>');
+  function toViewHtml(t) {          // igual ao PDF: campos preenchidos e a 1ª letra sempre maiúscula
+    var plain = String(t).replace(/\{([a-z_]+)\}/g, function (m, k) { return SAMPLE[k] !== undefined ? SAMPLE[k] : m; });
+    plain = plain.charAt(0).toUpperCase() + plain.slice(1);
+    return esc(plain).replace(/\n/g, '<br>');
   }
   function serialize(root) {
     var out = '';

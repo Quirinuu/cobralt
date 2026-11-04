@@ -98,4 +98,8 @@ check($xe === null && count($xr) === 1 && $xr[0]['nome'] === 'Ana Souza' && $xr[
 [$xd, $xerr] = cert_validate(cert_normalize_row($xr[0]));
 check($xerr === null && $xd['hours'] === 5 && $xd['issued_at'] === '2026-10-08', 'horas "5.0" e data serial do Excel viram valores validos');
 check(cert_validate(cert_normalize_row(['nome' => 'Ana Souza', 'evento' => 'Curso X', 'horas' => '7.5']))[1] !== null, 'horas fracionadas continuam recusadas');
+
+// --- texto sempre começa com maiúscula ---
+check(str_starts_with(cert_body_text($row, '{tipo_frase} {evento}'), 'Participou do evento') || str_starts_with(cert_body_text($row, '{tipo_frase} {evento}'), 'Atuou'), 'texto comeca com letra maiuscula');
+check(cert_body_text($row, 'ótimo {nome}') === 'Ótimo Maria Silva', 'maiuscula tambem com acento');
 exit(empty($GLOBALS['failed']) ? 0 : 1);

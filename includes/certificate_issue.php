@@ -127,7 +127,7 @@ function cert_body_text(array $c, string $tpl): string {
     ];
     $date = DateTime::createFromFormat('Y-m-d', (string)$c['issued_at']);
     $h = (int)($c['hours'] ?? 0);
-    return strtr($tpl, [
+    $out = strtr($tpl, [
         '{nome}' => (string)$c['holder_name'],
         '{evento}' => (string)$c['event_name'],
         '{tipo}' => cert_types()[$c['cert_type']] ?? (string)$c['cert_type'],
@@ -138,6 +138,8 @@ function cert_body_text(array $c, string $tpl): string {
         '{codigo}' => (string)$c['code'],
         '{link}' => cert_verify_url((string)$c['code']),
     ]);
+    // O texto sempre começa com letra maiúscula (ex.: "participou do evento…" vira "Participou do evento…").
+    return mb_strtoupper(mb_substr($out, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr($out, 1, null, 'UTF-8');
 }
 
 /** Desenha QR (retângulos) em (x,y) mm com lado $box mm. */
