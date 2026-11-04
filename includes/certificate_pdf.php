@@ -18,14 +18,16 @@ function cert_pdf_text(string $s): string {
 
 /** FPDF com data de criação fixa (a da emissão): o mesmo certificado gera sempre o mesmo arquivo. */
 class CertPdf extends FPDF {
+    private int $fixedDate = 0;   // o FPDF sobrescreve CreationDate com time() ao finalizar; por isso guardamos à parte
+
     public function __construct(string $issuedAt) {
         parent::__construct('L', 'mm', 'A4');
-        $this->CreationDate = strtotime($issuedAt . ' 12:00:00 UTC') ?: 0;
+        $this->fixedDate = strtotime($issuedAt . ' 12:00:00 UTC') ?: 0;
     }
 
     protected function _putinfo()
     {
-        $this->metadata['CreationDate'] = 'D:' . gmdate('YmdHis', $this->CreationDate) . "Z";
+        $this->metadata['CreationDate'] = 'D:' . gmdate('YmdHis', $this->fixedDate) . "Z";
         foreach ($this->metadata as $key => $value) {
             $this->_put('/' . $key . ' ' . $this->_textstring($value));
         }

@@ -79,4 +79,23 @@ check(mb_strlen($box['text']) === 300 && $box['x'] == 100 && $box['y'] == 0 && $
 $tplX = ['orientation' => 'L', 'background_file' => null, 'body_text' => null, 'layout_json' => json_encode(['extra1' => ['text' => 'Data: {data} | Horas: {horas} | {codigo}', 'x' => 10, 'y' => 60, 'w' => 40, 'size' => 12]])];
 $pdfX = cert_render_template($row, $tplX, ['sig1' => null, 'sig2' => null]);
 check(str_contains($pdfX, 'Data: 15/10/2026') && str_contains($pdfX, 'Horas: 8') && str_contains($pdfX, $row['code']), 'caixa livre renderiza {data}, {horas} e {codigo}');
+
+// --- planilhas: XLSX com prefixo de namespace (x:) e horas como decimal ---
+require_once dirname(__DIR__) . '/includes/certificate_import.php';
+$xl = sys_get_temp_dir() . '/cert-test-' . bin2hex(random_bytes(4)) . '.xlsx';
+$zip = new ZipArchive();
+$zip->open($xl, ZipArchive::CREATE);
+$ns = 'xmlns:x="http://schemas.openxmlformats.org/spreadsheetml/2006/main"';
+$zip->addFromString('xl/sharedStrings.xml', "<?xml version=\"1.0\"?><x:sst $ns><x:si><x:t>nome</x:t></x:si><x:si><x:t>evento</x:t></x:si><x:si><x:t>horas</x:t></x:si><x:si><x:t>data</x:t></x:si><x:si><x:t>Ana Souza</x:t></x:si></x:sst>");
+$zip->addFromString('xl/worksheets/sheet1.xml', "<?xml version=\"1.0\"?><x:worksheet $ns><x:sheetData>"
+    . '<x:row r="1"><x:c r="A1" t="s"><x:v>0</x:v></x:c><x:c r="B1" t="s"><x:v>1</x:v></x:c><x:c r="C1" t="s"><x:v>2</x:v></x:c><x:c r="D1" t="s"><x:v>3</x:v></x:c></x:row>'
+    . '<x:row r="2"><x:c r="A2" t="s"><x:v>4</x:v></x:c><x:c r="B2" t="str"><x:v>Curso X</x:v></x:c><x:c r="C2"><x:v>5.0</x:v></x:c><x:c r="D2"><x:v>46303</x:v></x:c></x:row>'
+    . '</x:sheetData></x:worksheet>');
+$zip->close();
+[$xr, $xe] = cert_table_from_upload(['tmp_name' => $xl, 'name' => 'p.xlsx', 'size' => filesize($xl), 'error' => 0]);
+@unlink($xl);
+check($xe === null && count($xr) === 1 && $xr[0]['nome'] === 'Ana Souza' && $xr[0]['evento'] === 'Curso X', 'le XLSX com prefixo x: e celulas str');
+[$xd, $xerr] = cert_validate(cert_normalize_row($xr[0]));
+check($xerr === null && $xd['hours'] === 5 && $xd['issued_at'] === '2026-10-08', 'horas "5.0" e data serial do Excel viram valores validos');
+check(cert_validate(cert_normalize_row(['nome' => 'Ana Souza', 'evento' => 'Curso X', 'horas' => '7.5']))[1] !== null, 'horas fracionadas continuam recusadas');
 exit(empty($GLOBALS['failed']) ? 0 : 1);

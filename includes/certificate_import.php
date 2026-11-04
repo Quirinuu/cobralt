@@ -77,6 +77,13 @@ function cert_xlsx_col_index(string $ref): int {
     return $n - 1;
 }
 
+/** Planilhas de alguns programas gravam o XML com prefixo (<x:sheetData>); remove prefixos/namespaces para ler igual. */
+function cert_xml_plain(string $xml): string {
+    $xml = preg_replace('/\sxmlns(:[A-Za-z0-9_]+)?="[^"]*"/', '', $xml) ?? $xml;
+    $xml = preg_replace('/<(\/?)[A-Za-z0-9_]+:/', '<$1', $xml) ?? $xml;
+    return preg_replace('/\s[A-Za-z0-9_]+:([A-Za-z0-9_]+)=/', ' $1=', $xml) ?? $xml;
+}
+
 function cert_read_xlsx(string $path): array {
     if (!class_exists('ZipArchive')) {
         return [null, 'Este servidor não lê XLSX. Salve a planilha como CSV e envie de novo.'];
@@ -96,7 +103,7 @@ function cert_read_xlsx(string $path): array {
 
     $shared = [];
     if (($xml = $read('xl/sharedStrings.xml')) !== null) {
-        $sx = @simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NONET);
+        $sx = @simplexml_load_string(cert_xml_plain($xml), 'SimpleXMLElement', LIBXML_NONET);
         foreach ($sx ? $sx->si : [] as $si) {
             $text = '';
             if (isset($si->t)) {
@@ -116,7 +123,7 @@ function cert_read_xlsx(string $path): array {
     if ($sheetXml === null) {
         return [null, 'Não encontrei dados na primeira aba do XLSX.'];
     }
-    $sx = @simplexml_load_string($sheetXml, 'SimpleXMLElement', LIBXML_NONET);
+    $sx = @simplexml_load_string(cert_xml_plain($sheetXml), 'SimpleXMLElement', LIBXML_NONET);
     if (!$sx || !isset($sx->sheetData)) {
         return [null, 'XLSX inválido.'];
     }
@@ -151,6 +158,11 @@ function cert_normalize_row(array $row): array {
     $d = trim((string)($row['data'] ?? ''));
     if ($d !== '' && preg_match('/^\d{5}(\.\d+)?$/', $d) && (float)$d > 20000 && (float)$d < 80000) {
         $row['data'] = gmdate('Y-m-d', (int)(((float)$d - 25569) * 86400));
+    }
+    // Excel guarda números como decimais (5 vira "5.0" ou "5,0"): aceita se for um número inteiro.
+    $h = str_replace(',', '.', trim((string)($row['horas'] ?? '')));
+    if ($h !== '' && is_numeric($h) && (float)$h == floor((float)$h)) {
+        $row['horas'] = (string)(int)$h;
     }
     return $row;
 }
